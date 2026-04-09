@@ -1,3 +1,4 @@
+import { ModPlayer } from '../../../TL/ModPlayer.js';
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
@@ -24,7 +25,7 @@ export class LivingWoodHelmet extends ModItem {
     }
     
     UpdateArmorSet(item, player) {
-        
+        ModPlayer.getByName('gPlayer').LivingWoodAcornArmorBuff = true
     }
 
     UpdateEquip(item, player) {

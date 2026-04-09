@@ -12,19 +12,17 @@ export class gPlayer extends ModPlayer {
     constructor() {
         super();
     }
-    LivingWoodAcornBuff = false
-    ExampleDefenseDebuff = false;
+    LivingWoodAcornArmorBuff = true
     
     OnEnterWorld(player) {
     }
     
     ResetEffects(player) {
-        this.LivingWoodAcornBuff = false;
+        this.LivingWoodAcornArmorBuff = false;
     }
     
     UpdateEquips(player) {
-        if (this.LivingWoodAcornBuff)
-            player.statDefense *= this.DefenseDebuffMultiplier;
+        if (this.LivingWoodAcornArmorBuff) this.LivingWoodAcornArmorBuff = true;
     }
     
     SendMessage(player, msg) {
