@@ -16,5 +16,15 @@
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
+  },
+  "ArmorSetBonus": {
+    "LivingWood": "Living Wood Sapling attacks track enemies"
+  },
+  "BuffName": {
+    "LivingWoodAcornBuff": "Sprout Loyalty"
+  },
+  
+  "BuffDescription": {
+    "ExampleDefenseBuff": "This little guy is giving his all to protect the world"
   }
 }

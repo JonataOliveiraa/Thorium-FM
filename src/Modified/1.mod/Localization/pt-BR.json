@@ -16,5 +16,15 @@
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha de Gelo"
+  },
+  "ArmorSetBonus": {
+    "LivingWood": "Os ataques da Muda de Madeira Viva persegue os inimigos"
+  },
+  "BuffName": {
+    "LivingWoodAcornBuff": "Reino do Sprout"
+  },
+  
+  "BuffDescription": {
+    "LivingWoodAcornBuff": "Esse pequenino está dando tudo de si para proteger o mundo"
   }
 }

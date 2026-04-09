@@ -31,11 +31,11 @@ export class gPlayer extends ModPlayer {
     }
     
     ResetEffects(player) {
-        this.ExampleDefenseDebuff = false;
+        this.LivingWoodAcornBuff = false;
     }
     
     UpdateEquips(player) {
-        if (this.ExampleDefenseDebuff)
+        if (this.LivingWoodAcornBuff)
             player.statDefense *= this.DefenseDebuffMultiplier;
     }
     
