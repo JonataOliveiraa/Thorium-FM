@@ -1,0 +1,20 @@
+{
+  "packStructureVersion": 32,
+  "title": "Thorium Fan Made",
+  "guid": "eb467fbb-e67c-420b-9889-49bfa5099429",
+  "authors": [
+    {
+      "name": "Zayahーざや",
+      "file": "1.webp",
+      "icon_height": 70,
+      "color": "#ffaf00f0"
+    },
+    {
+      "name": "Potato",
+      "file": "2.png",
+      "icon_height": 70,
+      "color": "#FFB700"
+    }
+  ],
+  "version": 3
+}
