@@ -1,0 +1,20 @@
+{
+  "CustomText": {
+    "WelcomeMessage": "Bem-vindo a {WorldName}!"
+  },
+  "ItemName": {
+    "IcyArrow": "Flecha de Gelo",
+    "IcyAxe": "Machado de Gelo",
+    "IcyPickaxe": "Picareta de Gelo",
+    "IcyShard": "Fragmento de Gelo"
+  },
+  "ItemTooltip": {
+    "IcyArrow": "A velocidade de movimento deste inimigo é reduzida notavelmente",
+    "IcyAxe": "Frio ao toque… pode congelar suas mãos",
+    "IcyPickaxe": "Frio ao toque… pode congelar suas mãos",
+    "IcyShard": "Frio ao toque"
+  },
+  "ProjectileName": {
+    "IcyArrowProjectile": "Projétil de Flecha de Gelo"
+  }
+}
