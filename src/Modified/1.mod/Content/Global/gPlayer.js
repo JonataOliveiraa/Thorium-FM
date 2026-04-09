@@ -12,22 +12,10 @@ export class gPlayer extends ModPlayer {
     constructor() {
         super();
     }
-    
+    LivingWoodAcornBuff = false
     ExampleDefenseDebuff = false;
     
     OnEnterWorld(player) {
-        // Example of translated text you can add yourself
-        NewText(
-            ModLocalization.Translate(
-                'CustomText.WelcomeMessage'
-            ).replace(
-                '{WorldName}',
-                GlobalHooks.getByName('gHooks').worldName
-            ),
-            255, 200, 0
-        );
-        
-        this.DefenseDebuffMultiplier = ModBuff.getByName('ExampleDefenseDebuff').DefenseMultiplier;
     }
     
     ResetEffects(player) {
