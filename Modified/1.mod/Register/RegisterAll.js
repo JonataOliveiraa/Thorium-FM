@@ -11,10 +11,10 @@ import * as Buffs from "./RegisterBuffs.js"
 export function RegisterAll() {
   ModSystem.register(ModLoader);
   AutoRegister([
+    Buffs,
     Projectiles,
     Materials,
     Items,
-    Global,
-    Buffs
+    Global
   ])
 }

@@ -1,449 +1,288 @@
 import { Terraria, Modules } from './../../TL/ModImports.js';
-import { ModBuff } from './../../TL/ModBuff.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
-import { ProjAI } from './../../TL/ProjAI.js';
+import { ModBuff } from './../../TL/ModBuff.js';
+import { ProjAI } from '../../TL/ProjAI.js';
 
-const { Effects, Vector2 } = Modules;
+const { Main } = Terraria;
+const { ProjectileID } = Terraria.ID;
+const { Vector2 } = Modules;
+
+const SolidCollision = Terraria.Collision['bool SolidCollision(Vector2 Position, int Width, int Height)'];
+const TileCollision = Terraria.Collision['Vector2 TileCollision(Vector2 oldPosition, Vector2 oldVelocity, int Width, int Height, bool fallThrough, bool fall2, int gravDir, bool ignoreDoors, bool ignoreAetheriumPlatforms, bool hoik)'];
 
 export class LivingWoodAcornPro extends ModProjectile {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
-        
-        // Variáveis de Estado Interno
-        this.InAir = true;
-        this.AttackTimer = 0;
-        this.FoundTargetTimer = 0;
-        this.Attacking = false;
-        
-        // Sistema de Animação e Ataques Especiais
-        this.doSpecialAbility = false;
-        this.doSpecialAttack = false;
-        this.playAbilityAnimation = false;
-        this.playAttackAnimation = false;
-        this.playAutoAnimation = false;
-        this.ShowAttackFrames = false;
-        
-        // Sistema de Rally
-        this.hasRally = false;
-        this.reachedRally = false;
-        this.BusyRallying = false;
-        this.oldRally = Vector2.new(0, 0);
     }
-
+    
+    // VARIÁVEIS QUE FALTARAM (Isso causava o bug do undefined!)
+    IdleTime = 50; 
+    minionStates = {}; 
+    
+    MedDist = 600;
+    MaxDist = 2000;
+    acceleration = 0.3; 
+    maxSpeedX = 8;
+    maxSpeedY = 12;
+    playerOffset = 50; 
+    wetMultiplier = 0.85;
+    
+    GetJumpHeight(proj) {
+        if (!proj.wet) return -12;
+        return -8;
+    }
+    
     SetStaticDefaults() {
-        Terraria.Main.projFrames[this.Type] = 19;
-        Terraria.ID.ProjectileID.Sets.TrackMinionSpawnFromItemUse[this.Type] = true;
-        Terraria.ID.ProjectileID.Sets.MinionTargettingFeature[this.Type] = true;
+        Main.projPet[this.Type] = true;
+        Main.projFrames[this.Type] = 19; 
+        
+        ProjectileID.Sets.TrackMinionSpawnFromItemUse[this.Type] = true;
+        ProjectileID.Sets.CultistIsResistantTo[this.Type] = true;
+        ProjectileID.Sets.MinionSacrificable[this.Type] = true;
     }
-
+    
     SetDefaults() {
-        this.Projectile.aiStyle = -1;
-        this.Projectile.width = 30;
-        this.Projectile.height = 30;
-        this.Projectile.tileCollide = true;
-        this.Projectile.friendly = true;
-        this.Projectile.minion = true;
-        this.Projectile.minionSlots = 0;
+        this.Projectile.aiStyle = 14; 
+        this.Projectile.width = 34; 
+        this.Projectile.height = 34; 
         this.Projectile.penetrate = -1;
+        this.Projectile.minion = true;
+        this.Projectile.friendly = true;
+        this.Projectile.tileCollide = true;
+        this.Projectile.ignoreWater = true;
+        this.Projectile.minionSlots = 1;
+        this.Projectile.timeLeft = 18000;
+        this.Projectile.decidesManualFallThrough = true;
+        this.Projectile.usesIDStaticNPCImmunity = true;
+        this.Projectile.idStaticNPCHitCooldown = 10;
+        this.Projectile.netImportant = true;
     }
-
-    // Método Maestro: Controla o fluxo da IA
-    AI(proj) {
-        const player = Terraria.Main.player[proj.owner];
+    
+    CanCutTiles(proj) { return false; }
+    
+    PreAI(proj) {
+        if (!this.MinionBuff) this.MinionBuff = ModBuff.getTypeByName('LivingWoodAcornBuff');
+        let player = Main.player[proj.owner];
         
-        if (!this.CheckActive(proj, player)) return;
+        if (!this.CheckActive(proj, player)) return false;
 
-        const rallyTarget = this.UpdateRallyAndAirState(proj, player);
-        const enemyTarget = this.GetTarget(proj, player);
+        const ai = new ProjAI(proj);
+        const localAI = new ProjAI(proj, true);
 
-        this.HandleSpecialAttacks(proj, player);
-
-        if (this.InAir) {
-            this.FlyingMovement(proj, player, rallyTarget);
+        // --- 1. Busca do Alvo (A cada 50 Ticks) ---
+        if (localAI[0] > 0) {
+            localAI[0]--;
         } else {
-            this.GroundMovement(proj, player, rallyTarget, enemyTarget);
-            this.HandleAutoAttack(proj, player, enemyTarget);
+            const target = this.GetTarget(proj, player, localAI[1]);
+            if (target) {
+                localAI[1] = target.whoAmI;
+            } else {
+                localAI[1] = -1;
+            }
+            localAI[0] = this.IdleTime;
         }
 
-        this.Visuals(proj, player);
-    }
-
-    // 1. Manutenção de Vida
-    CheckActive(proj, player) {
-        const buffType = ModBuff.getTypeByName('LivingWoodAcornBuff'); // Substitua pelo seu Buff real
-        const hasBuff = player.FindBuffIndex(buffType) >= 0;
-        
-        if (player.dead || !player.active || !hasBuff) {
-            proj.active = false;
-            return false;
-        }
-        proj.timeLeft = 2;
-        return true;
-    }
-
-    // 2. Define o alvo de movimento (Rally ou Jogador) e verifica se deve voar
-    UpdateRallyAndAirState(proj, player) {
-        let targetPos;
-
-        // Lógica do Rally ou Centro do Jogador
-        if (this.hasRally) {
-            targetPos = this.oldRally;
-            const distSq = Terraria.Utils.DistanceSQ(proj.Center, targetPos);
-            
-            if (this.oldRally.X !== targetPos.X || this.oldRally.Y !== targetPos.Y || !this.reachedRally) {
-                this.reachedRally = distSq < (proj.height * proj.width);
-            }
-            if (this.oldRally.X !== targetPos.X || this.oldRally.Y !== targetPos.Y) {
-                proj.velocity.Y--;
-                this.oldRally = targetPos;
-            }
-            if (proj.owner === Terraria.Main.myPlayer && Terraria.Utils.DistanceSQ(player.Center, proj.Center) > 1000000.0) {
-                proj.Center = player.Center;
-                this.hasRally = false;
-                proj.netUpdate = true;
-            }
-        } else {
-            this.reachedRally = false;
-            targetPos = player.Center;
-            if (Terraria.Utils.DistanceSQ(player.Center, proj.Center) > 250000.0) {
-                proj.Center = player.Center;
+        let targetNPC = null;
+        if (localAI[1] !== -1) {
+            targetNPC = Terraria.Main.npc[localAI[1]];
+            if (!targetNPC || !targetNPC.active || !targetNPC.CanBeChasedBy(proj, false)) {
+                targetNPC = null;
+                localAI[1] = -1;
             }
         }
 
-        // Checagem de terreno para forçar voo
-        const tX = Math.floor(targetPos.X / 16);
-        const tY = Math.floor(targetPos.Y / 16);
-        const pX = Math.floor(proj.Center.X / 16);
-        const pY = Math.floor(proj.Center.Y / 16);
-        const isTargetBelow = proj.Top.Y > targetPos.Y;
-        
-        const targetTileSolid = Terraria.WorldGen.InWorld(tX, tY + 1, 0) ? Terraria.Main.tileSolidTop[Terraria.Framing.GetTileSafely(tX, tY + 1).type] : false;
-        const projTileSolid = Terraria.WorldGen.InWorld(pX, pY + 1, 0) ? Terraria.Main.tileSolidTop[Terraria.Framing.GetTileSafely(pX, pY + 1).type] : false;
-
-        // Ficar preso ou cair na lava = voar
-        if (proj.lavaWet || (this.BusyRallying && (!Terraria.WorldGen.InWorld(tX, tY, 0) || !Terraria.WorldGen.SolidTile(tX, tY, false))) && (!Terraria.Collision.CanHit(proj.Center, 1, 1, targetPos, 1, 1) || isTargetBelow && targetTileSolid || !isTargetBelow && projTileSolid)) {
-            this.InAir = true;
-            this.AttackTimer = 0;
-        }
-
-        // Se o alvo de caminhada fugir demais, voar
-        if (!this.Attacking) {
-            let num10 = 500;
-            if (!this.hasRally) num10 += 50 * proj.minionPos;
-            if (this.FoundTargetTimer > 0) num10 += 500;
-            if (player.rocketDelay2 > 0) this.InAir = true;
-
-            const num11 = targetPos.X - proj.Center.X;
-            const num12 = targetPos.Y - proj.Center.Y;
-
-            if (Math.sqrt(num11 * num11 + num12 * num12) > num10 || (Math.abs(num12) > 300.0 && this.FoundTargetTimer <= 0)) {
-                if (num12 > 0.0 && proj.velocity.Y < 0.0) proj.velocity.Y = 0.0;
-                if (num12 < 0.0 && proj.velocity.Y > 0.0) proj.velocity.Y = 0.0;
-                this.InAir = true;
-            }
-        }
-
-        return targetPos;
-    }
-
-    // 3. Sistema de Busca de Alvos
-    GetTarget(proj, player) {
-        if (this.Attacking && !this.BusyRallying) return null;
-
-        let bestNpc = null;
-        let minDist = 100000.0;
-        const lineOfSightOrigin = Vector2.new(proj.Center.X, proj.Center.Y - 8);
-
-        // Whip Target
-        const minionTargetId = player.MinionAttackTargetNPC;
-        if (minionTargetId >= 0) {
-            const npc = Terraria.Main.npc[minionTargetId];
-            if (npc.active && npc.CanBeChasedBy(proj, false)) {
-                const dist = Math.abs(proj.Center.X - npc.Center.X) + Math.abs(proj.Center.Y - npc.Center.Y);
-                if (dist < minDist && Terraria.Collision.CanHit(lineOfSightOrigin, 1, 1, npc.position, npc.width, npc.height)) {
-                    minDist = dist;
-                    bestNpc = npc;
-                }
-            }
-        }
-
-        // Nearest NPC
-        if (!bestNpc) {
-            for (let i = 0; i < Terraria.Main.maxNPCs; ++i) {
-                const npc = Terraria.Main.npc[i];
-                if (npc.active && npc.CanBeChasedBy(proj, false)) {
-                    const dist = Math.abs(proj.Center.X - npc.Center.X) + Math.abs(proj.Center.Y - npc.Center.Y);
-                    if (dist < minDist && Terraria.Collision.CanHit(lineOfSightOrigin, 1, 1, npc.position, npc.width, npc.height)) {
-                        minDist = dist;
-                        bestNpc = npc;
-                    }
-                }
-            }
-        }
-
-        return bestNpc ? { npc: bestNpc, dist: minDist } : null;
-    }
-
-    // 4. Habilidades Acionadas Manualmente
-    HandleSpecialAttacks(proj, player) {
-        if (this.doSpecialAbility) {
-            if (proj.owner === Terraria.Main.myPlayer) {
-                const origin = Vector2.new(proj.Center.X, proj.Center.Y - 4);
-                const spreadVec = Vector2.new(3, 0);
-                const dmg = Math.floor(proj.damage * 0.25);
-                const projType = ModProjectile.getTypeByName('LivingWoodAcornShotPro3');
+        // --- 2. Ataque a cada 1.5s (90 ticks) ---
+        ai[0]++; 
+        if (ai[0] >= 90) {
+            if (targetNPC && Terraria.Collision['bool CanHit(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)'](proj.Center, 1, 1, targetNPC.position, targetNPC.width, targetNPC.height)) {
+                ai[0] = 0; 
                 
-                Terraria.Projectile.NewProjectile(null, origin.X, origin.Y, -spreadVec.X, -spreadVec.Y, projType, dmg, proj.knockBack, proj.owner, 0, 0);
-                Terraria.Projectile.NewProjectile(null, origin.X, origin.Y, spreadVec.X, spreadVec.Y, projType, dmg, proj.knockBack, proj.owner, 0, 0);
-            }
-            Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item39, player.Center);
-            this.doSpecialAbility = false;
-            this.playAbilityAnimation = true;
-        }
-        
-        if (this.doSpecialAttack) {
-            if (proj.owner === Terraria.Main.myPlayer) {
-                const origin = Vector2.new(proj.Center.X, proj.Center.Y - 4);
-                let toMouse = Vector2.Subtract(Terraria.Main.MouseWorld, origin);
+                if (!this.minionStates[proj.whoAmI]) this.minionStates[proj.whoAmI] = {};
+                this.minionStates[proj.whoAmI].playAutoAnimation = true;
                 
-                if (toMouse.Length() > 12.0) {
-                    toMouse = Terraria.Utils.SafeNormalize(toMouse, Vector2.new(0, 0));
-                    toMouse = Vector2.Multiply(toMouse, 12.0);
-                }
+                let aimX = targetNPC.Center.X - proj.Center.X;
+                let aimY = targetNPC.Center.Y - proj.Center.Y;
+                let dist = Math.sqrt(aimX * aimX + aimY * aimY);
                 
-                const radians = 4 * (Math.PI / 180);
-                const dmg = Math.floor(proj.damage * 0.25);
-                const projType = ModProjectile.getTypeByName('LivingWoodAcornShotPro4');
-                
-                for (let i = 0; i < 3; ++i) {
-                    const lerpVal = -radians + (radians - -radians) * (i / 2); // 3 projéteis (divisor 3-1)
-                    const velocity = Terraria.Utils.RotatedBy(toMouse, lerpVal, undefined);
-                    Terraria.Projectile.NewProjectile(null, origin.X, origin.Y, velocity.X, velocity.Y, projType, dmg, proj.knockBack, proj.owner, 0, 0);
-                }
-            }
-            Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item17, player.Center);
-            this.doSpecialAttack = false;
-            this.playAttackAnimation = true;
-            this.ShowAttackFrames = true;
-        }
-    }
-
-    // 5. Ataque Automático Terrestre
-    HandleAutoAttack(proj, player, targetData) {
-        this.FoundTargetTimer--;
-        if (this.FoundTargetTimer < 0) this.FoundTargetTimer = 0;
-        if (this.Attacking) this.AttackTimer--;
-
-        if (!targetData) return;
-
-        let num33 = this.hasRally ? 0.0 : 40 * proj.minionPos;
-        if (targetData.dist < 1000.0 + num33) {
-            this.FoundTargetTimer = 120;
-            const diffX = targetData.npc.Center.X - proj.Center.X;
-            
-            if (diffX <= 300.0 && diffX >= -300.0 && !this.BusyRallying) {
-                this.playAutoAnimation = true;
-                this.AttackTimer = 120;
-                
-                const origin = Vector2.new(proj.Center.X, proj.Center.Y - 8);
-                let aim = Vector2.Subtract(targetData.npc.Center, origin);
-                
-                if (aim.Length() > 0.0) {
-                    aim = Terraria.Utils.SafeNormalize(aim, Vector2.new(0, 0));
-                    aim = Vector2.Multiply(aim, 2.0);
+                if (dist > 0) {
+                    aimX = (aimX / dist) * 7.0;
+                    aimY = (aimY / dist) * 7.0;
                 }
 
                 if (proj.owner === Terraria.Main.myPlayer) {
-                    Terraria.Projectile.NewProjectile(null, proj.Center.X, proj.Center.Y - 4, aim.X, aim.Y, ModProjectile.getTypeByName('LivingWoodAcornShotPro'), proj.damage, proj.knockBack, Terraria.Main.myPlayer, 0, 0);
+                    Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'](
+                        null, proj.Center.X, proj.Center.Y - 4, aimX, aimY, ModProjectile.getTypeByName('LivingWoodAcornShotPro'), proj.damage, proj.knockBack, Terraria.Main.myPlayer, targetNPC.whoAmI, 0, 0, null);
                 }
-                
-                proj.spriteDirection = aim.X < 0.0 ? 1 : -1;
-                proj.netUpdate = true;
+            } else if (ai[0] > 100) {
+                ai[0] = 90; 
             }
         }
+
+        // --- 3. Movimento ---
+        this.GroundMinionAI(proj, player);
+        
+        // Vira pro inimigo na hora do tiro
+        if (ai[0] < 20 && targetNPC) {
+            proj.spriteDirection = Math.sign(targetNPC.Center.X - proj.Center.X);
+            proj.direction = proj.spriteDirection;
+        }
+        
+        this.PlayAnimation(proj);
+        proj.gfxOffY = -12;
+        
+        return false; 
     }
 
-    // 6. Movimentação Aérea (Voo suave)
-    FlyingMovement(proj, player, targetPos) {
-        const num14 = 100;
-        proj.tileCollide = false;
-        
-        let diffX = targetPos.X - proj.Center.X;
-        if (!this.hasRally) diffX -= 40 * player.direction;
-        
-        // Verifica se pode pousar
-        let canLand = false;
-        if (!this.BusyRallying) {
-            for (let i = 0; i < Terraria.Main.maxNPCs; ++i) {
-                const npc = Terraria.Main.npc[i];
-                if (npc.active && npc.CanBeChasedBy(proj, false)) {
-                    if (Math.abs(targetPos.X - npc.Center.X) + Math.abs(targetPos.Y - npc.Center.Y) < 800.0) {
-                        if (Terraria.Collision.CanHit(proj.position, proj.width, proj.height, npc.position, npc.width, npc.height)) {
-                            canLand = true;
-                            break;
-                        }
-                    }
-                }
+    GetTarget(proj, player, oldTarget) {
+        const maxRange = 800;
+        if (player.HasMinionAttackTargetNPC && oldTarget !== player.MinionAttackTargetNPC) {
+            let t = Terraria.Main.npc[player.MinionAttackTargetNPC];
+            if (t && t.active && t.CanBeChasedBy(proj, false)) return t;
+        }
+        if (oldTarget >= 0) {
+            let t = Terraria.Main.npc[oldTarget];
+            if (t && t.active && t.CanBeChasedBy(proj, false)) return t;
+        }
+        let nearestDist = maxRange;
+        let nearestTarget = null;
+        for (let i = 0; i < Terraria.Main.maxNPCs; i++) {
+            let npc = Terraria.Main.npc[i];
+            if (npc && npc.active && npc.CanBeChasedBy(proj, false)) {
+                let dx = npc.Center.X - proj.Center.X;
+                let dy = npc.Center.Y - proj.Center.Y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                if (dist < nearestDist) { nearestDist = dist; nearestTarget = npc; }
             }
         }
-
-        if (!canLand && !this.hasRally) diffX -= 40 * proj.minionPos * player.direction;
-        if (canLand) this.InAir = false;
-
-        const diffY = targetPos.Y - proj.Center.Y;
-        const dist = Math.sqrt(diffX * diffX + diffY * diffY);
-        let limitSpeed = Math.max(12.0, Math.abs(player.velocity.X) + Math.abs(player.velocity.Y));
-
-        // Pouso perto do alvo
-        if (dist < num14 && player.velocity.Y === 0.0 && (this.hasRally ? (proj.Center.Y <= targetPos.Y) : (proj.Bottom.Y <= player.Bottom.Y)) && !Terraria.Collision.SolidCollision(proj.position, proj.width, proj.height)) {
-            this.InAir = false;
-            if (proj.velocity.Y < -6.0) proj.velocity.Y = -6.0;
-        }
-
-        let desiredX, desiredY;
-        if (dist < 60.0) {
-            desiredX = proj.velocity.X;
-            desiredY = proj.velocity.Y;
-        } else {
-            const ratio = limitSpeed / dist;
-            desiredX = diffX * ratio;
-            desiredY = diffY * ratio;
-        }
-
-        // Aplica inércia de voo
-        const accel = 0.4;
-        if (proj.velocity.X < desiredX) proj.velocity.X += (proj.velocity.X < 0.0 ? accel * 1.5 : accel);
-        if (proj.velocity.X > desiredX) proj.velocity.X -= (proj.velocity.X > 0.0 ? accel * 1.5 : accel);
-        if (proj.velocity.Y < desiredY) proj.velocity.Y += (proj.velocity.Y < 0.0 ? accel * 1.5 : accel);
-        if (proj.velocity.Y > desiredY) proj.velocity.Y -= (proj.velocity.Y > 0.0 ? accel * 1.5 : accel);
-
-        proj.rotation = Math.atan2(proj.velocity.Y, proj.velocity.X) + Math.PI;
+        return nearestTarget;
     }
-
-    // 7. Movimentação Terrestre (Gravidade e Pulos)
-    GroundMovement(proj, player, targetPos, targetData) {
-        proj.rotation = 0.0;
-        proj.tileCollide = true;
-
-        let walkLeft = false;
-        let walkRight = false;
+    
+    GroundMinionAI(proj, player) {
+        const v = proj.velocity;
         
-        let offset = this.hasRally ? 0 : 40 * (proj.minionPos + 1) * player.direction;
-        if (targetPos.X < proj.Center.X - 10 + offset) walkLeft = true;
-        else if (targetPos.X > proj.Center.X + 10 + offset) walkRight = true;
-
-        // Sobrescrever caminhada se houver inimigo
-        if (targetData) {
-            let num33 = this.hasRally ? 0.0 : 40 * proj.minionPos;
-            let aggroRange = (proj.position.Y > Terraria.Main.worldSurface * 16.0) ? 200.0 : 400.0;
-
-            if (targetData.dist < aggroRange + num33) {
-                const diffX = targetData.npc.Center.X - proj.Center.X;
-                if (diffX < -5.0) { walkLeft = true; walkRight = false; }
-                else if (diffX > 5.0) { walkRight = true; walkLeft = false; }
-            } else if (targetData.dist < 1000.0 + num33) {
-                const diffX = targetData.npc.Center.X - proj.Center.X;
-                if (diffX > 300.0 || diffX < -300.0) {
-                    if (diffX < -50.0) { walkLeft = true; walkRight = false; }
-                    else if (diffX > 50.0) { walkRight = true; walkLeft = false; }
-                }
-            }
-        }
-
-        // Parar se estiver atacando
-        if (this.Attacking && !this.BusyRallying) {
-            walkLeft = false; walkRight = false;
-        }
-
-        let accel = 0.2;
-        let maxSpeed = 6.0;
-        const playerSpeed = Math.abs(player.velocity.X) + Math.abs(player.velocity.Y);
-        if (maxSpeed < playerSpeed) { maxSpeed = playerSpeed; accel = 0.3; }
-
-        // Aceleração X
-        if (walkLeft) proj.velocity.X -= (proj.velocity.X > -3.5 ? accel : accel * 0.25);
-        else if (walkRight) proj.velocity.X += (proj.velocity.X < 3.5 ? accel : accel * 0.25);
-        else {
-            proj.velocity.X *= 0.9;
-            if (proj.velocity.X >= -accel && proj.velocity.X <= accel) proj.velocity.X = 0.0;
-        }
-
-        proj.velocity.X = Terraria.Utils.Clamp(proj.velocity.X, -maxSpeed, maxSpeed);
-        if (proj.velocity.X !== 0.0) proj.spriteDirection = proj.velocity.X < 0 ? 1 : -1;
-
-        // Pulos e Escadas
-        let isFacingWall = false;
-        if (walkLeft || walkRight) {
-            let checkX = Math.floor(proj.Center.X / 16) + (walkLeft ? -1 : 1);
-            if (Terraria.WorldGen.SolidTile(checkX + Math.floor(proj.velocity.X), Math.floor(proj.Center.Y / 16), false)) isFacingWall = true;
-        }
-
         Terraria.Collision.StepUp(proj.position, proj.velocity, proj.width, proj.height, proj.stepSpeed, proj.gfxOffY, 1, false, 0);
-
-        if (proj.velocity.Y === 0.0 && isFacingWall) {
-            try {
-                let pX = Math.floor(proj.Center.X / 16) + (walkLeft ? -1 : 1);
-                let pY = Math.floor(proj.Center.Y / 16);
-                let checkX = pX + Math.floor(proj.velocity.X);
-                
-                if (!Terraria.WorldGen.SolidTile(checkX, pY - 1, false) && !Terraria.WorldGen.SolidTile(checkX, pY - 2, false)) proj.velocity.Y = -5.1;
-                else if (!Terraria.WorldGen.SolidTile(checkX, pY - 2, false)) proj.velocity.Y = -7.1;
-                else if (Terraria.WorldGen.SolidTile(checkX, pY - 5, false)) proj.velocity.Y = -11.1;
-                else if (Terraria.WorldGen.SolidTile(checkX, pY - 4, false)) proj.velocity.Y = -10.1;
-                else proj.velocity.Y = -9.1;
-            } catch (e) {
-                proj.velocity.Y = -9.1;
-            }
+        
+        proj.shouldFallThrough = player.position.Y + player.height - 12 > proj.position.Y + proj.height;
+        
+        const targetX = player.Center.X - player.direction * (this.playerOffset + proj.minionPos * (proj.width + 1));
+        const targetY = player.Center.Y;
+        const dx = targetX - proj.Center.X;
+        const dy = targetY - proj.Center.Y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        const stuck = proj.tileCollide && SolidCollision(proj.position, proj.width, proj.height);
+        
+        let hitWall = false;
+        let onGround = false;
+        
+        if (proj.tileCollide) {
+            const moveTest = Vector2.new(Math.sign(dx) * 4, 0);
+            const test = TileCollision(proj.position, moveTest, proj.width, proj.height, true, true, 1, false, false, true);
+            hitWall = test.X !== moveTest.X;
+            const groundTest = TileCollision(proj.position, Vector2.new(0, 1), proj.width, proj.height, true, true, 1, false, false, true);
+            onGround = groundTest.Y === 0;
         }
+        
+        if (dist > this.MaxDist) {
+            proj.Center = player.Center;
+        } else if (dist > this.MedDist || stuck) {
+            proj.tileCollide = false;
+            v.X += dx * 0.05; 
+            v.Y += dy * 0.05;
+            v.X *= 0.94;
+            v.Y *= 0.94;
+        } else {
+            proj.tileCollide = true;
+            const absDx = Math.abs(dx);
+            
+            if (absDx > this.playerOffset + 15) {
+                v.X += Math.sign(dx) * this.acceleration;
+            } else if (absDx < this.playerOffset - 15) {
+                v.X *= 0.8;
+            } else {
+                if (Math.abs(player.velocity.X) > 0.5) {
+                    v.X = (v.X * 3 + player.velocity.X) / 4; 
+                } else {
+                    v.X *= 0.8; 
+                }
+            }
+            
+            let jumpHeight = this.GetJumpHeight(proj);
+            if (hitWall && onGround) v.Y = jumpHeight;
+            if (onGround && dx > (this.playerOffset * 2) && dy < -40) v.Y = jumpHeight;
+            
+            v.Y += 0.4; 
+        }
+        
+        if (v.X > this.maxSpeedX) v.X = this.maxSpeedX;
+        if (v.X < -this.maxSpeedX) v.X = -this.maxSpeedX;
+        if (v.Y > this.maxSpeedY) v.Y = this.maxSpeedY;
+        if (v.Y < -this.maxSpeedY) v.Y = -this.maxSpeedY;
+        
+        if (Terraria.Collision['bool WetCollision(Vector2 Position, int Width, int Height)'](proj.position, proj.width, proj.height)) {
+            proj.wet = true;
+            v.X *= this.wetMultiplier;
+            v.Y *= this.wetMultiplier;
+        }
+        
+        if (Math.abs(v.X) < 0.075) v.X = 0;
+        
+        proj.velocity = v;
 
-        proj.velocity.Y += 0.4; // Gravidade
-        if (proj.velocity.Y > 10.0) proj.velocity.Y = 10.0;
+        if (v.X !== 0) {
+            proj.spriteDirection = Math.sign(v.X);
+        } else {
+            proj.spriteDirection = player.direction;
+        }
+        proj.direction = proj.spriteDirection;
     }
+    
+    PlayAnimation(proj) {
+        let frameSpeed = 5;
 
-    // 8. Controle de Animação (Spritesheet)
-    Visuals(proj) {
-        if (this.InAir) {
-            proj.frame = 1; // Voo estático, controlado no FlyingMovement
+        // Toca a animação de ataque se for a hora
+        if (this.minionStates[proj.whoAmI] && this.minionStates[proj.whoAmI].playAutoAnimation) {
+            proj.frame = 10;
+            proj.frameCounter++;
+            if (proj.frameCounter >= 8) { 
+                proj.frame = 0; 
+                this.minionStates[proj.whoAmI].playAutoAnimation = false; 
+            }
             return;
         }
 
-        if (this.playAttackAnimation && this.ShowAttackFrames) {
-            if (proj.frame < 11 || proj.frame > 14) proj.frame = 11;
+        if (!proj.tileCollide || Math.abs(proj.velocity.Y) > 0.8) {
             proj.frameCounter++;
-            if (proj.frameCounter > 3) {
-                proj.frame++;
+            if (proj.frameCounter > frameSpeed) {
+                proj.frame = proj.frame === 1 ? 2 : 1; 
                 proj.frameCounter = 0;
-                if (proj.frame > 14) { proj.frame = 0; this.playAttackAnimation = false; }
             }
         } 
-        else if (this.playAbilityAnimation) {
-            if (proj.frame < 15 || proj.frame > 18) proj.frame = 15;
-            proj.frameCounter++;
-            if (proj.frameCounter > 3) {
-                proj.frame++;
-                proj.frameCounter = 0;
-                if (proj.frame > 18) { proj.frame = 0; this.playAbilityAnimation = false; }
+        else if (Math.abs(proj.velocity.X) > 0.5) { 
+            proj.frameCounter += Math.floor(Math.abs(proj.velocity.X)) + 1;
+            if (proj.frameCounter > 6) { 
+                proj.frame++; 
+                proj.frameCounter = 0; 
             }
+            if (proj.frame < 3 || proj.frame > 8) proj.frame = 3; 
         } 
-        else if (this.playAutoAnimation) {
-            proj.frame = 10;
-            proj.frameCounter++;
-            if (proj.frameCounter >= 8) { proj.frame = 0; this.playAutoAnimation = false; }
-        } 
-        else if (proj.velocity.Y === 0.0) {
-            this.ShowAttackFrames = false;
-            if (Math.abs(proj.velocity.X) > 0.8) {
-                proj.frameCounter += Math.floor(Math.abs(proj.velocity.X)) + 1;
-                if (proj.frameCounter > 6) { proj.frame++; proj.frameCounter = 0; }
-                if (proj.frame < 3 || proj.frame >= 9) proj.frame = 3;
-            } else {
-                proj.frame = 0; proj.frameCounter = 0;
-            }
-        } 
-        else {
-            proj.frame = 2; // Frame de pulo/queda
+        else { 
+            proj.frame = 0; 
             proj.frameCounter = 0;
         }
+    }
+
+    CheckActive(proj, player) {
+        if (player.dead || !player.active) {
+            player.ClearBuff(this.MinionBuff);
+            return false;
+        }
+        if (player.FindBuffIndex(this.MinionBuff) >= 0) {
+            proj.timeLeft = 2;
+        } else {
+            return false;
+        }
+        return true;
     }
 }
