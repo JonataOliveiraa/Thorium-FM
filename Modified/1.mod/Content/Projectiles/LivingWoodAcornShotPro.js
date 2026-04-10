@@ -56,11 +56,11 @@ export class LivingWoodAcornShotPro extends ModProjectile {
             const target = proj['NPC FindTargetWithinRange(float maxRange, bool checkCanHit)'](searchRange, false);
             
             if (target != null && target.active) {
-                let homingSpeedFactor = 15.0; // Velocidade de curva
+                let homingSpeedFactor = 20.0; // Velocidade de curva
                 let direction = Vector2.Multiply(Vector2.Normalize(Vector2.Subtract(target.Center, proj.Center)), homingSpeedFactor);
                 
                 // Aplica a inércia perfeitamente como no seu código
-                proj.velocity = Vector2.Divide(Vector2.Add(Vector2.Multiply(proj.velocity, 10), direction), 16);
+                proj.velocity = Vector2.Divide(Vector2.Add(Vector2.Multiply(proj.velocity, 10), direction), 19);
             }
             
             // Gira a semente na direção do movimento e ignora a gravidade pesada do aiStyle
