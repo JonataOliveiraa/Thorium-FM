@@ -1,0 +1,25 @@
+{
+  "CustomText": {
+    "WelcomeMessage": "Welcome to {WorldName}!"
+  },
+  "ItemName": {
+    "IcyArrow": "Icy Arrow",
+    "IcyAxe": "Icy Axe",
+    "IcyPickaxe": "Icy Pickaxe",
+    "IcyShard": "Icy Shard",
+    "TheSnowball": "The Snowball",
+    "IcyHeadgear": "Icy Headgear",
+    "IcyMail": "Icy Mail",
+    "IcyGreaves": "Icy Greaves"
+  },
+  "ItemTooltip": {
+    "IcyArrow": "This enemy's movement speed is noticeably lowered",
+    "IcyAxe": "Cold to the touch… it might freeze your hands",
+    "IcyPickaxe": "Cold to the touch… it might freeze your hands",
+    "IcyShard": "Cold to the touch",
+    "TheSnowball": "It's either really hot or really cold. Either way it REALLY hurts"
+  },
+  "ProjectileName": {
+    "IcyArrowProjectile": "Icy Arrow Projectile"
+  }
+}
