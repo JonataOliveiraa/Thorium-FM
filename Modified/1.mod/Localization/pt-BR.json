@@ -15,7 +15,8 @@
     "LivingWoodAcorn": "Bolota de Madeira Viva",
     "LivingWoodChestguard": "Peitoral de Madeira Viva",
     "LivingWoodLeggings": "Grevas de Madeira Viva",
-    "LivingWoodHelmet": "Elmo de Madeira Viva"
+    "LivingWoodHelmet": "Elmo de Madeira Viva",
+    "LivingWoodSap": "Seiva de Madeira Viva"
   },
   "ItemTooltip": {
     "IcyArrow": "A velocidade de movimento do inimigo é reduzida",
@@ -23,13 +24,16 @@
     "IcyPickaxe": "Frio ao toque… pode congelar suas mãos",
     "IcyShard": "Frio ao toque",
     "TheSnowball": "Está muito quente ou muito frio. De qualquer forma, dói MUITO",
+
     "LivingWoodAcorn": "Invoca um broto de árvore viva como seu familiar\nVocê só pode ter um familiar ativo por vez\nClique com o botão direito para selecionar ações do familiar\nClique com o botão esquerdo para executar a ação selecionada",
     "LivingWoodChestguard": "Dano de invocações aumentado em 10%",
     "LivingWoodLeggings": "Dano de invocações aumentado em 10%",
-    "LivingWoodHelmet": "Aumenta o recuo dos lacaios"
+    "LivingWoodHelmet": "Aumenta o recuo dos lacaios",
+    "LivingWoodSap": "Aumenta o dano e recuo dos lacaios em 1"
   },
   "ArmorSetBonus": {
-    "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos"
+    "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
+    "Silk": "25% de aumento no dano mágico enquanto estiver acima de 90% da mana máxima"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto"

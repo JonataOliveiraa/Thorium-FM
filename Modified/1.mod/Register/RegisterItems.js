@@ -13,3 +13,9 @@ export { LivingWoodAcorn } from "./../Content/Items/LivingWood/LivingWoodAcorn.j
 export { LivingWoodChestguard } from "./../Content/Items/LivingWood/LivingWoodChestguard.js";
 export { LivingWoodLeggings } from "./../Content/Items/LivingWood/LivingWoodLeggings.js";
 export { LivingWoodHelmet } from "./../Content/Items/LivingWood/LivingWoodHelmet.js";
+export { LivingWoodSap } from "../Content/Items/LivingWood/LivingWoodSap.js"
+
+//Silk Items
+export { SilkHat } from "./../Content/Items/Silk/SilkHat.js";
+export { SilkTabard } from "./../Content/Items/Silk/SilkTabard.js";
+export { SilkLeggings } from "./../Content/Items/Silk/SilkLeggings.js";

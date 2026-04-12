@@ -15,7 +15,8 @@
     "LivingWoodAcorn": "Living Wood Acorn",
     "LivingWoodChestguard": "Living Wood Chestguard",
     "LivingWoodLeggings": "Living Wood Leggings",
-    "LivingWoodHelmet": "Living Wood Helmet"
+    "LivingWoodHelmet": "Living Wood Helmet",
+    "LivingWoodSap": "Living Wood Sap"
   },
   "ItemTooltip": {
     "IcyArrow": "This enemy's movement speed is noticeably lowered",
@@ -23,13 +24,16 @@
     "IcyPickaxe": "Cold to the touch… it might freeze your hands",
     "IcyShard": "Cold to the touch",
     "TheSnowball": "It's either really hot or really cold. Either way it REALLY hurts",
+
     "LivingWoodAcorn": "Summons a living tree sprout as your chosen familiar\nYou may only have one familiar summoned at a time\nRight click to select various actions for your familiar\nLeft click to perform your selected action",
     "LivingWoodChestguard": "Summon damage increased by 10%",
     "LivingWoodLeggings": "Summon damage increased by 10%",
-    "LivingWoodHelmet": "Increases minion knockback"
+    "LivingWoodHelmet": "Increases minion knockback",
+    "LivingWoodSap": "Increases minion damage and knockback by 1"
   },
   "ArmorSetBonus": {
-    "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies"
+    "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
+    "Silk": "25% increased magic damage while above 90% maximum mana"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Sprout Loyalty"
