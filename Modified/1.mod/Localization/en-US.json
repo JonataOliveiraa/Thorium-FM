@@ -39,7 +39,15 @@
     "LivingWoodChestguard": "Summon damage increased by 10%",
     "LivingWoodLeggings": "Summon damage increased by 10%",
     "LivingWoodHelmet": "Increases minion knockback",
-    "LivingWoodSap": "Increases minion damage and knockback by 1"
+    "LivingWoodSap": "Increases minion damage and knockback by 1",
+
+    "AmberRing": "Increases summon damage by 1",
+		"AmethystRing": "Increases armor penetration by 1",
+		"DiamondRing": "Increases critical strike chance by 2%",
+		"EmeraldRing": "Increases ranged damage by 1",
+		"RubyRing": "Increases melee damage by 1",
+		"SapphireRing": "Increases magic damage by 1",
+		"TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",

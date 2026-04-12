@@ -39,7 +39,15 @@
     "LivingWoodChestguard": "Dano de invocações aumentado em 10%",
     "LivingWoodLeggings": "Dano de invocações aumentado em 10%",
     "LivingWoodHelmet": "Aumenta o recuo dos lacaios",
-    "LivingWoodSap": "Aumenta o dano e recuo dos lacaios em 1"
+    "LivingWoodSap": "Aumenta o dano e recuo dos lacaios em 1",
+
+    "AmberRing": "Aumenta o dano de invocação em 1",
+    "AmethystRing": "Aumenta a penetração de armadura em 1",
+    "DiamondRing": "Aumenta a chance de acerto crítico em 2%",
+    "EmeraldRing": "Aumenta o dano à distância em 1",
+    "RubyRing": "Aumenta o dano corpo a corpo em 1",
+    "SapphireRing": "Aumenta o dano mágico em 1",
+    "TheRing": "Aumenta todo o dano em 2\nAumenta a penetração de armadura em 2\nAumenta a chance de acerto crítico em 4%"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
