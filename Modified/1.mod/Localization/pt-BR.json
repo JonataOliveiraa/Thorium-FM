@@ -16,7 +16,10 @@
     "LivingWoodChestguard": "Peitoral de Madeira Viva",
     "LivingWoodLeggings": "Grevas de Madeira Viva",
     "LivingWoodHelmet": "Elmo de Madeira Viva",
-    "LivingWoodSap": "Seiva de Madeira Viva"
+    "LivingWoodSap": "Seiva de Madeira Viva",
+    "SilkHat": "Chapéu de Seda",
+    "SilkShirt": "Camisa de Seda",
+    "SilkPants": "Calças de Seda"
   },
   "ItemTooltip": {
     "IcyArrow": "A velocidade de movimento do inimigo é reduzida",

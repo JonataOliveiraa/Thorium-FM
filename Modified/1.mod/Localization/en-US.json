@@ -16,7 +16,10 @@
     "LivingWoodChestguard": "Living Wood Chestguard",
     "LivingWoodLeggings": "Living Wood Leggings",
     "LivingWoodHelmet": "Living Wood Helmet",
-    "LivingWoodSap": "Living Wood Sap"
+    "LivingWoodSap": "Living Wood Sap",
+    "SilkHat": "Silk Hat",
+    "SilkShirt": "Silk Shirt",
+    "SilkPants": "Silk Pants"
   },
   "ItemTooltip": {
     "IcyArrow": "This enemy's movement speed is noticeably lowered",

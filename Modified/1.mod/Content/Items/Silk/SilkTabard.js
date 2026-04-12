@@ -17,4 +17,12 @@ export class SilkTabard extends ModItem {
     player.statManaMax2 += 20
     player.manaRegenBonus += 0.07
   }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+    .AddIngredient(Terraria.ID.ItemID.FallenStar, 7)
+    .AddIngredient(Terraria.ID.ItemID.Silk, 7)
+    .AddTile(Terraria.ID.TileID.WorkBenches)
+    .Register();
+  }
 }

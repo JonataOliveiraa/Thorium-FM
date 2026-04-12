@@ -25,12 +25,23 @@ export class SilkHat extends ModItem {
     }
     
     UpdateArmorSet(item, player) {
-        ModPlayer.getByName('gPlayer').SilkBuff = true
-        player.magicDamage += 0.25
+        ModPlayer.getByName('gPlayer').SilkBuff = true;
+
+        if (player.statLife > player.statLifeMax2 * 0.75) {
+            player.magicDamage += 0.25;
+        }
     }
 
     UpdateEquip(item, player) {
-        player.statManaMax2 += 20
-        player.manaRegenBonus += 0.05
+        player.statManaMax2 += 20;
+        player.manaRegenBonus += 0.05;
+    }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+        .AddIngredient(Terraria.ID.ItemID.FallenStar, 3)
+        .AddIngredient(Terraria.ID.ItemID.Silk, 3)
+        .AddTile(Terraria.ID.TileID.WorkBenches)
+        .Register();
     }
 }

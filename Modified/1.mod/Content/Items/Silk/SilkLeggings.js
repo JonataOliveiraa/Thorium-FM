@@ -16,5 +16,13 @@ export class SilkLeggings extends ModItem {
   UpdateEquip(item, player) {
     player.statManaMax2 += 20
     player.manaRegenBonus += 0.07
-  }      
+  }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+    .AddIngredient(Terraria.ID.ItemID.FallenStar, 5)
+    .AddIngredient(Terraria.ID.ItemID.Silk, 5)
+    .AddTile(Terraria.ID.TileID.WorkBenches)
+    .Register();
+  }
 }
