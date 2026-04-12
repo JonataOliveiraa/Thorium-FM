@@ -1,0 +1,43 @@
+{
+  "CustomText": {
+    "WelcomeMessage": "Welcome to {WorldName}!"
+  },
+  "ItemName": {
+    "FrostFury": "Frost Fury",
+    "IcyArrow": "Icy Arrow",
+    "IcyAxe": "Icy Axe",
+    "IcyPickaxe": "Icy Pickaxe",
+    "IcyShard": "Icy Shard",
+    "TheSnowball": "The Snowball",
+    "IcyHeadgear": "Icy Headgear",
+    "IcyMail": "Icy Mail",
+    "IcyGreaves": "Icy Greaves",
+    "LivingWoodAcorn": "Living Wood Acorn",
+    "LivingWoodChestguard": "Living Wood Chestguard",
+    "LivingWoodLeggings": "Living Wood Leggings",
+    "LivingWoodHelmet": "Living Wood Helmet"
+  },
+  "ItemTooltip": {
+    "IcyArrow": "This enemy's movement speed is noticeably lowered",
+    "IcyAxe": "Cold to the touch… it might freeze your hands",
+    "IcyPickaxe": "Cold to the touch… it might freeze your hands",
+    "IcyShard": "Cold to the touch",
+    "TheSnowball": "It's either really hot or really cold. Either way it REALLY hurts",
+    "LivingWoodAcorn": "Summons a living tree sprout as your chosen familiar\nYou may only have one familiar summoned at a time\nRight click to select various actions for your familiar\nLeft click to perform your selected action",
+    "LivingWoodChestguard": "Summon damage increased by 10%",
+    "LivingWoodLeggings": "Summon damage increased by 10%",
+    "LivingWoodHelmet": "Increases minion knockback"
+  },
+  "ArmorSetBonus": {
+    "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies"
+  },
+  "BuffName": {
+    "LivingWoodAcornBuff": "Sprout Loyalty"
+  },
+  "BuffDescription": {
+    "LivingWoodAcornBuff": "This little guy is giving his all to protect the world"
+  },
+  "ProjectileName": {
+    "IcyArrowProjectile": "Icy Arrow Projectile"
+  }
+}

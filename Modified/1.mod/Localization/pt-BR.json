@@ -1,0 +1,43 @@
+{
+  "CustomText": {
+    "WelcomeMessage": "Bem-vindo a {WorldName}!"
+  },
+  "ItemName": {
+    "FrostFury": "Fúria Congelante",
+    "IcyArrow": "Flecha Congelada",
+    "IcyAxe": "Machado Congelado",
+    "IcyPickaxe": "Picareta Congelada",
+    "IcyShard": "Fragmento Congelado",
+    "TheSnowball": "A Bola de Neve",
+    "IcyHeadgear": "Elmo Congelado",
+    "IcyMail": "Armadura Congelada",
+    "IcyGreaves": "Grevas Congeladas",
+    "LivingWoodAcorn": "Bolota de Madeira Viva",
+    "LivingWoodChestguard": "Peitoral de Madeira Viva",
+    "LivingWoodLeggings": "Grevas de Madeira Viva",
+    "LivingWoodHelmet": "Elmo de Madeira Viva"
+  },
+  "ItemTooltip": {
+    "IcyArrow": "A velocidade de movimento do inimigo é reduzida",
+    "IcyAxe": "Frio ao toque… pode congelar suas mãos",
+    "IcyPickaxe": "Frio ao toque… pode congelar suas mãos",
+    "IcyShard": "Frio ao toque",
+    "TheSnowball": "Está muito quente ou muito frio. De qualquer forma, dói MUITO",
+    "LivingWoodAcorn": "Invoca um broto de árvore viva como seu familiar\nVocê só pode ter um familiar ativo por vez\nClique com o botão direito para selecionar ações do familiar\nClique com o botão esquerdo para executar a ação selecionada",
+    "LivingWoodChestguard": "Dano de invocações aumentado em 10%",
+    "LivingWoodLeggings": "Dano de invocações aumentado em 10%",
+    "LivingWoodHelmet": "Aumenta o recuo dos lacaios"
+  },
+  "ArmorSetBonus": {
+    "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos"
+  },
+  "BuffName": {
+    "LivingWoodAcornBuff": "Lealdade do Broto"
+  },
+  "BuffDescription": {
+    "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo"
+  },
+  "ProjectileName": {
+    "IcyArrowProjectile": "Projétil de Flecha Congelada"
+  }
+}
