@@ -19,7 +19,14 @@
     "LivingWoodSap": "Living Wood Sap",
     "SilkHat": "Silk Hat",
     "SilkShirt": "Silk Shirt",
-    "SilkPants": "Silk Pants"
+    "SilkPants": "Silk Pants",
+    "AmberRing": "Amber Ring",
+		"AmethystRing": "Amethyst Ring",
+		"DiamondRing": "Diamond Ring",
+		"EmeraldRing": "Emerald Ring",
+		"RubyRing": "Ruby Ring",
+		"SapphireRing": "Sapphire Ring",
+		"TheRing": "The Ring"
   },
   "ItemTooltip": {
     "IcyArrow": "This enemy's movement speed is noticeably lowered",

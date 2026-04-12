@@ -19,7 +19,14 @@
     "LivingWoodSap": "Seiva de Madeira Viva",
     "SilkHat": "Chapéu de Seda",
     "SilkShirt": "Camisa de Seda",
-    "SilkPants": "Calças de Seda"
+    "SilkPants": "Calças de Seda",
+    "AmberRing": "Anel de Âmbar",
+    "AmethystRing": "Anel de Ametista",
+    "DiamondRing": "Anel de Diamante",
+    "EmeraldRing": "Anel de Esmeralda",
+    "RubyRing": "Anel de Rubi",
+    "SapphireRing": "Anel de Safira",
+    "TheRing": "O Anel"
   },
   "ItemTooltip": {
     "IcyArrow": "A velocidade de movimento do inimigo é reduzida",
