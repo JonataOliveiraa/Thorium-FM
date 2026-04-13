@@ -1,4 +1,5 @@
 // Icy Items
+export { IceCube } from "./../Content/Items/Icy/IceCube.js"
 export { FrostFury } from "./../Content/Items/Icy/FrostFury.js"
 export { IcyArrow } from "./../Content/Items/Icy/IcyArrow.js"
 export { IcyAxe } from "./../Content/Items/Icy/IcyAxe.js"

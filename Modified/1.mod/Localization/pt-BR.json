@@ -4,6 +4,7 @@
   },
   "ItemName": {
     "FrostFury": "Fúria Congelante",
+    "IceCube": "O Cubo de Gelo",
     "IcyArrow": "Flecha Congelada",
     "IcyAxe": "Machado Congelado",
     "IcyPickaxe": "Picareta Congelada",
@@ -18,8 +19,8 @@
     "LivingWoodHelmet": "Elmo de Madeira Viva",
     "LivingWoodSap": "Seiva de Madeira Viva",
     "SilkHat": "Chapéu de Seda",
-    "SilkShirt": "Camisa de Seda",
-    "SilkPants": "Calças de Seda",
+    "SilkTabart": "Tabardo de Seda",
+    "SilkLeggings": "Calção de Seda",
     "AmberRing": "Anel de Âmbar",
     "AmethystRing": "Anel de Ametista",
     "DiamondRing": "Anel de Diamante",
@@ -29,6 +30,7 @@
     "TheRing": "O Anel"
   },
   "ItemTooltip": {
+    "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
     "IcyArrow": "A velocidade de movimento do inimigo é reduzida",
     "IcyAxe": "Frio ao toque… pode congelar suas mãos",
     "IcyPickaxe": "Frio ao toque… pode congelar suas mãos",

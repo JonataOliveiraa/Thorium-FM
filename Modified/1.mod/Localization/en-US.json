@@ -4,6 +4,7 @@
   },
   "ItemName": {
     "FrostFury": "Frost Fury",
+    "IceCube": "Ice Cube",
     "IcyArrow": "Icy Arrow",
     "IcyAxe": "Icy Axe",
     "IcyPickaxe": "Icy Pickaxe",
@@ -12,14 +13,17 @@
     "IcyHeadgear": "Icy Headgear",
     "IcyMail": "Icy Mail",
     "IcyGreaves": "Icy Greaves",
+
     "LivingWoodAcorn": "Living Wood Acorn",
     "LivingWoodChestguard": "Living Wood Chestguard",
     "LivingWoodLeggings": "Living Wood Leggings",
     "LivingWoodHelmet": "Living Wood Helmet",
     "LivingWoodSap": "Living Wood Sap",
+
     "SilkHat": "Silk Hat",
-    "SilkShirt": "Silk Shirt",
-    "SilkPants": "Silk Pants",
+    "SilkTabart": "Silk Tabart",
+    "SilkLeggings": "Silk Leggings",
+
     "AmberRing": "Amber Ring",
 		"AmethystRing": "Amethyst Ring",
 		"DiamondRing": "Diamond Ring",
@@ -29,6 +33,7 @@
 		"TheRing": "The Ring"
   },
   "ItemTooltip": {
+    "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
     "IcyArrow": "This enemy's movement speed is noticeably lowered",
     "IcyAxe": "Cold to the touch… it might freeze your hands",
     "IcyPickaxe": "Cold to the touch… it might freeze your hands",

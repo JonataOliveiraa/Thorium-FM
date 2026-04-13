@@ -8,15 +8,18 @@ import * as Projectiles from "./RegisterProjectile.js"
 import * as Materials from "./RegisterMaterials.js"
 import * as Global from "./RegisterGlobal.js"
 import * as Buffs from "./RegisterBuffs.js"
+import * as Menus from "./RegisterMenu.js"
+import * as System from "./RegisterSystem.js"
 
 export function RegisterAll() {
   ModSystem.register(ModLoader);
   AutoRegister([
-
+    System,
     Buffs,
     Projectiles,
     Materials,
     Items,
+    Menus,
     Global
 
   ])

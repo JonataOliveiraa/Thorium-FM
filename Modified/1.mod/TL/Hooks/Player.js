@@ -13,7 +13,6 @@ import { SubworldLoader } from './../Loaders/SubworldLoader.js';
 import { AchievementLoader } from './../Loaders/AchievementLoader.js';
 
 const { Vector2 } = Modules;
-const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];
 
 export class PlayerHooks {
     static initialized = false;

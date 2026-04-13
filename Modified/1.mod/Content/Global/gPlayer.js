@@ -19,12 +19,10 @@ export class gPlayer extends ModPlayer {
     
     ResetEffects(player) {
         this.LivingWoodAcornArmorBuff = false;
-        this.SilkBuff = false;
     }
     
     UpdateEquips(player) {
         if (this.LivingWoodAcornArmorBuff) this.LivingWoodAcornArmorBuff = true;
-        if (this.SilkBuff) this.SilkBuff = true;
     }
     
     SendMessage(player, msg) {

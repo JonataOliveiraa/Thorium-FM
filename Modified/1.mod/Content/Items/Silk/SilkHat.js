@@ -1,9 +1,14 @@
 import { ModPlayer } from '../../../TL/ModPlayer.js';
+import { Color } from '../../../TL/Modules/Color.js';
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 
+const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
+
 export class SilkHat extends ModItem {
+    color = Color.Yellow;
+
     constructor() {
         super();
         this.Texture = 'Items/Silk/' + this.constructor.name;
@@ -25,10 +30,10 @@ export class SilkHat extends ModItem {
     }
     
     UpdateArmorSet(item, player) {
-        ModPlayer.getByName('gPlayer').SilkBuff = true;
-
-        if (player.statLife > player.statLifeMax2 * 0.75) {
+        if (player.statMana > player.statManaMax2 * 0.75) {
             player.magicDamage += 0.25;
+
+            if(Math.random() < 0.05) NewDust(player.Center, 0, 0, Terraria.ID.DustID.YellowStarDust, 0, 0, 150, this.color, 1);
         }
     }
 

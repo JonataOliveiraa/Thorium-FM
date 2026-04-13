@@ -1,17 +1,20 @@
-import { GlobalHooks } from "../../TL/GlobalHooks.js";
-import { TileData } from "../../TL/Modules/TileData.js";
-import { ModItem } from "../../TL/ModItem.js";
+import { GlobalHooks } from "../../../TL/GlobalHooks.js";
+import { TileData } from "../../../TL/Modules/TileData.js";
+import { ModItem } from "../../../TL/ModItem.js";
+import { Terraria } from "../../../TL/ModImports.js";
+import { Rand } from "../../../TL/Modules/Rand.js";
 
 const Main = new NativeClass('Terraria', 'Main');
 const WorldGen = new NativeClass('Terraria', 'WorldGen');
 const Item = new NativeClass('Terraria', 'Item');
 const InventoryStorage = new NativeClass('Terraria', 'InventoryStorage');
 
-export class gChestGen extends GlobalHooks {
+export class ChestInjection extends GlobalHooks {
     Initialize() {
         WorldGen.ShimmerCleanUp.hook((original, self) => {
             original(self);
 
+            //ADIÇÃO DE LIVING WOOD SAP EM BAÚS DE MADEIRA VIVA
             const chests = Main.chest;
             const validChests = [];
 
