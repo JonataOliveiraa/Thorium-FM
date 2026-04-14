@@ -50,8 +50,8 @@ export class ModRecipe {
         }
         if (ItemLoader.isModType(itemId)) {
             ItemLoader.getModItem(itemId).Item.material = true;
-            Terraria.ID.ItemID.Sets.IsAMaterial[itemId] = true;
         }
+        Terraria.ID.ItemID.Sets.IsAMaterial[itemId] = true;
         Terraria.Recipe.currentRecipe.requiredItem[this.numIngredients]['void SetDefaults(int Type, ItemVariant variant)'](itemId, null);
         Terraria.Recipe.currentRecipe.requiredItem[this.numIngredients].stack = Math.max(1, Math.min(stack, Terraria.Recipe.currentRecipe.requiredItem[this.numIngredients]?.maxStack ?? 9999));
         this.numIngredients++;

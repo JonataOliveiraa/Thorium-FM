@@ -1,14 +1,21 @@
 {
-  "CustomText": {
-    "WelcomeMessage": "Welcome to {WorldName}!"
-  },
   "ItemName": {
+    "ThoriumOre": "Thorium Ore",
+    "LifeQuartz": "Life Quartz",
+
+    "ThoriumBar": "Thorium Bar",
+    "IcyShard": "Icy Shard",
+    "Blood": "Blood",
+    "LivingLeaf": "Living Leaf",
+    "MarineKelp": "Marine Kelp",
+    "Petal": "Petal",
+    "Yew Wood": "Yew Wood",
+    
     "FrostFury": "Frost Fury",
     "IceCube": "Ice Cube",
     "IcyArrow": "Icy Arrow",
     "IcyAxe": "Icy Axe",
     "IcyPickaxe": "Icy Pickaxe",
-    "IcyShard": "Icy Shard",
     "TheSnowball": "The Snowball",
     "IcyHeadgear": "Icy Headgear",
     "IcyMail": "Icy Mail",

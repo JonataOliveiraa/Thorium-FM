@@ -60,12 +60,13 @@ export class MainHooks {
             SystemLoader.AddRecipeGroups();
             SystemLoader.AddRecipes();
             
-            new ModRecipe().SetResult(2).AddIngredient(5013).SetProperty('needMechdusa', true).AddTile(668).Register();
+            new ModRecipe().SetResult(5013).AddIngredient(5013).SetProperty('needMechdusa', true).AddTile(668).Register();
             Terraria.ID.ContentSamples.FixItemsAfterRecipesAreAdded();
             Terraria.Recipe.CreateRequiredItemQuickLookups();
             Terraria.Recipe.UpdateMaterialFieldForAllRecipes();
             Terraria.Recipe.UpdateWhichItemsAreMaterials();
             Terraria.Recipe.UpdateWhichItemsAreCrafted();
+            Terraria.GameContent.ShimmerTransforms.UpdateRecipeSets();
         });
         
         if (this.HookList.IsTileSpelunkable(info)) {
@@ -192,7 +193,9 @@ export class MainHooks {
                         flag2 = true;
                 }
                 
+                SystemLoader.PreUpdateTime();
                 original(self);
+                SystemLoader.PostUpdateTime();
                 
                 if (flag1) {
                     SystemLoader.OnStartDay();

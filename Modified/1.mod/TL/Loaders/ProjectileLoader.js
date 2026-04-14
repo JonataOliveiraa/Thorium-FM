@@ -180,6 +180,15 @@ export class ProjectileLoader {
         if (projTexture?.exists) {
             Terraria.GameContent.TextureAssets.Projectile[proj.Type] = projTexture.asset.asset;
         }
+        
+        // _Glow
+        const projGlowTexture = new ModTexture(`${proj.Texture}_Glow`);
+        if (projGlowTexture?.exists) {
+            const newIndex = Terraria.GameContent.TextureAssets.GlowMask.length;
+            const newSize = newIndex + 1;
+            resizeArrayProperty(Terraria.GameContent.TextureAssets, 'GlowMask', newSize, projGlowTexture.asset.asset);
+            proj.Projectile.glowMask = newIndex;
+        }
     }
     
     static SetDefaults(proj) {

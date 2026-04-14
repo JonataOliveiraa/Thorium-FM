@@ -166,6 +166,8 @@ export class ItemLoader {
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'ExtractinatorMode', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'KillsToBanner', nextItem);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'UsesCursedByPlanteraTooltip', nextItem, false);
+        resizeArrayProperty(Terraria.ID.ItemID.Sets, 'ShimmerCountsAsItemForDecraft', nextItem, -1);
+        resizeArrayProperty(Terraria.ID.ItemID.Sets, 'ShimmerCountsAsItem', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityMiscAcorns', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityMiscGems', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityMiscHerbsAndSeeds', nextItem, -1);

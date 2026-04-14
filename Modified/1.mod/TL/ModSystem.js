@@ -21,6 +21,10 @@ export class ModSystem {
     
     PreSaveAndQuit() {}
     
+    PreUpdateTime() {}
+    
+    PostUpdateTime() {}
+    
     OnStartDay() {}
     
     OnStartNight() {}

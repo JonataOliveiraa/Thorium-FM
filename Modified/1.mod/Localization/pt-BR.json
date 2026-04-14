@@ -3,24 +3,37 @@
     "WelcomeMessage": "Bem-vindo a {WorldName}!"
   },
   "ItemName": {
+    "ThoriumOre": "Minério de Tório",
+    "LifeQuartz": "Quartzo de Vida",
+
+    "ThoriumBar": "Barra de Tório",
+    "IcyShard": "Fragmento de Gelo",
+    "Blood": "Sangue",
+    "LivingLeaf": "Folha viva",
+    "MarineKelp": "Algas Marinhas",
+    "Petal": "Pétala",
+    "Yew Wood": "Madeira de Teixo",
+
     "FrostFury": "Fúria Congelante",
     "IceCube": "O Cubo de Gelo",
     "IcyArrow": "Flecha Congelada",
     "IcyAxe": "Machado Congelado",
     "IcyPickaxe": "Picareta Congelada",
-    "IcyShard": "Fragmento Congelado",
     "TheSnowball": "A Bola de Neve",
     "IcyHeadgear": "Elmo Congelado",
     "IcyMail": "Armadura Congelada",
     "IcyGreaves": "Grevas Congeladas",
+
     "LivingWoodAcorn": "Bolota de Madeira Viva",
     "LivingWoodChestguard": "Peitoral de Madeira Viva",
     "LivingWoodLeggings": "Grevas de Madeira Viva",
     "LivingWoodHelmet": "Elmo de Madeira Viva",
     "LivingWoodSap": "Seiva de Madeira Viva",
+
     "SilkHat": "Chapéu de Seda",
     "SilkTabart": "Tabardo de Seda",
     "SilkLeggings": "Calção de Seda",
+    
     "AmberRing": "Anel de Âmbar",
     "AmethystRing": "Anel de Ametista",
     "DiamondRing": "Anel de Diamante",

@@ -3,6 +3,7 @@ import { BiomeID } from './Enums/BiomeID.js';
 import { CloudID } from './Enums/CloudID.js';
 import { DashID } from './Enums/DashID.js';
 import { ItemRarityID } from './Enums/ItemRarityID.js';
+import { MoonPhases } from './Enums/MoonPhases.js';
 import { MusicID } from './Enums/MusicID.js';
 import { ProjAIStyleID } from './Enums/ProjAIStyleID.js';
 import { NPCAIStyleID } from './Enums/NPCAIStyleID.js';
@@ -97,6 +98,7 @@ export const Terraria = {
         ItemHoldStyleID: new NativeClass('Terraria.ID', 'ItemHoldStyleID'),
         ItemRarityID: ItemRarityID,
         ItemUseStyleID: new NativeClass('Terraria.ID', 'ItemUseStyleID'),
+        MoonPhases: MoonPhases,
         MountID: new NativeClass('Terraria.ID', 'MountID'),
         MusicID: MusicID,
         NPCAIStyleID: NPCAIStyleID,
@@ -213,6 +215,7 @@ export const Terraria = {
         ShopHelper: new NativeClass('Terraria.GameContent', 'ShopHelper'),
         TextureAssets: new NativeClass('Terraria.GameContent', 'TextureAssets'),
         NPCInteractions: new NativeClass('Terraria.GameContent', 'NPCInteractions'),
+        ShimmerTransforms: new NativeClass('Terraria.GameContent', 'ShimmerTransforms'),
         TownNPCProfiles: new NativeClass('Terraria.GameContent', 'TownNPCProfiles'),
         TownRoomManager: new NativeClass('Terraria.GameContent', 'TownRoomManager'),
         UI: {

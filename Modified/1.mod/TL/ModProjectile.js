@@ -37,7 +37,7 @@ export class ModProjectile extends ModTexturedType {
             obj['void .ctor()']();
             obj['void SetDefaults(int Type)'](Type);
             for (const key of ProjectileLoader.ProjectileProperties) {
-                if (obj[key] == null) continue;
+                if (obj[key] === null) continue;
                 this.Projectile[key] = obj[key];
             }
         }

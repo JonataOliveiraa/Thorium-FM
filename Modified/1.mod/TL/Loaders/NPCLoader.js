@@ -215,12 +215,6 @@ export class NPCLoader {
             npc.NPC.housingCategory = 0;
         }
         
-        /*const bannerTile = TileLoader.getByName(npc.constructor.name + 'Banner');
-        if (bannerTile) {
-            npc.Banner = bannerTile.Type;
-            npc.BannerItem = bannerTile.Item?.Type ?? 0;
-        }*/
-        
         npc.PostStaticDefaults();
     }
     
@@ -286,24 +280,10 @@ export class NPCLoader {
             }
             
             npc.PostSetupContent();
-            
-            if (npc.Banner > 0 && npc.BannerItem > 0) {
-                Terraria.ID.ItemID.Sets.BannerStrength[npc.BannerItem] = Terraria.ID.ItemID.Sets.BannerStrength[0];
-                Terraria.ID.ItemID.Sets.BannerStrength[npc.BannerItem].Enabled = true;
-                Terraria.ID.ItemID.Sets.KillsToBanner[npc.BannerItem] = npc.KillsToBanner;
-                
-                ItemLoader._NPCToBanner[npc.Type] = npc.Banner ?? 0;
-                ItemLoader._BannerToNPC[npc.Banner] = npc.Type ?? 0;
-                ItemLoader._BannerToItem[npc.Banner] = npc.BannerItem ?? 0;
-                
-                const bannerTile = TileLoader.Tiles.find(t => t.Type === npc.Banner);
-                bannerTile.BannerID = npc.Banner;
-                bannerTile.BannerItem = npc.BannerItem;
-            }
         }
         
         for (const gLoot of GlobalLoot.Loots) {
-            const gL = new gLoot(Terraria.Main.ItemDropsDB);
+            const gL = new gLoot(Terraria.Main.ItemDropsDB, Terraria.Main.BestiaryDB);
             gL.ModifyGlobalLoot();
         }
     }

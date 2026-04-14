@@ -16,4 +16,12 @@ export class LivingWoodChestguard extends ModItem {
   UpdateEquip(item, player) {
     player.minionDamage += 0.1
   }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(ModItem.getTypeByName("LivingLeaf"), 10)
+      .AddIngredient(Terraria.ID.ItemID.Wood, 20)
+      .AddTile(Terraria.ID.TileID.WorkBenches)
+      .Register();
+  }
 }

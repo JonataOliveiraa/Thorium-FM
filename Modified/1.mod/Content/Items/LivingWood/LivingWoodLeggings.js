@@ -16,4 +16,12 @@ export class LivingWoodLeggings extends ModItem {
   UpdateEquip(item, player) {
     player.minionDamage += 0.1
   }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(ModItem.getTypeByName("LivingLeaf"), 8)
+      .AddIngredient(Terraria.ID.ItemID.Wood, 15)
+      .AddTile(Terraria.ID.TileID.WorkBenches)
+      .Register();
+  }
 }

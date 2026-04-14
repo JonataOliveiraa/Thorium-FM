@@ -78,7 +78,7 @@ export class WorldGenHooks {
         }
         
         if (this.HookList.IsTileReplacable(info)) {
-            Terraria.WorldGen['bool IsTileReplacable(int x, int y)'
+            Terraria.WorldGen['bool IsTileReplaceable(int x, int y)'
             ].hook((original, x, y) => {
                 const type = new TileData(x, y).type;
                 if (TileLoader.IsReplaceable(type, x, y) === false) {

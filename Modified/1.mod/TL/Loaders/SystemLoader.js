@@ -55,14 +55,32 @@ export class SystemLoader {
     static OnWorldUnload() {
         this._tick = 0;
         this._tasks = [];
-        for (const system of this.RegisteredSystems) {
-            system?.OnWorldUnload();
+        const arr = this.RegisteredSystems;
+        const len = arr.length;
+        for (let i = 1; i < len; i++) {
+            arr[i]?.OnWorldUnload();
         }
+        if (len > 0) arr[0]?.OnWorldUnload();
     }
     
     static PreSaveAndQuit() {
+        const arr = this.RegisteredSystems;
+        const len = arr.length;
+        for (let i = 1; i < len; i++) {
+            arr[i]?.PreSaveAndQuit();
+        }
+        if (len > 0) arr[0]?.PreSaveAndQuit();
+    }
+    
+    static PreUpdateTime() {
         for (const system of this.RegisteredSystems) {
-            system?.PreSaveAndQuit();
+            system?.PreUpdateTime();
+        }
+    }
+    
+    static PostUpdateTime() {
+        for (const system of this.RegisteredSystems) {
+            system?.PostUpdateTime();
         }
     }
     

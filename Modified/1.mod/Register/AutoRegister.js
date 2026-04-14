@@ -5,6 +5,8 @@ import { GlobalHooks } from './../TL/GlobalHooks.js';
 import { ModBuff } from './../TL/ModBuff.js'
 import { ModMenu } from "../TL/ModMenu.js";
 import { ModSystem } from "../TL/ModSystem.js";
+import { GlobalLoot } from "../TL/GlobalLoot.js";
+import { GlobalTile } from "../TL/GlobalTile.js";
 
 export function AutoRegister(mod) {
   if (typeof mod === "function") {
@@ -13,8 +15,10 @@ export function AutoRegister(mod) {
     else if (mod.prototype instanceof ModItem) ModItem.register(mod)
     else if (mod.prototype instanceof ModMenu) ModMenu.register(mod)
     else if (mod.prototype instanceof ModPlayer) ModPlayer.register(mod)
-    else if (mod.prototype instanceof GlobalHooks) GlobalHooks.register(mod)
     else if (mod.prototype instanceof ModBuff) ModBuff.register(mod)
+    else if (mod.prototype instanceof GlobalLoot) GlobalLoot.register(mod)
+    else if (mod.prototype instanceof GlobalTile) GlobalTile.register(mod)
+    else if (mod.prototype instanceof GlobalHooks) GlobalHooks.register(mod)
     else try { mod() } catch { }
   } else if (typeof mod === "object" && mod !== null) {
     for (const key in mod) {

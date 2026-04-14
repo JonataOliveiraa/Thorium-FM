@@ -13,6 +13,7 @@ import { SubworldLoader } from './../Loaders/SubworldLoader.js';
 import { AchievementLoader } from './../Loaders/AchievementLoader.js';
 
 const { Vector2 } = Modules;
+const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];
 
 export class PlayerHooks {
     static initialized = false;
@@ -624,11 +625,10 @@ export class PlayerHooks {
             Terraria.Player['void ResetEffects()'
             ].hook((original, self) => {
                 original(self);
-                const buffImmune = self.buffImmune;
                 for (let i = BuffLoader.MinBuffID; i <= BuffLoader.MaxBuffID; i++) {
-                    if (i >= buffImmune.length)
-                        self.buffImmune = buffImmune.cloneResized(BuffLoader.BuffCount);
-                    buffImmune[i] = false;
+                    if (i >= self.buffImmune.length)
+                        self.buffImmune = self.buffImmune.cloneResized(BuffLoader.BuffCount);
+                    self.buffImmune[i] = false;
                 }
                 PlayerLoader.ModifyMaxStats(self);
                 PlayerLoader.ResetEffects(self);

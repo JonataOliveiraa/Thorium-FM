@@ -31,4 +31,12 @@ export class LivingWoodHelmet extends ModItem {
     UpdateEquip(item, player) {
         player.minionKB += 1
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+        .AddIngredient(ModItem.getTypeByName("LivingLeaf"), 6)
+        .AddIngredient(Terraria.ID.ItemID.Wood, 10)
+        .AddTile(Terraria.ID.TileID.WorkBenches)
+        .Register();
+    }
 }
