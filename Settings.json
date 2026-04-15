@@ -14,6 +14,12 @@
       "file": "2.png",
       "icon_height": 70,
       "color": "#FFB700"
+    },
+    {
+      "name": "Sacola",
+      "file": "3.png",
+      "icon_height": 70,
+      "color": "#ff6417"
     }
   ],
   "version": 1

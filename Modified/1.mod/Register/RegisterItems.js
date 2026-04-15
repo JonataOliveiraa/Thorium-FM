@@ -22,10 +22,11 @@ export { SilkTabard } from "./../Content/Items/Silk/SilkTabard.js";
 export { SilkLeggings } from "./../Content/Items/Silk/SilkLeggings.js";
 
 //Basic Accessories
-export { AmberRing } from "./../Content/Items/BasicAccessories/AmberRing.js";
-export { AmethystRing } from "./../Content/Items/BasicAccessories/AmethystRing.js";
-export { DiamondRing } from "./../Content/Items/BasicAccessories/DiamondRing.js";
-export { EmeraldRing } from "./../Content/Items/BasicAccessories/EmeraldRing.js";
-export { RubyRing } from "./../Content/Items/BasicAccessories/RubyRing.js";
-export { SapphireRing } from "./../Content/Items/BasicAccessories/SapphireRing.js";
-export { TheRing } from "./../Content/Items/BasicAccessories/TheRing.js";
+export { AmberRing } from "./../Content/Items/BasicAccessories/Rings/AmberRing.js";
+export { AmethystRing } from "./../Content/Items/BasicAccessories/Rings/AmethystRing.js";
+export { DiamondRing } from "./../Content/Items/BasicAccessories/Rings/DiamondRing.js";
+export { EmeraldRing } from "./../Content/Items/BasicAccessories/Rings/EmeraldRing.js";
+export { RubyRing } from "./../Content/Items/BasicAccessories/Rings/RubyRing.js";
+export { SapphireRing } from "./../Content/Items/BasicAccessories/Rings/SapphireRing.js";
+export { TheRing } from "./../Content/Items/BasicAccessories/Rings/TheRing.js";
+export { IncubatedEgg } from "../Content/Items/BasicAccessories/Summon/IncubatedEgg.js"

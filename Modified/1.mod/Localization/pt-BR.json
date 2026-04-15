@@ -5,6 +5,8 @@
   "ItemName": {
     "ThoriumOre": "Minério de Tório",
     "LifeQuartz": "Quartzo de Vida",
+    "LeakyMarineBlock": "Bloco Marinho Permeável",
+    "ThoriumAnvil": "Bigorna de Tório",
 
     "ThoriumBar": "Barra de Tório",
     "IcyShard": "Fragmento de Gelo",
@@ -40,7 +42,9 @@
     "EmeraldRing": "Anel de Esmeralda",
     "RubyRing": "Anel de Rubi",
     "SapphireRing": "Anel de Safira",
-    "TheRing": "O Anel"
+    "TheRing": "O Anel",
+
+    "IncubatedEgg": "Ovo Encubado"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -62,10 +66,13 @@
     "EmeraldRing": "Aumenta o dano à distância em 1",
     "RubyRing": "Aumenta o dano corpo a corpo em 1",
     "SapphireRing": "Aumenta o dano mágico em 1",
-    "TheRing": "Aumenta todo o dano em 2\nAumenta a penetração de armadura em 2\nAumenta a chance de acerto crítico em 4%"
+    "TheRing": "Aumenta todo o dano em 2\nAumenta a penetração de armadura em 2\nAumenta a chance de acerto crítico em 4%",
+
+    "IncubatedEgg": "'Uma macabra incubação nesse ovo'\nAtaques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
+    "Icy": "Uma aura congelante se estabiliza, incinerando os inimigos próximos com chamas congelantes",
     "Silk": "25% de aumento no dano mágico enquanto estiver acima de 90% da mana máxima"
   },
   "BuffName": {

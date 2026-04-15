@@ -1,5 +1,6 @@
 import { Terraria, Modules } from "./../../TL/ModImports.js";
 import { ModProjectile } from "./../../TL/ModProjectile.js";
+import { ModPlayer } from '../../TL/ModPlayer.js';
 import { ProjAI } from "./../../TL/ProjAI.js"
 const { Vector2, Color, Effects } = Modules;
 
@@ -29,9 +30,11 @@ export class IcyArmorEffect1 extends ModProjectile {
 
   AI(proj) {
     const player = Terraria.Main.player[proj.owner];
-
-    if (!player || player.dead) {
+    const gPlayer = ModPlayer.getByName('gPlayer');
+    
+    if (!player || player.dead || !gPlayer.IcyArmorBuff) {
       proj.Kill();
+      gPlayer.IcyArmorPro = false
       return;
     }
 

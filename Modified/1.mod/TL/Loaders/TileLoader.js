@@ -312,7 +312,7 @@ export class TileLoader {
     }
     
     static CanPlace(i, j, type, mute, forced, plr, style) {
-        if (GlobalTile.RegisteredTiles.some(gT => gT.CanPlace(i, j, type, mute, forced, plr, style))) {
+        if (GlobalTile.RegisteredTiles.some(gT => gT.CanPlace(i, j, type, mute, forced, plr, style) === false)) {
             return false;
         }
         if (this.isModType(type)) {

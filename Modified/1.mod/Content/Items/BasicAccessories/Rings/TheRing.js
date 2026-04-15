@@ -1,10 +1,10 @@
-import { Terraria } from './../../../TL/ModImports.js';
-import { ModItem } from './../../../TL/ModItem.js';
+import { Terraria } from '../../../../TL/ModImports.js';
+import { ModItem } from '../../../../TL/ModItem.js';
 
 export class TheRing extends ModItem {
     constructor() {
         super();
-        this.Texture = 'Items/BasicAccessories/' + this.constructor.name;
+        this.Texture = 'Items/BasicAccessories/Rings/' + this.constructor.name;
     }
     
     SetDefaults() {

@@ -3,6 +3,7 @@ import { TileData } from "../../../TL/Modules/TileData.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
+import { AquaticDepths } from "../../Biomes/AquaticDepths.js";
 
 const Main = new NativeClass('Terraria', 'Main');
 const WorldGen = new NativeClass('Terraria', 'WorldGen');
@@ -63,6 +64,15 @@ export class ChestInjection extends GlobalHooks {
                 storage.item[0] = item;
                 storage.SyncToChest();
             }
+
+
+
+
+
+
+
+            //BIOMA TESTE
+            new AquaticDepths().Generate()
         });
     }
 }

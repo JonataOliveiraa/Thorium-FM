@@ -2,7 +2,8 @@
   "ItemName": {
     "ThoriumOre": "Thorium Ore",
     "LifeQuartz": "Life Quartz",
-
+    "LeakyMarineBlock": "Leaky Marine Block",
+    "ThoriumAnvil": "Thorium Anvil",
     "ThoriumBar": "Thorium Bar",
     "IcyShard": "Icy Shard",
     "Blood": "Blood",
@@ -10,7 +11,7 @@
     "MarineKelp": "Marine Kelp",
     "Petal": "Petal",
     "Yew Wood": "Yew Wood",
-    
+
     "FrostFury": "Frost Fury",
     "IceCube": "Ice Cube",
     "IcyArrow": "Icy Arrow",
@@ -37,7 +38,9 @@
 		"EmeraldRing": "Emerald Ring",
 		"RubyRing": "Ruby Ring",
 		"SapphireRing": "Sapphire Ring",
-		"TheRing": "The Ring"
+		"TheRing": "The Ring",
+
+    "IncubatedEgg": "Incubated Egg"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -59,10 +62,13 @@
 		"EmeraldRing": "Increases ranged damage by 1",
 		"RubyRing": "Increases melee damage by 1",
 		"SapphireRing": "Increases magic damage by 1",
-		"TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%"
+		"TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%",
+
+    "IncubatedEgg": "'A gruesome incubation has occurred'\nMinion and sentry attacks have a 10% chance to generate a swarm of spiders"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
+    "Icy": "An icy aura surrounds you, scorching enemies with freezing flames",
     "Silk": "25% increased magic damage while above 90% maximum mana"
   },
   "BuffName": {

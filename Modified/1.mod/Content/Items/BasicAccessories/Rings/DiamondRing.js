@@ -1,10 +1,10 @@
-import { Terraria } from './../../../TL/ModImports.js';
-import { ModItem } from './../../../TL/ModItem.js';
+import { Terraria } from '../../../../TL/ModImports.js';
+import { ModItem } from '../../../../TL/ModItem.js';
 
-export class AmberRing extends ModItem {
+export class DiamondRing extends ModItem {
     constructor() {
         super();
-        this.Texture = 'Items/BasicAccessories/' + this.constructor.name;
+        this.Texture = 'Items/BasicAccessories/Rings/' + this.constructor.name;
     }
     
     SetDefaults() {
@@ -17,15 +17,16 @@ export class AmberRing extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        let heldItem = player.inventory[player.selectedItem];
-        player.minionDamage += (1.0 / heldItem.damage);
+        player.meleeCrit += 2.0;
+        player.rangedCrit += 2.0;
+        player.magicCrit += 2.0;
     }
     
     AddRecipes() {
     this.CreateRecipe(1)
       .AddIngredient(Terraria.ID.ItemID.IronBar, 1)
       .AddRecipeGroup('IronBar')
-      .AddIngredient(999, 1)
+      .AddIngredient(182, 1)
       .AddIngredient(75, 1)
       .AddTile(Terraria.ID.TileID.Anvils)
       .Register();

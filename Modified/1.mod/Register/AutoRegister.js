@@ -7,10 +7,12 @@ import { ModMenu } from "../TL/ModMenu.js";
 import { ModSystem } from "../TL/ModSystem.js";
 import { GlobalLoot } from "../TL/GlobalLoot.js";
 import { GlobalTile } from "../TL/GlobalTile.js";
+import { ModBiome } from "../TL/ModBiome.js";
 
 export function AutoRegister(mod) {
   if (typeof mod === "function") {
     if (mod.prototype instanceof ModSystem) ModSystem.register(mod)
+    else if (mod.prototype instanceof ModBiome) ModBiome.register(mod)
     else if (mod.prototype instanceof ModProjectile) ModProjectile.register(mod)
     else if (mod.prototype instanceof ModItem) ModItem.register(mod)
     else if (mod.prototype instanceof ModMenu) ModMenu.register(mod)

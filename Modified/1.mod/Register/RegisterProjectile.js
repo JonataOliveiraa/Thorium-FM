@@ -7,3 +7,6 @@ export { IcyArmorEffect1 } from "./../Content/Projectiles/IcyArmorEffect1.js"
 //Living Wood
 export { LivingWoodAcornPro } from "./../Content/Projectiles/LivingWoodAcornPro.js"
 export {LivingWoodAcornShotPro} from "./../Content/Projectiles/LivingWoodAcornShotPro.js"
+
+//Accessories
+export { IncubatedSpider } from "../Content/Projectiles/IncubatedSpider.js"

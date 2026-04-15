@@ -17,9 +17,9 @@ export class LivingWoodAcornShotPro extends ModProjectile {
     }
 
     SetStaticDefaults() {
-        // ESSENCIAL para o PreDraw: Grava as últimas 6 posições da semente
         Terraria.ID.ProjectileID.Sets.TrailCacheLength[this.Type] = 6;
         Terraria.ID.ProjectileID.Sets.TrailingMode[this.Type] = 0;
+        Terraria.ID.ProjectileID.Sets.MinionShot[this.Type] = true;
     }
 
     SetDefaults() {

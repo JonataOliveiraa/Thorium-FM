@@ -28,8 +28,19 @@ export class PropsReplace extends GlobalHooks {
 
            //Thorium Anvil
            if(Type === Terraria.ID.ItemID.NebulaPiano) {
-                self._nameOverride = 'Bigorna foda'
+                self._nameOverride = ModLocalization.Translate('ItemName.ThoriumAnvil'); 
+                self.rare = ItemRarityID.White
+                self.value = Terraria.Item.sellPrice(0, 0, 5, 0);
+                self.maxStack = 9999;    
            } 
+
+           //Leaky Marine   
+            if (Type === Terraria.ID.ItemID.EasterBlock) {
+                self._nameOverride = ModLocalization.Translate('ItemName.LeakyMarineBlock'); 
+                self.rare = ItemRarityID.White
+                self.value = Terraria.Item.sellPrice(0, 0, 0, 0);
+                self.maxStack = 9999;
+            }
         });
     }
 }
