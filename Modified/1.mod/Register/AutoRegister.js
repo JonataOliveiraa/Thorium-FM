@@ -8,10 +8,14 @@ import { ModSystem } from "../TL/ModSystem.js";
 import { GlobalLoot } from "../TL/GlobalLoot.js";
 import { GlobalTile } from "../TL/GlobalTile.js";
 import { ModBiome } from "../TL/ModBiome.js";
+import { ModSurfaceBackground } from "../TL/ModBackgrounds.js";
+import { UndergroundBackgroundLoader } from "../TL/Loaders/BackgroundLoaders.js";
 
 export function AutoRegister(mod) {
   if (typeof mod === "function") {
     if (mod.prototype instanceof ModSystem) ModSystem.register(mod)
+    else if (mod.prototype instanceof ModSurfaceBackground) ModSurfaceBackground.register(mod)
+    else if (mod.prototype instanceof UndergroundBackgroundLoader) UndergroundBackgroundLoader.register(mod)
     else if (mod.prototype instanceof ModBiome) ModBiome.register(mod)
     else if (mod.prototype instanceof ModProjectile) ModProjectile.register(mod)
     else if (mod.prototype instanceof ModItem) ModItem.register(mod)

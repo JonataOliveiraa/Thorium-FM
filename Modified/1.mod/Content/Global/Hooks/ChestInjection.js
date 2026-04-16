@@ -15,7 +15,10 @@ export class ChestInjection extends GlobalHooks {
         WorldGen.ShimmerCleanUp.hook((original, self) => {
             original(self);
 
-            //ADIÇÃO DE LIVING WOOD SAP EM BAÚS DE MADEIRA VIVA
+            //GERANDO BIOMA
+            new AquaticDepths().Generate()
+
+            //ADICIONANDO ITENS NOS BAUS
             const chests = Main.chest;
             const validChests = [];
 
@@ -65,14 +68,6 @@ export class ChestInjection extends GlobalHooks {
                 storage.SyncToChest();
             }
 
-
-
-
-
-
-
-            //BIOMA TESTE
-            new AquaticDepths().Generate()
         });
     }
 }
