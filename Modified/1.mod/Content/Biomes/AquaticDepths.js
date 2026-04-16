@@ -7,6 +7,8 @@ import { ModSurfaceBackground, ModUndergroundBackground } from '../../TL/ModBack
 const { Color } = Modules;
 
 export class AquaticDepths extends ModBiome {
+    Music = 43
+    
     constructor() {
         super();
     }
@@ -22,7 +24,7 @@ export class AquaticDepths extends ModBiome {
     }
 
     IsBiomeActive(player, tileCounts) {
-        if (tileCounts[Terraria.ID.TileID.EasterBlock] >= 150 && player.wet) {
+        if (tileCounts[Terraria.ID.TileID.EasterBlock] >= 150) {
             return true;
         }
 
@@ -40,12 +42,8 @@ export class AquaticDepths extends ModBiome {
         }
     }
 
-    GetSplashDust(dustType) {
-        return Terraria.ID.DustID.Water; 
-    }
-
     Generate() {
-        const { Main, ID } = Terraria;
+        const { Main, ID, WorldGen } = Terraria;
         const { TileID, WallID } = ID;
 
         const scale = Main.maxTilesX / 4200;
@@ -73,7 +71,7 @@ export class AquaticDepths extends ModBiome {
         const ballLeft = centerX - radiusX;
         const ballRight = centerX + radiusX;
 
-        const ebonWall = WallID.EasterBlockWall;
+        const ebonWall = WallID.PoopWall;
 
         // 1. ESTRUTURA PRINCIPAL (Corpo e Paredes)
         for (let x = ballLeft - 20; x <= ballRight + 20; x++) {
@@ -96,14 +94,14 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        // 2. QUEIJO SUÍÇO (Com Ruído Extremo e Paredes)
+        // 2. QUEIJO SUÍÇO E BAÚS
         const amountOfHoles = Math.floor(45 * scale * scale);
         for (let i = 0; i < amountOfHoles; i++) {
             let hx, hy;
             do {
                 hx = Rand.Next(ballLeft, ballRight);
                 hy = Rand.Next(ballTop, ballBottom);
-            } while (Math.pow((hx - centerX) / radiusX, 2) + Math.pow((hy - ballCenterY) / radiusY, 2) > 0.8);
+            } while (Math.pow((hx - centerX) / radiusX, 2) + Math.pow((hy - ballCenterY) / radiusY, 2) > 0.6);
 
             const holeRadiusX = Rand.Next(15, 40) * scale;
             const holeRadiusY = Rand.Next(10, 25) * scale;
@@ -124,44 +122,65 @@ export class AquaticDepths extends ModBiome {
                     const holeNoise = Math.sin(angle * freq1) * amp1 + Math.cos(angle * freq2) * amp2;
                     const dist = Math.pow(dx / holeRadiusX, 2) + Math.pow(dy / holeRadiusY, 2);
                     
-                    if (dist <= 1 + holeNoise) {
+                    // Trava de segurança: Garante que o buraco não vaze para fora da casca do bioma
+                    const distFromBiomeCenter = Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2);
+                    
+                    if (dist <= 1 + holeNoise && distFromBiomeCenter < 0.85) {
                         const tile = Main.tile.get_Item(x, y);
                         tile['void active(bool active)'](false);
                         tile.wall = ebonWall;
                     }
                 }
             }
+
+            // Geração da Plataforma com Baú no centro do buraco (40% de chance por buraco)
+            if (Rand.NextChance(0.40)) {
+                const chestX = Math.floor(hx);
+                const chestY = Math.floor(hy);
+
+                // Plataforma de 4 tiles
+                for (let px = chestX - 1; px <= chestX + 2; px++) {
+                    const tile = Main.tile.get_Item(px, chestY);
+                    tile['void active(bool active)'](true);
+                    tile.type = TileID.EasterBlock;
+                }
+                
+                // Base inferior de 2 tiles
+                for (let px = chestX; px <= chestX + 1; px++) {
+                    const tile = Main.tile.get_Item(px, chestY + 1);
+                    tile['void active(bool active)'](true);
+                    tile.type = TileID.EasterBlock;
+                }
+
+                // Posiciona o baú em cima do meio da plataforma (Style 3 de Containers2)
+                WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](chestX, chestY - 1, TileID.Containers2, false, 3);
+            }
         }
 
         // 3. TÚNEL SINUOSO E PETRIFICAÇÃO DA AREIA
         let currentX = centerX;
         const shaftWidth = Math.floor(10 * scale);
-        const shaftEnd = ballTop + 15; // Para logo após furar a casca do bioma
+        const shaftEnd = ballTop + 15; 
 
         for (let y = oceanFloor; y <= shaftEnd; y++) {
-            // Curvas estranhas baseadas em senos e cossenos
             currentX += Math.sin(y * 0.08) * 2.0 + Math.cos(y * 0.04) * 1.5 + Math.sin(y * 0.15) * 0.8;
             
             const shaftLeft = Math.floor(currentX - shaftWidth / 2);
             const shaftRight = Math.floor(currentX + shaftWidth / 2);
 
-            // Primeiro: Petrificamos uma área MAIOR ao redor do buraco para segurar a areia
             for (let x = shaftLeft - 6; x <= shaftRight + 6; x++) {
                 if (x < 0 || x >= Main.maxTilesX) continue;
                 const tile = Main.tile.get_Item(x, y);
                 
-                // Transforma a areia (ou qualquer bloco existente) em Pedra
                 if (tile['bool active()']()) {
                     tile.type = TileID.EasterBlock;
                 }
 
-                // As paredes só começam a gerar 15 blocos abaixo do fundo do oceano
                 if (y > oceanFloor + 15) {
                     tile.wall = ebonWall;
                 }
             }
 
-            // Segundo: Escavamos o meio exato do túnel para dar passagem
             for (let x = shaftLeft; x <= shaftRight; x++) {
                 if (x < 0 || x >= Main.maxTilesX) continue;
                 const tile = Main.tile.get_Item(x, y);
@@ -170,9 +189,11 @@ export class AquaticDepths extends ModBiome {
         }
 
         // 4. INJEÇÃO DE MINÉRIOS
-        const copperOre = TileID.Copper;
-        //Quantia
-        const amountOfVeins = Math.floor(150 * scale * scale);
+        const goldOre = WorldGen.SavedOreTiers.Gold;
+        const mossyGoldOre = goldOre === 8 ? ID.TileID.StarRoyaleBrick : ID.TileID.HeavenForgeBrick;
+
+        // Minério de Ouro/Mossy
+        const amountOfVeins = Math.floor(50 * scale * scale);
         for (let i = 0; i < amountOfVeins; i++) {
             const x = Rand.Next(ballLeft, ballRight);
             const y = Rand.Next(ballTop, ballBottom);
@@ -181,8 +202,25 @@ export class AquaticDepths extends ModBiome {
                 const strength = Rand.NextFloat(6, 12); 
                 const steps = Rand.Next(8, 15);
 
-                Terraria.WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, strength, steps, copperOre, false, 0, 0, false, true, -1
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, strength, steps, mossyGoldOre, false, 0, 0, false, true, -1
+                );
+            }
+        }
+
+        // Minério AstraBrick (Alta densidade, poucos veios)
+        const astraBrick = TileID.AstraBrick;
+        const amountOfAstraVeins = Math.floor(10 * scale * scale); // Bem mais raro
+        for (let i = 0; i < amountOfAstraVeins; i++) {
+            const x = Rand.Next(ballLeft, ballRight);
+            const y = Rand.Next(ballTop, ballBottom);
+            
+            if (Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2) <= 0.9) {
+                const strength = Rand.NextFloat(20, 35); // Bolotas gigantes
+                const steps = Rand.Next(15, 25);
+
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, strength, steps, astraBrick, false, 0, 0, false, true, -1
                 );
             }
         }
@@ -219,3 +257,4 @@ export class AquaticDepths extends ModBiome {
         return Main.worldSurface - 20;
     }
 }
+

@@ -416,7 +416,7 @@ export class MainHooks {
                 let result = original(self);
                 if (SceneEffectLoader.AnySceneActive) {
                     return SceneEffectLoader.CurrentScene.GetSplashDust(result);
-                }
+                }   
                 return result;
             });
             
