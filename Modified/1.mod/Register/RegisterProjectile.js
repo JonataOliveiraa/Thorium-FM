@@ -10,3 +10,7 @@ export {LivingWoodAcornShotPro} from "./../Content/Projectiles/LivingWoodAcornSh
 
 //Accessories
 export { IncubatedSpider } from "../Content/Projectiles/IncubatedSpider.js"
+
+//Ranged
+export { WebGunPro1 } from "../Content/Projectiles/WebGunPro1.js"
+export { WebGunPro2 } from "../Content/Projectiles/WebGunPro2.js"

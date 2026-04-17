@@ -4,13 +4,17 @@ import { Color } from "../../../TL/Modules/Color.js";
 
 export class MossyPlatinumOreTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.HeavenForgeBrick;
+    Type = Terraria.ID.TileID.ForbiddenBlock;
 
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(171, 158, 255);
 
-        Terraria.Main.tileShine[this.Type] = 900;
+        Terraria.Main.tileSpelunker[this.Type] = true;
+        Terraria.Main.tileOreFinderPriority[this.Type] = 300;
+        Terraria.Main.tileShine[this.Type] = 500;
+        Terraria.Main.tileMergeDirt[this.Type] = true;
+        Terraria.ID.TileID.Sets.Ore[this.Type] = true;
     }
 
     KillSound(i, j, type, fail) {
@@ -24,18 +28,18 @@ export class MossyPlatinumOreTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const HeavenForgeBrickTile = Terraria.ID.TileID.HeavenforgeBrick;
-        const HeavenForgeBrickItem = Terraria.ID.ItemID.HeavenforgeBrick;
+        const ForbiddenBlockTile = Terraria.ID.TileID.ForbiddenBlock;
+        const ForbiddenBlockItem = Terraria.ID.ItemID.ForbiddenBlock;
 
-        const mossyPlatinumTileTexture = tl.texture.load("Textures/TextureReplace/HeavenForgeBrick/MossyPlatinumOre_Tile.png");
-        const mossyPlatinumItemTexture = tl.texture.load("Textures/TextureReplace/HeavenForgeBrick/MossyPlatinumOre_Item.png");
+        const mossyPlatinumTileTexture = tl.texture.load("Textures/TextureReplace/ForbiddenBlock/MossyPlatinumOre_Tile.png");
+        const mossyPlatinumItemTexture = tl.texture.load("Textures/TextureReplace/ForbiddenBlock/MossyPlatinumOre_Item.png");
 
         if (mossyPlatinumTileTexture != null) {
-            Terraria.GameContent.TextureAssets.Tile[HeavenForgeBrickTile].Value = mossyPlatinumTileTexture;
+            Terraria.GameContent.TextureAssets.Tile[ForbiddenBlockTile].Value = mossyPlatinumTileTexture;
         }
 
         if (mossyPlatinumItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[HeavenForgeBrickItem].Value = mossyPlatinumItemTexture;
+            Terraria.GameContent.TextureAssets.Item[ForbiddenBlockItem].Value = mossyPlatinumItemTexture;
         }
     }
 }

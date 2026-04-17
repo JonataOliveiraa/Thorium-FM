@@ -1,26 +1,52 @@
 import { GlobalHooks } from "../../../TL/GlobalHooks.js";
 import { TileData } from "../../../TL/Modules/TileData.js";
 import { ModItem } from "../../../TL/ModItem.js";
-import { Terraria } from "../../../TL/ModImports.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
 import { AquaticDepths } from "../../Biomes/AquaticDepths.js";
+import { ChestStyle1 } from "../Enums/ChestStyle1.js";
+import { Terraria } from "../../../TL/ModImports.js";
 
-const Main = new NativeClass('Terraria', 'Main');
-const WorldGen = new NativeClass('Terraria', 'WorldGen');
-const Item = new NativeClass('Terraria', 'Item');
-const InventoryStorage = new NativeClass('Terraria', 'InventoryStorage');
+const { Main, WorldGen, Item, InventoryStorage } = Terraria
 
+const InjectionRules = [
+    {
+        // Regra original: LivingWoodSap nos baús de Living Wood
+        type: 21, 
+        style: ChestStyle1.LivingWood,
+        // Usamos uma função (getter) para o ID para garantir que o ModItem seja carregado no momento certo
+        getItemID: () => ModItem.getTypeByName('LivingWoodSap'),
+        stack: 1,
+        // Função que define quantos baús recebem. Neste caso: Metade deles (mínimo 1)
+        calculateAmount: (totalValidChests) => Math.max(1, Math.floor(totalValidChests / 2)),
+        action: 'replace' // 'replace' substitui o slot 0. 'add' usa o AddItemToShop.
+    },
+    {
+        // Nova Regra: WebGun nos baús de Teia
+        type: 21,
+        style: ChestStyle1.WebCovered,
+        getItemID: () => ModItem.getTypeByName('WebGun'),
+        stack: 1,
+        // Você pediu "pelo menos 1". Essa função pega exatamente 1 baú, se existir.
+        calculateAmount: (totalValidChests) => Math.min(1, totalValidChests),
+        action: 'replace'
+    }
+];
+
+
+// ========================================================================
+// 2. MOTOR DE INJEÇÃO (Não precisa mais alterar essa classe)
+// ========================================================================
 export class ChestInjection extends GlobalHooks {
     Initialize() {
         WorldGen.ShimmerCleanUp.hook((original, self) => {
             original(self);
 
-            //GERANDO BIOMA
-            new AquaticDepths().Generate()
+            // 1. GERANDO BIOMAS
+            new AquaticDepths().Generate();
 
-            //ADICIONANDO ITENS NOS BAUS
+            // 2. MAPEANDO TODOS OS BAÚS DO MUNDO DE UMA SÓ VEZ
             const chests = Main.chest;
-            const validChests = [];
+            const chestDictionary = {}; // Guarda os baús no formato: "type_style": [index1, index2...]
 
             for (let i = 0; i < 8000; i++) {
                 const chest = chests[i];
@@ -28,14 +54,13 @@ export class ChestInjection extends GlobalHooks {
 
                 const tile = new TileData(chest.x, chest.y);
                 const style = Math.floor(tile.frameX / 36);
-                const isLivingWoodChest = tile.type === 21 && style === 12;
+                const dictKey = `${tile.type}_${style}`;
 
-                if (isLivingWoodChest) {
-                    validChests.push(i);
+                if (!chestDictionary[dictKey]) {
+                    chestDictionary[dictKey] = [];
                 }
+                chestDictionary[dictKey].push(i);
             }
-
-            if (validChests.length === 0) return;
 
             const seedStr = String(Main.ActiveWorldFileData.Seed);
             let seedHash = 0;
@@ -43,31 +68,42 @@ export class ChestInjection extends GlobalHooks {
                 seedHash = (seedHash << 5) - seedHash + seedStr.charCodeAt(i);
             }
 
-            validChests.sort((a, b) => {
-                const hashA = Math.abs((seedHash + a * 397) % 100);
-                const hashB = Math.abs((seedHash + b * 617) % 100);
-                return hashA - hashB;
-            });
+            for (const rule of InjectionRules) {
+                const dictKey = `${rule.type}_${rule.style}`;
+                const validChests = chestDictionary[dictKey] || [];
 
-            const amountToInject = Math.max(1, Math.floor(validChests.length / 2));
+                if (validChests.length === 0) continue;
 
-            for (let j = 0; j < amountToInject; j++) {
-                const chestIndex = validChests[j];
-                
-                const storage = InventoryStorage.new();
-                storage['void .ctor(int chest)'](chestIndex);
+                validChests.sort((a, b) => {
+                    const hashA = Math.abs((seedHash + a * 397) % 100);
+                    const hashB = Math.abs((seedHash + b * 617) % 100);
+                    return hashA - hashB;
+                });
 
-                const item = Item.new();
-                item['void .ctor()']();
-                
-                const accessoryID = ModItem.getTypeByName('LivingWoodSap');
-                item['void SetDefaults(int Type, ItemVariant variant)'](accessoryID, null);
-                item.stack = 1;
+                const amountToInject = rule.calculateAmount(validChests.length);
 
-                storage.item[0] = item;
-                storage.SyncToChest();
+                for (let j = 0; j < amountToInject; j++) {
+                    const chestIndex = validChests[j];
+                    
+                    const storage = InventoryStorage.new();
+                    storage['void .ctor(int chest)'](chestIndex);
+
+                    const item = Item.new();
+                    item['void .ctor()']();
+                    
+                    const itemID = rule.getItemID();
+                    item['void SetDefaults(int Type, ItemVariant variant)'](itemID, null);
+                    item.stack = rule.stack;
+
+                    if (rule.action === 'replace') {
+                        storage.item[0] = item;
+                    } else if (rule.action === 'add') {
+                        storage.AddItemToShop(item);
+                    }
+
+                    storage.SyncToChest();
+                }
             }
-
         });
     }
 }

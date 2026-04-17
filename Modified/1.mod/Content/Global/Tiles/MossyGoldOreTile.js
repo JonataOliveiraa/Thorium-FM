@@ -4,13 +4,17 @@ import { Color } from "../../../TL/Modules/Color.js";
 
 export class MossyGoldOreTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.StarRoyaleBrick;
+    Type = Terraria.ID.TileID.AncientPinkBrick;
 
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(224, 224, 63);
 
-        Terraria.Main.tileShine[this.Type] = 900;
+        Terraria.Main.tileSpelunker[this.Type] = true;
+        Terraria.Main.tileOreFinderPriority[this.Type] = 300;
+        Terraria.Main.tileShine[this.Type] = 500;
+        Terraria.Main.tileMergeDirt[this.Type] = true;
+        Terraria.ID.TileID.Sets.Ore[this.Type] = true;
     }
 
     KillSound(i, j, type, fail) {
@@ -24,18 +28,18 @@ export class MossyGoldOreTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const StarRoyaleBrickTile = Terraria.ID.TileID.StarRoyaleBrick;
-        const StarRoyaleBrickItem = Terraria.ID.ItemID.StarRoyaleBrick;
+        const AncientPinkBrickTile = Terraria.ID.TileID.AncientPinkBrick;
+        const AncientPinkBrickItem = Terraria.ID.ItemID.AncientPinkDungeonBrick;
 
-        const mossyGoldTileTexture = tl.texture.load("Textures/TextureReplace/StarRoyaleBrick/MossyGoldOre_Tile.png");
-        const mossyGoldItemTexture = tl.texture.load("Textures/TextureReplace/StarRoyaleBrick/MossyGoldOre_Item.png");
+        const mossyGoldTileTexture = tl.texture.load("Textures/TextureReplace/AncientPinkBrick/MossyGoldOre_Tile.png");
+        const mossyGoldItemTexture = tl.texture.load("Textures/TextureReplace/AncientPinkBrick/MossyGoldOre_Item.png");
 
         if (mossyGoldTileTexture != null) {
-            Terraria.GameContent.TextureAssets.Tile[StarRoyaleBrickTile].Value = mossyGoldTileTexture;
+            Terraria.GameContent.TextureAssets.Tile[AncientPinkBrickTile].Value = mossyGoldTileTexture;
         }
 
         if (mossyGoldItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[StarRoyaleBrickItem].Value = mossyGoldItemTexture;
+            Terraria.GameContent.TextureAssets.Item[AncientPinkBrickItem].Value = mossyGoldItemTexture;
         }
     }
 }

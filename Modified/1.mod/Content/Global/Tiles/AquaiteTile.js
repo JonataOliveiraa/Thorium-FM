@@ -4,7 +4,7 @@ import { Color } from "../../../TL/Modules/Color.js";
 
 export class AquaiteTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.AstraBrick;
+    Type = Terraria.ID.TileID.AncientBlueBrick;
 
     IsTileSpelunkable(i, j, type) {
         if (type === this.Type) {
@@ -19,7 +19,7 @@ export class AquaiteTile extends GlobalTile {
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(0, 191, 255); 
         
         Terraria.Main.tileSpelunker[this.Type] = true;
-        Terraria.Main.tileOreFinderPriority[this.Type] = 410;
+        Terraria.Main.tileOreFinderPriority[this.Type] = 600;
         Terraria.Main.tileShine[this.Type] = 900;
         Terraria.Main.tileMergeDirt[this.Type] = true;
         Terraria.ID.TileID.Sets.Ore[this.Type] = true;
@@ -36,19 +36,19 @@ export class AquaiteTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const AstraBrickTile = Terraria.ID.TileID.AstraBrick;
-        const AstraBrickItem = Terraria.ID.ItemID.AstraBrick;
+        const AncientBlueBrickTile = Terraria.ID.TileID.AncientBlueBrick;
+        const AncientBlueBrickItem = Terraria.ID.ItemID.AncientBlueDungeonBrick;
 
-        const aquaiteTileTexture = tl.texture.load("Textures/TextureReplace/AstraBrick/Aquaite_Tile.png");
-        const aquaiteItemTexture = tl.texture.load("Textures/TextureReplace/AstraBrick/Aquaite_Item.png");
+        const aquaiteTileTexture = tl.texture.load("Textures/TextureReplace/AncientBlueBrick/Aquaite_Tile.png");
+        const aquaiteItemTexture = tl.texture.load("Textures/TextureReplace/AncientBlueBrick/Aquaite_Item.png");
 
         if (aquaiteTileTexture != null) {
-            Terraria.Main.tileMergeDirt[AstraBrickTile] = true;
-            Terraria.GameContent.TextureAssets.Tile[AstraBrickTile].Value = aquaiteTileTexture;
+            Terraria.Main.tileMergeDirt[AncientBlueBrickTile] = true;
+            Terraria.GameContent.TextureAssets.Tile[AncientBlueBrickTile].Value = aquaiteTileTexture;
         }
 
         if (aquaiteItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[AstraBrickItem].Value = aquaiteItemTexture;
+            Terraria.GameContent.TextureAssets.Item[AncientBlueBrickItem].Value = aquaiteItemTexture;
         }
     }
 }

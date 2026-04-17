@@ -43,7 +43,7 @@ export class PropsReplace extends GlobalHooks {
             }
 
             //Mossy Gold Ore
-            if (Type === Terraria.ID.ItemID.StarRoyaleBrick) {
+            if (Type === Terraria.ID.ItemID.AncientPinkDungeonBrick) {
                 self._nameOverride = ModLocalization.Translate('ItemName.MossyGoldOre'); 
                 self.rare = ItemRarityID.White
                 self.value = Terraria.Item.sellPrice(0, 0, 5, 0);
@@ -51,7 +51,7 @@ export class PropsReplace extends GlobalHooks {
             }
 
             //Mossy Platinum Ore
-            if (Type === Terraria.ID.ItemID.HeavenForgeBrick) {
+            if (Type === Terraria.ID.ItemID.ForbiddenBlock) {
                 self._nameOverride = ModLocalization.Translate('ItemName.MossyPlatinumOre'); 
                 self.rare = ItemRarityID.White
                 self.value = Terraria.Item.sellPrice(0, 0, 5, 0);
@@ -59,7 +59,7 @@ export class PropsReplace extends GlobalHooks {
             }
 
             // Aquaite
-            if (Type === Terraria.ID.ItemID.AstraBrick) {
+            if (Type === Terraria.ID.ItemID.AncientBlueDungeonBrick) {
                 self._nameOverride = ModLocalization.Translate('ItemName.Aquaite'); 
                 self.rare = ItemRarityID.Blue; 
                 self.value = Terraria.Item.sellPrice(0, 0, 10, 0);
@@ -67,7 +67,7 @@ export class PropsReplace extends GlobalHooks {
             }
 
             // Aquamarine
-            if (Type === Terraria.ID.ItemID.CryocoreBrick) {
+            if (Type === Terraria.ID.ItemID.AncientGreenDungeonBrick) {
                 self._nameOverride = ModLocalization.Translate('ItemName.Aquamarine'); 
                 self.rare = ItemRarityID.White;
                 self.value = Terraria.Item.sellPrice(0, 0, 15, 0);

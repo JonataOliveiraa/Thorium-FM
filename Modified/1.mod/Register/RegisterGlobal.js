@@ -13,4 +13,7 @@ export { LifeQuartzTile } from '../Content/Global/Tiles/LifeQuartzTile.js';
 export { ThoriumOreTile } from '../Content/Global/Tiles/ThoriumOreTile.js';
 export { ThoriumAnvil } from '../Content/Global/Tiles/ThoriumAnvil.js';
 export { LeakyMarineBlock } from '../Content/Global/Tiles/LeakyMarineBlock.js';
+export { MossyPlatinumOreTile } from '../Content/Global/Tiles/MossyPlatinumOreTile.js';
+export { MossyGoldOreTile } from '../Content/Global/Tiles/MossyGoldOreTile.js';
 export { LeakyMarineWall } from '../Content/Global/Walls/LeakyMarineWall.js';
+export { MarineBolders } from '../Content/Global/Tiles/MarineBolders.js';

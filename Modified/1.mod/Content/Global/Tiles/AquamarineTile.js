@@ -4,7 +4,7 @@ import { Color } from "../../../TL/Modules/Color.js";
 
 export class AquamarineTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.CryocoreBrick;
+    Type = Terraria.ID.TileID.AncientGreenBrick;
 
     IsTileSpelunkable(i, j, type) {
         if (type === this.Type) {
@@ -36,19 +36,19 @@ export class AquamarineTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const CryocoreBrickTile = Terraria.ID.TileID.CryocoreBrick;
-        const CryocoreBrickItem = Terraria.ID.ItemID.CryocoreBrick;
+        const AncientGreenBrickTile = Terraria.ID.TileID.AncientGreenBrick;
+        const AncientGreenBrickItem = Terraria.ID.ItemID.AncientGreenDungeonBrick;
 
-        const aquamarineTileTexture = tl.texture.load("Textures/TextureReplace/CryocoreBrick/Aquamarine_Tile.png");
-        const aquamarineItemTexture = tl.texture.load("Textures/TextureReplace/CryocoreBrick/Aquamarine_Item.png");
+        const aquamarineTileTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Tile.png");
+        const aquamarineItemTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Item.png");
 
         if (aquamarineTileTexture != null) {
-            Terraria.Main.tileMergeDirt[CryocoreBrickTile] = true;
-            Terraria.GameContent.TextureAssets.Tile[CryocoreBrickTile].Value = aquamarineTileTexture;
+            Terraria.Main.tileMergeDirt[AncientGreenBrickTile] = true;
+            Terraria.GameContent.TextureAssets.Tile[AncientGreenBrickTile].Value = aquamarineTileTexture;
         }
 
         if (aquamarineItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[CryocoreBrickItem].Value = aquamarineItemTexture;
+            Terraria.GameContent.TextureAssets.Item[AncientGreenBrickItem].Value = aquamarineItemTexture;
         }
     }
 }

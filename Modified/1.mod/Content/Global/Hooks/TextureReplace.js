@@ -9,6 +9,8 @@ import { MossyGoldOreTile } from "../Tiles/MossyGoldOreTile.js";
 import { MossyPlatinumOreTile } from "../Tiles/MossyPlatinumOreTile.js";
 import { AquaiteTile } from "../Tiles/AquaiteTile.js";
 import { AquamarineTile } from "../Tiles/AquamarineTile.js";
+import { DepthSatagmites } from "../Tiles/DepthSatagmites.js";
+import { MarineBolders } from "../Tiles/MarineBolders.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -26,6 +28,8 @@ export class TextureReplace extends ModSystem {
       MossyPlatinumOreTile.InjectTexture()
       AquaiteTile.InjectTexture()
       AquamarineTile.InjectTexture()
+      DepthSatagmites.InjectTexture()
+      MarineBolders.InjectTexture()
   }
 }
 

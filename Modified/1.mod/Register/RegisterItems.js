@@ -30,3 +30,11 @@ export { RubyRing } from "./../Content/Items/BasicAccessories/Rings/RubyRing.js"
 export { SapphireRing } from "./../Content/Items/BasicAccessories/Rings/SapphireRing.js";
 export { TheRing } from "./../Content/Items/BasicAccessories/Rings/TheRing.js";
 export { IncubatedEgg } from "../Content/Items/BasicAccessories/Summon/IncubatedEgg.js"
+
+//Depth
+export { BubbleConch } from "../Content/Items/Depth/BubbleConch.js"
+export { JellyfishResonator } from "../Content/Items/Consumable/JellyfishResonator.js"
+export { RainStone } from "../Content/Items/Depth/RainStone.js"
+
+//Ranged
+export { WebGun } from "../Content/Items/Ranged/WebGun.js"

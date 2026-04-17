@@ -7,6 +7,6 @@ export class gHooks extends GlobalHooks {
     }
     
     Initialize() {
-
+        
     }
 }
