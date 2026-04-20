@@ -38,20 +38,25 @@
     "SilkLeggings": "Silk Leggings",
 
     "AmberRing": "Amber Ring",
-		"AmethystRing": "Amethyst Ring",
-		"DiamondRing": "Diamond Ring",
-		"EmeraldRing": "Emerald Ring",
-		"RubyRing": "Ruby Ring",
-		"SapphireRing": "Sapphire Ring",
-		"TheRing": "The Ring",
+    "AmethystRing": "Amethyst Ring",
+    "DiamondRing": "Diamond Ring",
+    "EmeraldRing": "Emerald Ring",
+    "RubyRing": "Ruby Ring",
+    "SapphireRing": "Sapphire Ring",
+    "TheRing": "The Ring",
 
-    "IncubatedEgg": "Incubated Egg"
+    "IncubatedEgg": "Incubated Egg",
+    "WebGun": "Webgun",
+    "RainStone": "Rain Stone",
+    "BubbleConch": "Bubble Conch",
+    "JellyfishResonator": "Jellyfish Resonator",
+    "SeaTurtlesBulwak": "Sea Turtle's Bulwark"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
     "IcyArrow": "This enemy's movement speed is noticeably lowered",
-    "IcyAxe": "Cold to the touch… it might freeze your hands",
-    "IcyPickaxe": "Cold to the touch… it might freeze your hands",
+    "IcyAxe": "Cold to the touch... it might freeze your hands",
+    "IcyPickaxe": "Cold to the touch... it might freeze your hands",
     "IcyShard": "Cold to the touch",
     "TheSnowball": "It's either really hot or really cold. Either way it REALLY hurts",
 
@@ -62,14 +67,19 @@
     "LivingWoodSap": "Increases minion damage and knockback by 1",
 
     "AmberRing": "Increases summon damage by 1",
-		"AmethystRing": "Increases armor penetration by 1",
-		"DiamondRing": "Increases critical strike chance by 2%",
-		"EmeraldRing": "Increases ranged damage by 1",
-		"RubyRing": "Increases melee damage by 1",
-		"SapphireRing": "Increases magic damage by 1",
-		"TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%",
+    "AmethystRing": "Increases armor penetration by 1",
+    "DiamondRing": "Increases critical strike chance by 2%",
+    "EmeraldRing": "Increases ranged damage by 1",
+    "RubyRing": "Increases melee damage by 1",
+    "SapphireRing": "Increases magic damage by 1",
+    "TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%",
 
-    "IncubatedEgg": "'A gruesome incubation has occurred'\nMinion and sentry attacks have a 10% chance to generate a swarm of spiders"
+    "IncubatedEgg": "'A gruesome incubation has occurred'\nMinion and sentry attacks have a 10% chance to generate a swarm of spiders",
+    "WebGun": "Fires out a sticky globule of wet web",
+    "RainStone": "'It's said that this strange stone was torn from an entity that could control the seas...'\nActivates or cancels a rainstorm",
+    "BubbleConch": "Creates a barrage of enemy lifting bubbles",
+    "JellyfishResonator": "Summons The Queen Jellyfish\nOnly usable on the beach during the day",
+    "SeaTurtlesBulwak": "Defense increased by 2\nTaking damage releases a touchable mote that recovers 25% of the damage you took"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -84,5 +94,21 @@
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
+  },
+  "NPCName": {
+    "Blacksmith": "Blacksmith",
+    "ArmyAnt": "Army Ant",
+    "FireAnt": "Fire Ant",
+    "StrangeBulb": "Strange Bulb",
+    "MahoganyEnt": "Mahogany Ent"
+  },
+  "Bestiary": {
+    "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
+    "FireAnt": " It emerged straight from hell, like a burning ant seeking warmth",
+    "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
+    "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
+
+    "EarthenGolem": "Golem Terroso",
+    "EarthenBat": "Morcego Terroso"
   }
 }

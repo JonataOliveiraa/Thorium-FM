@@ -35,6 +35,7 @@ export { IncubatedEgg } from "../Content/Items/BasicAccessories/Summon/Incubated
 export { BubbleConch } from "../Content/Items/Depth/BubbleConch.js"
 export { JellyfishResonator } from "../Content/Items/Consumable/JellyfishResonator.js"
 export { RainStone } from "../Content/Items/Depth/RainStone.js"
+export { SeaTurtlesBulwak } from "../Content/Items/BasicAccessories/Shield/SeaTurtlesBulwak.js"
 
 //Ranged
 export { WebGun } from "../Content/Items/Ranged/WebGun.js"

@@ -12,6 +12,7 @@ import * as Menus from "./RegisterMenu.js"
 import * as System from "./RegisterSystem.js"
 import * as Biomes from "./RegisterBiome.js"
 import * as Backgrounds from "./RegisterBackgrounds.js"
+import * as NPC from "./RegisterNPC.js"
 
 export function RegisterAll() {
   ModSystem.register(ModLoader);
@@ -24,6 +25,7 @@ export function RegisterAll() {
     Materials,
     Items,
     Menus,
+    NPC,
     Global
 
   ])

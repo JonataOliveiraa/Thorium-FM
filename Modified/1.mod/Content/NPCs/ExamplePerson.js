@@ -209,7 +209,7 @@ export class ExamplePerson extends ModNPC {
             Terraria.Projectile.GetNoneSource(),
             npc.Center.X, npc.Center.Y,
             speed.X, speed.Y,
-            ModProjectile.getTypeByName('ExampleAdvancedAnimatedProjectile'),
+            ModProjectile.getTypeByName('IceCubePro'),
             npc.damage, 3,
             Terraria.Main.myPlayer,
             0, 0, 0, null

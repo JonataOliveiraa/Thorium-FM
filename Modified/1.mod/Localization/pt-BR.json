@@ -1,7 +1,4 @@
 {
-  "CustomText": {
-    "WelcomeMessage": "Bem-vindo a {WorldName}!"
-  },
   "ItemName": {
     "ThoriumOre": "Minério de Tório",
     "LifeQuartz": "Quartzo de Vida",
@@ -10,7 +7,7 @@
     "MossyGoldOre": "Minério de Ouro Musguento",
     "MossyPlatinumOre": "Minério de Platina Musguento",
     "Aquaite": "Aquaita",
-    "Aquamarine": "Jóia Água-marinha",
+    "Aquamarine": "Joia Água-marinha",
 
     "ThoriumBar": "Barra de Tório",
     "IcyShard": "Fragmento de Gelo",
@@ -39,7 +36,7 @@
     "SilkHat": "Chapéu de Seda",
     "SilkTabart": "Tabardo de Seda",
     "SilkLeggings": "Calção de Seda",
-    
+
     "AmberRing": "Anel de Âmbar",
     "AmethystRing": "Anel de Ametista",
     "DiamondRing": "Anel de Diamante",
@@ -48,13 +45,18 @@
     "SapphireRing": "Anel de Safira",
     "TheRing": "O Anel",
 
-    "IncubatedEgg": "Ovo Encubado"
+    "IncubatedEgg": "Ovo Encubado",
+    "WebGun": "Pistola de Teia",
+    "RainStone": "Pedra da Chuva",
+    "BubbleConch": "Búzio de Bolhas",
+    "JellyfishResonator": "Ressonador de Água-viva",
+    "SeaTurtlesBulwak": "Baluarte da Tartaruga Marinha"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
     "IcyArrow": "A velocidade de movimento do inimigo é reduzida",
-    "IcyAxe": "Frio ao toque… pode congelar suas mãos",
-    "IcyPickaxe": "Frio ao toque… pode congelar suas mãos",
+    "IcyAxe": "Frio ao toque... pode congelar suas mãos",
+    "IcyPickaxe": "Frio ao toque... pode congelar suas mãos",
     "IcyShard": "Frio ao toque",
     "TheSnowball": "Está muito quente ou muito frio. De qualquer forma, dói MUITO",
 
@@ -72,7 +74,12 @@
     "SapphireRing": "Aumenta o dano mágico em 1",
     "TheRing": "Aumenta todo o dano em 2\nAumenta a penetração de armadura em 2\nAumenta a chance de acerto crítico em 4%",
 
-    "IncubatedEgg": "'Uma macabra incubação nesse ovo'\nAtaques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas"
+    "IncubatedEgg": "'Uma macabra incubação nesse ovo'\nAtaques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas",
+    "WebGun": "Dispara um glóbulo pegajoso de teia úmida",
+    "RainStone": "'Dizem que esta pedra estranha foi arrancada de uma entidade que podia controlar os mares...'\nAtiva ou dissipa uma tempestade",
+    "BubbleConch": "Cria uma barragem de bolhas que erguem inimigos",
+    "JellyfishResonator": "Invoca a Rainha Água-viva\nSó pode ser usado na praia durante o dia",
+    "SeaTurtlesBulwak": "Defesa aumentada em 2\nReceber dano libera um orbe tocável que recupera 25% do dano recebido"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -87,5 +94,18 @@
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"
+  },
+  "NPCName": {
+    "Blacksmith": "Ferreiro",
+    "ArmyAnt": "Formiga Soldado",
+    "FireAnt": "Formiga Flamejante",
+    "StrangeBulb": "Bulbo Estranho",
+    "MahoganyEnt": "Guardião de Mogno"
+  },
+  "Bestiary": {
+    "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
+    "FireAnt": "Saiu direto do inferno, tal formiga em chamas que busca se aquecer",
+    "StrangeBulb": "Uma espécie de planta bizarra que ainda não atingiu a maturidade. Talvez seja melhor assim",
+    "MahoganyEnt": "Uma massa senciente de mogno que busca proteger a flora da selva por meios mortais"
   }
 }

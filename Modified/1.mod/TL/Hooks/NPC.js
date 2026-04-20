@@ -155,6 +155,8 @@ export class NPCHooks {
                 // AnimationType
                 const modnpc = NPCLoader.getModNPC(self.type);
                 if (modnpc && modnpc.AnimationType > 0) {
+                    const oldTexture = Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType];
+                    Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = Terraria.GameContent.TextureAssets.Npc[modnpc.Type];
                     self.type = modnpc.AnimationType;
                     if (!this.LoadedTypes.has(modnpc.AnimationType)) {
                         Terraria.Main.instance.LoadNPC(modnpc.AnimationType);
@@ -162,6 +164,7 @@ export class NPCHooks {
                     }
                     original(self);
                     self.type = modnpc.Type;
+                    Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = oldTexture;
                     NPCLoader.FindFrame(self, frameHeight);
                     return;
                 }

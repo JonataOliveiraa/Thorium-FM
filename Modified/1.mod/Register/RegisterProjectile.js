@@ -14,3 +14,7 @@ export { IncubatedSpider } from "../Content/Projectiles/IncubatedSpider.js"
 //Ranged
 export { WebGunPro1 } from "../Content/Projectiles/WebGunPro1.js"
 export { WebGunPro2 } from "../Content/Projectiles/WebGunPro2.js"
+
+//NPC
+export { StrangeBulbPro } from "../Content/Projectiles/NPC/StrangeBulbPro.js"
+export { EarthenRock } from "../Content/Projectiles/NPC/EarthenRock.js"
