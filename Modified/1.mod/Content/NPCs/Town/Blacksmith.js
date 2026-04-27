@@ -27,7 +27,7 @@ export class Blacksmith extends ModNPC {
     Terraria.ID.NPCID.Sets.DangerDetectRange[this.Type] = 120;
     Terraria.ID.NPCID.Sets.ExtraFramesCount[this.Type] = 9;
     Terraria.ID.NPCID.Sets.AttackFrameCount[this.Type] = 4;
-    Terraria.ID.NPCID.Sets.AttackType[this.Type] = 3;
+    Terraria.ID.NPCID.Sets.AttackType[this.Type] = 1;
     Terraria.ID.NPCID.Sets.AttackTime[this.Type] = 20;
     Terraria.ID.NPCID.Sets.AttackAverageChance[this.Type] = 10;
     Terraria.ID.NPCID.Sets.HatOffsetY[this.Type] = 2;
@@ -41,7 +41,8 @@ export class Blacksmith extends ModNPC {
     this.BestiaryRarityStars = 3;
 
     new NPCHappiness(this.Type)
-      .SetNPCAffection(Terraria.ID.NPCID.Pricess, AffectionLevel.Like)
+      .SetNPCAffection(Terraria.ID.NPCID.Demolitionist, AffectionLevel.Love)
+      .SetNPCAffection(Terraria.ID.NPCID.GoblinTinkerer, AffectionLevel.Like)
       .SetBiomeAffection(Terraria.ID.BiomeID.Underground, AffectionLevel.Like);
   }
 
@@ -111,10 +112,6 @@ export class Blacksmith extends ModNPC {
     return Terraria.NPC.downedBoss1;
   }
 
-  CheckConditions(left, right, top, bottom) {
-    return bottom <= Terraria.Main.worldSurface;
-  }
-
   GetChat(npc) {
     const keys = [
       'Blacksmith_1',
@@ -140,48 +137,29 @@ export class Blacksmith extends ModNPC {
   SetupShop(npc, player, npcShop) {
     npcShop.Clear();
 
-    npcShop.AddRange([
-      ModItem.getTypeByName('IcyShard')
-      ]);
-    if (!Terraria.Main.dayTime) {
-      npcShop.Add(ModItem.getTypeByName('ExampleYoyo'));
+    if (!Terraria.Main.hardMode) {
+      npcShop.AddRange([
+        ModItem.getTypeByName("SteelHelmet"),
+        ModItem.getTypeByName("SteelChestplate"),
+        ModItem.getTypeByName("SteelGreaves"),
+        ModItem.getTypeByName("SteelBlade"),
+        ModItem.getTypeByName("SteelAxe"),
+        ModItem.getTypeByName("SteelPickaxe"),
+        ModItem.getTypeByName("SteelHammer"),
+        ModItem.getTypeByName("SteelBow"),
+        Terraria.ID.ItemID.DyeVat,
+      ])
     }
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {
     if (!Terraria.Main.dayTime) {
       shopHelper._currentPriceAdjustment = 1000;
-      shopHelper._currentHappiness = ModLocalization.Translate('TownNPCMood.ExamplePerson.ExampleSpecialMoodText');
+      shopHelper._currentHappiness = ModLocalization.Translate('TownNPCMood.Blacksmith.SpecialMoodText');
     }
   }
 
   CanGoToStatue(npc, toKingStatue) {
     return toKingStatue;
-  }
-
-  TownNPCAttack(npc, justStarted, attackTime) {
-    if (!justStarted) return;
-
-    let target = null;
-    for (let i = 0; i < 200; i++) {
-      let npc2 = Terraria.Main.npc[i];
-      if (npc2.active && !npc2.friendly && npc2.damage > 0 && (npc2.noTileCollide || Terraria.Collision['bool CanHit(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)'](npc.Center, 0, 0, npc2.Center, 0, 0))) {
-        target = npc2;
-        break;
-      }
-    }
-    if (!target) return;
-
-    const speed = Vector2.Multiply(Vector2.Normalize(Vector2.Subtract(target.Center, npc.Center)), 10);
-
-    NewProjectile(
-      Terraria.Projectile.GetNoneSource(),
-      npc.Center.X, npc.Center.Y,
-      speed.X, speed.Y,
-      ModProjectile.getTypeByName('IceCubePro'),
-      npc.damage, 3,
-      Terraria.Main.myPlayer,
-      0, 0, 0, null
-    );
   }
 }

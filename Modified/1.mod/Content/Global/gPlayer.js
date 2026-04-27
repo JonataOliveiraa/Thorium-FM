@@ -13,8 +13,12 @@ export class gPlayer extends ModPlayer {
     }
 
     //Armor, Accessories, etc.
+    LifeRecoveryBuffDelayTime = 0
+    LavaHugBuffDelayTime = 0
+
     LivingWoodAcornArmorBuff = true
     IncubatedEggBuff = true
+
     IcyArmorBuff = true
     IcyArmorPro = false
 

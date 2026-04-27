@@ -39,6 +39,13 @@ export class GildedBat extends ModNPC {
         bestiaryEntry.Info.Add(FlavorText);
     }
 
+    SpawnChance(info) {
+        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.SpawnTileY < Terraria.Main.maxTilesY - 200) {
+            return 0.03;
+        }
+        return 0;
+    }
+
     PostAI(npc) {
         if (Math.random() < 0.15) {
             NewDust(npc.position, npc.width, npc.height, 43, 0, 0, 0, Color.Gold, 1.2);

@@ -1,14 +1,25 @@
 {
   "ItemName": {
+    "Dissolve": "Dissolve",
+    "Freeze": "Freeze",
+    "Ignite": "Ignite",
+    "Poison": "Poison",
+    "Siphon": "Siphon",
+    "BloomingBlade": "Blooming Blade",
+    "BloomingBow": "Blooming Bow",
+    "BloomingStaff": "Blooming Staff",
     "ThoriumOre": "Thorium Ore",
     "LifeQuartz": "Life Quartz",
     "LeakyMarineBlock": "Leaky Marine Block",
     "ThoriumAnvil": "Thorium Anvil",
     "MossyGoldOre": "Mossy Gold Ore",
     "MossyPlatinumOre": "Mossy Platinum Ore",
+    "DepthChest": "Depth Chest",
+    "ScarletChest": "Scarlet Chest",
+    "ScarletBlock": "Scarlet Block",
+    "BloodAltar": "Blood Altar",
     "Aquaite": "Aquaite",
     "Aquamarine": "Aquamarine",
-
     "ThoriumBar": "Thorium Bar",
     "IcyShard": "Icy Shard",
     "Blood": "Blood",
@@ -16,7 +27,6 @@
     "MarineKelp": "Marine Kelp",
     "Petal": "Petal",
     "Yew Wood": "Yew Wood",
-
     "FrostFury": "Frost Fury",
     "IceCube": "Ice Cube",
     "IcyArrow": "Icy Arrow",
@@ -26,17 +36,24 @@
     "IcyHeadgear": "Icy Headgear",
     "IcyMail": "Icy Mail",
     "IcyGreaves": "Icy Greaves",
-
     "LivingWoodAcorn": "Living Wood Acorn",
     "LivingWoodChestguard": "Living Wood Chestguard",
     "LivingWoodLeggings": "Living Wood Leggings",
     "LivingWoodHelmet": "Living Wood Helmet",
     "LivingWoodSap": "Living Wood Sap",
-
     "SilkHat": "Silk Hat",
     "SilkTabart": "Silk Tabart",
     "SilkLeggings": "Silk Leggings",
-
+    "BlacksmithsBarrier": "Blacksmith's Barrier",
+    "SteelAxe": "Steel Axe",
+    "SteelBlade": "Steel Blade",
+    "SteelBow": "Steel Bow",
+    "SteelChestplate": "Steel Chestplate",
+    "SteelGreaves": "Steel Greaves",
+    "SteelHammer": "Steel Hammer",
+    "SteelHelmet": "Steel Helmet",
+    "SteelPickaxe": "Steel Pickaxe",
+    "ArcaneArmorFabricator": "Arcane Armor Fabricator",
     "AmberRing": "Amber Ring",
     "AmethystRing": "Amethyst Ring",
     "DiamondRing": "Diamond Ring",
@@ -44,13 +61,24 @@
     "RubyRing": "Ruby Ring",
     "SapphireRing": "Sapphire Ring",
     "TheRing": "The Ring",
-
+    "CopperBuckler": "Copper Buckler",
+    "GoldAegis": "Gold Aegis",
+    "IronShield": "Iron Shield",
+    "LeadShield": "Lead Shield",
+    "PlatinumAegis": "Platinum Aegis",
+    "SeaTurtlesBulwark": "Sea Turtle's Bulwark",
+    "SilverBulwark": "Silver Bulwark",
+    "TinBuckler": "Tin Buckler",
+    "TungstenBulwark": "Tungsten Bulwark",
     "IncubatedEgg": "Incubated Egg",
+    "LeatherSheath": "Leather Sheath",
     "WebGun": "Webgun",
     "RainStone": "Rain Stone",
     "BubbleConch": "Bubble Conch",
     "JellyfishResonator": "Jellyfish Resonator",
-    "SeaTurtlesBulwak": "Sea Turtle's Bulwark"
+    "MagmaLocket": "Magma Locket",
+    "SpringSteps": "Spring Steps",
+    "MixTape": "Mix Tape"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -59,13 +87,11 @@
     "IcyPickaxe": "Cold to the touch... it might freeze your hands",
     "IcyShard": "Cold to the touch",
     "TheSnowball": "It's either really hot or really cold. Either way it REALLY hurts",
-
     "LivingWoodAcorn": "Summons a living tree sprout as your chosen familiar\nYou may only have one familiar summoned at a time\nRight click to select various actions for your familiar\nLeft click to perform your selected action",
     "LivingWoodChestguard": "Summon damage increased by 10%",
     "LivingWoodLeggings": "Summon damage increased by 10%",
     "LivingWoodHelmet": "Increases minion knockback",
     "LivingWoodSap": "Increases minion damage and knockback by 1",
-
     "AmberRing": "Increases summon damage by 1",
     "AmethystRing": "Increases armor penetration by 1",
     "DiamondRing": "Increases critical strike chance by 2%",
@@ -73,24 +99,38 @@
     "RubyRing": "Increases melee damage by 1",
     "SapphireRing": "Increases magic damage by 1",
     "TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%",
-
     "IncubatedEgg": "'A gruesome incubation has occurred'\nMinion and sentry attacks have a 10% chance to generate a swarm of spiders",
+    "LeatherSheath": "Sword, axe, and pickaxe strikes deal {0}% damage and the critical strike chance is increased by {1}%\nThe weapon must be held and not used for {2} seconds",
     "WebGun": "Fires out a sticky globule of wet web",
     "RainStone": "'It's said that this strange stone was torn from an entity that could control the seas...'\nActivates or cancels a rainstorm",
     "BubbleConch": "Creates a barrage of enemy lifting bubbles",
     "JellyfishResonator": "Summons The Queen Jellyfish\nOnly usable on the beach during the day",
-    "SeaTurtlesBulwak": "Defense increased by 2\nTaking damage releases a touchable mote that recovers 25% of the damage you took"
+    "SeaTurtlesBulwark": "Defense increased by 2\nTaking damage releases a touchable mote that recovers 25% of the damage you took",
+    "ArcaneArmorFabricator": "A mystical device that can fabricate arcane items",
+    "MagmaLocket": "Upon contact with lava grants the Lava's Embrace effect for 10 seconds\n'Seems to be made out of a familiar material'",
+    "BloodAltar": "Used to summon the Viscount\nConsumes 5 Profane Fragments",
+    "SpringSteps": "Allows you to a triple hop super jump",
+    "MixTape": "Symphonic critical strikes cause an eruption of molten music notes"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
     "Icy": "An icy aura surrounds you, scorching enemies with freezing flames",
-    "Silk": "25% increased magic damage while above 90% maximum mana"
+    "Silk": "25% increased magic damage while above 90% maximum mana",
+    "Steel": "Reduces all damage received by 8%"
   },
   "BuffName": {
-    "LivingWoodAcornBuff": "Sprout Loyalty"
+    "LivingWoodAcornBuff": "Sprout Loyalty",
+    "LifeRecoveryBuff": "Life Recovery",
+    "StunnedBuff": "StunnedBuff",
+    "MagmaCharmBuff": "Magma Charm",
+    "LavaHugBuff": "Lava's Embrace"
   },
   "BuffDescription": {
-    "LivingWoodAcornBuff": "This little guy is giving his all to protect the world"
+    "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
+    "LifeRecoveryBuff": "Gradually recovers health over time",
+    "StunnedBuff": "Incapable of moving",
+    "MagmaCharmBuff": "Your body has shrunk to a magma larva",
+    "LavaHugBuff": "Increases life and mana regeneration every 2 seconds"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
@@ -104,11 +144,40 @@
   },
   "Bestiary": {
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
+    "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady.",
     "FireAnt": " It emerged straight from hell, like a burning ant seeking warmth",
     "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
     "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
-
-    "EarthenGolem": "Golem Terroso",
-    "EarthenBat": "Morcego Terroso"
+    "EarthenGolem": "Earthen Golem",
+    "EarthenBat": "Earthen Bat",
+    "GildedBat": "Gilded Bat",
+    "GildedLycan": "Gilded Lycan",
+    "GildedSlime": "Gilded Slime",
+    "GildedSlimeling": "Gilded Slimeling"
+  },
+  "NPCChat": {
+    "Blacksmith_1": "Need something forged?",
+    "Blacksmith_2": "A good blade makes all the difference.",
+    "Blacksmith_3": "I can hear the metal calling already.",
+    "Blacksmith_4": "Bring me materials, and I’ll make them worth your time."
+  },
+  "TownNPCMood": {
+    "Blacksmith": {
+      "Content": "Strange... the forge hasn't sung a single note today.",
+      "DislikeBiome": "Something about {0} throws off my rhythm.",
+      "DislikeCrowded": "Too many bodies, too much noise... ruins the craft.",
+      "DislikeNPC": "I'd rather keep my distance from {0}.",
+      "HateBiome": "{0} suffocates the flame. I won't work like this.",
+      "HateCrowded": "This chaos? No forge can breathe in a place like this.",
+      "HateNPC": "{0} grinds my patience thinner than steel.",
+      "LikeBiome": "{0}... not bad. The forge holds steady here.",
+      "LikeNPC": "{0} knows the value of true craftsmanship.",
+      "LoveBiome": "Now this—{0}—this is where a forge belongs.",
+      "LoveNPC": "{0} has earned my respect.",
+      "LoveSpace": "Good space, steady air... the forge can finally breathe.",
+      "NoHome": "A forge needs a proper home. This won’t do.",
+      "FarFromHome": "Being this far from my tools feels... wrong.",
+      "SpecialMoodText": "I don’t hammer steel under moonlight. Nothing good comes from it."
+    }
   }
 }

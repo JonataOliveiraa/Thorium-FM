@@ -13,6 +13,7 @@ import * as System from "./RegisterSystem.js"
 import * as Biomes from "./RegisterBiome.js"
 import * as Backgrounds from "./RegisterBackgrounds.js"
 import * as NPC from "./RegisterNPC.js"
+import * as Mounts from "./RegisterMounts.js"
 
 export function RegisterAll() {
   ModSystem.register(ModLoader);
@@ -21,11 +22,12 @@ export function RegisterAll() {
     Backgrounds,
     Biomes,
     Buffs,
+    NPC,
     Projectiles,
     Materials,
     Items,
     Menus,
-    NPC,
+    Mounts,
     Global
 
   ])

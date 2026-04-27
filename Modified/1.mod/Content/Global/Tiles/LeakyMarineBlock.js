@@ -17,6 +17,7 @@ export class LeakyMarineBlock extends GlobalTile {
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(24, 45, 94);
         
         Terraria.Main.tileMergeDirt[this.Type] = true;
+        Terraria.ID.TileID.Sets.UsesADifferentTileTypeForNPCSpawning[this.Type] = false;
     }
 
     static InjectTexture() {

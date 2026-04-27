@@ -155,8 +155,9 @@ export class NPCHooks {
                 // AnimationType
                 const modnpc = NPCLoader.getModNPC(self.type);
                 if (modnpc && modnpc.AnimationType > 0) {
+                    const isTownNPC = self.townNPC;
                     const oldTexture = Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType];
-                    Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = Terraria.GameContent.TextureAssets.Npc[modnpc.Type];
+                    if (!isTownNPC) Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = Terraria.GameContent.TextureAssets.Npc[modnpc.Type];
                     self.type = modnpc.AnimationType;
                     if (!this.LoadedTypes.has(modnpc.AnimationType)) {
                         Terraria.Main.instance.LoadNPC(modnpc.AnimationType);
@@ -164,7 +165,7 @@ export class NPCHooks {
                     }
                     original(self);
                     self.type = modnpc.Type;
-                    Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = oldTexture;
+                    if (!isTownNPC) Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = oldTexture;
                     NPCLoader.FindFrame(self, frameHeight);
                     return;
                 }
@@ -457,10 +458,10 @@ export class NPCHooks {
         if (this.HookList.UpdateNPC_BuffApplyDOTs(info)) {
             Terraria.NPC['void UpdateNPC_BuffApplyDOTs()'
             ].hook((original, self) => {
-                original(self);
                 if (this.BlackListedNPCs.has(self.type)) return;
                 if (self.dontTakeDamage) return;
                 NPCLoader.UpdateLifeRegen(self, self.lifeRegenExpectedLossPerSecond);
+                original(self);
             });
         }
         

@@ -46,7 +46,7 @@ export class AquaticDepths extends ModBiome {
         }
     }
 
-    Generate() {
+        Generate() {
         const { Main, ID, WorldGen } = Terraria;
         const { TileID, WallID, ItemID } = ID;
 
@@ -95,13 +95,13 @@ export class AquaticDepths extends ModBiome {
         const maxSafeX = Main.maxTilesX - radiusX - 60;
         const centerX = Math.max(minSafeX, Math.min(maxSafeX, fendaX));
 
-        const ballCenterY = oceanFloor + radiusY + Math.floor(60 * scale);
+        const ballCenterY = oceanFloor + radiusY + Math.floor(25 * scale);
         const ballTop = ballCenterY - radiusY;
         const ballBottom = ballCenterY + radiusY;
         const ballLeft = centerX - radiusX;
         const ballRight = centerX + radiusX;
 
-        const biomeWall = WallID.PoopWall;
+        const biomeWall = WallID.CorruptSandstone;
 
         const fillChest = (chestIndex) => {
             const storage = InventoryStorage.new();
@@ -158,6 +158,7 @@ export class AquaticDepths extends ModBiome {
             storage.SyncToChest();
         };
 
+        // Geração da elipse principal (bioma)
         for (let x = ballLeft - 20; x <= ballRight + 20; x++) {
             for (let y = ballTop - 20; y <= ballBottom + 20; y++) {
                 if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
@@ -180,6 +181,7 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
+        // Cavidades internas (opcional)
         const amountOfHoles = Math.floor(55 * scale); 
         let groundChestsTarget = Rand.Next(1, 3);
         let platformChestsTarget = Rand.Next(5, 8) - groundChestsTarget; 
@@ -225,9 +227,8 @@ export class AquaticDepths extends ModBiome {
             if (platChestsPlaced < platformChestsTarget && (forceChest || Rand.NextChance(0.30))) {
                 const chestX = Math.floor(hx);
                 const chestY = Math.floor(hy);
-                const platExtra = Rand.Next(1, 4);
 
-                for (let px = chestX - 1 - platExtra; px <= chestX + 2 + platExtra; px++) {
+                for (let px = chestX - 3; px <= chestX + 4; px++) {
                     const tile = Main.tile.get_Item(px, chestY);
                     tile['void active(bool active)'](true);
                     tile.type = TileID.EasterBlock;
@@ -235,12 +236,20 @@ export class AquaticDepths extends ModBiome {
                     tile['void halfBrick(bool halfBrick)'](false);
                     tile['void slope(byte slope)'](0);
                     
-                    if (Math.abs(px - chestX) < platExtra) {
+                    if (px >= chestX - 1 && px <= chestX + 2) {
                         const tileBelow = Main.tile.get_Item(px, chestY + 1);
                         tileBelow['void active(bool active)'](true);
                         tileBelow.type = TileID.EasterBlock;
                         tileBelow.wall = biomeWall;
                         tileBelow['void slope(byte slope)'](0);
+                    }
+                }
+
+                for (let cx = chestX; cx <= chestX + 1; cx++) {
+                    for (let cy = chestY - 2; cy <= chestY - 1; cy++) {
+                        const clearTile = Main.tile.get_Item(cx, cy);
+                        clearTile['void active(bool active)'](false);
+                        clearTile.liquid = 0;
                     }
                 }
 
@@ -264,6 +273,13 @@ export class AquaticDepths extends ModBiome {
             }
             
             if (Main.tileSolid[Main.tile.get_Item(gx, gy + 1).type] && Main.tileSolid[Main.tile.get_Item(gx + 1, gy + 1).type]) {
+                
+                for (let cx = gx; cx <= gx + 1; cx++) {
+                    for (let cy = gy - 1; cy <= gy; cy++) {
+                        Main.tile.get_Item(cx, cy)['void active(bool active)'](false);
+                    }
+                }
+
                 let chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](gx, gy, TileID.Containers2, false, 3);
                 if (chestIndex !== -1) {
                     groundChestsPlaced++;
@@ -272,37 +288,224 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        let currentX = fendaX;
-        const shaftWidth = Math.floor(10 * scale);
-        const shaftEnd = ballCenterY - Math.floor(radiusY / 2); 
+                // --- DETERMINAR O PONTO DE CONTATO E O FIM DO TÚNEL (ANTECIPADO) ---
+        let contactY = null;
+        for (let y = oceanFloor; y <= ballTop + 50; y++) {
+            const distToBiomeCenter = Math.pow((fendaX - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2);
+            if (distToBiomeCenter < 1.0) {
+                contactY = y;
+                break;
+            }
+        }
+        if (contactY === null) contactY = ballTop;
 
-        for (let y = oceanFloor; y <= shaftEnd; y++) {
-            let depthFactor = Math.min(1, (y - oceanFloor) / 80);
-            currentX += (Math.sin(y * 0.04) * 2.0 + Math.cos(y * 0.02) * 1.5) * depthFactor;
-            
-            const shaftLeft = Math.floor(currentX - shaftWidth / 2);
-            const shaftRight = Math.floor(currentX + shaftWidth / 2);
+        const tunnelEndY = Math.min(contactY + 30, Main.maxTilesY - 10);
 
-            for (let x = shaftLeft - 6; x <= shaftRight + 6; x++) {
-                if (x < 0 || x >= Main.maxTilesX) continue;
-                const tile = Main.tile.get_Item(x, y);
-                
-                if (tile['bool active()']()) {
-                    tile.type = TileID.EasterBlock;
-                    tile['void halfBrick(bool halfBrick)'](false);
-                    tile['void slope(byte slope)'](0);
-                }
-                if (y > oceanFloor + 15) {
-                    tile.wall = biomeWall;
+        // --- GERAR PRIMEIRO A CAVIDADE ELÍPTICA (COM BORDAS SÓLIDAS) ---
+        const cavityCenterX = fendaX;
+        const cavityCenterY = tunnelEndY;
+        const baseRadiusX = Math.floor(28 * scale);
+        const baseRadiusY = Math.floor(32 * scale);
+        const verticalOffset = Math.floor(8 * scale);
+        const effectiveCenterY = cavityCenterY - verticalOffset;
+        const borderThickness = 2;
+
+        // Criar a cavidade (borda sólida + interior oco)
+        for (let x = cavityCenterX - baseRadiusX - borderThickness - 5; x <= cavityCenterX + baseRadiusX + borderThickness + 5; x++) {
+            for (let y = effectiveCenterY - baseRadiusY - borderThickness - 5; y <= effectiveCenterY + baseRadiusY + borderThickness + 5; y++) {
+                if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
+
+                const dx = x - cavityCenterX;
+                const dy = y - effectiveCenterY;
+                const angle = Math.atan2(dy, dx);
+                const edgeNoise = Math.sin(angle * 4) * 0.15 + Math.cos(angle * 7) * 0.1 + Math.sin(angle * 13) * 0.05;
+                let dist = Math.pow(dx / baseRadiusX, 2) + Math.pow(dy / baseRadiusY, 2);
+                const radialNoise = 0.08 * Math.sin(angle * 8) + 0.04 * Math.cos(angle * 18);
+                dist += radialNoise;
+
+                if (dist <= 1 + edgeNoise) {
+                    const tile = Main.tile.get_Item(x, y);
+                    const isBorder = (dist > (1 - borderThickness / Math.max(baseRadiusX, baseRadiusY)));
+                    if (isBorder) {
+                        tile['void active(bool active)'](true);
+                        tile.type = TileID.EasterBlock;
+                        tile.wall = biomeWall;
+                        tile['void halfBrick(bool halfBrick)'](false);
+                        tile['void slope(byte slope)'](0);
+                    } else {
+                        tile['void active(bool active)'](false);
+                        tile.wall = biomeWall;
+                    }
                 }
             }
+        }
+
+        // --- AGORA ESCAVAR O TÚNEL (DESDE O OCEANO ATÉ O FIM DA CAVIDADE) ---
+        const totalShaftHeight = tunnelEndY - oceanFloor;
+        const maxWidth = 12 * scale;
+        const minWidth = 6 * scale;
+
+        for (let y = oceanFloor; y <= tunnelEndY; y++) {
+            const progress = Math.min(1, (y - oceanFloor) / totalShaftHeight);
+            const currentWidth = Math.floor(maxWidth - (maxWidth - minWidth) * progress);
+            const microNoise = Math.sin(y * 0.3) * 0.8 + Math.cos(y * 0.7) * 0.5;
+            const shaftLeft = Math.floor(fendaX - currentWidth / 2 + microNoise);
+            const shaftRight = Math.floor(fendaX + currentWidth / 2 + microNoise);
+            const shellThickness = 3;
+
+            const distToBiomeCenter = Math.pow((fendaX - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2);
+            const isInsideBiome = (distToBiomeCenter < 1.0);
+
+            let easterRatio = 0;
+            if (isInsideBiome) {
+                easterRatio = 0.85;
+            } else if (contactY && y >= contactY - 15) {
+                const nearProgress = (y - (contactY - 15)) / 15;
+                easterRatio = Math.min(0.85, nearProgress * 0.85);
+            }
+
+            // Paredes laterais (casca)
+            for (let x = shaftLeft - shellThickness; x <= shaftRight + shellThickness; x++) {
+                if (x < 0 || x >= Main.maxTilesX) continue;
+                const tile = Main.tile.get_Item(x, y);
+                tile['void active(bool active)'](true);
+                tile['void halfBrick(bool halfBrick)'](false);
+                tile['void slope(byte slope)'](0);
+
+                if (easterRatio > 0 && Rand.NextFloat(0, 1) < easterRatio) {
+                    tile.type = TileID.EasterBlock;
+                } else {
+                    tile.type = TileID.HardenedSand;
+                }
+
+                if (y > oceanFloor + 15) tile.wall = biomeWall;
+            }
+
+            // Escavar o centro (remove qualquer bloco, inclusive parte da borda da cavidade)
             for (let x = shaftLeft; x <= shaftRight; x++) {
                 if (x < 0 || x >= Main.maxTilesX) continue;
                 const tile = Main.tile.get_Item(x, y);
                 tile['void active(bool active)'](false);
+                if (y > oceanFloor + 15) tile.wall = biomeWall;
             }
         }
 
+        // --- GARANTIR QUE A CONEXÃO ENTRE TÚNEL E CAVIDADE ESTEJA LIVRE ---
+        // (reforço, mas o túnel já removeu os blocos)
+        for (let x = fendaX - 6; x <= fendaX + 6; x++) {
+            for (let y = tunnelEndY - 5; y <= tunnelEndY + 5; y++) {
+                if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
+                const dx = x - cavityCenterX;
+                const dy = y - effectiveCenterY;
+                const distToCavity = Math.pow(dx / baseRadiusX, 2) + Math.pow(dy / baseRadiusY, 2);
+                if (distToCavity > 0.95) continue;
+                Main.tile.get_Item(x, y)['void active(bool active)'](false);
+            }
+        }
+
+        // --- COLOCAR UM BAÚ DENTRO DA CAVIDADE ---
+        let chestPlacedInCavity = false;
+        let chestX = cavityCenterX;
+        let chestY = effectiveCenterY + Math.floor(baseRadiusY * 0.6);
+        let foundSpot = false;
+        for (let yOff = 0; yOff < 15 && !foundSpot; yOff++) {
+            const testY = chestY + yOff;
+            if (testY >= Main.maxTilesY - 2) break;
+            const tileGround = Main.tile.get_Item(chestX, testY + 1);
+            const tileSpace1 = Main.tile.get_Item(chestX, testY);
+            const tileSpace2 = Main.tile.get_Item(chestX + 1, testY);
+            if (Main.tileSolid[tileGround.type] && !tileSpace1['bool active()']() && !tileSpace2['bool active()']()) {
+                chestY = testY;
+                foundSpot = true;
+                break;
+            }
+        }
+        if (!foundSpot) {
+            chestY = effectiveCenterY + 5;
+        }
+
+        for (let cx = chestX; cx <= chestX + 1; cx++) {
+            for (let cy = chestY - 1; cy <= chestY; cy++) {
+                const clearTile = Main.tile.get_Item(cx, cy);
+                clearTile['void active(bool active)'](false);
+                clearTile.liquid = 0;
+            }
+        }
+
+        let chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](chestX, chestY, TileID.Containers2, false, 3);
+        if (chestIndex !== -1) {
+            fillChest(chestIndex);
+            chestPlacedInCavity = true;
+        }
+
+        if (!chestPlacedInCavity) {
+            for (let attempt = 0; attempt < 10; attempt++) {
+                const altX = cavityCenterX + Rand.Next(-8, 9);
+                const altY = effectiveCenterY + Rand.Next(5, 20);
+                for (let cx = altX; cx <= altX + 1; cx++) {
+                    for (let cy = altY - 1; cy <= altY; cy++) {
+                        const clearTile = Main.tile.get_Item(cx, cy);
+                        clearTile['void active(bool active)'](false);
+                        clearTile.liquid = 0;
+                    }
+                }
+                chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](altX, altY, TileID.Containers2, false, 3);
+                if (chestIndex !== -1) {
+                    fillChest(chestIndex);
+                    break;
+                }
+            }
+        }
+        
+        // Caso extremo: se por algum motivo não conseguiu colocar, tenta novamente em outra posição
+        if (!chestPlacedInCavity) {
+            for (let attempt = 0; attempt < 10; attempt++) {
+                const altX = cavityCenterX + Rand.Next(-8, 9);
+                const altY = effectiveCenterY + Rand.Next(5, 20);
+                for (let cx = altX; cx <= altX + 1; cx++) {
+                    for (let cy = altY - 1; cy <= altY; cy++) {
+                        const clearTile = Main.tile.get_Item(cx, cy);
+                        clearTile['void active(bool active)'](false);
+                        clearTile.liquid = 0;
+                    }
+                }
+                chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](altX, altY, TileID.Containers2, false, 3);
+                if (chestIndex !== -1) {
+                    fillChest(chestIndex);
+                    break;
+                }
+            }
+        }
+        
+        // Garantir que a conexão túnel-cavidade esteja completamente aberta
+        for (let x = fendaX - 6; x <= fendaX + 6; x++) {
+            for (let y = tunnelEndY - 5; y <= tunnelEndY + 5; y++) {
+                if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
+                const dx = x - cavityCenterX;
+                const dy = y - effectiveCenterY;
+                const distToCavity = Math.pow(dx / baseRadiusX, 2) + Math.pow(dy / baseRadiusY, 2);
+                if (distToCavity > 0.95) continue;
+                Main.tile.get_Item(x, y)['void active(bool active)'](false);
+            }
+        }
+        
+        // Selar as beiradas da transição do bioma
+        for (let y = ballTop - 15; y <= ballTop + 5; y++) {
+            const distToBiomeCenter = Math.pow((fendaX - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2);
+            if (distToBiomeCenter >= 0.95 && distToBiomeCenter <= 1.1) {
+                for (let x = fendaX - 10; x <= fendaX + 10; x++) {
+                    if (x < 0 || x >= Main.maxTilesX) continue;
+                    const tile = Main.tile.get_Item(x, y);
+                    if (!tile['bool active()']() || tile.type !== TileID.EasterBlock) {
+                        tile['void active(bool active)'](true);
+                        tile.type = TileID.EasterBlock;
+                        tile.wall = biomeWall;
+                    }
+                }
+            }
+        }
+
+        // Geração de minérios, estalactites e água (inalterado)
         const goldOre = WorldGen.SavedOreTiers.Gold;
         const mossyGoldOre = goldOre === 8 ? TileID.AncientPinkBrick : TileID.ForbiddenBlock;
 
@@ -410,7 +613,7 @@ export class AquaticDepths extends ModBiome {
                 const dy = y - ballCenterY;
                 const dist = Math.pow(dx / radiusX, 2) + Math.pow(dy / radiusY, 2);
 
-                if (dist <= 1.1 || (y <= ballTop && Math.abs(x - currentX) < 100)) {
+                if (dist <= 1.1 || (y <= ballTop && Math.abs(x - fendaX) < 100)) {
                     const tile = Main.tile.get_Item(x, y);
                     if (!tile['bool active()']() || tile.type === TileID.Stalactite1x2Echo || tile.type === TileID.Tables2) {
                         tile.liquid = 255;
@@ -424,11 +627,8 @@ export class AquaticDepths extends ModBiome {
     GetOceanFloor(x) {
         const { Main } = Terraria;
         
-        // --- CORREÇÃO DO EIXO Y (Ignora Nuvens/Ilhas Flutuantes) ---
-        // Desce um pouco abaixo da altura máxima onde as ilhas flutuantes costumam aparecer
         const safeStartY = Math.floor(Main.worldSurface - 80);
 
-        // Primeiro tenta achar água (o oceano real)
         for (let y = safeStartY; y < Main.worldSurface + 150; y++) {
             const tile = Main.tile.get_Item(x, y);
             if (tile['bool active()']() && Main.tileSolid[tile.type]) {
@@ -437,7 +637,6 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        // Se o oceano secou ou o Sonar não pegou água na ponta da praia, pega o chão sólido
         for (let y = safeStartY; y < Main.worldSurface + 150; y++) {
             const tile = Main.tile.get_Item(x, y);
             if (tile['bool active()']() && Main.tileSolid[tile.type]) {

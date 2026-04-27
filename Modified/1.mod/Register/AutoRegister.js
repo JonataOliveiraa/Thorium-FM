@@ -11,6 +11,8 @@ import { ModBiome } from "../TL/ModBiome.js";
 import { ModSurfaceBackground } from "../TL/ModBackgrounds.js";
 import { UndergroundBackgroundLoader } from "../TL/Loaders/BackgroundLoaders.js";
 import { ModNPC } from "../TL/ModNPC.js";
+import { GlobalNPC } from "../TL/GlobalNPC.js";
+import { ModMount } from "../TL/ModMount.js";
 
 export function AutoRegister(mod) {
   if (typeof mod === "function") {
@@ -23,9 +25,11 @@ export function AutoRegister(mod) {
     else if (mod.prototype instanceof ModMenu) ModMenu.register(mod)
     else if (mod.prototype instanceof ModPlayer) ModPlayer.register(mod)
     else if (mod.prototype instanceof ModBuff) ModBuff.register(mod)
+    else if (mod.prototype instanceof ModMount) ModMount.register(mod)
     else if (mod.prototype instanceof ModNPC) ModNPC.register(mod)
     else if (mod.prototype instanceof GlobalLoot) GlobalLoot.register(mod)
     else if (mod.prototype instanceof GlobalTile) GlobalTile.register(mod)
+    else if (mod.prototype instanceof GlobalNPC) GlobalNPC.register(mod)
     else if (mod.prototype instanceof GlobalHooks) GlobalHooks.register(mod)
     else try { mod() } catch { }
   } else if (typeof mod === "object" && mod !== null) {

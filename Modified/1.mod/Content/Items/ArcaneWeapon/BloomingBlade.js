@@ -1,0 +1,34 @@
+import { Terraria } from './../../../TL/ModImports.js';
+import { ModItem } from './../../../TL/ModItem.js';
+import { ModBuff } from "./../../../TL/ModBuff.js";
+
+export class BloomingBlade extends ModItem {
+    constructor() {
+        super();
+        this.Texture = 'Items/ArcaneWeapon/' + this.constructor.name;
+    }
+    
+    SetDefaults() {
+        this.Item.melee = true;
+        
+        // (damage, knockback, crit);
+        this.SetWeaponValues(22, 6, 4);
+        // (useTime, autoReuse);
+        this.SetDefaultWeaponStyle(22, true);
+        
+        this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
+        this.Item.rare = Terraria.ID.ItemRarityID.Green;
+        this.Item.UseSound = Terraria.ID.SoundID.Item1;
+    }
+    
+   OnHitNPC(item, player, npc, damageDone, knockBack) {
+      player.AddBuff(ModBuff.getTypeByName('LifeRecoveryBuff'), 300, true);
+   }
+   
+       AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(ModItem.getTypeByName('Petal'), 8)
+      .AddTile(Terraria.ID.TileID.DyeVat)
+      .Register();
+  }
+}

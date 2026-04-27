@@ -11,6 +11,10 @@ import { AquaiteTile } from "../Tiles/AquaiteTile.js";
 import { AquamarineTile } from "../Tiles/AquamarineTile.js";
 import { DepthSatagmites } from "../Tiles/DepthSatagmites.js";
 import { MarineBolders } from "../Tiles/MarineBolders.js";
+import { ArcaneArmorFabricator } from "../Tiles/ArcaneArmorFabricator.js";
+import { ScarletTile } from "../Tiles/ScarletTile.js";
+import { Containers2 } from "../Tiles/Containers2.js";
+import { BloodAltar } from "../Tiles/BloodAltar.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -18,6 +22,8 @@ export class TextureReplace extends ModSystem {
   }
   
   SetupContent() {
+      Containers2.InjectTexture()
+
       ThoriumOreTile.InjectTexture()
       LifeQuartzTile.InjectTexture()
       ThoriumAnvil.InjectTexture()
@@ -30,6 +36,12 @@ export class TextureReplace extends ModSystem {
       AquamarineTile.InjectTexture()
       DepthSatagmites.InjectTexture()
       MarineBolders.InjectTexture()
+
+      ArcaneArmorFabricator.InjectTexture()
+      BloodAltar.InjectTexture()
+
+      ScarletTile.InjectTexture()
+      Containers2.InjectTexture()
   }
 }
 

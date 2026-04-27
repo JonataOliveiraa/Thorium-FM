@@ -5,6 +5,8 @@ import { Rand } from "../../../TL/Modules/Rand.js";
 import { AquaticDepths } from "../../Biomes/AquaticDepths.js";
 import { ChestStyle1 } from "../Enums/ChestStyle1.js";
 import { Terraria } from "../../../TL/ModImports.js";
+import { ScarletChestStructure } from "../../Structures/ScarletChestStructure.js";
+import { BloodChamberStructure } from "../../Structures/BloodChamberStructure.js";
 
 const { Main, WorldGen, Item, InventoryStorage } = Terraria
 
@@ -42,7 +44,10 @@ export class ChestInjection extends GlobalHooks {
             original(self);
 
             // 1. GERANDO BIOMAS
-            new AquaticDepths().Generate();
+            // new AquaticDepths().Generate();
+
+            new ScarletChestStructure().Generate()
+            new BloodChamberStructure().Generate()
 
             // 2. MAPEANDO TODOS OS BAÚS DO MUNDO DE UMA SÓ VEZ
             const chests = Main.chest;

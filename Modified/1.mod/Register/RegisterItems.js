@@ -31,11 +31,51 @@ export { SapphireRing } from "./../Content/Items/BasicAccessories/Rings/Sapphire
 export { TheRing } from "./../Content/Items/BasicAccessories/Rings/TheRing.js";
 export { IncubatedEgg } from "../Content/Items/BasicAccessories/Summon/IncubatedEgg.js"
 
+//Sheathes
+export { LeatherSheath } from "../Content/Items/BasicAccessories/Sheathes/LeatherSheath.js"
+
 //Depth
 export { BubbleConch } from "../Content/Items/Depth/BubbleConch.js"
 export { JellyfishResonator } from "../Content/Items/Consumable/JellyfishResonator.js"
 export { RainStone } from "../Content/Items/Depth/RainStone.js"
-export { SeaTurtlesBulwak } from "../Content/Items/BasicAccessories/Shield/SeaTurtlesBulwak.js"
 
 //Ranged
 export { WebGun } from "../Content/Items/Ranged/WebGun.js"
+
+//Shields
+export { SeaTurtlesBulwark } from "../Content/Items/BasicAccessories/Shields/SeaTurtlesBulwark.js"
+export { CopperBuckler } from "../Content/Items/BasicAccessories/Shields/CopperBuckler.js"
+export { GoldAegis } from "../Content/Items/BasicAccessories/Shields/GoldAegis.js"
+export { IronShield } from "../Content/Items/BasicAccessories/Shields/IronShield.js"
+export { LeadShield } from "../Content/Items/BasicAccessories/Shields/LeadShield.js"
+export { PlatinumAegis } from "../Content/Items/BasicAccessories/Shields/PlatinumAegis.js"
+export { SilverBulwark } from "../Content/Items/BasicAccessories/Shields/SilverBulwark.js"
+export { TinBuckler } from "../Content/Items/BasicAccessories/Shields/TinBuckler.js"
+export { TungstenBulwark } from "../Content/Items/BasicAccessories/Shields/TungstenBulwark.js"
+
+//Crystal Weapons
+export { Dissolve } from "../Content/Items/Mage/Dissolve.js";
+export { Freeze } from "../Content/Items/Mage/Freeze.js";
+export { Ignite } from "../Content/Items/Mage/Ignite.js";
+export { Poison } from "../Content/Items/Mage/Poison.js";
+export { Siphon } from "../Content/Items/Mage/Siphon.js";
+
+export { BloomingBlade } from "../Content/Items/ArcaneWeapon/BloomingBlade.js";
+export { BloomingBow } from "../Content/Items/ArcaneWeapon/BloomingBow.js";
+export { BloomingStaff } from "../Content/Items/ArcaneWeapon/BloomingStaff.js"
+
+//Steel
+export { SteelBlade } from "../Content/Items/Steel/SteelBlade.js";
+export { SteelChestplate } from "../Content/Items/Steel/SteelChestplate.js";
+export { SteelGreaves } from "../Content/Items/Steel/SteelGreaves.js";
+export { SteelHelmet } from "../Content/Items/Steel/SteelHelmet.js";
+export { SteelAxe } from "../Content/Items/Steel/SteelAxe.js";
+export { SteelHammer } from "../Content/Items/Steel/SteelHammer.js";
+export { SteelPickaxe } from "../Content/Items/Steel/SteelPickaxe.js";
+export { SteelBow } from "../Content/Items/Steel/SteelBow.js";
+
+//Scarlet Chest
+export { LootRang } from "../Content/Items/Melee/LootRang.js"
+export { MagmaCharmItem } from "../Content/Items/Mounts/MagmaCharmItem.js"
+export { MagmaLocket } from "../Content/Items/BasicAccessories/MagmaLocket.js"
+export { SpringSteps } from "../Content/Items/BasicAccessories/Boots/SpringSteps.js"

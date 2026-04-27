@@ -20,6 +20,12 @@
       "file": "3.png",
       "icon_height": 70,
       "color": "#ff6417"
+    },
+    {
+      "name": "Chronomiasma",
+      "file": "4.jpg",
+      "icon_height": 70,
+      "color": "#c9c9c9"
     }
   ],
   "version": 1

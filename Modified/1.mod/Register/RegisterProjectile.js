@@ -18,3 +18,18 @@ export { WebGunPro2 } from "../Content/Projectiles/WebGunPro2.js"
 //NPC
 export { StrangeBulbPro } from "../Content/Projectiles/NPC/StrangeBulbPro.js"
 export { EarthenRock } from "../Content/Projectiles/NPC/EarthenRock.js"
+
+//Crystals Weapon
+export { DissolvePro } from "../Content/Projectiles/DissolvePro.js"
+export { FreezePro } from "../Content/Projectiles/FreezePro.js"
+export { IgnitePro } from "../Content/Projectiles/IgnitePro.js"
+export { PoisonPro } from "../Content/Projectiles/PoisonPro.js"
+export { SiphonPro } from "../Content/Projectiles/SiphonPro.js"
+
+//Blooming
+export { BloomingBowPro } from "../Content/Projectiles/BloomingBowPro.js"
+export { BloomingStaffPro } from "../Content/Projectiles/BloomingStaffPro.js"
+
+//Rang
+export { ColdFrontPro } from "../Content/Projectiles/ColdFrontPro.js"
+export { LootRangPro } from "../Content/Projectiles/LootRangPro.js"
