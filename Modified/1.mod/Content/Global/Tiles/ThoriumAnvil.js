@@ -3,29 +3,27 @@ import { TileData } from "../../../TL/Modules/TileData.js";
 import { Terraria } from "../../../TL/ModImports.js";
 
 export class ThoriumAnvil extends GlobalTile {
-    static Type = 87
-    static Style = 36
+    static Type = Terraria.ID.TileID.ChlorophyteExtractinator
     
     RightClick(player, i, j, type) {
-        const tile = new TileData(i, j);
-
-        if(type === ThoriumAnvil.Type) {
-            const style = Math.floor(tile.frameX / 36);
-
-            if(style === 12 ) return false
-        }
+        if(ThoriumAnvil.Type === type) return false
 
         return true
     }
 
     static InjectTexture() {
-        const Pianos = Terraria.ID.TileID.Pianos
-        const NebulaPianoItem = Terraria.ID.ItemID.NebulaPiano
+        const ChlorophyteExtractinatorTile = Terraria.ID.TileID.ChlorophyteExtractinator
+        const ChlorophyteExtractinatorItem = Terraria.ID.ItemID.ChlorophyteExtractinator
 
-        const PianosTexture = tl.texture.load("Textures/TextureReplace/Pianos.png");
+        const ChlorophyteExtractinatorTileTexture = tl.texture.load("Textures/TextureReplace/ChlorophyteExtractinator/ThoriumAnvil_Tile.png");
+        const ChlorophyteExtractinatorItemTexture = tl.texture.load("Textures/TextureReplace/ChlorophyteExtractinator/ThoriumAnvil_Item.png");
         
-        if (PianosTexture != null) {
-            Terraria.GameContent.TextureAssets.Tile[Pianos].Value = PianosTexture;
+        if (ChlorophyteExtractinatorTileTexture != null) {
+            Terraria.GameContent.TextureAssets.Tile[ChlorophyteExtractinatorTile].Value = ChlorophyteExtractinatorTileTexture;
+        }
+
+        if (ChlorophyteExtractinatorItemTexture != null) {
+            Terraria.GameContent.TextureAssets.Item[ChlorophyteExtractinatorItem].Value = ChlorophyteExtractinatorItemTexture;
         }
     }
 }

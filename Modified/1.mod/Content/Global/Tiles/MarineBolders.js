@@ -18,7 +18,6 @@ export class MarineBolders extends GlobalTile {
         const currentStyle = Math.floor(tile.frameX / frameWidth);
 
         if (type === this.Type &&  this.Style.includes(currentStyle)) {
-            NewText('quebrado', Color.White)
             return false;
         }
         return true;

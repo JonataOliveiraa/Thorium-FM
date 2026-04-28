@@ -25,6 +25,14 @@ export class AquamarineTile extends GlobalTile {
         Terraria.ID.TileID.Sets.Ore[this.Type] = true;
     }
 
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 65)) return false
+        }
+        return true
+    }
+
     KillSound(i, j, type, fail) {
         if (type === this.Type) {
             const playSound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];

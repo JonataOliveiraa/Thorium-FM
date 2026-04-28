@@ -26,23 +26,23 @@ export class BloomingBow extends ModItem {
     this.Item.rare = Terraria.ID.ItemRarityID.Green;
     this.Item.UseSound = Terraria.ID.SoundID.Item5;
   }
-  
+
   Shoot(item, player, position, velocity, type, damage, knockBack) {
-    
+
     NewProjectile(
-        player.GetProjectileSource_Item_WithPotentialAmmo(item, item.useAmmo),
-        position,
-        Vector2.Multiply(velocity, 3),
-        ModProjectile.getTypeByName('BloomingBowPro'),
-        damage,
-        knockBack,
-        player.whoAmI,
-        0, 0, 0, null
+      player.GetProjectileSource_Item_WithPotentialAmmo(item, item.useAmmo),
+      position,
+      Vector2.Multiply(velocity, 3),
+      ModProjectile.getTypeByName('BloomingBowPro'),
+      damage,
+      knockBack,
+      player.whoAmI,
+      0, 0, 0, null
     );
     return false;
   }
 
-AddRecipes() {
+  AddRecipes() {
     this.CreateRecipe(1)
       .AddIngredient(ModItem.getTypeByName("Petal"), 8)
       .AddTile(Terraria.ID.TileID.DyeVat)

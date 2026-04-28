@@ -21,6 +21,15 @@ export { SilkHat } from "./../Content/Items/Silk/SilkHat.js";
 export { SilkTabard } from "./../Content/Items/Silk/SilkTabard.js";
 export { SilkLeggings } from "./../Content/Items/Silk/SilkLeggings.js";
 
+//Thorium Items
+export { ThoriumHelmet } from "../Content/Items/Thorium/ThoriumHelmet.js"
+export { ThoriumMail } from "../Content/Items/Thorium/ThoriumMail.js"
+export { ThoriumGreaves } from "../Content/Items/Thorium/ThoriumGreaves.js"
+export { ThoriumBlade } from "../Content/Items/Thorium/ThoriumBlade.js"
+export { ThoriumBoomerang } from "../Content/Items/Thorium/ThoriumBoomerang.js"
+export { ThoriumStaff } from "../Content/Items/Thorium/ThoriumStaff.js"
+export { ThoriumBow } from "../Content/Items/Thorium/ThoriumBow.js"
+export { ThoriumSpear } from "../Content/Items/Thorium/ThoriumSpear.js"
 //Basic Accessories
 export { AmberRing } from "./../Content/Items/BasicAccessories/Rings/AmberRing.js";
 export { AmethystRing } from "./../Content/Items/BasicAccessories/Rings/AmethystRing.js";
@@ -79,3 +88,7 @@ export { LootRang } from "../Content/Items/Melee/LootRang.js"
 export { MagmaCharmItem } from "../Content/Items/Mounts/MagmaCharmItem.js"
 export { MagmaLocket } from "../Content/Items/BasicAccessories/MagmaLocket.js"
 export { SpringSteps } from "../Content/Items/BasicAccessories/Boots/SpringSteps.js"
+export { DeepStaff } from "../Content/Items/Mage/DeepStaff.js"
+
+//Tiles
+export { ThoriumAnvil } from "../Content/Items/Tile/ThoriumAnvil.js"

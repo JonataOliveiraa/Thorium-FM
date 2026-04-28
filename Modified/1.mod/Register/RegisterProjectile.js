@@ -33,3 +33,11 @@ export { BloomingStaffPro } from "../Content/Projectiles/BloomingStaffPro.js"
 //Rang
 export { ColdFrontPro } from "../Content/Projectiles/ColdFrontPro.js"
 export { LootRangPro } from "../Content/Projectiles/LootRangPro.js"
+
+//Thorium
+export { ThoriumBoomerangPro } from "../Content/Projectiles/ThoriumBoomerangPro.js"
+export { ThoriumSpearPro } from "../Content/Projectiles/ThoriumSpearPro.js"
+export { ThoriumBolt } from "../Content/Projectiles/ThoriumBolt.js"
+export { ThoriumSpark } from "../Content/Projectiles/ThoriumSpark.js"
+
+export { ShadowBolt } from "../Content/Projectiles/ShadowBolt.js"

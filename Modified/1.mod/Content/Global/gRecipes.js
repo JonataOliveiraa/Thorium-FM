@@ -8,37 +8,26 @@ const { ItemID, TileID } = Terraria.ID;
 export class gRecipes extends ModSystem {
     static Recipes = [
         () => new ModRecipe()
-            .SetResult(ItemID.RodofDiscord, 1)
-            .AddIngredient(ItemID.ChaosFish, 10)
-            .AddIngredient(ItemID.HallowedBar, 20)
-            .AddIngredient(ItemID.SoulofFright, 5)
-            .AddTile(TileID.MythrilAnvil)
+            .SetResult(ItemID.LifeCrystal, 1)
+            .AddIngredient(ModItem.getTypeByName('LifeQuartzOre'), 10)
+            .AddTile(Terraria.ID.TileID.Anvils)
             .Register(),
-
         () => new ModRecipe()
-            .SetResult(ItemID.SpikyBall, 50)
-            .AddIngredient(ItemID.IronBar, 1)
-            .AddRecipeGroup('IronBar')
-            .AddTile(TileID.Anvils)
-            .SetProperty('needSnowBiome', true)
-            .Register(),
-
-        () => new ModRecipe()
-            .SetResult(ModItem.getTypeByName('ExampleMeleeWeapon'))
-            .AddIngredient(ModItem.getTypeByName('ExampleItem'), 50)
-            .AddRecipeGroup(gRecipes.CustomGroups.get('ExampleGroup'))
+            .SetResult(ItemID.BloodMoonStarter)
+            .AddIngredient(ModItem.getTypeByName('Blood'))
+            .AddIngredient(ItemID.FallenStar)
+            .AddTile(TileID.DemonAltar)
             .Register()
     ];
 
     static CustomGroupsMap = [
         {
-            name: 'ExampleGroup',
-            displayName: 'Example Item',
+            name: 'Anvils',
             items: () => [
-                ModItem.getTypeByName('ExampleItem'),
-                ModItem.getTypeByName('ExampleSoul')
+                ItemID.IronAnvil,
+                ItemID.LeadAnvil
             ]
-        }
+        },
     ];
 
     static CustomGroups = new Map();
@@ -51,7 +40,7 @@ export class gRecipes extends ModSystem {
 
     AddRecipeGroups() {
         for (const groupData of gRecipes.CustomGroupsMap) {
-            const group = ModRecipe.CreateRecipeGroup(groupData.displayName, groupData.items());
+            const group = ModRecipe.CreateRecipeGroup(groupData.name, groupData.items());
             gRecipes.CustomGroups.set(groupData.name, group);
         }
     }

@@ -15,11 +15,15 @@ import { ArcaneArmorFabricator } from "../Tiles/ArcaneArmorFabricator.js";
 import { ScarletTile } from "../Tiles/ScarletTile.js";
 import { Containers2 } from "../Tiles/Containers2.js";
 import { BloodAltar } from "../Tiles/BloodAltar.js";
+import { LifeShieldPlayer } from "../LifeShieldPlayer.js";
+import { ModTexture } from "../../../TL/ModTexture.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
     super()
   }
+
+  static _CustomTextures = new Map()
   
   SetupContent() {
       Containers2.InjectTexture()
@@ -42,6 +46,11 @@ export class TextureReplace extends ModSystem {
 
       ScarletTile.InjectTexture()
       Containers2.InjectTexture()
+  }
+
+  PostSetupContent() {
+    LifeShieldPlayer.SaveDefaultTextures()
+    LifeShieldPlayer.LoadTextures()
   }
 }
 

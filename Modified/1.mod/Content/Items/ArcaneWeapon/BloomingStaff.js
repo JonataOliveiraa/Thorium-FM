@@ -44,4 +44,11 @@ export class BloomingStaff extends ModItem {
         velocity.X = speed * scale * Math.sin(angle);
         velocity.Y = speed * scale * Math.cos(angle);
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(ModItem.getTypeByName('Petal'), 8)
+            .AddTile(Terraria.ID.TileID.DyeVat)
+            .Register();
+    }
 }

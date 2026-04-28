@@ -24,6 +24,14 @@ export class ScarletTile extends GlobalTile {
         return true;
     }
 
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 40)) return false
+        }
+        return true
+    }
+
     static InjectTexture() {
         const AncientMythrilBrickTile = Terraria.ID.TileID.AncientMythrilBrick;
         const AncientMythrilBrickItem = Terraria.ID.ItemID.AncientMythrilBrick;

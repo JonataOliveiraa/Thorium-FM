@@ -1,6 +1,7 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
 import { Color } from "../../../TL/Modules/Color.js";
+import { WorldDB } from "../../../TL/WorldDB.js";
 
 export class BloodAltar extends GlobalTile {
     Type = Terraria.ID.TileID.HoneyDispenser;
@@ -24,6 +25,10 @@ export class BloodAltar extends GlobalTile {
         if(bloodAltarOutlineTexture != null) {
             Terraria.GameContent.TextureAssets.HighlightMask[HoneyDispenserTile].Value = bloodAltarOutlineTexture
         }
+    }
+
+    CanKillTile(i, j, type, blockDamaged) {
+        if(!WorldDB.get('Thorium:ViscountDefeated')) return false
     }
 }
 

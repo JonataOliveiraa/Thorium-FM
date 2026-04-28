@@ -21,14 +21,14 @@ export class PropsReplace extends GlobalHooks {
 
             //Life Quartz   
             if (Type === Terraria.ID.ItemID.TeamBlockRed) {
-                self._nameOverride = ModLocalization.Translate('ItemName.LifeQuartz'); 
+                self._nameOverride = ModLocalization.Translate('ItemName.LifeQuartzOre'); 
                 self.rare = ItemRarityID.White
                 self.value = Terraria.Item.sellPrice(0, 0, 1, 50);
                 self.maxStack = 9999;                
             }
 
            //Thorium Anvil
-           if(Type === Terraria.ID.ItemID.NebulaPiano) {
+           if(Type === Terraria.ID.ItemID.ChlorophyteExtractinator) {
                 self._nameOverride = ModLocalization.Translate('ItemName.ThoriumAnvil'); 
                 self.rare = ItemRarityID.White
                 self.value = Terraria.Item.sellPrice(0, 0, 5, 0);

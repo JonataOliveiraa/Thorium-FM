@@ -9,7 +9,15 @@ export class ThoriumBar extends ModItem {
 
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
-    this.Item.value = Terraria.Item.buyPrice(0, 0, 6, 50);
+    this.Item.value = Terraria.Item.buyPrice(0, 0, 8, 50);
     this.Item.material = true
+    this.Item.rare = Terraria.ID.ItemRarityID.Blue
   }
+
+  AddRecipes() {
+      this.CreateRecipe(1)
+          .AddIngredient(ModItem.getTypeByName('ThoriumOre'), 4)
+          .AddTile(Terraria.ID.TileID.ChlorophyteExtractinator)
+          .Register();
+    }
 }

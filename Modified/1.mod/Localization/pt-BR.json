@@ -9,7 +9,7 @@
     "BloomingBow": "Arco Florescente",
     "BloomingStaff": "Cajado Florescente",
     "ThoriumOre": "Minério de Tório",
-    "LifeQuartz": "Quartzo de Vida",
+    "LifeQuartzOre": "Quartzo de Vida",
     "LeakyMarineBlock": "Bloco Marinho Permeável",
     "ThoriumAnvil": "Bigorna de Tório",
     "MossyGoldOre": "Minério de Ouro Musguento",
@@ -52,7 +52,7 @@
     "SteelPickaxe": "Picareta de Aço",
     "ArcaneArmorFabricator": "Fabricante de Armadura Arcana",
     "SilkHat": "Chapéu de Seda",
-    "SilkTabart": "Tabardo de Seda",
+    "SilkTabard": "Tabardo de Seda",
     "SilkLeggings": "Calção de Seda",
     "AmberRing": "Anel de Âmbar",
     "AmethystRing": "Anel de Ametista",
@@ -78,7 +78,12 @@
     "JellyfishResonator": "Ressonador de Água-viva",
     "MagmaLocket": "Amuleto de Magma",
     "SpringSteps": "Passos de Mola",
-    "MixTape": "Fita Mix"
+    "MixTape": "Fita Mix",
+    "ThoriumHelmet": "Elmo de Tório",
+    "ThoriumMail": "Peitoral de Tório",
+    "ThoriumGreaves": "Grevas de Tório",
+    "LifeGem": "Gema da Vida",
+    "LifeQuartzClaymore": "Espada Grande de Quartzo de Vida"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -110,13 +115,19 @@
     "BloodAltar": "Usado para invocar o Visconde\nConsome 5 Fragmentos Profanos",
     "MagmaLocket": "Ao entrar em contato com a lava, recebe o efeito Abraço da Lava durante 10 segundos\n'Parece ter sido feito por um material familiar'",
     "SpringSteps": "Permite realizar superpulos enquanto corre",
-    "MixTape": "Golpes críticos sinfônicos provocam uma erupção de notas musicais derretidas"
+    "MixTape": "Golpes críticos sinfônicos provocam uma erupção de notas musicais derretidas",
+    "ThoriumHelmet": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
+    "ThoriumMail": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
+    "ThoriumGreaves": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
+    "LifeGem": "Aumenta a vida máxima em 20 e a regeneração de vida",
+    "LifeQuartzClaymore": "Recupera vida ao atingir um inimigo"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
     "Icy": "Uma aura congelante se estabiliza, incinerando os inimigos próximos com chamas congelantes",
     "Silk": "25% de aumento no dano mágico enquanto estiver acima de 90% da mana máxima",
-    "Steel": "Reduz todo o dano recebido em 8%"
+    "Steel": "Reduz todo o dano recebido em 8%",
+    "Thorium": "10% de aumento de dano de todas as fontes"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",

@@ -42,7 +42,7 @@
     "LivingWoodHelmet": "Living Wood Helmet",
     "LivingWoodSap": "Living Wood Sap",
     "SilkHat": "Silk Hat",
-    "SilkTabart": "Silk Tabart",
+    "SilkTabard": "Silk Tabart",
     "SilkLeggings": "Silk Leggings",
     "BlacksmithsBarrier": "Blacksmith's Barrier",
     "SteelAxe": "Steel Axe",
@@ -78,7 +78,12 @@
     "JellyfishResonator": "Jellyfish Resonator",
     "MagmaLocket": "Magma Locket",
     "SpringSteps": "Spring Steps",
-    "MixTape": "Mix Tape"
+    "MixTape": "Mix Tape",
+    "ThoriumHelmet": "Thorium Helmet",
+    "ThoriumMail": "Thorium Mail",
+    "ThoriumGreaves": "Thorium Greaves",
+    "LifeGem": "Life Gem",
+    "LifeQuartzClaymore": "Life Quartz Claymore"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -110,13 +115,19 @@
     "MagmaLocket": "Upon contact with lava grants the Lava's Embrace effect for 10 seconds\n'Seems to be made out of a familiar material'",
     "BloodAltar": "Used to summon the Viscount\nConsumes 5 Profane Fragments",
     "SpringSteps": "Allows you to a triple hop super jump",
-    "MixTape": "Symphonic critical strikes cause an eruption of molten music notes"
+    "MixTape": "Symphonic critical strikes cause an eruption of molten music notes",
+    "ThoriumHelmet": "'It pulses with energy'\n2% increased critical strike chance",
+    "ThoriumMail": "'It pulses with energy'\n2% increased critical strike chance",
+    "ThoriumGreaves": "'It pulses with energy'\n2% increased critical strike chance",
+    "LifeGem": "Increases maximum life by 20 and life regeneration",
+    "LifeQuartzClaymore": "Heals yourself upon hitting an enemy"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
     "Icy": "An icy aura surrounds you, scorching enemies with freezing flames",
     "Silk": "25% increased magic damage while above 90% maximum mana",
-    "Steel": "Reduces all damage received by 8%"
+    "Steel": "Reduces all damage received by 8%",
+    "Thorium": "10% increased damage from all sources"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Sprout Loyalty",

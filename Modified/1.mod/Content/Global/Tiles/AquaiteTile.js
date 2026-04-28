@@ -51,4 +51,12 @@ export class AquaiteTile extends GlobalTile {
             Terraria.GameContent.TextureAssets.Item[AncientBlueBrickItem].Value = aquaiteItemTexture;
         }
     }
+
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 65)) return false
+        }
+        return true
+    }
 }

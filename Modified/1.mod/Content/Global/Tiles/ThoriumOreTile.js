@@ -23,6 +23,14 @@ export class ThoriumOreTile extends GlobalTile {
         return true;
     }
 
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 40)) return false
+        }
+        return true
+    }
+
     static InjectTexture() {
         //Thorium Ore
         const TeamBlockBlueTile = Terraria.ID.TileID.TeamBlockBlue;

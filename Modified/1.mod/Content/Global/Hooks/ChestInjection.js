@@ -43,11 +43,9 @@ export class ChestInjection extends GlobalHooks {
         WorldGen.ShimmerCleanUp.hook((original, self) => {
             original(self);
 
-            // 1. GERANDO BIOMAS
-            // new AquaticDepths().Generate();
-
             new ScarletChestStructure().Generate()
             new BloodChamberStructure().Generate()
+            new AquaticDepths().Generate();
 
             // 2. MAPEANDO TODOS OS BAÚS DO MUNDO DE UMA SÓ VEZ
             const chests = Main.chest;

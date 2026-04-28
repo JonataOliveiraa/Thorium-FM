@@ -147,95 +147,110 @@ export class BloodChamberStructure {
 
     AddDecorations(innerLeft, innerTop, innerRight, innerBottom, centerX) {
         const occupiedFloor = new Set();
+        
+        // Reserva o centro do chão para a plataforma e o dispenser
+        for (let i = centerX - 5; i <= centerX + 5; i++) {
+            occupiedFloor.add(i);
+        }
 
-        const isFree = (targetX, objWidth, occupiedSet) => {
-            for (let i = targetX - objWidth; i <= targetX + objWidth; i++) {
-                if (occupiedSet.has(i)) return false;
+        const isFloorFree = (targetX, objWidth) => {
+            for (let i = targetX; i < targetX + objWidth; i++) {
+                if (occupiedFloor.has(i)) return false;
             }
             return true;
         };
 
-        const getRandomSideX = () => {
+        const getRandomSideX = (objWidth) => {
             let x;
             let attempts = 0;
             do {
-                x = Rand.Next(innerLeft + 3, innerRight - 3);
+                x = Rand.Next(innerLeft + 3, innerRight - 3 - objWidth);
                 attempts++;
-            } while (Math.abs(x - centerX) < 12 && attempts < 50);
-            return x;
+            } while (!isFloorFree(x, objWidth) && attempts < 50);
+            return attempts < 50 ? x : -1;
         };
 
-        // 1. TETO: 1 Lustre no centro
-        // Y = innerTop (Primeiro bloco de ar abaixo do teto)
-        // OBS: Se continuar invisível, troque o '32' por '0' para confirmar se é a textura.
-        this.BruteForcePlace(centerX, innerTop, TileID.Chandeliers, 32, 
+        // --- LUSTRE (teto) ---
+        this.BruteForcePlace(centerX - 1, innerTop, TileID.Chandeliers, 32, 
             (tx, ty, t, s) => {
                 WorldGen['void PlaceChand(int x, int y, ushort type, int style)'](tx, ty, t, s);
             }
         );
 
-        // 2. CHÃO: Fogueiras (1 a 3) - Ocupam 3x2
-        const numCampfires = Rand.Next(1, 4);
+        // --- FOGUEIRAS (3x2) - Y corrigido para innerBottom ---
+        const numCampfires = Rand.Next(1, 3);
         for (let i = 0; i < numCampfires; i++) {
-            for (let attempt = 0; attempt < 10; attempt++) {
-                const x = getRandomSideX();
-                if (isFree(x, 2, occupiedFloor)) {
-                    // Y = innerBottom - 1 (A âncora é no topo do objeto que tem 2 de altura)
-                    // Style 1 (Bone Campfire) adicionado!
-                    if (this.BruteForcePlace(x, innerBottom - 1, TileID.Campfire, 1, (tx, ty, t, s) => WorldGen.Place3x2(tx, ty, t, s))) {
-                        occupiedFloor.add(x - 1).add(x).add(x + 1);
-                        break;
-                    }
+            const x = getRandomSideX(3);
+            if (x !== -1) {
+                if (this.BruteForcePlace(x, innerBottom, TileID.Campfire, 2, (tx, ty, t, s) => {
+                    WorldGen['void Place3x2(int x, int y, ushort type, int style)'](tx, ty, t, s);
+                })) {
+                    for (let w = 0; w < 3; w++) occupiedFloor.add(x + w);
                 }
             }
         }
 
-        // 3. CHÃO: Large Piles (1 a 3) - Ocupam 3x2
-        const numLarge = Rand.Next(1, 4);
+        // --- LARGE PILES (3x2) - Y corrigido para innerBottom ---
+        const numLarge = Rand.Next(1, 3);
+        const largeStyles = [18, 19, 20, 21];
         for (let i = 0; i < numLarge; i++) {
-            for (let attempt = 0; attempt < 10; attempt++) {
-                const x = getRandomSideX();
-                if (isFree(x, 2, occupiedFloor)) {
-                    const style = Rand.Next(4, 7);
-                    if (this.BruteForcePlace(x, innerBottom - 1, 312, style, (tx, ty, t, s) => WorldGen.Place3x2(tx, ty, t, s))) {
-                        occupiedFloor.add(x - 1).add(x).add(x + 1);
-                        break;
-                    }
+            const x = getRandomSideX(3);
+            if (x !== -1) {
+                const style = largeStyles[Rand.Next(0, largeStyles.length)];
+                if (this.BruteForcePlace(x, innerBottom, TileID.LargePiles, style, (tx, ty, t, s) => {
+                    WorldGen['void Place3x2(int x, int y, ushort type, int style)'](tx, ty, t, s);
+                })) {
+                    for (let w = 0; w < 3; w++) occupiedFloor.add(x + w);
                 }
             }
         }
 
-        // 4. CHÃO: Potes (4 a 8) - Ocupam 2x2
-        const numPots = Rand.Next(4, 9);
-        for (let i = 0; i < numPots; i++) {
-            for (let attempt = 0; attempt < 10; attempt++) {
-                const x = getRandomSideX();
-                if (isFree(x, 1, occupiedFloor)) {
-                    const style = Rand.Next(10, 13);
-                    if (this.BruteForcePlace(x, innerBottom - 1, TileID.Pots, style, (tx, ty, t, s) => WorldGen.Place2x2(tx, ty, t, s))) {
-                        occupiedFloor.add(x).add(x + 1);
-                        break;
-                    }
+        // --- SMALL PILES (2x1) - Y = innerBottom (já correto) ---
+        const numSmall = Rand.Next(2, 4);
+        const smallStyles = [16, 17, 18];
+        for (let i = 0; i < numSmall; i++) {
+            const x = getRandomSideX(2);
+            if (x !== -1) {
+                const style = smallStyles[Rand.Next(0, smallStyles.length)];
+                if (this.BruteForcePlace(x, innerBottom, TileID.SmallPiles, style, (tx, ty, t, s) => {
+                    WorldGen['void Place2x1(int x, int y, ushort type, int style)'](tx, ty, t, s);
+                })) {
+                    for (let w = 0; w < 2; w++) occupiedFloor.add(x + w);
                 }
             }
         }
 
-        // 5. CHÃO: Pilhas de moedas (3 a 10) - Ocupam 1x1
-        const coinTypes = [TileID.CopperCoinPile, TileID.SilverCoinPile, TileID.GoldCoinPile];
-        const numCoins = Rand.Next(3, 11);
-        for (let i = 0; i < numCoins; i++) {
-            for (let attempt = 0; attempt < 10; attempt++) {
-                const x = getRandomSideX();
-                if (isFree(x, 0, occupiedFloor)) {
-                    const type = coinTypes[Rand.Next(0, 3)];
-                    // Moedas só têm 1 de altura, então o Y é exatamente o innerBottom
-                    if (this.BruteForcePlace(x, innerBottom, type, 0, (tx, ty, t, s) => WorldGen.Place1x1(tx, ty, t, s))) {
-                        occupiedFloor.add(x);
-                        break;
+        // --- QUADROS (3x3) na parede (sem alterações) ---
+        const occupiedWalls = [];
+        const isWallFree = (wx, wy, w, h) => {
+            if (wx < centerX + 2 && wx + w > centerX - 2 && wy < innerTop + 4 && wy + h > innerTop) return false;
+            if (wx < centerX + 3 && wx + w > centerX - 3 && wy + h > innerBottom - 4) return false;
+            for (const box of occupiedWalls) {
+                if (wx < box.x + box.w && wx + w > box.x && wy < box.y + box.h && wy + h > box.y) return false;
+            }
+            return true;
+        };
+
+        const placePaintings = (stylesArray, amount) => {
+            for (let i = 0; i < amount; i++) {
+                for (let attempt = 0; attempt < 50; attempt++) {
+                    const x = Rand.Next(centerX - 15, centerX + 12);
+                    const y = Rand.Next(innerTop + 3, innerBottom - 5);
+                    if (isWallFree(x, y, 3, 3)) {
+                        const style = stylesArray[Rand.Next(0, stylesArray.length)];
+                        if (this.BruteForcePlace(x, y, TileID.Painting3X3, style, (tx, ty, t, s) => {
+                            WorldGen['void Place3x3(int x, int y, ushort type, int style)'](tx, ty, t, s);
+                        })) {
+                            occupiedWalls.push({ x: x, y: y, w: 3, h: 3 });
+                            break;
+                        }
                     }
                 }
             }
-        }
+        };
+
+        placePaintings([16, 17], Rand.Next(1, 3));
+        placePaintings([42, 43, 44, 45], 1);
     }
 
     BruteForcePlace(startX, startY, type, style, placeFunc) {

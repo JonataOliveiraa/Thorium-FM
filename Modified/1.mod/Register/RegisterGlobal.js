@@ -3,6 +3,7 @@ export { gHooks } from './../Content/Global/gHooks.js';
 export { gPlayer } from "./../Content/Global/gPlayer.js"
 export { SheathPlayer } from '../Content/Global/SheathPlayer.js';
 export { SpringStepsPlayer } from '../Content/Global/SpringStepsPlayer.js';
+export { LifeShieldPlayer } from '../Content/Global/LifeShieldPlayer.js';
 export { gNPCsLoot } from './../Content/Global/gNPCsLoot.js';
 export { gTilesLoot } from './../Content/Global/gTilesLoot.js';
 

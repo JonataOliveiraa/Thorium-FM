@@ -1,8 +1,12 @@
 import { Rand } from '../../TL/Modules/Rand.js';
 import { Terraria } from '../../TL/ModImports.js';
+import { ModItem } from '../../TL/ModItem.js';
 
 const { Main, ID, WorldGen } = Terraria;
 const { TileID, WallID, ItemID } = ID;
+
+// Se você tiver um módulo para itens do mod, descomente e use:
+// import { ModItem } from '../../TL/ModItem.js';
 
 export class ScarletChestStructure {
     Generate() {
@@ -61,7 +65,7 @@ export class ScarletChestStructure {
             for (let p of existingPositions) {
                 const dx = Math.abs(p.x - centerX);
                 const dy = Math.abs(p.y - centerY);
-                if (Math.sqrt(dx*dx + dy*dy) < minDistBetween) {
+                if (Math.sqrt(dx * dx + dy * dy) < minDistBetween) {
                     tooClose = true;
                     break;
                 }
@@ -146,17 +150,102 @@ export class ScarletChestStructure {
         );
 
         if (chestIndex !== -1) {
-            const storage = new NativeClass('Terraria', 'InventoryStorage').new();
-            storage['void .ctor(int chest)'](chestIndex);
+            this.fillChest(chestIndex);
+        }
+    }
 
+    fillChest(chestIndex) {
+        const storage = new NativeClass('Terraria', 'InventoryStorage').new();
+        storage['void .ctor(int chest)'](chestIndex);
+
+        let currentSlot = 0;
+
+        const addItem = (id, stack) => {
+            if (typeof id !== 'number' || id <= 0 || isNaN(id)) {
+                throw new Error(`[ScarletChest] ID inválido ignorado: ${id}`);
+            }
             const item = new NativeClass('Terraria', 'Item').new();
             item['void .ctor()']();
-            item['void SetDefaults(int Type, ItemVariant variant)'](ItemID.DirtBlock, null);
-            item.stack = 999;
-            storage.item[0] = item;
+            item['void SetDefaults(int Type, ItemVariant variant)'](id, null);
+            item.stack = stack;
+            storage.item[currentSlot] = item;
+            currentSlot++;
+        };
 
-            storage.SyncToChest();
+        const rareCandidates = [
+            ModItem.getTypeByName('MagmaCharmItem'),
+            ModItem.getTypeByName('LootRang'),
+            ModItem.getTypeByName('MagmaLocket'),
+            ModItem.getTypeByName('SpringSteps'),
+            ModItem.getTypeByName('DeepStaff'),
+            Terraria.ID.ItemID.LavaCharm
+        ].filter(id => typeof id === 'number' && id > 0);
+
+        const rareId = rareCandidates.length ? rareCandidates[Rand.NextInt(0, rareCandidates.length)] : Terraria.ID.ItemID.IronBar;
+        addItem(rareId, 1);
+
+        const ringCandidates = [
+            ModItem.getTypeByName('AmberRing'),
+            ModItem.getTypeByName('AmethystRing'),
+            ModItem.getTypeByName('DiamondRing'),
+            ModItem.getTypeByName('EmeraldRing'),
+            ModItem.getTypeByName('RubyRing'),
+            ModItem.getTypeByName('SapphireRing'),
+            ModItem.getTypeByName('TheRing')
+        ].filter(id => typeof id === 'number' && id > 0);
+
+        const ringId = ringCandidates.length ? ringCandidates[Rand.NextInt(0, ringCandidates.length)] : Terraria.ID.ItemID.IronBar;
+        addItem(ringId, 1);
+
+        if (Rand.NextChance(0.2)) {
+            addItem(ItemID.SuspiciousLookingEye, 1);
         }
+
+        if (Rand.NextChance(0.33)) {
+            const dynamiteCount = Rand.NextInt(1, 4);
+            addItem(ItemID.Dynamite, dynamiteCount);
+        }
+
+        if (Rand.NextChance(0.5)) {
+            const thoriumBarID = ModItem.getTypeByName('ThoriumBar');
+            if (thoriumBarID && typeof thoriumBarID === 'number' && thoriumBarID > 0) {
+                const barCount = Rand.NextInt(3, 7);
+                addItem(thoriumBarID, barCount);
+            }
+        }
+
+        const commonPool = [
+            { id: ItemID.GoldCoin, min: 2, max: 4 },
+            { id: ItemID.SpelunkerGlowstick, min: 15, max: 34 },
+            { id: ItemID.Torch, min: 5, max: 10 },
+            { id: ItemID.HealingPotion, min: 1, max: 2 },
+            { id: ItemID.WrathPotion, min: 1, max: 2 },
+            { id: ItemID.RagePotion, min: 1, max: 2 },
+            { id: ItemID.InfernoPotion, min: 1, max: 2 },
+            { id: ItemID.TeleportationPotion, min: 1, max: 2 },
+            { id: ItemID.EndurancePotion, min: 1, max: 2 },
+            { id: ItemID.SpelunkerPotion, min: 1, max: 2 },
+            { id: ItemID.LifeforcePotion, min: 1, max: 2 },
+            { id: ItemID.RecallPotion, min: 1, max: 2 },
+            { id: ItemID.Bomb, min: 3, max: 9 },
+        ];
+
+        const shuffled = [...commonPool];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Rand.NextFloat(0, 1) * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        const commonCount = 5;
+        for (let i = 0; i < commonCount && i < shuffled.length; i++) {
+            const item = shuffled[i];
+            const stack = Rand.NextInt(item.min, item.max + 1);
+            addItem(item.id, stack);
+        }
+
+        addItem(ItemID.SilverCoin, Rand.NextInt(50, 91));
+
+        storage.SyncToChest();
     }
 
     addBaseUnderPillar(baseX, baseY) {

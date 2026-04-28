@@ -27,6 +27,14 @@ export class MossyGoldOreTile extends GlobalTile {
         return true;
     }
 
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 0)) return false
+        }
+        return true
+    }
+
     static InjectTexture() {
         const AncientPinkBrickTile = Terraria.ID.TileID.AncientPinkBrick;
         const AncientPinkBrickItem = Terraria.ID.ItemID.AncientPinkDungeonBrick;

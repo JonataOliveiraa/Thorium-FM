@@ -27,6 +27,14 @@ export class MossyPlatinumOreTile extends GlobalTile {
         return true;
     }
 
+    CanKillTile(i, j, type, blockDamaged) {
+        if(type === this.Type) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            if(!(player.HeldItem.pick >= 0)) return false
+        }
+        return true
+    }
+
     static InjectTexture() {
         const ForbiddenBlockTile = Terraria.ID.TileID.ForbiddenBlock;
         const ForbiddenBlockItem = Terraria.ID.ItemID.ForbiddenBlock;

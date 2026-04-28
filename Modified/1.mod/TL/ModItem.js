@@ -399,7 +399,7 @@ export class ModItem extends ModTexturedType {
     }
     
     CreateRecipeGroup(itemTypes = []) {
-        return ModRecipe.CreateRecipeGroup(ModLocalization.getTranslationItemName(this.Type), itemTypes);
+        return ModRecipe.CreateRecipeGroup(ModLocalization.getTranslationItemName(this.Type).Value, itemTypes);
     }
     
     AddRecipes() {
