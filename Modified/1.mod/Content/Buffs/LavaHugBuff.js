@@ -1,6 +1,7 @@
 import { Terraria } from "../../TL/ModImports.js";
 import { ModBuff } from "../../TL/ModBuff.js";
 import { ModPlayer } from "../../TL/ModPlayer.js";
+import { ThoriumPlayer } from "../Global/ThoriumPlayer.js";
 
 export class LavaHugBuff extends ModBuff {
     constructor() {
@@ -15,14 +16,14 @@ export class LavaHugBuff extends ModBuff {
     }
 
     UpdatePlayer(player, buffIndex) {
-        ModPlayer.getByName("gPlayer").LavaHugBuffDelayTime++;
+        ThoriumPlayer.LavaHugBuffDelayTime++;
         
-        if (ModPlayer.getByName("gPlayer").LavaHugBuffDelayTime >= 120) {
+        if (ThoriumPlayer.LavaHugBuffDelayTime >= 120) {
             player.Heal(this.HealValue);
 
             player.statMana += this.ManaValue;
             player.ManaEffect(this.ManaValue)
-            ModPlayer.getByName("gPlayer").LavaHugBuffDelayTime = 0 
+            ThoriumPlayer.LavaHugBuffDelayTime = 0 
         }
     }
 }

@@ -1,7 +1,7 @@
 
 export { gHooks } from './../Content/Global/gHooks.js';
-export { gPlayer } from "./../Content/Global/gPlayer.js"
 export { LifeShieldPlayer } from '../Content/Global/LifeShieldPlayer.js';
+export { ThoriumPlayer } from '../Content/Global/ThoriumPlayer.js';
 export { gNPCsLoot } from './../Content/Global/gNPCsLoot.js';
 export { gTilesLoot } from './../Content/Global/gTilesLoot.js';
 
@@ -10,6 +10,7 @@ export { WorldInteraction } from '../Content/Global/Hooks/WorldInteraction.js';
 export { OreInjection } from '../Content/Global/Hooks/OreInjection.js';
 export { PropsReplace } from '../Content/Global/Hooks/PropsReplace.js';
 export { ToolTipsReplace } from '../Content/Global/Hooks/ToolTipsReplace.js';
+export { RemoveItemsRecipes } from '../Content/Global/Hooks/RemoveItemsRecipes.js';
 
 export { LifeQuartzTile } from '../Content/Global/Tiles/LifeQuartzTile.js';
 export { ThoriumOreTile } from '../Content/Global/Tiles/ThoriumOreTile.js';

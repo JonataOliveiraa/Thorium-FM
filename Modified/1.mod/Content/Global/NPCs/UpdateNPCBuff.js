@@ -3,7 +3,6 @@ import { ModBuff } from "../../../TL/ModBuff.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModPlayer } from "../../../TL/ModPlayer.js";
-import { gPlayer } from "../gPlayer.js";
 
 const { NPCID } = Terraria.ID;
 
@@ -31,5 +30,6 @@ export class UpdateNPCBuff extends GlobalNPC {
             !npc.boss) {
             npc.velocity = Vector2.Zero;
         }
+        return true
     }
 }

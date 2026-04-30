@@ -1,6 +1,5 @@
 import { Terraria, Modules, Microsoft } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
-import { gPlayer } from './../Global/gPlayer.js';
 import { CameraShake, FadeController } from './../../TL/Modules/Camera.js';
 
 // --- IMPORTAÇÕES NATIVAS ---

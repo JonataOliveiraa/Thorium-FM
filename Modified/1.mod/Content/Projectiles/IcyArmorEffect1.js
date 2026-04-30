@@ -2,6 +2,7 @@ import { Terraria, Modules } from "./../../TL/ModImports.js";
 import { ModProjectile } from "./../../TL/ModProjectile.js";
 import { ModPlayer } from '../../TL/ModPlayer.js';
 import { ProjAI } from "./../../TL/ProjAI.js"
+import { ThoriumPlayer } from "../Global/ThoriumPlayer.js";
 const { Vector2, Color, Effects } = Modules;
 
 const draw = Terraria.Main['void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)'];
@@ -30,11 +31,10 @@ export class IcyArmorEffect1 extends ModProjectile {
 
   AI(proj) {
     const player = Terraria.Main.player[proj.owner];
-    const gPlayer = ModPlayer.getByName('gPlayer');
     
-    if (!player || player.dead || !gPlayer.IcyArmorBuff) {
+    if (!player || player.dead || !ThoriumPlayer.IcyArmorBuff) {
       proj.Kill();
-      gPlayer.IcyArmorPro = false
+      ThoriumPlayer.IcyArmorPro = false
       return;
     }
 

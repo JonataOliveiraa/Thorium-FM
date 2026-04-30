@@ -37,8 +37,37 @@ export class OreInjection extends GlobalHooks {
                 WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
                     x, y, strength, steps, lifeQuartz, false, 0, 0, false, true, -1
                 );
-            }   
-            
+            }
+
+            //Aquamarine
+            const aquaMarine = Terraria.ID.TileID.AncientGreenBrick
+            const amountOfVeinsAquaMarine = Math.floor(worldArea * 0.000018); 
+
+            for (let i = 0; i < amountOfVeinsAquaMarine; i++) {
+                const x = Rand.Next(100, Main.maxTilesX - 100);
+                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
+                const strength = Rand.NextFloat(2, 4); 
+                const steps = Rand.Next(3, 5);
+
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, strength, steps, aquaMarine, false, 0, 0, false, true, -1
+                );
+            }
+
+            //Opal
+            const opal = Terraria.ID.TileID.AncientGoldBrick
+            const amountOfVeinsopal = Math.floor(worldArea * 0.000018); 
+
+            for (let i = 0; i < amountOfVeinsopal; i++) {
+                const x = Rand.Next(100, Main.maxTilesX - 100);
+                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
+                const strength = Rand.NextFloat(2, 4); 
+                const steps = Rand.Next(3, 5);
+
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, strength, steps, opal, false, 0, 0, false, true, -1
+                );
+            }
             return original(self);
         });
     }

@@ -1,7 +1,6 @@
 import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModNPC } from './../../../TL/ModNPC.js';
 import { ModItem } from './../../../TL/ModItem.js';
-import { gPlayer } from '../../Global/gPlayer.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
 import { ModSystem } from '../../../TL/ModSystem.js';

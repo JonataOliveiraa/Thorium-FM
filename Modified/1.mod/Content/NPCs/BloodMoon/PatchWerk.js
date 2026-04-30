@@ -4,7 +4,6 @@ import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { ModGore } from '../../../TL/ModGore.js';
-import { gPlayer } from '../../Global/gPlayer.js';
 import { ModSystem } from '../../../TL/ModSystem.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
 

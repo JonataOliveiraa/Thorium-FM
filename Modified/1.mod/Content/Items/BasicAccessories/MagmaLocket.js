@@ -2,7 +2,6 @@ import { ModBuff } from "../../../TL/ModBuff.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { ModPlayer } from "../../../TL/ModPlayer.js";
-import { gPlayer } from "../../Global/gPlayer.js";
 
 export class MagmaLocket extends ModItem {
     constructor() {

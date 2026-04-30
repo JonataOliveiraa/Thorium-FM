@@ -26,18 +26,18 @@ export class LeatherSheath extends ModItem {
             const line = this.TooltipLines[i];
             if (line.includes('{0}') || line.includes('{1}')) {
                 this.TooltipLines[i] = line
-                    .replace('{0}', this.DamageMultiplier * 100)
-                    .replace('{1}', this.CriticalChanceBonus)
-                    .replace('{2}', (ThoriumPlayer.SheathMaxCooldown / 60).toFixed(2));
+                    .replace('{0}', String(this.DamageMultiplier * 100))
+                    .replace('{1}', String(this.CriticalChanceBonus))
+                    .replace('{2}', (this.SheathMaxCooldown / 60).toFixed(2));
             }
         }
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
-        ThoriumPlayer.SheathMaxCooldown = 240;
+        ThoriumPlayer.SheathMaxCooldown = this.SheathMaxCooldown
         ThoriumPlayer.SheatType = 0;
-        ThoriumPlayer.SheatDamageMultiplier = 5;
-        ThoriumPlayer.SheatCriticalChanceBonus = 100;
+        ThoriumPlayer.SheatDamageMultiplier = this.DamageMultiplier;
+        ThoriumPlayer.SheatCriticalChanceBonus = this.CriticalChanceBonus;
 
         if (ThoriumPlayer.SheathCooldown < ThoriumPlayer.SheathMaxCooldown && player.HeldItem.melee && player.HeldItem.useStyle === Terraria.ID.ItemUseStyleID.Swing) {
             ThoriumPlayer.SheathCooldown++;

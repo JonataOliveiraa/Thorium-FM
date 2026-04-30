@@ -1,6 +1,7 @@
 import { Terraria, Modules, Microsoft } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 import { ModPlayer } from '../../TL/ModPlayer.js';
+import { ThoriumPlayer } from '../Global/ThoriumPlayer.js';
 
 const { Color, Rand, Vector2 } = Modules;
 
@@ -48,9 +49,7 @@ export class LivingWoodAcornShotPro extends ModProjectile {
             Terraria.Main.dust[dustIdx].noGravity = true;
         }
 
-        // 2. Lógica de Perseguição Autônoma
-        const gPlayer = ModPlayer.getByName('gPlayer');
-        if (gPlayer && gPlayer.LivingWoodAcornArmorBuff === true) {
+        if (ThoriumPlayer.LivingWoodAcornArmorBuff === true) {
             const searchRange = 1024;
             // A própria semente acha o alvo sem depender do lacaio!
             const target = proj['NPC FindTargetWithinRange(float maxRange, bool checkCanHit)'](searchRange, false);

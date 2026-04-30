@@ -34,7 +34,7 @@ export class Biter extends ModNPC {
     }
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 1, 2, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 4, 2, 4));
     }
 
     OnHitPlayer(npc, player, target, damage, crit) {

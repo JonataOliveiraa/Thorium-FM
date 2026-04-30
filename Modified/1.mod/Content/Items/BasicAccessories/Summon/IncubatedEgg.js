@@ -1,6 +1,7 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModPlayer } from '../../../../TL/ModPlayer.js';
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class IncubatedEgg extends ModItem {
     constructor() {
@@ -25,6 +26,6 @@ export class IncubatedEgg extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        ModPlayer.getByName('gPlayer').IncubatedEggBuff = true
+        ThoriumPlayer.IncubatedEggBuff = true
     }
 }

@@ -2,7 +2,9 @@ import { ModBiome } from "../../../TL/ModBiome.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
+import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
+import { TileData } from "../../../TL/Modules/TileData.js";
 
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
 export class Sharptooth extends ModNPC {
@@ -44,4 +46,11 @@ export class Sharptooth extends ModNPC {
     ModifyNPCLoot(npcLoot) {
         npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('DepthScales'), 1, 1, 2));
     }
+
+    // OnSpawn(npc, source) {
+    //     const center = npc.Center 
+    //     if(new TileData(center.x, center.y).wall.type === Terraria.ID.WallID.CorruptSandstone) {
+    //         Terraria.Main['void NewText(string newText, Color color)']('TEM PAREDE AQUI!', Color.White)
+    //     }
+    // }
 }

@@ -2,9 +2,9 @@ import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
 import { Color } from "../../../TL/Modules/Color.js";
 
-export class AquamarineTile extends GlobalTile {
+export class OpalTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.AncientGreenBrick;
+    Type = Terraria.ID.TileID.AncientGoldBrick;
 
     IsTileSpelunkable(i, j, type) {
         if (type === this.Type) {
@@ -15,8 +15,8 @@ export class AquamarineTile extends GlobalTile {
 
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
-        // Cor Ciano/Verde-Água (Aquamarine) para o mapa
-        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(127, 255, 212); 
+        // Cor Ciano/Verde-Água (Opal) para o mapa
+        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(330, 31, 100); 
         
         Terraria.Main.tileSpelunker[this.Type] = true;
         Terraria.Main.tileOreFinderPriority[this.Type] = 420;
@@ -44,19 +44,19 @@ export class AquamarineTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const AncientGreenBrickTile = Terraria.ID.TileID.AncientGreenBrick;
-        const AncientGreenBrickItem = Terraria.ID.ItemID.AncientGreenDungeonBrick;
+        const AncientGoldBrickTile = Terraria.ID.TileID.AncientGoldBrick;
+        const AncientGoldBrickItem = Terraria.ID.ItemID.AncientGoldBrick;
 
-        const aquamarineTileTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Tile.png");
-        const aquamarineItemTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Item.png");
+        const opalTileTexture = tl.texture.load("Textures/TextureReplace/AncientGoldBrick/Opal_Tile.png");
+        const opalItemTexture = tl.texture.load("Textures/TextureReplace/AncientGoldBrick/Opal_Item.png");
 
-        if (aquamarineTileTexture != null) {
-            Terraria.Main.tileMergeDirt[AncientGreenBrickTile] = true;
-            Terraria.GameContent.TextureAssets.Tile[AncientGreenBrickTile].Value = aquamarineTileTexture;
+        if (opalTileTexture != null) {
+            Terraria.Main.tileMergeDirt[AncientGoldBrickTile] = true;
+            Terraria.GameContent.TextureAssets.Tile[AncientGoldBrickTile].Value = opalTileTexture;
         }
 
-        if (aquamarineItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[AncientGreenBrickItem].Value = aquamarineItemTexture;
+        if (opalItemTexture != null) {
+            Terraria.GameContent.TextureAssets.Item[AncientGoldBrickItem].Value = opalItemTexture;
         }
     }
 }

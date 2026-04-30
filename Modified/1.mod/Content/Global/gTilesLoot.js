@@ -14,7 +14,10 @@ export class gTilesLoot extends GlobalTile {
         { tileType: Terraria.ID.TileID.TeamBlockRed, loot: 'LifeQuartzOre', condition: null },
         { tileType: Terraria.ID.TileID.AncientBlueBrick, loot: 'AquaiteOre', condition: null },
         { tileType: Terraria.ID.TileID.AncientPinkBrick, loot: Terraria.ID.ItemID.GoldOre, condition: null },
-        { tileType: Terraria.ID.TileID.ForbiddenBlock, loot: Terraria.ID.ItemID.PlatinumOre, condition: null }
+        { tileType: Terraria.ID.TileID.ForbiddenBlock, loot: Terraria.ID.ItemID.PlatinumOre, condition: null },
+        { tileType: Terraria.ID.TileID.TeamBlockPink, loot: 'AquamarineGem', condition: null },
+        { tileType: Terraria.ID.TileID.AncientGreenBrick, loot: 'AquamarineGem', condition: null },
+        { tileType: Terraria.ID.TileID.AncientGoldBrick, loot: 'OpalGem', condition: null }
     ];
 
     CanDrop(x, y, type) {

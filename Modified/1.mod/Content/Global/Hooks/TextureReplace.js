@@ -18,6 +18,8 @@ import { BloodAltar } from "../Tiles/BloodAltar.js";
 import { LifeShieldPlayer } from "../LifeShieldPlayer.js";
 import { ModTexture } from "../../../TL/ModTexture.js";
 import { LeakyMossyMarineBlock } from "../Tiles/LeakyMossyMarineBlock.js";
+import { OpalTile } from "../Tiles/OpalTile.js";
+import { DepthsAquamarineTile } from "../Tiles/DepthsAquamarineTile.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -40,6 +42,8 @@ export class TextureReplace extends ModSystem {
       MossyPlatinumOreTile.InjectTexture()
       AquaiteTile.InjectTexture()
       AquamarineTile.InjectTexture()
+      DepthsAquamarineTile.InjectTexture()
+      OpalTile.InjectTexture()
       DepthSatagmites.InjectTexture()
       MarineBolders.InjectTexture()
 

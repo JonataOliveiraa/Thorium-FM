@@ -2,6 +2,7 @@ import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { LifeShieldPlayer } from '../../../Global/LifeShieldPlayer.js';
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class LeadShield extends ModItem {
     constructor() {
@@ -26,8 +27,8 @@ export class LeadShield extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        LifeShieldPlayer.Active = true
-        LifeShieldPlayer.MaxExtraLife = this.lifeShied
+        ThoriumPlayer.LifeShieldActive = true
+        ThoriumPlayer.LifeShieldMaxExtraLife = this.lifeShied
     }
 
     AddRecipes() {

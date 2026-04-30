@@ -1,11 +1,11 @@
 import { Terraria, Modules, Microsoft } from "../../TL/ModImports.js";
 import { ModPlayer } from "../../TL/ModPlayer.js";
 import { ModProjectile } from '../../TL/ModProjectile.js';
-import { ModTexture } from "../../TL/ModTexture.js";
 import { Color } from "../../TL/Modules/Color.js";
 import { Effects } from "../../TL/Modules/Effects.js";
 import { Vector2 } from "../../TL/Modules/Vector2.js";
 import { Rectangle } from "../../TL/Modules/Rectangle.js";
+import { LifeShieldPlayer } from "./LifeShieldPlayer.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
@@ -44,16 +44,6 @@ export class ThoriumPlayer extends ModPlayer {
     static LifeShieldHealValue = 1;
     static LifeShieldTimeDelay = 0;
     static LifeShieldMaxTimeDelay = 120;
-    static Default_Heart;
-    static Default_Heart2;
-    static Default_HeartFancy;
-    static Default_HeartFancy2;
-    static Default_BarHeart;
-    static Default_BarHeart2;
-    static Heart_Shield_Texture;
-    static Heart2_Shield_Texture;
-    static BarHeart_Shield_Texture;
-    static BarHeart2_Shield_Texture;
 
     constructor() {
         super();
@@ -88,29 +78,29 @@ export class ThoriumPlayer extends ModPlayer {
         }
 
         if (ThoriumPlayer.LifeShieldActive) {
-            Terraria.GameContent.TextureAssets.Heart = ThoriumPlayer.Heart_Shield_Texture;
-            Terraria.GameContent.TextureAssets.Heart2 = ThoriumPlayer.Heart2_Shield_Texture;
-            Terraria.GameContent.TextureAssets.FancyHeart = ThoriumPlayer.Heart_Shield_Texture;
-            Terraria.GameContent.TextureAssets.FancyHeart2 = ThoriumPlayer.Heart2_Shield_Texture;
-            Terraria.GameContent.TextureAssets.BarHeart = ThoriumPlayer.BarHeart_Shield_Texture;
-            Terraria.GameContent.TextureAssets.BarHeart2 = ThoriumPlayer.BarHeart2_Shield_Texture;
+            Terraria.GameContent.TextureAssets.Heart = LifeShieldPlayer.Heart_Shield_Texture;
+            Terraria.GameContent.TextureAssets.Heart2 = LifeShieldPlayer.Heart2_Shield_Texture;
+            Terraria.GameContent.TextureAssets.FancyHeart = LifeShieldPlayer.Heart_Shield_Texture;
+            Terraria.GameContent.TextureAssets.FancyHeart2 = LifeShieldPlayer.Heart2_Shield_Texture;
+            Terraria.GameContent.TextureAssets.BarHeart = LifeShieldPlayer.BarHeart_Shield_Texture;
+            Terraria.GameContent.TextureAssets.BarHeart2 = LifeShieldPlayer.BarHeart2_Shield_Texture;
 
             ThoriumPlayer.LifeShieldIsDefault = false;
 
-            if (player.statLife < player.statLifeMax2) {
+            if (player.statLife < player.statLifeMax2 && !player.dead) {
                 ThoriumPlayer.LifeShieldTimeDelay++;
                 if (ThoriumPlayer.LifeShieldMaxTimeDelay <= ThoriumPlayer.LifeShieldTimeDelay) {
                     ThoriumPlayer.LifeShieldTimeDelay = 0;
-                    ThoriumPlayer.HealPlayer(player, ThoriumPlayer.LifeShieldHealValue);
+                    LifeShieldPlayer.HealPlayer(player, ThoriumPlayer.LifeShieldHealValue);
                 }
             }
         } else if (!ThoriumPlayer.LifeShieldIsDefault) {
-            Terraria.GameContent.TextureAssets.Heart = ThoriumPlayer.Default_Heart;
-            Terraria.GameContent.TextureAssets.Heart2 = ThoriumPlayer.Default_Heart2;
-            Terraria.GameContent.TextureAssets.FancyHeart = ThoriumPlayer.Default_HeartFancy;
-            Terraria.GameContent.TextureAssets.FancyHeart2 = ThoriumPlayer.Default_HeartFancy2;
-            Terraria.GameContent.TextureAssets.BarHeart = ThoriumPlayer.Default_BarHeart;
-            Terraria.GameContent.TextureAssets.BarHeart2 = ThoriumPlayer.Default_BarHeart2;
+            Terraria.GameContent.TextureAssets.Heart = LifeShieldPlayer.Default_Heart;
+            Terraria.GameContent.TextureAssets.Heart2 = LifeShieldPlayer.Default_Heart2;
+            Terraria.GameContent.TextureAssets.FancyHeart = LifeShieldPlayer.Default_HeartFancy;
+            Terraria.GameContent.TextureAssets.FancyHeart2 = LifeShieldPlayer.Default_HeartFancy2;
+            Terraria.GameContent.TextureAssets.BarHeart = LifeShieldPlayer.Default_BarHeart;
+            Terraria.GameContent.TextureAssets.BarHeart2 = LifeShieldPlayer.Default_BarHeart2;
             ThoriumPlayer.LifeShieldIsDefault = true;
         }
     }
@@ -193,8 +183,7 @@ export class ThoriumPlayer extends ModPlayer {
 
                 const eggType = ModProjectile.getTypeByName('IncubatedSpider');
                 const source = projectile.GetProjectileSource_FromThis();
-                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, projectile.damage, projectile.knockBack, player.whoAmI, 0, 0, 0, null);
-                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, projectile.damage, projectile.knockBack, player.whoAmI, 0, 0, 0, null);
+                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, 1, 0, player.whoAmI, 0, 0, 0, null);
             }
         }
     }
@@ -210,35 +199,6 @@ export class ThoriumPlayer extends ModPlayer {
 
     MultiplyDamage(damage) {
         return damage * (1 + ThoriumPlayer.SheatDamageMultiplier);
-    }
-
-    static HealPlayer(player, amount) {
-        const location = Rectangle.new(
-            Math.floor(player.position.X),
-            Math.floor(player.position.Y),
-            player.width,
-            player.height
-        );
-        Terraria.CombatText['int NewText(Rectangle location, Color color, int amount, bool dramatic, bool dot)'](
-            location, Color.Aqua, amount, false, false
-        );
-        player.statLife += amount;
-    }
-
-    static SaveDefaultTextures() {
-        ThoriumPlayer.Default_Heart = Terraria.GameContent.TextureAssets.Heart;
-        ThoriumPlayer.Default_Heart2 = Terraria.GameContent.TextureAssets.Heart2;
-        ThoriumPlayer.Default_HeartFancy = Terraria.GameContent.TextureAssets.FancyHeart;
-        ThoriumPlayer.Default_HeartFancy2 = Terraria.GameContent.TextureAssets.FancyHeart2;
-        ThoriumPlayer.Default_BarHeart = Terraria.GameContent.TextureAssets.BarHeart;
-        ThoriumPlayer.Default_BarHeart2 = Terraria.GameContent.TextureAssets.BarHeart2;
-    }
-
-    static LoadTextures() {
-        ThoriumPlayer.Heart_Shield_Texture = new ModTexture('Textures/UI/Health/Health_Shield').asset.asset;
-        ThoriumPlayer.Heart2_Shield_Texture = new ModTexture('Textures/UI/Health/Health2_Shield').asset.asset;
-        ThoriumPlayer.BarHeart_Shield_Texture = new ModTexture('Textures/UI/Health/BarHeart_Shield').asset.asset;
-        ThoriumPlayer.BarHeart2_Shield_Texture = new ModTexture('Textures/UI/Health/BarHeart2_Shield').asset.asset;
     }
 
     static ReadySeathEffect(player) {

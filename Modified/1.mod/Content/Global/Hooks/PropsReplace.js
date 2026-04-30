@@ -77,7 +77,15 @@ export class PropsReplace extends GlobalHooks {
 
             // Aquamarine
             if (Type === Terraria.ID.ItemID.AncientGreenDungeonBrick) {
-                self._nameOverride = ModLocalization.Translate('ItemName.Aquamarine'); 
+                self._nameOverride = ModLocalization.Translate('ItemName.AquamarineGem'); 
+                self.rare = ItemRarityID.White;
+                self.value = Terraria.Item.sellPrice(0, 0, 15, 0);
+                self.maxStack = 9999;
+            }
+            
+            //Opal
+            if (Type === Terraria.ID.ItemID.AncientGoldBrick) {
+                self._nameOverride = ModLocalization.Translate('ItemName.OpalGem'); 
                 self.rare = ItemRarityID.White;
                 self.value = Terraria.Item.sellPrice(0, 0, 15, 0);
                 self.maxStack = 9999;

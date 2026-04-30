@@ -2,9 +2,9 @@ import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
 import { Color } from "../../../TL/Modules/Color.js";
 
-export class AquamarineTile extends GlobalTile {
+export class DepthsAquamarineTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.AncientGreenBrick;
+    Type = Terraria.ID.TileID.TeamBlockPink;
 
     IsTileSpelunkable(i, j, type) {
         if (type === this.Type) {
@@ -15,8 +15,7 @@ export class AquamarineTile extends GlobalTile {
 
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
-        // Cor Ciano/Verde-Água (Aquamarine) para o mapa
-        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(127, 255, 212); 
+        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(127, 255, 240); 
         
         Terraria.Main.tileSpelunker[this.Type] = true;
         Terraria.Main.tileOreFinderPriority[this.Type] = 420;
@@ -44,19 +43,13 @@ export class AquamarineTile extends GlobalTile {
     }
 
     static InjectTexture() {
-        const AncientGreenBrickTile = Terraria.ID.TileID.AncientGreenBrick;
-        const AncientGreenBrickItem = Terraria.ID.ItemID.AncientGreenDungeonBrick;
+        const TeamBlockPinkTile = Terraria.ID.TileID.TeamBlockPink;
 
-        const aquamarineTileTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Tile.png");
-        const aquamarineItemTexture = tl.texture.load("Textures/TextureReplace/AncientGreenBrick/Aquamarine_Item.png");
+        const DepthsAquamarineTileTexture = tl.texture.load("Textures/TextureReplace/TeamBlockPink/DepthsDepthsAquamarine_Tile.png.png");
 
-        if (aquamarineTileTexture != null) {
-            Terraria.Main.tileMergeDirt[AncientGreenBrickTile] = true;
-            Terraria.GameContent.TextureAssets.Tile[AncientGreenBrickTile].Value = aquamarineTileTexture;
-        }
-
-        if (aquamarineItemTexture != null) {
-            Terraria.GameContent.TextureAssets.Item[AncientGreenBrickItem].Value = aquamarineItemTexture;
+        if (DepthsAquamarineTileTexture != null) {
+            Terraria.Main.tileMergeDirt[TeamBlockPinkTile] = true;
+            Terraria.GameContent.TextureAssets.Tile[TeamBlockPinkTile].Value = DepthsAquamarineTileTexture;
         }
     }
 }

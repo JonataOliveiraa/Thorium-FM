@@ -1,6 +1,7 @@
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModBuff } from "../../../TL/ModBuff.js";
 import { ModPlayer } from "../../../TL/ModPlayer.js";
+import { ThoriumPlayer } from "../../Global/ThoriumPlayer.js";
 
 export class LifeRecoveryBuff extends ModBuff {
     constructor() {
@@ -10,11 +11,11 @@ export class LifeRecoveryBuff extends ModBuff {
     }
 
     UpdatePlayer(player, buffIndex) {
-        ModPlayer.getByName("gPlayer").LifeRecoveryBuffDelayTime++;
+        ThoriumPlayer.LifeRecoveryBuffDelayTime++;
         
-        if (ModPlayer.getByName("gPlayer").LifeRecoveryBuffDelayTime >= 60) {
+        if (ThoriumPlayer.LifeRecoveryBuffDelayTime >= 60) {
             player.Heal(this.HealValue);
-            ModPlayer.getByName("gPlayer").LifeRecoveryBuffDelayTime = 0 
+            ThoriumPlayer.LifeRecoveryBuffDelayTime = 0 
         }
     }
 }
