@@ -11,6 +11,7 @@
     "ThoriumOre": "Minério de Tório",
     "LifeQuartzOre": "Quartzo de Vida",
     "LeakyMarineBlock": "Bloco Marinho Permeável",
+    "LeakyMossyMarineBlock": "Bloco Marinho Musguento Permeável",
     "ThoriumAnvil": "Bigorna de Tório",
     "MossyGoldOre": "Minério de Ouro Musguento",
     "MossyPlatinumOre": "Minério de Platina Musguento",
@@ -23,6 +24,8 @@
     "ThoriumBar": "Barra de Tório",
     "IcyShard": "Fragmento de Gelo",
     "Blood": "Sangue",
+    "DepthScales": "Escamas Profundas",
+    "UnholyShards": "Fragmento Profano",
     "LivingLeaf": "Folha viva",
     "MarineKelp": "Algas Marinhas",
     "Petal": "Pétala",
@@ -83,7 +86,10 @@
     "ThoriumMail": "Peitoral de Tório",
     "ThoriumGreaves": "Grevas de Tório",
     "LifeGem": "Gema da Vida",
-    "LifeQuartzClaymore": "Espada Grande de Quartzo de Vida"
+    "LifeQuartzClaymore": "Espada Grande de Quartzo de Vida",
+    "TechniqueBlankScroll": "Pergaminho de Técnica em Branco",
+    "EnchantedCane": "Bengala Encantada",
+    "EnchantedStaff": "Cajado Encantado"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -107,6 +113,7 @@
     "IncubatedEgg": "'Uma macabra incubação nesse ovo'\nAtaques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas",
     "LeatherSheath": "Golpes com espadas, machados e picaretas causam {0}% de dano e a chance de acerto crítico é aumentada em {1}%\nA arma deve estar na mão e sem uso por {2} segundos",
     "WebGun": "Dispara um glóbulo pegajoso de teia úmida",
+    "DepthScales": "A evolução alcançou isso para profundezas...",
     "RainStone": "'Dizem que esta pedra estranha foi arrancada de uma entidade que podia controlar os mares...'\nAtiva ou dissipa uma tempestade",
     "BubbleConch": "Cria uma barragem de bolhas que erguem inimigos",
     "JellyfishResonator": "Invoca a Rainha Água-viva\nSó pode ser usado na praia durante o dia",
@@ -120,7 +127,12 @@
     "ThoriumMail": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "ThoriumGreaves": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "LifeGem": "Aumenta a vida máxima em 20 e a regeneração de vida",
-    "LifeQuartzClaymore": "Recupera vida ao atingir um inimigo"
+    "LifeQuartzClaymore": "Recupera vida ao atingir um inimigo",
+    "UnholyShards": "'Uma lágrima de uma lua ensanguentada'",
+    "TechniqueBlankScroll": "Usado na criação de habilidades únicas de técnica",
+    "EnchantedCane": "Invoca um escudo que atordoa os inimigos próximos",
+    "EnchantedStaff": "Invoca um raio encantado que regenera a mana ao eliminar um inimigo",
+    "LifeShieldLabel": "Você gera constantemente um escudo de {0} de vida"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -134,20 +146,23 @@
     "LifeRecoveryBuff": "Recuperação de Vida",
     "StunnedBuff": "Atordoado",
     "MagmaCharmBuff": "Amuleto de Magma",
-    "LavaHugBuff": "Abraço da Lava"
+    "LavaHugBuff": "Abraço da Lava",
+    "EnchantedCaneBuff": "Barreira Encantada"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo",
     "LifeRecoveryBuff": "Recupera saúde gradualmente com o tempo",
     "StunnedBuff": "Incapaz de se mover",
     "MagmaCharmBuff": "Seu corpo se encolheu para uma larva de magma",
-    "LavaHugBuff": "Regenera a vida e a mana a cada 2 segundos"
+    "LavaHugBuff": "Regenera a vida e a mana a cada 2 segundos",
+    "EnchantedCaneBuff": "Você está protegido por uma barreira encantada"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"
   },
   "NPCName": {
     "Blacksmith": "Ferreiro",
+    "DesertAcolyte": "Acólito do Deserto",
     "ArmyAnt": "Formiga Soldado",
     "FireAnt": "Formiga Flamejante",
     "StrangeBulb": "Bulbo Estranho",
@@ -157,7 +172,8 @@
     "GildedBat": "Morcego Dourado",
     "GildedLycan": "Lycan Dourado",
     "GildedSlime": "Geleia Dourado",
-    "GildedSlimeling": "Geleinha Dourado"
+    "GildedSlimeling": "Geleinha Dourado",
+    "PatchWerk": "O Retalhoso"
   },
   "Bestiary": {
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
@@ -169,7 +185,11 @@
     "Blacksmith_1": "Precisa de algo forjado?",
     "Blacksmith_2": "Uma boa lâmina faz toda a diferença.",
     "Blacksmith_3": "Consigo ouvir o metal chamando.",
-    "Blacksmith_4": "Traga os materiais, eu faço valer a pena."
+    "Blacksmith_4": "Traga os materiais, eu faço valer a pena.",
+    "DesertAcolyte_1": "Temos pessoas bem estranhas nesta cidade, não acha...?",
+    "DesertAcolyte_2": "Você não viu sombras de pássaros gigantes enquanto estava no deserto, viu?",
+    "DesertAcolyte_3": "Eu tinha parado apenas para encher meu cantil, mas você parece alguém capaz de lidar com uma ameaça de verdade!",
+    "DesertAcolyte_4": "Você já ouviu falar dos Pássaros do Trovão? Diz a lenda que eles protegiam nosso mundo de ameaças catastróficas, até que um conflito entre eles e três indivíduos levou ao desaparecimento deles..."
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -188,6 +208,26 @@
       "NoHome": "Uma forja precisa de um lugar decente. Isso aqui não serve.",
       "FarFromHome": "Ficar longe das minhas ferramentas não parece certo.",
       "SpecialMoodText": "Não trabalho com aço à luz da lua. Nada de bom sai disso."
+    },
+    "DesertAcolyte": {
+      "Content": "O deserto fala em silêncio... você só precisa escutar.",
+      "DislikeBiome": "{0} parece... antinatural. As areias o rejeitam.",
+      "DislikeCrowded": "Muitas vozes abafam os sussurros deste lugar.",
+      "DislikeNPC": "{0} perturba o equilíbrio que tento manter.",
+      "HateBiome": "{0} sufoca o espírito do deserto. Não posso ficar aqui.",
+      "HateCrowded": "Esse barulho... não consigo ouvir as areias.",
+      "HateNPC": "{0} só traz perturbação. Não quero me envolver.",
+      "LikeBiome": "{0}... tem alguma harmonia, pelo menos.",
+      "LikeNPC": "{0} segue um caminho não tão diferente do meu.",
+      "LoveBiome": "Sim... {0} ressoa com a verdadeira voz do deserto.",
+      "LoveNPC": "{0} entende mais do que aparenta.",
+      "LoveSpace": "O ar aberto... o vento traz clareza aqui.",
+      "NoHome": "Preciso de um lugar onde os ventos possam passar livremente.",
+      "FarFromHome": "Longe demais... já não sinto mais a presença do deserto.",
+      "SpecialMoodText": "Os ventos estão inquietos hoje... algo se move sob as areias."
     }
+  },
+  "SinalizationChatMessage": {
+    "OnPatchWerkDie": "O temido Retalhoso desmorona..."
   }
 }

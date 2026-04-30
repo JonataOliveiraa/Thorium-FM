@@ -43,7 +43,7 @@ export class Blacksmith extends ModNPC {
     new NPCHappiness(this.Type)
       .SetNPCAffection(Terraria.ID.NPCID.Demolitionist, AffectionLevel.Love)
       .SetNPCAffection(Terraria.ID.NPCID.GoblinTinkerer, AffectionLevel.Like)
-      .SetBiomeAffection(Terraria.ID.BiomeID.Underground, AffectionLevel.Like);
+      .SetBiomeAffection(Terraria.ID.BiomeID.NormalUnderground, AffectionLevel.Like);
   }
 
   SetDefaults() {

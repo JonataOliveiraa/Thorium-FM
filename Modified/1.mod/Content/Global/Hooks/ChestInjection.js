@@ -1,112 +1,123 @@
-import { GlobalHooks } from "../../../TL/GlobalHooks.js";
 import { TileData } from "../../../TL/Modules/TileData.js";
 import { ModItem } from "../../../TL/ModItem.js";
-import { Rand } from "../../../TL/Modules/Rand.js";
-import { AquaticDepths } from "../../Biomes/AquaticDepths.js";
-import { ChestStyle1 } from "../Enums/ChestStyle1.js";
 import { Terraria } from "../../../TL/ModImports.js";
-import { ScarletChestStructure } from "../../Structures/ScarletChestStructure.js";
-import { BloodChamberStructure } from "../../Structures/BloodChamberStructure.js";
+import { ChestStyle1 } from "../Enums/ChestStyle1.js";
 
-const { Main, WorldGen, Item, InventoryStorage } = Terraria
+const { Main, Item, InventoryStorage } = Terraria;
 
 const InjectionRules = [
     {
-        // Regra original: LivingWoodSap nos baús de Living Wood
-        type: 21, 
+        type: 21,
         style: ChestStyle1.LivingWood,
-        // Usamos uma função (getter) para o ID para garantir que o ModItem seja carregado no momento certo
         getItemID: () => ModItem.getTypeByName('LivingWoodSap'),
         stack: 1,
-        // Função que define quantos baús recebem. Neste caso: Metade deles (mínimo 1)
-        calculateAmount: (totalValidChests) => Math.max(1, Math.floor(totalValidChests / 2)),
-        action: 'replace' // 'replace' substitui o slot 0. 'add' usa o AddItemToShop.
+        calculateAmount: (total) => Math.max(1, Math.floor(total / 2)),
+        action: 'replace'
     },
     {
-        // Nova Regra: WebGun nos baús de Teia
         type: 21,
         style: ChestStyle1.WebCovered,
         getItemID: () => ModItem.getTypeByName('WebGun'),
         stack: 1,
-        // Você pediu "pelo menos 1". Essa função pega exatamente 1 baú, se existir.
-        calculateAmount: (totalValidChests) => Math.min(1, totalValidChests),
+        calculateAmount: (total) => Math.max(1, Math.floor(total / 2)),
         action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Gold,
+        getItemID: () => ModItem.getTypeByName('EnchantedStaff'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.15)),
+        action: 'replace',
+        salt: 397
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Gold,
+        getItemID: () => ModItem.getTypeByName('EnchantedCane'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.15)),
+        action: 'replace',
+        salt: 613
     }
 ];
 
+export class ChestInjection {
+    Inject() {
+        const chestDictionary = this._mapChests();
+        const seedHash = this._getSeedHash();
+        const usedChests = new Set(); 
 
-// ========================================================================
-// 2. MOTOR DE INJEÇÃO (Não precisa mais alterar essa classe)
-// ========================================================================
-export class ChestInjection extends GlobalHooks {
-    Initialize() {
-        WorldGen.ShimmerCleanUp.hook((original, self) => {
-            original(self);
+        for (let ruleIndex = 0; ruleIndex < InjectionRules.length; ruleIndex++) {
+            const rule = InjectionRules[ruleIndex];
+            const dictKey = `${rule.type}_${rule.style}`;
+            
+            let validChests = [...(chestDictionary[dictKey] || [])];
 
-            new ScarletChestStructure().Generate()
-            new BloodChamberStructure().Generate()
-            new AquaticDepths().Generate();
+            if (validChests.length === 0) continue;
 
-            // 2. MAPEANDO TODOS OS BAÚS DO MUNDO DE UMA SÓ VEZ
-            const chests = Main.chest;
-            const chestDictionary = {}; // Guarda os baús no formato: "type_style": [index1, index2...]
+            const originalTotal = validChests.length; 
+            
+            validChests = validChests.filter(chestIndex => !usedChests.has(chestIndex));
 
-            for (let i = 0; i < 8000; i++) {
-                const chest = chests[i];
-                if (chest === null) continue;
+            const salt = rule.salt ?? (ruleIndex * 179 + 53);
+            validChests.sort((a, b) => {
+                const hashA = Math.abs((seedHash ^ (a * salt)) % 1000);
+                const hashB = Math.abs((seedHash ^ (b * salt)) % 1000);
+                return hashA - hashB;
+            });
 
-                const tile = new TileData(chest.x, chest.y);
-                const style = Math.floor(tile.frameX / 36);
-                const dictKey = `${tile.type}_${style}`;
+            const amount = rule.calculateAmount(originalTotal);
 
-                if (!chestDictionary[dictKey]) {
-                    chestDictionary[dictKey] = [];
+            for (let j = 0; j < amount && j < validChests.length; j++) {
+                const chestIndex = validChests[j];
+                
+                usedChests.add(chestIndex); 
+
+                const storage = InventoryStorage.new();
+                storage['void .ctor(int chest)'](chestIndex);
+
+                const item = Item.new();
+                item['void .ctor()']();
+                item['void SetDefaults(int Type, ItemVariant variant)'](rule.getItemID(), null);
+                item.stack = rule.stack;
+
+                if (rule.action === 'replace') {
+                    storage.item[0] = item;
+                } else if (rule.action === 'add') {
+                    storage.AddItemToShop(item);
                 }
-                chestDictionary[dictKey].push(i);
+
+                storage.SyncToChest();
             }
+        }
+    }
 
-            const seedStr = String(Main.ActiveWorldFileData.Seed);
-            let seedHash = 0;
-            for (let i = 0; i < seedStr.length; i++) {
-                seedHash = (seedHash << 5) - seedHash + seedStr.charCodeAt(i);
-            }
+    _mapChests() {
+        const chests = Main.chest;
+        const chestDictionary = {};
 
-            for (const rule of InjectionRules) {
-                const dictKey = `${rule.type}_${rule.style}`;
-                const validChests = chestDictionary[dictKey] || [];
+        for (let i = 0; i < 8000; i++) {
+            const chest = chests[i];
+            if (chest === null) continue;
 
-                if (validChests.length === 0) continue;
+            const tile = new TileData(chest.x, chest.y);
+            const style = Math.floor(tile.frameX / 36);
+            const dictKey = `${tile.type}_${style}`;
 
-                validChests.sort((a, b) => {
-                    const hashA = Math.abs((seedHash + a * 397) % 100);
-                    const hashB = Math.abs((seedHash + b * 617) % 100);
-                    return hashA - hashB;
-                });
+            if (!chestDictionary[dictKey]) chestDictionary[dictKey] = [];
+            chestDictionary[dictKey].push(i);
+        }
 
-                const amountToInject = rule.calculateAmount(validChests.length);
+        return chestDictionary;
+    }
 
-                for (let j = 0; j < amountToInject; j++) {
-                    const chestIndex = validChests[j];
-                    
-                    const storage = InventoryStorage.new();
-                    storage['void .ctor(int chest)'](chestIndex);
-
-                    const item = Item.new();
-                    item['void .ctor()']();
-                    
-                    const itemID = rule.getItemID();
-                    item['void SetDefaults(int Type, ItemVariant variant)'](itemID, null);
-                    item.stack = rule.stack;
-
-                    if (rule.action === 'replace') {
-                        storage.item[0] = item;
-                    } else if (rule.action === 'add') {
-                        storage.AddItemToShop(item);
-                    }
-
-                    storage.SyncToChest();
-                }
-            }
-        });
+    _getSeedHash() {
+        const seedStr = String(Main.ActiveWorldFileData.Seed);
+        let seedHash = 0;
+        for (let i = 0; i < seedStr.length; i++) {
+            seedHash = (seedHash << 5) - seedHash + seedStr.charCodeAt(i);
+        }
+        return seedHash;
     }
 }

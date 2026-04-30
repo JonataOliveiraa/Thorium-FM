@@ -17,6 +17,7 @@ import { Containers2 } from "../Tiles/Containers2.js";
 import { BloodAltar } from "../Tiles/BloodAltar.js";
 import { LifeShieldPlayer } from "../LifeShieldPlayer.js";
 import { ModTexture } from "../../../TL/ModTexture.js";
+import { LeakyMossyMarineBlock } from "../Tiles/LeakyMossyMarineBlock.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -33,6 +34,7 @@ export class TextureReplace extends ModSystem {
       ThoriumAnvil.InjectTexture()
 
       LeakyMarineBlock.InjectTexture()
+      LeakyMossyMarineBlock.InjectTexture()
       LeakyMarineWall.InjectTexture()
       MossyGoldOreTile.InjectTexture()
       MossyPlatinumOreTile.InjectTexture()

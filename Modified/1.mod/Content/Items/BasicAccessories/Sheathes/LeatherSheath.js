@@ -1,7 +1,7 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModPlayer } from '../../../../TL/ModPlayer.js';
-import { SheathPlayer } from '../../../Global/SheathPlayer.js'
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class LeatherSheath extends ModItem {
     constructor() {
@@ -25,31 +25,34 @@ export class LeatherSheath extends ModItem {
         for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
             const line = this.TooltipLines[i];
             if (line.includes('{0}') || line.includes('{1}')) {
-                this.TooltipLines[i] = line.replace('{0}', this.DamageMultiplier * 100).replace('{1}', this.CriticalChanceBonus).replace('{2}', parseFloat(this.SheathMaxCooldown / 60).toFixed(2));
+                this.TooltipLines[i] = line
+                    .replace('{0}', this.DamageMultiplier * 100)
+                    .replace('{1}', this.CriticalChanceBonus)
+                    .replace('{2}', (ThoriumPlayer.SheathMaxCooldown / 60).toFixed(2));
             }
         }
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
-        SheathPlayer.SheathMaxCooldown = 240;
-        SheathPlayer.SheatType = 0;
-        SheathPlayer.SheatDamageMultiplier = 5;
-        SheathPlayer.SheatCriticalChanceBonus = 100;
+        ThoriumPlayer.SheathMaxCooldown = 240;
+        ThoriumPlayer.SheatType = 0;
+        ThoriumPlayer.SheatDamageMultiplier = 5;
+        ThoriumPlayer.SheatCriticalChanceBonus = 100;
 
-        if (SheathPlayer.SheathCooldown < SheathPlayer.SheathMaxCooldown && player.HeldItem.melee && player.HeldItem.useStyle === Terraria.ID.ItemUseStyleID.Swing) {
-            SheathPlayer.SheathCooldown++;
+        if (ThoriumPlayer.SheathCooldown < ThoriumPlayer.SheathMaxCooldown && player.HeldItem.melee && player.HeldItem.useStyle === Terraria.ID.ItemUseStyleID.Swing) {
+            ThoriumPlayer.SheathCooldown++;
 
-            if (SheathPlayer.SheathCooldown === SheathPlayer.SheathMaxCooldown) {
-                SheathPlayer.ReadySeathEffect(player);
+            if (ThoriumPlayer.SheathCooldown === ThoriumPlayer.SheathMaxCooldown) {
+                ThoriumPlayer.ReadySeathEffect(player);
             }
         }
 
         if (
-            SheathPlayer.SheathMaxCooldown !== undefined &&
-            SheathPlayer.SheatType !== undefined &&
-            SheathPlayer.SheathCooldown >= SheathPlayer.SheathMaxCooldown
+            ThoriumPlayer.SheathMaxCooldown !== undefined &&
+            ThoriumPlayer.SheatType !== undefined &&
+            ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown
         ) {
-            player.meleeCrit += SheathPlayer.SheatCriticalChanceBonus;
+            player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
         }
     }
 }

@@ -5,19 +5,11 @@ import { Color } from "../../../TL/Modules/Color.js";
 export class LeakyMarineBlock extends GlobalTile {
     Type = Terraria.ID.TileID.EasterBlock;
 
-    IsTileSpelunkable(i, j, type) {
-        if (type === this.Type) {
-            return true;
-        }
-        return null;
-    }
-
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
-        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(24, 45, 94);
+        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(104, 138, 165);
         
         Terraria.Main.tileMergeDirt[this.Type] = true;
-        Terraria.ID.TileID.Sets.UsesADifferentTileTypeForNPCSpawning[this.Type] = false;
     }
 
     static InjectTexture() {

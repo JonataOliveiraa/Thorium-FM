@@ -1,5 +1,6 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { LifeShieldPlayer } from '../../../Global/LifeShieldPlayer.js';
 
 export class IronShield extends ModItem {
@@ -15,14 +16,18 @@ export class IronShield extends ModItem {
         this.Item.rare = Terraria.ID.ItemRarityID.White;
         this.Item.accessory = true;
         this.Item.defense = 1;
+        this.lifeShied = 10
+    }
+
+    ModifyTooltipLines() {
+        this.TooltipLines[0] = ModLocalization.Translate('ItemTooltip.LifeShieldLabel').replace('{0}', this.lifeShied)
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        player.statLifeMax2 += 10;
-
         LifeShieldPlayer.Active = true
+        LifeShieldPlayer.MaxExtraLife = this.lifeShied
     }
 
     AddRecipes() {

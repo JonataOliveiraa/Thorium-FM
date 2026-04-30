@@ -1,5 +1,6 @@
 import { ModBiome } from "../../../TL/ModBiome.js";
 import { Terraria } from "../../../TL/ModImports.js";
+import { ModItem } from "../../../TL/ModItem.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 
@@ -24,8 +25,8 @@ export class Sharptooth extends ModNPC {
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
         this.NPC.value = ModNPC.NPCValue(0, 0, 3, 0);
         this.NPC.noGravity = true;
-        
-        this.AnimationType = Terraria.ID.NPCID.Piranha; 
+
+        this.AnimationType = Terraria.ID.NPCID.Piranha;
     }
 
     PostAI(npc) {
@@ -33,9 +34,14 @@ export class Sharptooth extends ModNPC {
     }
 
     SpawnChance(info) {
-        if(ModBiome.getByName('AquaticDepths').IsActive && info.Water) {
+        if (ModBiome.getByName('AquaticDepths').IsActive) {
             return 0.3
         }
         return 0
+    }
+
+    //DepthScales
+    ModifyNPCLoot(npcLoot) {
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('DepthScales'), 1, 1, 2));
     }
 }

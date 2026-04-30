@@ -28,7 +28,7 @@ export class AquaticDepths extends ModBiome {
     }
 
     IsBiomeActive(player, tileCounts) {
-        if (tileCounts[Terraria.ID.TileID.EasterBlock] >= 150) {
+        if (tileCounts[Terraria.ID.TileID.EasterBlock] >= 200) {
             return true;
         }
         return false;
@@ -87,8 +87,8 @@ export class AquaticDepths extends ModBiome {
         const fendaX = bestPoint.x;
         const oceanFloor = bestPoint.y;
 
-        const radiusX = Math.floor(200 * scale);
-        const radiusY = Math.floor(180 * scale);
+        const radiusX = Math.floor(200 * scale * 0.7);
+        const radiusY = Math.floor(180 * scale * 0.7);
 
         const minSafeX = radiusX + 60;
         const maxSafeX = Main.maxTilesX - radiusX - 60;
@@ -156,7 +156,7 @@ export class AquaticDepths extends ModBiome {
             storage.SyncToChest();
         };
 
-        // Main biome ellipse (smoother, rounder)
+        // Main biome ellipse (smaller, smoother)
         for (let x = ballLeft - 20; x <= ballRight + 20; x++) {
             for (let y = ballTop - 20; y <= ballBottom + 20; y++) {
                 if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
@@ -172,6 +172,18 @@ export class AquaticDepths extends ModBiome {
                     tile['void halfBrick(bool halfBrick)'](false);
                     tile['void slope(byte slope)'](0);
                 }
+            }
+        }
+
+        // TeamBlockYellow as few very large veins (max 3)
+        const yellowVeinCount = Rand.Next(5, 7);
+        for (let i = 0; i < yellowVeinCount; i++) {
+            const x = Rand.Next(ballLeft, ballRight);
+            const y = Rand.Next(ballTop, ballBottom);
+            if (Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2) <= 1) {
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, Rand.NextFloat(80, 90), Rand.Next(80, 90), TileID.TeamBlockYellow, false, 0, 0, false, true, -1
+                );
             }
         }
 
@@ -202,84 +214,148 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        const amountOfHoles = Math.floor(55 * scale);
-        let platformChestsTarget = Rand.Next(8, 11);
-        let platChestsPlaced = 0;
+        // Isolated hole generation with 3 types
+        const amountOfHoles = Math.floor(35 * scale);
+        const holeCenters = [];
+        const minHoleDistance = 40 * scale;
 
-        for (let i = 0; i < amountOfHoles; i++) {
-            let hx, hy;
-            do {
-                hx = Rand.Next(ballLeft, ballRight);
-                hy = Rand.Next(ballTop, ballBottom);
-            } while (Math.pow((hx - centerX) / radiusX, 2) + Math.pow((hy - ballCenterY) / radiusY, 2) > 0.6);
-
-            const holeRadiusX = Rand.Next(15, 30) * Math.sqrt(scale);
-            const holeRadiusY = Rand.Next(10, 22) * Math.sqrt(scale);
-            
-            const freq1 = Rand.Next(4, 9);
-            const freq2 = Rand.Next(8, 16);
-            const amp1 = Rand.NextFloat(0.1, 0.3);
-            const amp2 = Rand.NextFloat(0.05, 0.15);
-
-            for (let x = Math.floor(hx - holeRadiusX - 15); x <= Math.floor(hx + holeRadiusX + 15); x++) {
-                for (let y = Math.floor(hy - holeRadiusY - 15); y <= Math.floor(hy + holeRadiusY + 15); y++) {
+        const generateOvalHole = (hx, hy, radX, radY) => {
+            for (let x = Math.floor(hx - radX - 10); x <= hx + radX + 10; x++) {
+                for (let y = Math.floor(hy - radY - 10); y <= hy + radY + 10; y++) {
                     if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
-                    
                     const dx = x - hx;
                     const dy = y - hy;
-                    const angle = Math.atan2(dy, dx);
-                    
-                    const holeNoise = Math.sin(angle * freq1) * amp1 + Math.cos(angle * freq2) * amp2;
-                    const dist = Math.pow(dx / holeRadiusX, 2) + Math.pow(dy / holeRadiusY, 2);
-                    const distFromBiomeCenter = Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2);
-                    
-                    if (dist <= 1 + holeNoise && distFromBiomeCenter < 0.90) {
+                    if (Math.pow(dx / radX, 2) + Math.pow(dy / radY, 2) <= 1 + Math.sin(Math.atan2(dy, dx) * 4) * 0.1) {
                         const tile = Main.tile.get_Item(x, y);
                         tile['void active(bool active)'](false);
                         tile.wall = biomeWall;
                     }
                 }
             }
+        };
 
-            const forceChest = (amountOfHoles - i) <= (platformChestsTarget - platChestsPlaced);
-
-            if (platChestsPlaced < platformChestsTarget && (forceChest || Rand.NextChance(0.30))) {
-                const chestX = Math.floor(hx);
-                const chestY = Math.floor(hy);
-
-                for (let px = chestX - 1; px <= chestX + 2; px++) {
-                    const tile = Main.tile.get_Item(px, chestY);
-                    tile['void active(bool active)'](true);
-                    tile.type = TileID.EasterBlock;
-                    tile.wall = biomeWall;
-                    tile['void halfBrick(bool halfBrick)'](false);
-                    tile['void slope(byte slope)'](0);
-                    
-                    const tileBelow = Main.tile.get_Item(px, chestY + 1);
-                    tileBelow['void active(bool active)'](true);
-                    tileBelow.type = TileID.EasterBlock;
-                    tileBelow.wall = biomeWall;
-                    tileBelow['void slope(byte slope)'](0);
-                }
-
-                for (let cx = chestX; cx <= chestX + 1; cx++) {
-                    for (let cy = chestY - 2; cy <= chestY - 1; cy++) {
-                        const clearTile = Main.tile.get_Item(cx, cy);
-                        clearTile['void active(bool active)'](false);
-                        clearTile.liquid = 0;
+        const generateNoisyHole = (hx, hy, radX, radY) => {
+            const freq1 = Rand.Next(3, 7);
+            const freq2 = Rand.Next(7, 14);
+            const amp1 = Rand.NextFloat(0.2, 0.5);
+            const amp2 = Rand.NextFloat(0.1, 0.3);
+            for (let x = Math.floor(hx - radX - 15); x <= hx + radX + 15; x++) {
+                for (let y = Math.floor(hy - radY - 15); y <= hy + radY + 15; y++) {
+                    if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
+                    const dx = x - hx;
+                    const dy = y - hy;
+                    const angle = Math.atan2(dy, dx);
+                    const holeNoise = Math.sin(angle * freq1) * amp1 + Math.cos(angle * freq2) * amp2;
+                    if (Math.pow(dx / radX, 2) + Math.pow(dy / radY, 2) <= 1 + holeNoise) {
+                        const tile = Main.tile.get_Item(x, y);
+                        tile['void active(bool active)'](false);
+                        tile.wall = biomeWall;
                     }
                 }
+            }
+        };
 
-                let chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](chestX, chestY - 1, TileID.Containers2, false, 3);
-                if (chestIndex !== -1) {
-                    platChestsPlaced++;
-                    fillChest(chestIndex);
+        const generateLongHole = (hx, hy, radX, radY) => {
+            for (let x = Math.floor(hx - radX - 10); x <= hx + radX + 10; x++) {
+                for (let y = Math.floor(hy - radY - 10); y <= hy + radY + 10; y++) {
+                    if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
+                    const dx = x - hx;
+                    const dy = y - hy;
+                    if (Math.pow(dx / radX, 2) + Math.pow(dy / radY, 2) <= 1 + Math.sin(Math.atan2(dy, dx) * 6) * 0.15) {
+                        const tile = Main.tile.get_Item(x, y);
+                        tile['void active(bool active)'](false);
+                        tile.wall = biomeWall;
+                    }
                 }
+            }
+        };
+
+        for (let i = 0; i < amountOfHoles; i++) {
+            let attempts = 0;
+            let hx, hy, holeRadX, holeRadY, holeType;
+            let valid = false;
+            while (attempts < 20 && !valid) {
+                hx = Rand.Next(ballLeft + 35, ballRight - 35);
+                hy = Rand.Next(ballTop + 35, ballBottom - 35);
+                if (Math.pow((hx - centerX) / radiusX, 2) + Math.pow((hy - ballCenterY) / radiusY, 2) > 0.7) {
+                    attempts++;
+                    continue;
+                }
+                holeType = Rand.Next(3);
+                if (holeType === 0) {
+                    holeRadX = Rand.Next(12, 22) * Math.sqrt(scale);
+                    holeRadY = holeRadX;
+                } else if (holeType === 1) {
+                    holeRadX = Rand.Next(15, 28) * Math.sqrt(scale);
+                    holeRadY = Rand.Next(10, 22) * Math.sqrt(scale);
+                } else {
+                    holeRadX = Rand.Next(25, 45) * Math.sqrt(scale);
+                    holeRadY = Rand.Next(6, 16) * Math.sqrt(scale);
+                }
+
+                valid = true;
+                for (const center of holeCenters) {
+                    const dist = Math.sqrt(Math.pow(hx - center.x, 2) + Math.pow(hy - center.y, 2));
+                    if (dist < minHoleDistance) {
+                        valid = false;
+                        break;
+                    }
+                }
+                attempts++;
+            }
+            if (!valid) continue;
+
+            holeCenters.push({ x: hx, y: hy, radX: holeRadX, radY: holeRadY, type: holeType });
+
+            if (holeType === 0)
+                generateOvalHole(hx, hy, holeRadX, holeRadY);
+            else if (holeType === 1)
+                generateNoisyHole(hx, hy, holeRadX, holeRadY);
+            else
+                generateLongHole(hx, hy, holeRadX, holeRadY);
+        }
+
+        // Place 5–7 chests in the holes
+        const targetChests = Rand.Next(5, 8);
+        let chestsPlaced = 0;
+        const shuffled = holeCenters.sort(() => Rand.NextFloat() - 0.5);
+
+        for (const center of shuffled) {
+            if (chestsPlaced >= targetChests) break;
+            const chestX = Math.floor(center.x);
+            const chestY = Math.floor(center.y);
+
+            for (let px = chestX - 1; px <= chestX + 2; px++) {
+                const tile = Main.tile.get_Item(px, chestY);
+                tile['void active(bool active)'](true);
+                tile.type = TileID.EasterBlock;
+                tile.wall = biomeWall;
+                tile['void halfBrick(bool halfBrick)'](false);
+                tile['void slope(byte slope)'](0);
+                
+                const tileBelow = Main.tile.get_Item(px, chestY + 1);
+                tileBelow['void active(bool active)'](true);
+                tileBelow.type = TileID.EasterBlock;
+                tileBelow.wall = biomeWall;
+                tileBelow['void slope(byte slope)'](0);
+            }
+
+            for (let cx = chestX; cx <= chestX + 1; cx++) {
+                for (let cy = chestY - 2; cy <= chestY - 1; cy++) {
+                    const clearTile = Main.tile.get_Item(cx, cy);
+                    clearTile['void active(bool active)'](false);
+                    clearTile.liquid = 0;
+                }
+            }
+
+            let chestIndex = WorldGen['int PlaceChest(int x, int y, ushort type, bool notNearOtherChests, int style)'](chestX, chestY - 1, TileID.Containers2, false, 3);
+            if (chestIndex !== -1) {
+                fillChest(chestIndex);
+                chestsPlaced++;
             }
         }
 
         // --- ENTRANCE SHAFT AND MAIN CAVITY ---
-        // Find a proper entry point deep inside the biome
         let entryY = -1;
         for (let y = ballTop; y < ballBottom; y++) {
             const tile = Main.tile.get_Item(fendaX, y);
@@ -300,7 +376,6 @@ export class AquaticDepths extends ModBiome {
         const cavityRadY = Math.floor(34 * scale);
         const borderThickness = 8;
 
-        // Generate the cavity: thick solid border + irregular hollow interior
         for (let x = fendaX - cavityRadX - borderThickness - 5; x <= fendaX + cavityRadX + borderThickness + 5; x++) {
             for (let y = cavityCenterY - cavityRadY - borderThickness - 5; y <= cavityCenterY + cavityRadY + borderThickness + 5; y++) {
                 if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
@@ -321,22 +396,13 @@ export class AquaticDepths extends ModBiome {
                         tile['void halfBrick(bool halfBrick)'](false);
                         tile['void slope(byte slope)'](0);
                     } else {
-                        // Hollow interior with randomness: keep some blocks for imperfection
-                        if (Rand.NextFloat() < 0.15) {
-                            tile['void active(bool active)'](true);
-                            tile.type = TileID.EasterBlock;
-                            tile.wall = biomeWall;
-                            tile['void slope(byte slope)'](0);
-                        } else {
-                            tile['void active(bool active)'](false);
-                            tile.wall = biomeWall;
-                        }
+                        tile['void active(bool active)'](false);
+                        tile.wall = biomeWall;
                     }
                 }
             }
         }
 
-        // Dig the shaft from slightly above ocean floor down to the cavity
         const shaftStartY = oceanFloor - 3;
         const tunnelEndY = cavityCenterY;
         const totalShaftHeight = tunnelEndY - shaftStartY;
@@ -382,7 +448,6 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        // Force clear connection area between shaft and cavity
         for (let x = fendaX - 6; x <= fendaX + 6; x++) {
             for (let y = cavityCenterY - 8; y <= cavityCenterY + 8; y++) {
                 if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY) continue;
@@ -398,7 +463,6 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        // Place a chest in the middle of the cavity
         let chestX = fendaX;
         let chestY = cavityCenterY;
         for (let cx = chestX; cx <= chestX + 1; cx++) {
@@ -408,7 +472,6 @@ export class AquaticDepths extends ModBiome {
                 tile.liquid = 0;
             }
         }
-        // Ensure solid blocks below chest
         for (let cx = chestX - 1; cx <= chestX + 2; cx++) {
             const tileBelow = Main.tile.get_Item(cx, chestY + 1);
             if (!tileBelow['bool active()']()) {
@@ -440,10 +503,11 @@ export class AquaticDepths extends ModBiome {
             }
         }
 
-        // Ores – equal amounts of both types
+        // Ores
         const goldOre = WorldGen.SavedOreTiers.Gold;
         const mossyGoldOre = goldOre === 8 ? TileID.AncientPinkBrick : TileID.ForbiddenBlock;
         const ancientBlueBrick = TileID.AncientBlueBrick;
+        const teamBlockPink = TileID.TeamBlockPink;
         const oreVeinCount = Math.floor(60 * scale * scale);
 
         for (let i = 0; i < oreVeinCount; i++) {
@@ -459,9 +523,20 @@ export class AquaticDepths extends ModBiome {
         for (let i = 0; i < oreVeinCount; i++) {
             const x = Rand.Next(ballLeft, ballRight);
             const y = Rand.Next(ballTop, ballBottom);
-            if (Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2) <= 0.9) {
+            if (Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2) <= 1) {
                 WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, Rand.NextFloat(4, 8), Rand.Next(5, 10), ancientBlueBrick, false, 0, 0, false, true, -1
+                    x, y, Rand.NextFloat(6, 12), Rand.Next(8, 15), ancientBlueBrick, false, 0, 0, false, true, -1
+                );
+            }
+        }
+
+        const pinkVeinCount = Math.floor(30 * scale * scale);
+        for (let i = 0; i < pinkVeinCount; i++) {
+            const x = Rand.Next(ballLeft, ballRight);
+            const y = Rand.Next(ballTop, ballBottom);
+            if (Math.pow((x - centerX) / radiusX, 2) + Math.pow((y - ballCenterY) / radiusY, 2) <= 0.95) {
+                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                    x, y, Rand.NextFloat(3, 6), Rand.Next(4, 8), teamBlockPink, false, 0, 0, false, true, -1
                 );
             }
         }

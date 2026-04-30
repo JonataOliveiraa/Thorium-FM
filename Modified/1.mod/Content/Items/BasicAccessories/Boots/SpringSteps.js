@@ -1,6 +1,7 @@
 import { Terraria, Modules } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModPlayer } from '../../../../TL/ModPlayer.js';
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class SpringSteps extends ModItem {
     constructor() {
@@ -25,10 +26,7 @@ export class SpringSteps extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        const modPlayer = ModPlayer.getByName('SpringStepsPlayer');
-        if (!modPlayer) return;
-
-        modPlayer.SpringStepsEquipped = true;
+        ThoriumPlayer.SpringStepsEquipped = true;
         
         player.extraFall += 10;
         player.autoJump = true;
@@ -48,13 +46,13 @@ export class SpringSteps extends ModItem {
         }
 
         // Bônus de altura dos pulos
-        if (modPlayer.jumps === 0) {
+        if (ThoriumPlayer.jumps === 0) {
             player.jumpSpeedBoost += 5.5;
         }
-        if (modPlayer.jumps === 1) {
+        if (ThoriumPlayer.jumps === 1) {
             player.jumpSpeedBoost += 1.25;
         }
-        if (modPlayer.jumps === 2) {
+        if (ThoriumPlayer.jumps === 2) {
             player.jumpSpeedBoost += 2.75;
             if (!hideVisual && player.velocity.Y !== 0) {
                 player.DoBootsEffect_PlaceFlamesOnTile(player.Center.X, player.position.Y + player.height);

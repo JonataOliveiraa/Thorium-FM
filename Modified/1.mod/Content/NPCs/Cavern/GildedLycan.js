@@ -43,8 +43,8 @@ export class GildedLycan extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.SpawnTileY < Terraria.Main.maxTilesY - 200) {
-            return 0.03;
+        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
+            return 0.01;
         }
         return 0;
     }

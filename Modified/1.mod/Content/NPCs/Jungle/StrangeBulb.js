@@ -99,7 +99,7 @@ export class StrangeBulb extends ModNPC {
 
     SpawnChance(info) {
         if (info.CommonEnemy && info.Player.ZoneJungle && info.SpawnTileY > Terraria.Main.worldSurface) {
-            return 0.155;
+            return 0.10;
         }
         return 0;
     }

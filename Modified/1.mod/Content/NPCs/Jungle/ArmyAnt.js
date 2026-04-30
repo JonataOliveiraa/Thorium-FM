@@ -49,7 +49,7 @@ export class ArmyAnt extends ModNPC {
     
     SpawnChance(info) {
         if (info.CommonEnemy && info.Player.ZoneJungle && info.SpawnTileY > Terraria.Main.worldSurface) {
-            return 0.14;
+            return 0.08;
         }
         return 0;
     }

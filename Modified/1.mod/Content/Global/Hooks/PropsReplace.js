@@ -43,6 +43,14 @@ export class PropsReplace extends GlobalHooks {
                 self.maxStack = 9999;
             }
 
+            //Leaky Mossy Marine   
+            if (Type === Terraria.ID.ItemID.TeamBlockYellow) {
+                self._nameOverride = ModLocalization.Translate('ItemName.LeakyMossyMarineBlock'); 
+                self.rare = ItemRarityID.White
+                self.value = Terraria.Item.sellPrice(0, 0, 0, 0);
+                self.maxStack = 9999;
+            }
+
             //Mossy Gold Ore
             if (Type === Terraria.ID.ItemID.AncientPinkDungeonBrick) {
                 self._nameOverride = ModLocalization.Translate('ItemName.MossyGoldOre'); 

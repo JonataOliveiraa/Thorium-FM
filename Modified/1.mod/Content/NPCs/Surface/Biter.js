@@ -27,8 +27,8 @@ export class Biter extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.Surface && !info.PlayerInTown && info.Night) {
-            return 0.15;
+        if (info.CommonEnemy && info.Surface && !info.PlayerInTown && info.Night && !info.Water) {
+            return 0.07;
         }
         return 0;
     }

@@ -1,5 +1,6 @@
 //Town NPCs
 export { Blacksmith } from "../Content/NPCs/Town/Blacksmith.js";
+export { DesertAcolyte } from "../Content/NPCs/Town/DesertAcolyte.js";
 
 //Surface
 export { Biter } from "../Content/NPCs/Surface/Biter.js";
@@ -22,3 +23,12 @@ export { GildedLycan } from "../Content/NPCs/Cavern/GildedLycan.js";
 export { ManofWar } from "../Content/NPCs/AquaticDepths/ManofWar.js";
 export { Sharptooth } from "../Content/NPCs/AquaticDepths/Sharptooth.js";
 export { Hammerhead } from "../Content/NPCs/AquaticDepths/Hammerhead.js";
+
+//Blood Moon
+export { GorgedEye } from "../Content/NPCs/BloodMoon/GorgedEye.js";
+export { GraveLimb } from "../Content/NPCs/BloodMoon/GraveLimb.js";
+export { PatchWerk } from "../Content/NPCs/BloodMoon/PatchWerk.js";
+export { Abomination } from "../Content/NPCs/BloodMoon/Abomination.js";
+export { FamishedMaggot } from "../Content/NPCs/BloodMoon/FamishedMaggot.js";
+export { BloodDrop } from "../Content/NPCs/BloodMoon/BloodDrop.js";
+export { SeveredLegs } from "../Content/NPCs/BloodMoon/SeveredLegs.js";

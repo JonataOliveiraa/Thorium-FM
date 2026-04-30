@@ -1,5 +1,6 @@
 import { ModBiome } from "../../../TL/ModBiome.js";
 import { Terraria } from "../../../TL/ModImports.js";
+import { ModItem } from "../../../TL/ModItem.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 
@@ -15,7 +16,7 @@ export class Hammerhead extends ModNPC {
     }
 
     SetDefaults() {
-        this.NPC.aiStyle = Terraria.ID.NPCAIStyleID.SandShark;
+        this.NPC.aiStyle = Terraria.ID.NPCAIStyleID.Piranha;
         this.NPC.damage = 40;
         this.NPC.defense = 5;
         this.NPC.lifeMax = 220;
@@ -24,8 +25,8 @@ export class Hammerhead extends ModNPC {
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
         this.NPC.value = ModNPC.NPCValue(0, 0, 50, 0);
         this.NPC.noGravity = true;
-        
-        this.AnimationType = Terraria.ID.NPCID.Shark; 
+
+        this.AnimationType = Terraria.ID.NPCID.Shark;
     }
 
     PostAI(npc) {
@@ -33,9 +34,14 @@ export class Hammerhead extends ModNPC {
     }
 
     SpawnChance(info) {
-        if(ModBiome.getByName('AquaticDepths').IsActive && info.Water) {
-            return 0.1
+        if (ModBiome.getByName('AquaticDepths').IsActive && Terraria.Main.player[Terraria.Main.myPlayer].wet) {
+            return 0.15
         }
         return 0
+    }
+
+    ModifyNPCLoot(npcLoot) {
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('DepthScales'), 1, 1, 2));
+        npcLoot.Add(ItemDropRule.Common(Terraria.ID.ItemID.SharkFin, 1, 1, 1));
     }
 }

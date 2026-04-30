@@ -41,3 +41,5 @@ export { ThoriumBolt } from "../Content/Projectiles/ThoriumBolt.js"
 export { ThoriumSpark } from "../Content/Projectiles/ThoriumSpark.js"
 
 export { ShadowBolt } from "../Content/Projectiles/ShadowBolt.js"
+export { EnchantedCanePro } from "../Content/Projectiles/EnchantedCanePro.js"
+export { EnchantedStaffPro } from "../Content/Projectiles/EnchantedStaffPro.js"

@@ -2,7 +2,7 @@ import { GlobalLoot } from "../../TL/GlobalLoot.js";
 import { Terraria } from "../../TL/ModImports.js";
 import { ModItem } from "../../TL/ModItem.js";
 
-const { ItemDropRule, ItemDropDatabase } = Terraria.GameContent.ItemDropRules;
+const { ItemDropRule, ItemDropDatabase, Conditions } = Terraria.GameContent.ItemDropRules;
 const { NPCID, ItemID } = Terraria.ID;
 
 export class gNPCsLoot extends GlobalLoot {
@@ -26,13 +26,24 @@ export class gNPCsLoot extends GlobalLoot {
         {
             npcType: NPCID.BloodZombie,
             rules: [
-                () => ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 1)
+                () => ItemDropRule.Common(ModItem.getTypeByName('Blood'), 4, 1, 1),
+                () => ItemDropRule.Common(ModItem.getTypeByName('UnholyShards'), 10, 1, 2)
             ]
         },
         {
             npcType: NPCID.Drippler,
             rules: [
-                () => ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 1)
+                () => ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 1),
+                () => ItemDropRule.Common(ModItem.getTypeByName('UnholyShards'), 10, 1, 2)
+            ]
+        },
+        {
+            npcType: NPCID.Zombie,
+            rules: [
+                () => {
+                    const condition = Conditions.IsBloodMoonAndNotFromStatue.new();
+                    return ItemDropRule.ByCondition(condition, ModItem.getTypeByName('Blood'), 10, 1, 1, 1)
+                }
             ]
         }
     ];

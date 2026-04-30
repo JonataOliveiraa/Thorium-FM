@@ -9,8 +9,9 @@
     "BloomingBow": "Blooming Bow",
     "BloomingStaff": "Blooming Staff",
     "ThoriumOre": "Thorium Ore",
-    "LifeQuartz": "Life Quartz",
+    "LifeQuartzOre": "Life Quartz",
     "LeakyMarineBlock": "Leaky Marine Block",
+    "LeakyMossyMarineBlock": "Leaky Mossy Marine Block",
     "ThoriumAnvil": "Thorium Anvil",
     "MossyGoldOre": "Mossy Gold Ore",
     "MossyPlatinumOre": "Mossy Platinum Ore",
@@ -23,6 +24,8 @@
     "ThoriumBar": "Thorium Bar",
     "IcyShard": "Icy Shard",
     "Blood": "Blood",
+    "DepthScales": "Depth Scales",
+    "UnholyShards": "Unholy Shards",
     "LivingLeaf": "Living Leaf",
     "MarineKelp": "Marine Kelp",
     "Petal": "Petal",
@@ -83,7 +86,10 @@
     "ThoriumMail": "Thorium Mail",
     "ThoriumGreaves": "Thorium Greaves",
     "LifeGem": "Life Gem",
-    "LifeQuartzClaymore": "Life Quartz Claymore"
+    "LifeQuartzClaymore": "Life Quartz Claymore",
+    "TechniqueBlankScroll": "Blank Technique Scroll",
+    "EnchantedCane": "Enchanted Cane",
+    "EnchantedStaff": "Enchanted Staff"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -102,6 +108,7 @@
     "DiamondRing": "Increases critical strike chance by 2%",
     "EmeraldRing": "Increases ranged damage by 1",
     "RubyRing": "Increases melee damage by 1",
+    "DepthScales": "'Evolution has designed this for the deep...'",
     "SapphireRing": "Increases magic damage by 1",
     "TheRing": "Increases all damage by 2\nIncreases armor penetration by 2\nIncreases critical strike chance by 4%",
     "IncubatedEgg": "'A gruesome incubation has occurred'\nMinion and sentry attacks have a 10% chance to generate a swarm of spiders",
@@ -120,7 +127,12 @@
     "ThoriumMail": "'It pulses with energy'\n2% increased critical strike chance",
     "ThoriumGreaves": "'It pulses with energy'\n2% increased critical strike chance",
     "LifeGem": "Increases maximum life by 20 and life regeneration",
-    "LifeQuartzClaymore": "Heals yourself upon hitting an enemy"
+    "LifeQuartzClaymore": "Heals yourself upon hitting an enemy",
+    "UnholyShards": "'A tear of the blood moon'",
+    "TechniqueBlankScroll": "Used in the crafting of unique technique abilities",
+    "EnchantedCane": "Summons a shield that stuns nearby enemies",
+    "EnchantedStaff": "Releases an enchanted beam that restores mana when defeating an enemy",
+    "LifeShieldLabel": "You constantly generate a {0} life shield"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -134,28 +146,33 @@
     "LifeRecoveryBuff": "Life Recovery",
     "StunnedBuff": "StunnedBuff",
     "MagmaCharmBuff": "Magma Charm",
-    "LavaHugBuff": "Lava's Embrace"
+    "LavaHugBuff": "Lava's Embrace",
+    "EnchantedCaneBuff": "Enchanted Barrier"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
     "LifeRecoveryBuff": "Gradually recovers health over time",
     "StunnedBuff": "Incapable of moving",
     "MagmaCharmBuff": "Your body has shrunk to a magma larva",
-    "LavaHugBuff": "Increases life and mana regeneration every 2 seconds"
+    "LavaHugBuff": "Increases life and mana regeneration every 2 seconds",
+    "EnchantedCaneBuff": "You are protected by a magical barrier"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
   },
   "NPCName": {
     "Blacksmith": "Blacksmith",
+    "DesertAcolyte": "Desert Acolyte",
     "ArmyAnt": "Army Ant",
     "FireAnt": "Fire Ant",
     "StrangeBulb": "Strange Bulb",
-    "MahoganyEnt": "Mahogany Ent"
+    "MahoganyEnt": "Mahogany Ent",
+    "PatchWerk": "Patchwerk"
   },
   "Bestiary": {
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
-    "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady.",
+    "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady",
+    "DesertAcolyte": "The Desert Acolyte is quite nervous, but will sell all manner of equipment to those interested in throwing stuff at monsters",
     "FireAnt": " It emerged straight from hell, like a burning ant seeking warmth",
     "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
     "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
@@ -170,7 +187,11 @@
     "Blacksmith_1": "Need something forged?",
     "Blacksmith_2": "A good blade makes all the difference.",
     "Blacksmith_3": "I can hear the metal calling already.",
-    "Blacksmith_4": "Bring me materials, and I’ll make them worth your time."
+    "Blacksmith_4": "Bring me materials, and I’ll make them worth your time.",
+    "DesertAcolyte_1": "We certainly have some strange people around this town, don't we...?",
+    "DesertAcolyte_2": "You didn't see any giant bird shadows while you were out in the desert, did you?",
+    "DesertAcolyte_3": "I had originally stopped just to refill my canteen, but you seem like someone who can deal with a real threat!",
+    "DesertAcolyte_4": "Have you ever heard tale of the Thunder Birds? Legend says they had long protected our world from cataclysmic threats, before a disagreement between them and three individuals led to their disappearance..."
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -189,6 +210,26 @@
       "NoHome": "A forge needs a proper home. This won’t do.",
       "FarFromHome": "Being this far from my tools feels... wrong.",
       "SpecialMoodText": "I don’t hammer steel under moonlight. Nothing good comes from it."
+    },
+    "DesertAcolyte": {
+      "Content": "The desert speaks in silence... you just have to listen.",
+      "DislikeBiome": "{0} feels... unnatural. The sands reject it.",
+      "DislikeCrowded": "Too many voices drown out the whispers of the wind.",
+      "DislikeNPC": "{0} disturbs the balance I try to keep.",
+      "HateBiome": "{0} suffocates the spirit of the desert. I cannot remain here.",
+      "HateCrowded": "This noise... I cannot hear the sands at all.",
+      "HateNPC": "{0} brings nothing but disruption. I want no part of it.",
+      "LikeBiome": "{0}... it has some harmony, at least.",
+      "LikeNPC": "{0} walks a path not so different from mine.",
+      "LoveBiome": "Yes... {0} resonates with the desert's true voice.",
+      "LoveNPC": "{0} understands more than they let on.",
+      "LoveSpace": "The open air... the wind carries clarity here.",
+      "NoHome": "I need a place where the winds may pass freely.",
+      "FarFromHome": "Too far... I can no longer feel the desert's presence.",
+      "SpecialMoodText": "The winds are restless tonight... something stirs beneath the sands."
     }
+  },
+  "SinalizationChatMessage": {
+    "OnPatchWerkDie": "The dreaded Patchwerk falls apart..."
   }
 }

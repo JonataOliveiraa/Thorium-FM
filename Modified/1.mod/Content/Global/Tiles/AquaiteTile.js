@@ -16,7 +16,7 @@ export class AquaiteTile extends GlobalTile {
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
         // Cor azul vibrante (Água) para o mapa
-        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(0, 191, 255); 
+        Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(39, 137, 205); 
         
         Terraria.Main.tileSpelunker[this.Type] = true;
         Terraria.Main.tileOreFinderPriority[this.Type] = 600;

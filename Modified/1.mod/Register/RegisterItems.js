@@ -47,6 +47,10 @@ export { LeatherSheath } from "../Content/Items/BasicAccessories/Sheathes/Leathe
 export { BubbleConch } from "../Content/Items/Depth/BubbleConch.js"
 export { JellyfishResonator } from "../Content/Items/Consumable/JellyfishResonator.js"
 export { RainStone } from "../Content/Items/Depth/RainStone.js"
+export { DepthScales } from "../Content/Items/Materials/DepthScales.js"
+
+//Mage
+export { EnchantedStaff } from "../Content/Items/Mage/EnchantedStaff.js"
 
 //Ranged
 export { WebGun } from "../Content/Items/Ranged/WebGun.js"
@@ -83,6 +87,9 @@ export { SteelHammer } from "../Content/Items/Steel/SteelHammer.js";
 export { SteelPickaxe } from "../Content/Items/Steel/SteelPickaxe.js";
 export { SteelBow } from "../Content/Items/Steel/SteelBow.js";
 
+//Enchanted Weapons
+export { EnchantedCane } from "../Content/Items/Summon/EnchantedCane.js"
+
 //Scarlet Chest
 export { LootRang } from "../Content/Items/Melee/LootRang.js"
 export { MagmaCharmItem } from "../Content/Items/Mounts/MagmaCharmItem.js"
@@ -92,3 +99,6 @@ export { DeepStaff } from "../Content/Items/Mage/DeepStaff.js"
 
 //Tiles
 export { ThoriumAnvil } from "../Content/Items/Tile/ThoriumAnvil.js"
+
+//Technique
+export { TechniqueBlankScroll } from "../Content/Items/Materials/TechniqueBlankScroll.js"

@@ -6,6 +6,7 @@ export { MarineKelp } from "../Content/Items/Materials/MarineKelp.js"
 export { Petal } from "../Content/Items/Materials/Petal.js"
 export { YewWood } from "../Content/Items/Materials/YewWood.js"
 export { Blood } from "../Content/Items/Materials/Blood.js" 
+export { UnholyShards } from "../Content/Items/Materials/UnholyShards.js"
 
 //Ore
 export { ThoriumOre } from "../Content/Items/Materials/ThoriumOre.js"

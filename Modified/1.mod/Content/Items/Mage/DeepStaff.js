@@ -15,7 +15,7 @@ export class DeepStaff extends ModItem {
         this.Item.shoot = ModProjectile.getTypeByName('ShadowBolt');
         this.Item.shootSpeed = 12;
         
-        this.SetWeaponValues(10, 3, 10);
+        this.SetWeaponValues(18, 3, 10);
         this.SetDefaultWeaponStyle(24, true);
         
         this.Item.rare = Terraria.ID.ItemRarityID.Green;

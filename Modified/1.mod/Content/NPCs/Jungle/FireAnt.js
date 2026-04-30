@@ -55,7 +55,7 @@ export class FireAnt extends ModNPC {
     
     SpawnChance(info) {
         if (info.CommonEnemy && info.Player.ZoneJungle && info.SpawnTileY > Terraria.Main.worldSurface) {
-            return 0.08;
+            return 0.04;
         }
         return 0;
     }

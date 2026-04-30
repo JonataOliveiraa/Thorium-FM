@@ -22,7 +22,7 @@ export class ManofWar extends ModNPC {
         this.NPC.knockBackResist = 0.1;
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
-        this.NPC.value = ModNPC.NPCValue(0, 0, 5, 0);
+        this.NPC.value = ModNPC.NPCValue(0, 0, 2, 11);
         this.NPC.noGravity = true;
 
         this.AnimationType = Terraria.ID.NPCID.BlueJellyfish; 
@@ -33,8 +33,8 @@ export class ManofWar extends ModNPC {
     }
 
     SpawnChance(info) {
-        if(ModBiome.getByName('AquaticDepths').IsActive && info.Water) {
-            return 0.3
+        if(ModBiome.getByName('AquaticDepths').IsActive && Terraria.Main.player[Terraria.Main.myPlayer].wet) {
+            return 0.2
         }
         return 0
     }
