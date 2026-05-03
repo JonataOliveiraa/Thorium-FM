@@ -72,6 +72,7 @@ export { Freeze } from "../Content/Items/Mage/Freeze.js";
 export { Ignite } from "../Content/Items/Mage/Ignite.js";
 export { Poison } from "../Content/Items/Mage/Poison.js";
 export { Siphon } from "../Content/Items/Mage/Siphon.js";
+export { Charm } from "../Content/Items/Mage/Charm.js"
 
 export { BloomingBlade } from "../Content/Items/ArcaneWeapon/BloomingBlade.js";
 export { BloomingBow } from "../Content/Items/ArcaneWeapon/BloomingBow.js";
@@ -102,3 +103,11 @@ export { ThoriumAnvil } from "../Content/Items/Tile/ThoriumAnvil.js"
 
 //Technique
 export { TechniqueBlankScroll } from "../Content/Items/Materials/TechniqueBlankScroll.js"
+
+//Thunder Bird
+export { GrandFlareGun } from "../Content/Items/ThunderBird/GrandFlareGun.js"
+export { StormFlare } from "../Content/Items/ThunderBird/StormFlare.js"
+export { StormHatchlingStaff } from "../Content/Items/ThunderBird/StormHatchlingStaff.js"
+export { TalonBurst } from "../Content/Items/ThunderBird/TalonBurst.js"
+export { ThunderTalon } from "../Content/Items/ThunderBird/ThunderTalon.js"
+export { Zephyr } from "../Content/Items/ThunderBird/Zephyr.js"

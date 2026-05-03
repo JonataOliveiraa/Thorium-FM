@@ -6,6 +6,7 @@ import { Effects } from "../../TL/Modules/Effects.js";
 import { Vector2 } from "../../TL/Modules/Vector2.js";
 import { Rectangle } from "../../TL/Modules/Rectangle.js";
 import { LifeShieldPlayer } from "./LifeShieldPlayer.js";
+import { ModBuff } from "../../TL/ModBuff.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
@@ -26,7 +27,7 @@ export class ThoriumPlayer extends ModPlayer {
 
     // Sheath
     static _hitThisSwing = false;
-    static Types = {
+    static ShealthTypes = {
         0: 'LeatherSheath',
         1: 'LeechingSheath',
         2: 'TitanSlayerSheath'
@@ -138,6 +139,8 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     ModifyWeaponDamage(player, item, damage) {
+        let finalDamage = damage
+
         if (
             ThoriumPlayer.SheathMaxCooldown !== undefined &&
             ThoriumPlayer.SheatType !== undefined &&
@@ -147,11 +150,17 @@ export class ThoriumPlayer extends ModPlayer {
         ) {
             switch (ThoriumPlayer.SheatType) {
                 case 0:
-                    return this.WeaponDamage = this.MultiplyDamage(damage);
+                    finalDamage += this.MultiplyDamage(damage);
             }
         }
-        return this.WeaponDamage = damage;
+
+        if(player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
+            finalDamage -= this.WeaponDamage * 0.2 
+        }
+
+        return this.WeaponDamage = finalDamage;
     }
+
 
     PostUpdateBuffs(player) {
         if (

@@ -45,7 +45,7 @@ export class DepthsAquamarineTile extends GlobalTile {
     static InjectTexture() {
         const TeamBlockPinkTile = Terraria.ID.TileID.TeamBlockPink;
 
-        const DepthsAquamarineTileTexture = tl.texture.load("Textures/TextureReplace/TeamBlockPink/DepthsDepthsAquamarine_Tile.png.png");
+        const DepthsAquamarineTileTexture = tl.texture.load("Textures/TextureReplace/TeamBlockPink/DepthsAquamarine_Tile.png");
 
         if (DepthsAquamarineTileTexture != null) {
             Terraria.Main.tileMergeDirt[TeamBlockPinkTile] = true;

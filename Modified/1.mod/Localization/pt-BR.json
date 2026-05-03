@@ -5,6 +5,7 @@
     "Ignite": "Inflamar",
     "Poison": "Envenenar",
     "Siphon": "Drenar",
+    "Charm": "Apaixonar",
     "BloomingBlade": "Lâmina Florescente",
     "BloomingBow": "Arco Florescente",
     "BloomingStaff": "Cajado Florescente",
@@ -90,7 +91,13 @@
     "LifeQuartzClaymore": "Espada Grande de Quartzo de Vida",
     "TechniqueBlankScroll": "Pergaminho de Técnica em Branco",
     "EnchantedCane": "Bengala Encantada",
-    "EnchantedStaff": "Cajado Encantado"
+    "EnchantedStaff": "Cajado Encantado",
+    "GrandFlareGun": "Calibre de Grande Explosão",
+    "StormFlare": "Chamas da Tempestade",
+    "StormHatchlingStaff": "Cajado do Filhote da Tempestade",
+    "TalonBurst": "Explosão da Garra",
+    "ThunderTalon": "Garra do Trovão",
+    "Zephyr": "Zéfiro"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -148,7 +155,8 @@
     "StunnedBuff": "Atordoado",
     "MagmaCharmBuff": "Amuleto de Magma",
     "LavaHugBuff": "Abraço da Lava",
-    "EnchantedCaneBuff": "Barreira Encantada"
+    "EnchantedCaneBuff": "Barreira Encantada",
+    "CharmedBuff": "Apaixonado"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo",
@@ -156,7 +164,8 @@
     "StunnedBuff": "Incapaz de se mover",
     "MagmaCharmBuff": "Seu corpo se encolheu para uma larva de magma",
     "LavaHugBuff": "Regenera a vida e a mana a cada 2 segundos",
-    "EnchantedCaneBuff": "Você está protegido por uma barreira encantada"
+    "EnchantedCaneBuff": "Você está protegido por uma barreira encantada",
+    "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"

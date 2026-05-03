@@ -25,6 +25,7 @@ export { FreezePro } from "../Content/Projectiles/FreezePro.js"
 export { IgnitePro } from "../Content/Projectiles/IgnitePro.js"
 export { PoisonPro } from "../Content/Projectiles/PoisonPro.js"
 export { SiphonPro } from "../Content/Projectiles/SiphonPro.js"
+export { CharmPro } from "../Content/Projectiles/CharmPro.js"
 
 //Blooming
 export { BloomingBowPro } from "../Content/Projectiles/BloomingBowPro.js"
@@ -43,3 +44,16 @@ export { ThoriumSpark } from "../Content/Projectiles/ThoriumSpark.js"
 export { ShadowBolt } from "../Content/Projectiles/ShadowBolt.js"
 export { EnchantedCanePro } from "../Content/Projectiles/EnchantedCanePro.js"
 export { EnchantedStaffPro } from "../Content/Projectiles/EnchantedStaffPro.js"
+
+//Thunder Bird
+export { GrandThunderBirdCloud } from "../Content/Projectiles/Boss/GrandThunderBirdCloud.js"
+export { GrandThunderBirdZap } from "../Content/Projectiles/Boss/GrandThunderBirdZap.js"
+export { TheGrandThunderBirdEnd } from "../Content/Projectiles/Boss/TheGrandThunderBirdEnd.js"
+export { ThunderBirdScreech } from "../Content/Projectiles/Boss/ThunderBirdScreech.js"
+export { ThunderGust } from "../Content/Projectiles/Boss/ThunderGust.js"
+export { ThunderSpark } from "../Content/Projectiles/Boss/ThunderSpark.js"
+
+export { StormFlareP } from "../Content/Projectiles/StormFlareP.js"
+export { StormHatchlingStaffPro } from "../Content/Projectiles/StormHatchlingStaffPro.js"
+export { ThunderZap } from "../Content/Projectiles/ThunderZap.js"
+export { ZephyrP } from "../Content/Projectiles/ZephyrP.js"

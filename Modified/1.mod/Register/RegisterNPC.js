@@ -32,3 +32,7 @@ export { Abomination } from "../Content/NPCs/BloodMoon/Abomination.js";
 export { FamishedMaggot } from "../Content/NPCs/BloodMoon/FamishedMaggot.js";
 export { BloodDrop } from "../Content/NPCs/BloodMoon/BloodDrop.js";
 export { SeveredLegs } from "../Content/NPCs/BloodMoon/SeveredLegs.js";
+
+//Thunder Birld
+export { StormHatchling } from "../Content/NPCs/Boss/StormHatchling.js";
+export { TheGrandThunderBird } from "../Content/NPCs/Boss/TheGrandThunderBird.js";
