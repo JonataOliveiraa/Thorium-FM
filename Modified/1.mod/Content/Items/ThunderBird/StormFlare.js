@@ -18,14 +18,14 @@ export class StormFlare extends ModItem {
   }
 
   SetStaticDefaults() {
-        const anim = DrawAnimationVertical.new();
-        anim.Frame = 0;
-        anim.FrameCounter = 0;
-        anim.FrameCount = 4;
-        anim.TicksPerFrame = 6;
-        anim.PingPong = false;
-        Main.RegisterItemAnimation(this.Type, anim);
-}
+    const anim = DrawAnimationVertical.new();
+    anim.Frame = 0;
+    anim.FrameCounter = 0;
+    anim.FrameCount = 4;
+    anim.TicksPerFrame = 6;
+    anim.PingPong = false;
+    Main.RegisterItemAnimation(this.Type, anim);
+  }
 
   SetDefaults() {
     this.Item.damage = 0;
@@ -37,6 +37,16 @@ export class StormFlare extends ModItem {
     this.Item.rare = Terraria.ID.ItemRarityID.White;
     this.Item.shoot = ModProjectile.getTypeByName("StormFlareP");
     this.Item.shootSpeed = 1.0;
-    this.Item.ammo = this.Type; // Arrow
+    this.Item.ammo = this.Type;
+  }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddRecipeGroup('IronBar')
+      .AddIngredient(Terraria.ID.ItemID.IronBar, 1)
+      .AddIngredient(ModItem.getTypeByName("Talon"), 1)
+      .AddIngredient(Terraria.ID.ItemID.FallenStar, 1)
+      .AddTile(Terraria.ID.TileID.Anvils)
+      .Register();
   }
 }

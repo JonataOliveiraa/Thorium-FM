@@ -8,24 +8,34 @@ export { IcyArmorEffect1 } from "./../Content/Projectiles/IcyArmorEffect1.js"
 export { LivingWoodAcornPro } from "./../Content/Projectiles/LivingWoodAcornPro.js"
 export {LivingWoodAcornShotPro} from "./../Content/Projectiles/LivingWoodAcornShotPro.js"
 
+//Prehistoric
+export { PrehistoricAmberStaffPterosPro } from "../Content/Projectiles/PrehistoricAmberStaffPterosPro.js"
+export { PrehistoricAmberStaffPterosProShoot } from "../Content/Projectiles/PrehistoricAmberStaffPterosProShoot.js"
+export { PrehistoricAmberStaffTRexPro } from "../Content/Projectiles/PrehistoricAmberStaffTRexPro.js"
+
 //Accessories
 export { IncubatedSpider } from "../Content/Projectiles/IncubatedSpider.js"
+export { CrietzPro } from "../Content/Projectiles/CrietzPro.js"
 
 //Ranged
 export { WebGunPro1 } from "../Content/Projectiles/WebGunPro1.js"
 export { WebGunPro2 } from "../Content/Projectiles/WebGunPro2.js"
+export { JungleArrow } from "../Content/Projectiles/JungleArrow.js"
 
 //NPC
 export { StrangeBulbPro } from "../Content/Projectiles/NPC/StrangeBulbPro.js"
 export { EarthenRock } from "../Content/Projectiles/NPC/EarthenRock.js"
 
-//Crystals Weapon
+//Mage
 export { DissolvePro } from "../Content/Projectiles/DissolvePro.js"
 export { FreezePro } from "../Content/Projectiles/FreezePro.js"
 export { IgnitePro } from "../Content/Projectiles/IgnitePro.js"
 export { PoisonPro } from "../Content/Projectiles/PoisonPro.js"
 export { SiphonPro } from "../Content/Projectiles/SiphonPro.js"
 export { CharmPro } from "../Content/Projectiles/CharmPro.js"
+export { StunPro } from "../Content/Projectiles/StunPro.js"
+export { MagickStaffPro } from "../Content/Projectiles/MagickStaffPro.js"
+export { AquamarineStaffPro } from "../Content/Projectiles/AquamarineStaffPro.js"
 
 //Blooming
 export { BloomingBowPro } from "../Content/Projectiles/BloomingBowPro.js"
@@ -56,4 +66,4 @@ export { ThunderSpark } from "../Content/Projectiles/Boss/ThunderSpark.js"
 export { StormFlareP } from "../Content/Projectiles/StormFlareP.js"
 export { StormHatchlingStaffPro } from "../Content/Projectiles/StormHatchlingStaffPro.js"
 export { ThunderZap } from "../Content/Projectiles/ThunderZap.js"
-export { ZephyrP } from "../Content/Projectiles/ZephyrP.js"
+export { TalonBurstPro } from "../Content/Projectiles/TalonBurstPro.js"

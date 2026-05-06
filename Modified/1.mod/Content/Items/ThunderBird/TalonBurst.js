@@ -27,16 +27,15 @@ export class TalonBurst extends ModItem {
   }
 
   Shoot(item, player, position, velocity, type, damage, knockback) {
-        let finalType = type;
-        // Se for Flecha de Madeira, converte para o Raio Tempestuoso
-        if (type === 1) { 
-            finalType = ModProjectile.getTypeByName("ZephyrP");
-            damage = Math.floor(damage * 1.2); // Bônus de dano na conversão
-        }
-
-        try {
-            NewProjectile2(Projectile.GetNoneSource(), position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
-        } catch(e) {}
-        return false; // Retorna falso para substituir o tiro original
+    let finalType = type;
+    if (type === 1) {
+      finalType = ModProjectile.getTypeByName("TalonBurstPro");
+      damage = Math.floor(damage * 1.2);
     }
+
+    try {
+      NewProjectile2(Projectile.GetNoneSource(), position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
+    } catch (e) { }
+    return false;
+  }
 }

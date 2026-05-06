@@ -1,4 +1,5 @@
 import { Rand } from '../../TL/Modules/Rand.js';
+import { ThoriumPlayer } from '../Global/ThoriumPlayer.js';
 import { Modules, Terraria } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 
@@ -24,7 +25,7 @@ export class IncubatedSpider extends ModProjectile {
         this.Projectile.tileCollide = true;
         this.Projectile.ignoreWater = true;
         this.Projectile.timeLeft = 200;
-        this.Projectile.idStaticNPCHitCooldown = 10;
+        this.Projectile.idStaticNPCHitCooldown = 20;
         this.Projectile.decidesManualFallThrough = true;
     }
 
@@ -36,6 +37,11 @@ export class IncubatedSpider extends ModProjectile {
         if (Rand.Next(3) === 0) {
             proj.timeLeft += Rand.NextInt(50, 100);
         } 
+    }
+
+    OnKill() {
+        if(ThoriumPlayer.InccubatedEggCount <= 0) return ThoriumPlayer.InccubatedEggCount = 0
+        ThoriumPlayer.InccubatedEggCount--
     }
 
     PreAI(proj) {

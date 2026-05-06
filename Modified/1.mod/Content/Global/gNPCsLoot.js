@@ -45,6 +45,30 @@ export class gNPCsLoot extends GlobalLoot {
                     return ItemDropRule.ByCondition(condition, ModItem.getTypeByName('Blood'), 10, 1, 1, 1)
                 }
             ]
+        },
+        {
+            npcType: NPCID.WallCreeper,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('IncubatedEgg'), 10, 1, 1)
+            ]
+        },
+        {
+            npcType: NPCID.WallCreeperWall,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('IncubatedEgg'), 10, 1, 1)
+            ]
+        },
+        {
+            npcType: NPCID.Bunny,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('LuckyRabbitsFoot'), 130, 1, 1)
+            ]
+        },
+        {
+            npcType: NPCID.Vulture,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('Talon'), 4, 1, 2)
+            ]
         }
     ];
 

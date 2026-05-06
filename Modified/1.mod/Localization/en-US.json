@@ -97,7 +97,24 @@
     "StormHatchlingStaff": "Storm Hatchling Staff",
     "TalonBurst": "Talon Burst",
     "ThunderTalon": "Thunder Talon",
-    "Zephyr": "Zephyr"
+    "Stun": "Stun",
+    "PrehistoricAmberStaff": "Prehistoric Amber Staff",
+    "MagickStaff": "Magick Staff",
+    "ThunderBirdBag": "Treasure Bag (The Grand Thunder Bird)",
+    "DeepStaff": "Deep Staff",
+    "LuckyRabbitsFoot": "Lucky Rabbits Foot",
+    "ManaBauble": "Mana Bauble",
+    "SalamanderEye": "Salamanter Eye",
+    "GiantShellSpine": "Giant Shell Spine",
+    "CrawdadClaw": "Crawdad Claw",
+    "SoulStone": "Soul Stone",
+    "Talon": "Talon",
+    "BrambleShot": "Bramble Shot",
+    "Crietz": "Crietz",
+    "OpalRobe": "Opal Robe",
+    "AquamarineRobe": "Aquamarine Robe",
+    "CyanPhaseblade": "Cyan Phaseblade",
+    "PinkPhaseblade": "Pink Phaseblade"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -140,7 +157,20 @@
     "TechniqueBlankScroll": "Used in the crafting of unique technique abilities",
     "EnchantedCane": "Summons a shield that stuns nearby enemies",
     "EnchantedStaff": "Releases an enchanted beam that restores mana when defeating an enemy",
-    "LifeShieldLabel": "You constantly generate a {0} life shield"
+    "LifeShieldLabel": "You constantly generate a {0} life shield",
+    "PrehistoricAmberStaff": "Summons some angry dinosaurs to attack your foes\n'Life finds a way'",
+    "MagickStaff": "Creates a bolt of fluctuating elements",
+    "DeepStaff": "Uses 5 health points\nReleases a bolt of dark magic at the cost of life\nHit enemies are briefly burned by shadow energy",
+    "LuckyRabbitsFoot": "'Made with real fake fur!'\nWhile equipped, your luck is slightly increased\nWhile equipped, killed enemies have a chance to drop 100% more coins",
+    "ManaBauble": "'An orb of coalesced magical energy'\nMaximum mana increased by 10",
+    "SalamanderEye": "While in combat for 5 seconds, your life recovery increases by 1",
+    "GiantShellSpine": "While in combat, your defense increases by 1 over time up to 4",
+    "CrawdadClaw": "While in combat, your armor penetration increases by 1 over time up to 2",
+    "GrandFlareGun": "Requires Storm Flares to function\nSummons The Grand Thunder Bird, but only during the day in the desertz\n'Aim to the skies!",
+    "SoulStone": "10% increased summon damage\nDecreases your maximum life by 20\n'The stone slowly feeds off your soul'",
+    "BrambleShot": "Turns wooden arrows into poison arrows",
+    "Crietz": "Once every second, your next critical strike causes a burst of damaging energy",
+		"Robe": "Increases maximum mana by 40\n8% reduced mana cost"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -177,21 +207,35 @@
     "FireAnt": "Fire Ant",
     "StrangeBulb": "Strange Bulb",
     "MahoganyEnt": "Mahogany Ent",
-    "PatchWerk": "Patchwerk"
-  },
-  "Bestiary": {
-    "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
-    "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady",
-    "DesertAcolyte": "The Desert Acolyte is quite nervous, but will sell all manner of equipment to those interested in throwing stuff at monsters",
-    "FireAnt": " It emerged straight from hell, like a burning ant seeking warmth",
-    "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
-    "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
+    "PatchWerk": "Patchwerk",
     "EarthenGolem": "Earthen Golem",
     "EarthenBat": "Earthen Bat",
     "GildedBat": "Gilded Bat",
     "GildedLycan": "Gilded Lycan",
     "GildedSlime": "Gilded Slime",
-    "GildedSlimeling": "Gilded Slimeling"
+    "GildedSlimeling": "Gilded Slimeling",
+    "TheGrandThunderBird": "The Grand Thunder Bird",
+    "StormHatchling": "Storm Hatchling",
+    "TheInnocent": "The Innocent",
+    "LivingHemorrage": "Living Hemorrage"
+  },
+  "Bestiary": {
+    "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
+    "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady",
+    "DesertAcolyte": "The Desert Acolyte is quite nervous, but will sell all manner of equipment to those interested in throwing stuff at monsters",
+    "FireAnt": "It emerged straight from hell, like a burning ant seeking warmth",
+    "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
+    "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
+    "EarthenGolem": "A hulking construct of compacted stone and soil, animated by ancient forces. It remains dormant until disturbed, then retaliates with crushing force",
+    "EarthenBat": "A crude, stone-formed bat that lurks in cavern ceilings. It dives at intruders with surprising speed despite its rigid body",
+    "GildedBat": "A big golden bat. Its metallic sheen reflects light to disorient prey before striking",
+    "GildedLycan": "A fearsome predator clad in natural golden plating. It stalks its prey patiently before unleashing swift and brutal attacks",
+    "GildedSlime": "A viscous organism infused with golden particles. It absorbs impacts with ease and slowly engulfs anything careless enough to get close",
+    "GildedSlimeling": "A smaller offshoot of the Gilded Slime. Less durable, but far more numerous and annoyingly persistent",
+    "TheGrandThunderBird": "Blessed with the dominion over storms, this majestic bird soars through the desert skies. It seemed to be testing you...",
+    "StormHatchling": "An electrically charged apparition of an adolescent Thunder Bird.",
+    "TheInnocent": "This innocent creature once peacefully roamed the forests of Terraria before the Corruption's dark spread reached it",
+    "LivingHemorrage": "A gruesome teratoma formed from the flesh of the Crimson itself. Doesn't like to go down easily"
   },
   "NPCChat": {
     "Blacksmith_1": "Need something forged?",
@@ -241,5 +285,8 @@
   },
   "SinalizationChatMessage": {
     "OnPatchWerkDie": "The dreaded Patchwerk falls apart..."
+  },
+  "DeathMessage": {
+    "DeepStaff": "{0} drained their own soul for power, leading to their death"
   }
 }

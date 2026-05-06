@@ -12,36 +12,36 @@ export class ThunderTalon extends ModItem {
         super();
         this.Texture = 'Items/ThunderBird/' + this.constructor.name;
     }
-    
+
     SetDefaults() {
         this.Item.melee = true;
-        
+
         // (damage, knockback, crit);
         this.SetWeaponValues(22, 6, 4);
         // (useTime, autoReuse);
         this.SetDefaultWeaponStyle(22, true);
-        
+
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
     }
-    
-   OnHitNPC(item, player, npc, damageDone, knockBack) {  
 
-               if (!npc || typeof npc.whoAmI === 'undefined') return;
+    OnHitNPC(item, player, npc, damageDone, knockBack) {
+
+        if (!npc || typeof npc.whoAmI === 'undefined') return;
 
 
-                let velVec = Microsoft.Xna.Framework.Vector2.new();
-            velVec.X = 0; velVec.Y = -5; 
+        let velVec = Microsoft.Xna.Framework.Vector2.new();
+        velVec.X = 0; velVec.Y = -5;
 
-            let damage = 12;
+        let damage = 12;
 
-            let zapType = ModProjectile.getTypeByName("ThunderZap");
+        let zapType = ModProjectile.getTypeByName("ThunderZap");
 
-            NewProjectile2(
-                Projectile.GetNoneSource(), 
-                npc.Center, velVec, 
-                zapType, Math.floor(damage * 0.6), 0, player.whoAmI, 
-                npc.whoAmI, 0, 0, null);
-            }
-        }
+        NewProjectile2(
+            Projectile.GetNoneSource(),
+            npc.Center, velVec,
+            zapType, Math.floor(damage * 0.6), 0, player.whoAmI,
+            npc.whoAmI, 0, 0, null);
+    }
+}

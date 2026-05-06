@@ -13,7 +13,7 @@ export class GrandFlareGun extends ModItem {
     this.Item.ranged = true;
     this.Item.noMelee = true
     this.Item.shoot = 1;
-    this.Item.shootSpeed = 3;
+    this.Item.shootSpeed = 15;
     this.Item.useAmmo = ModItem.getTypeByName("StormFlare");
 
     this.SetWeaponValues(8, 0, 0);
@@ -21,11 +21,20 @@ export class GrandFlareGun extends ModItem {
 
     this.Item.value = Terraria.Item.sellPrice(0, 0, 5, 25);
     this.Item.rare = Terraria.ID.ItemRarityID.White;
-    this.Item.UseSound = Terraria.ID.SoundID.Item5;
+    this.Item.UseSound = Terraria.ID.SoundID.Item11
   }
 
   CanUseItem(item, player) {
-        const bossType = ModNPC.getTypeByName('TheGrandThunderBird');
-        return Terraria.Main.dayTime && player.ZoneDesert && !Terraria.NPC.AnyNPCs(bossType);
-    }
+    const bossType = ModNPC.getTypeByName('TheGrandThunderBird');
+    return Terraria.Main.dayTime && player.ZoneDesert && !Terraria.NPC.AnyNPCs(bossType);
+  }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(Terraria.ID.ItemID.IronBar, 5)
+      .AddRecipeGroup('IronBar')
+      .AddIngredient(ModItem.getTypeByName("Talon"), 2)
+      .AddTile(Terraria.ID.TileID.Anvils)
+      .Register();
+  }
 }

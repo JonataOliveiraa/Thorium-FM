@@ -1,3 +1,4 @@
+import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
@@ -23,10 +24,17 @@ export class DeepStaff extends ModItem {
         this.Item.UseSound = Terraria.ID.SoundID.Item43;
     }
 
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
+    }
+
     UseItem(item, player) {
         if (player.itemAnimation === player.itemAnimationMax) {
             const { DataStructures } = Terraria;
-            const deathReason = DataStructures.PlayerDeathReason.ByCustomReason(player.name + " foi de base.");
+            const deathReason = DataStructures.PlayerDeathReason.ByCustomReason(ModLocalization.Translate('DeathMessage.DeepStaff').replace('{0}', player.name));
             player.Hurt(
                 deathReason, // damageSource
                 5,           // dano

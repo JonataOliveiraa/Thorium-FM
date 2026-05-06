@@ -19,6 +19,13 @@ export { GildedSlime } from "../Content/NPCs/Cavern/GildedSlime.js";
 export { GildedSlimeling } from "../Content/NPCs/Cavern/GildedSlimeling.js";
 export { GildedLycan } from "../Content/NPCs/Cavern/GildedLycan.js";
 
+//Crimson
+export { LivingHemorrage } from "../Content/NPCs/Crimson/LivingHemorrage.js";
+export { Clot } from "../Content/NPCs/Crimson/Clot.js";
+
+//Corruption
+export { TheInnocent } from "../Content/NPCs/Corruption/TheInnocent.js";
+
 //Aquatic Depths
 export { ManofWar } from "../Content/NPCs/AquaticDepths/ManofWar.js";
 export { Sharptooth } from "../Content/NPCs/AquaticDepths/Sharptooth.js";

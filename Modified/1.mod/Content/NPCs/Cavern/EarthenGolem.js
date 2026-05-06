@@ -45,7 +45,7 @@ export class EarthenGolem extends ModNPC {
 
     SpawnChance(info) {
         if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
-            return 0.03;
+            return 0.05;
         }
         return 0;
     }

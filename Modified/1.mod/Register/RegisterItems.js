@@ -30,6 +30,7 @@ export { ThoriumBoomerang } from "../Content/Items/Thorium/ThoriumBoomerang.js"
 export { ThoriumStaff } from "../Content/Items/Thorium/ThoriumStaff.js"
 export { ThoriumBow } from "../Content/Items/Thorium/ThoriumBow.js"
 export { ThoriumSpear } from "../Content/Items/Thorium/ThoriumSpear.js"
+
 //Basic Accessories
 export { AmberRing } from "./../Content/Items/BasicAccessories/Rings/AmberRing.js";
 export { AmethystRing } from "./../Content/Items/BasicAccessories/Rings/AmethystRing.js";
@@ -39,6 +40,13 @@ export { RubyRing } from "./../Content/Items/BasicAccessories/Rings/RubyRing.js"
 export { SapphireRing } from "./../Content/Items/BasicAccessories/Rings/SapphireRing.js";
 export { TheRing } from "./../Content/Items/BasicAccessories/Rings/TheRing.js";
 export { IncubatedEgg } from "../Content/Items/BasicAccessories/Summon/IncubatedEgg.js"
+export { LuckyRabbitsFoot } from "../Content/Items/BasicAccessories/LuckyRabbitsFoot.js"
+export { ManaBauble } from "../Content/Items/BasicAccessories/ManaBauble.js"
+export { GiantShellSpine } from "../Content/Items/BasicAccessories/GiantShellSpine.js"
+export { SalamanderEye } from "../Content/Items/BasicAccessories/SalamanderEye.js"
+export { CrawdadClaw } from "../Content/Items/BasicAccessories/CrawdadClaw.js"
+export { SoulStone } from "../Content/Items/BasicAccessories/Summon/SoulStone.js"
+export { Crietz } from "../Content/Items/BasicAccessories/Crietz.js"
 
 //Sheathes
 export { LeatherSheath } from "../Content/Items/BasicAccessories/Sheathes/LeatherSheath.js"
@@ -51,9 +59,14 @@ export { DepthScales } from "../Content/Items/Materials/DepthScales.js"
 
 //Mage
 export { EnchantedStaff } from "../Content/Items/Mage/EnchantedStaff.js"
+export { MagickStaff } from "../Content/Items/Mage/MagickStaff.js"
 
 //Ranged
 export { WebGun } from "../Content/Items/Ranged/WebGun.js"
+export { BrambleShot } from "../Content/Items/Ranged/BrambleShot.js"
+
+//Summon
+export { PrehistoricAmberStaff } from "../Content/Items/Summon/PrehistoricAmberStaff.js"
 
 //Shields
 export { SeaTurtlesBulwark } from "../Content/Items/BasicAccessories/Shields/SeaTurtlesBulwark.js"
@@ -73,7 +86,9 @@ export { Ignite } from "../Content/Items/Mage/Ignite.js";
 export { Poison } from "../Content/Items/Mage/Poison.js";
 export { Siphon } from "../Content/Items/Mage/Siphon.js";
 export { Charm } from "../Content/Items/Mage/Charm.js"
+export { Stun } from "../Content/Items/Mage/Stun.js"
 
+//Blooming 
 export { BloomingBlade } from "../Content/Items/ArcaneWeapon/BloomingBlade.js";
 export { BloomingBow } from "../Content/Items/ArcaneWeapon/BloomingBow.js";
 export { BloomingStaff } from "../Content/Items/ArcaneWeapon/BloomingStaff.js"
@@ -98,6 +113,15 @@ export { MagmaLocket } from "../Content/Items/BasicAccessories/MagmaLocket.js"
 export { SpringSteps } from "../Content/Items/BasicAccessories/Boots/SpringSteps.js"
 export { DeepStaff } from "../Content/Items/Mage/DeepStaff.js"
 
+//Robe
+export { AquamarineRobe } from "../Content/Items/Mage/AquamarineRobe.js"
+export { OpalRobe } from "../Content/Items/Mage/OpalRobe.js"
+
+//Aquamarine & Opal
+export { CyanPhaseblade } from "../Content/Items/Mage/CyanPhaseblade.js"
+export { PinkPhaseblade } from "../Content/Items/Mage/PinkPhaseblade.js"
+export { AquamarineStaff } from "../Content/Items/Mage/AquamarineStaff.js"
+
 //Tiles
 export { ThoriumAnvil } from "../Content/Items/Tile/ThoriumAnvil.js"
 
@@ -110,4 +134,4 @@ export { StormFlare } from "../Content/Items/ThunderBird/StormFlare.js"
 export { StormHatchlingStaff } from "../Content/Items/ThunderBird/StormHatchlingStaff.js"
 export { TalonBurst } from "../Content/Items/ThunderBird/TalonBurst.js"
 export { ThunderTalon } from "../Content/Items/ThunderBird/ThunderTalon.js"
-export { Zephyr } from "../Content/Items/ThunderBird/Zephyr.js"
+export { ThunderBirdBag } from "../Content/Items/Consumable/ThunderBirdBag.js"

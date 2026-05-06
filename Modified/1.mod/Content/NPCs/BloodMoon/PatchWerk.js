@@ -119,7 +119,7 @@ export class PatchWerk extends ModNPC {
     }
 
     OnKill(npc) {
-        const hasBeenDefeteated = WorldDB.get('HasBeenDefeated_PatchWerk')
+        const hasBeenDefeteated = WorldDB.get('Thorium:HasBeenDefeated_PatchWerk')
         if(hasBeenDefeteated === true) return Terraria.Main['void NewText(string newText, Color color)'](`${ModLocalization.Translate('SinalizationChatMessage.OnPatchWerkDie'), Color.Orange}`);
 
         WorldDB.set('Thorium:HasBeenDefeated_PatchWerk', true);

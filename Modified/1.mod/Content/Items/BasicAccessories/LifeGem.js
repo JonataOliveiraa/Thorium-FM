@@ -15,6 +15,7 @@ export class LifeGem extends ModItem {
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
+        if(vanity) return;
         player.statLifeMax2 += 20
         player.lifeRegen += 1
     }

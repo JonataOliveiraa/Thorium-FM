@@ -1,5 +1,6 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { Color } from "../../../TL/Modules/Color.js";
 
 export class ArcaneArmorFabricator extends GlobalTile {
@@ -8,6 +9,8 @@ export class ArcaneArmorFabricator extends GlobalTile {
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(0, 0, 40);
+
+        Terraria.Lang._mapLegendCache[Terraria.Map.MapHelper.TileToLookup(this.Type, 0)].Value = ModLocalization.Translate('ItemName.ArcaneArmorFabricator')
     }
 
     static InjectTexture() {
@@ -18,7 +21,6 @@ export class ArcaneArmorFabricator extends GlobalTile {
         const arcaneArmorFabricatorTileTexture = tl.texture.load("Textures/TextureReplace/DyeVat/ArcaneArmorFabricator_Tile.png");
 
         if (arcaneArmorFabricatorTileTexture != null) {
-            Terraria.Main.tileMergeDirt[DyeVatTile] = true
             Terraria.GameContent.TextureAssets.Tile[DyeVatTile].Value = arcaneArmorFabricatorTileTexture;
         }
 

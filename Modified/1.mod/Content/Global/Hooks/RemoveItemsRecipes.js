@@ -10,7 +10,7 @@ export class RemoveItemsRecipes extends GlobalHooks {
         ItemID.CopperShortsword,
         ItemID.EasterBathtub,
         ItemID.EasterBed,
-        ItemID.EasterBlockWall,
+        ItemID.EasterBlockWall, 
         Terraria.ID.ItemID.EasterCandle,
         Terraria.ID.ItemID.EasterCandelabra,
         Terraria.ID.ItemID.EasterBookcase,

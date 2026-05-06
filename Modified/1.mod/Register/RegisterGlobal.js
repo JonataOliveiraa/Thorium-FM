@@ -10,7 +10,6 @@ export { WorldInteraction } from '../Content/Global/Hooks/WorldInteraction.js';
 export { OreInjection } from '../Content/Global/Hooks/OreInjection.js';
 export { PropsReplace } from '../Content/Global/Hooks/PropsReplace.js';
 export { ToolTipsReplace } from '../Content/Global/Hooks/ToolTipsReplace.js';
-export { RemoveItemsRecipes } from '../Content/Global/Hooks/RemoveItemsRecipes.js';
 
 export { LifeQuartzTile } from '../Content/Global/Tiles/LifeQuartzTile.js';
 export { ThoriumOreTile } from '../Content/Global/Tiles/ThoriumOreTile.js';
@@ -23,8 +22,9 @@ export { MossyPlatinumOreTile } from '../Content/Global/Tiles/MossyPlatinumOreTi
 export { MossyGoldOreTile } from '../Content/Global/Tiles/MossyGoldOreTile.js';
 export { LeakyMarineWall } from '../Content/Global/Walls/LeakyMarineWall.js';
 export { MarineBolders } from '../Content/Global/Tiles/MarineBolders.js';
-
+export { BloodAltar } from '../Content/Global/Tiles/BloodAltar.js';
 export { ScarletTile } from '../Content/Global/Tiles/ScarletTile.js';
 
 export { UpdateNPCBuff } from '../Content/Global/NPCs/UpdateNPCBuff.js';
 export { HidePlayerInMount } from '../Content/Global/Hooks/HidePlayerInMount.js';
+export { RemoveItemsRecipes } from '../Content/Global/Hooks/RemoveItemsRecipes.js';

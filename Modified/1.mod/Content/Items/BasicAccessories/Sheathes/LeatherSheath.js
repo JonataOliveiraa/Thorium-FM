@@ -34,6 +34,7 @@ export class LeatherSheath extends ModItem {
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
+        if(vanity) return;
         ThoriumPlayer.SheathMaxCooldown = this.SheathMaxCooldown
         ThoriumPlayer.SheatType = 0;
         ThoriumPlayer.SheatDamageMultiplier = this.DamageMultiplier;

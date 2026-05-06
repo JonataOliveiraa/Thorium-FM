@@ -9,7 +9,7 @@ export class ThoriumOreTile extends GlobalTile {
     SetStaticDefaults() {
         const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(172, 96, 70);
-
+        
         Terraria.Main.tileShine[this.Type] = 900;
     }
 

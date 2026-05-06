@@ -20,7 +20,7 @@ export class Siphon extends ModItem {
         this.SetDefaultWeaponStyle(24, true);
         
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
-        this.Item.value = Terraria.Item.sellPrice(0, 2, 50, 0);
+        this.Item.value = Terraria.Item.sellPrice(0, 0, 70, 3);
         this.Item.UseSound = Terraria.ID.SoundID.Item43;
     }
 }

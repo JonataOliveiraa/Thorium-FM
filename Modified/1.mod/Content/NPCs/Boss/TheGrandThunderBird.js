@@ -1,4 +1,4 @@
-import { Terraria, Modules } from './../../../TL/ModImports.js';
+import { Terraria, Microsoft, Modules } from './../../../TL/ModImports.js';
 import { WorldDB } from './../../../TL/WorldDB.js';
 import { ModNPC } from './../../../TL/ModNPC.js';
 import { ModItem } from './../../../TL/ModItem.js';
@@ -11,6 +11,9 @@ const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement, MoonLordPortraitBackgroundProviderBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
+
+const OneFromRulesRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'OneFromRulesRule');
+const IItemDropRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'IItemDropRule');
 
 export class TheGrandThunderBird extends ModNPC {
   constructor() {
@@ -26,6 +29,7 @@ export class TheGrandThunderBird extends ModNPC {
 
     this.PlayScreech = false;
     this.PlayCharge = false
+    this.isDashing = false
 
     this.Animation = {
       Base: 0,
@@ -50,9 +54,12 @@ export class TheGrandThunderBird extends ModNPC {
       maxSpeedXFar: 6,
       rotationFactor: 0.05
     };
+
   }
 
   SetStaticDefaults() {
+    Terraria.ID.NPCID.Sets.TrailCacheLength[this.Type] = 10;
+    Terraria.ID.NPCID.Sets.TrailingMode[this.Type] = 0;
     Terraria.Main.npcFrameCount[this.Type] = 9;
     Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
     Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
@@ -82,6 +89,25 @@ export class TheGrandThunderBird extends ModNPC {
     const FlavorText = FlavorTextBestiaryInfoElement.new();
     FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
     bestiaryEntry.Info.Add(FlavorText);
+  }
+
+  ModifyNPCLoot(npcLoot) {
+    // Every Mode
+    npcLoot.Add(ItemDropRule.Common(28, 1, 5, 15))
+
+    // Classic Mode
+    const notExpert = Conditions.NotExpert.new();
+    const options = [
+      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('TalonBurst'), 1, 1, 1, 1),
+      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('StormHatchlingStaff'), 1, 1, 1, 1),
+      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('ThunderTalon'), 1, 1, 1, 1)
+    ].makeGeneric(IItemDropRule)
+
+    const oneDropRule = OneFromRulesRule.new();
+    oneDropRule['void .ctor(int chanceDenominator, IItemDropRule[] options)'](1, options);
+    npcLoot.Add(oneDropRule);
+
+    npcLoot.Add(ItemDropRule.BossBag(ModItem.getTypeByName('ThunderBirdBag')))
   }
 
   BossHeadSlot(npc) {
@@ -116,6 +142,39 @@ export class TheGrandThunderBird extends ModNPC {
       npc.frameCounter = 0;
     }
     npc.frame = frame;
+
+  }
+
+  PreDraw(npc, spriteBatch, screenPos) {
+    const texture = Terraria.GameContent.TextureAssets.Npc[this.Type].Value;
+    const frame = npc.frame;
+
+    const origin = Vector2.new(frame.Width / 2, frame.Height / 2);
+
+    const effects = npc.spriteDirection === 1
+      ? Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally
+      : Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
+
+    // trail    
+    if (this.isDashing) {
+      for (let i = npc.oldPos.length - 1; i >= 0; i--) {
+        const pos = npc.oldPos[i];
+        if (pos.X === 0 && pos.Y === 0) continue;
+
+        let drawPos = Vector2.Subtract(pos, Terraria.Main.screenPosition);
+        drawPos = Vector2.Add(drawPos, npc.gfxOffY);
+        drawPos = Vector2.Add(drawPos, Vector2.new(npc.width / 2, npc.height / 2 - 30));
+
+        const alpha = (npc.oldPos.length - i) / npc.oldPos.length;
+        const color = Color.op_Multiply(Color.Cyan, alpha * 0.4);
+
+        Terraria.Main.spriteBatch['void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)'](
+          texture, drawPos, frame, color, npc.rotation, origin, npc.scale, effects, 0
+        );
+      }
+    }
+    return true
+
   }
 
   PreAI(npc) {
@@ -132,7 +191,7 @@ export class TheGrandThunderBird extends ModNPC {
       player = Terraria.Main.player[npc.target];
     }
 
-    // Despawn
+    // Despawn    
     if (player.dead) {
       let vel = npc.velocity;
       vel.Y -= 0.4;
@@ -144,11 +203,12 @@ export class TheGrandThunderBird extends ModNPC {
     let vel = npc.velocity;
     const move = this.Move;
 
-    // Phase
+    // Phase    
     const Phase2 = npc.life <= npc.lifeMax * 0.33;
     const heightOffset = (Terraria.Main.expertMode && Phase2) ? 225 : 265;
 
     const isDashing = this.AttackState === this.Attack.Charge && this.AttackStateTimer > 300 && this.AttackStateTimer < 390;
+    this.isDashing = isDashing;
     if (!isDashing) npc.spriteDirection = (player.Center.X > npc.Center.X) ? 1 : -1;
 
     if (Phase2) {
@@ -161,7 +221,7 @@ export class TheGrandThunderBird extends ModNPC {
       if (npc.life < npc.lifeMax * 0.66) this.Frenzy = 30;
     }
 
-    // Stunned
+    // Stunned    
     if (this.AnimationState === this.Animation.Stunned) {
       vel.X = 0;
       vel.Y = 0;
@@ -219,14 +279,14 @@ export class TheGrandThunderBird extends ModNPC {
       }
     }
 
-    // PlaySound    
+    // PlaySound        
     if (this.AnimationState === this.Animation.Screech && !this.PlayScreech) {
       this.PlayScreech = true;
       const pitch = Phase2 ? Rand.NextFloat(-0.4, -0.1) : Rand.NextFloat(-0.2, 0.2);
       Effects.PlaySound(Terraria.ID.SoundID.NPCHit28, npc.Center.X, npc.Center.Y, 1, pitch, 1);
     }
 
-    // ==== LIGHTNING STRIKES =====
+    // ==== LIGHTNING STRIKES =====    
     if (this.AttackState === this.Attack.LightningStrikes) {
       this.AttackStateTimer++;
 
@@ -263,7 +323,7 @@ export class TheGrandThunderBird extends ModNPC {
       }
     }
 
-    // ==== CHARGE ====
+    // ==== CHARGE ====    
     if (this.AttackState === this.Attack.Charge) {
       this.AttackStateTimer++;
       npc.rotation = 0;
@@ -307,7 +367,7 @@ export class TheGrandThunderBird extends ModNPC {
         }
       }
 
-      // Play Charge EFX
+      // Play Charge EFX    
       if (this.AttackStateTimer > 300 && !this.PlayCharge) {
         this.PlayCharge = true
         const soundPos = Vector2.Multiply(Vector2.Add(npc.Center, player.Center), 0.5);
@@ -341,7 +401,7 @@ export class TheGrandThunderBird extends ModNPC {
       }
     }
 
-    // ==== HATCHLING ====
+    // ==== HATCHLING ====    
     if (this.AttackState === this.Attack.Hatchling) {
       this.AttackStateTimer++;
 
@@ -367,7 +427,7 @@ export class TheGrandThunderBird extends ModNPC {
       }
     }
 
-    // ===== SPARK SHOT CLOUD =====
+    // ===== SPARK SHOT CLOUD =====    
     if (this.AttackState === this.Attack.SparkShot) {
       this.AttackStateTimer++;
       vel.X *= 0.9;
@@ -393,6 +453,7 @@ export class TheGrandThunderBird extends ModNPC {
       dust1.velocity = Vector2.Multiply(dust1.velocity, 0.3);
     }
     npc.velocity = vel;
+
   }
 
   // Next Attack Decider
@@ -418,6 +479,7 @@ export class TheGrandThunderBird extends ModNPC {
     }
     if (list.length === 0) list.push(0);
     this.AttackState = list[Math.floor(Math.random() * list.length)];
+
   }
 
   OnKill(npc) {

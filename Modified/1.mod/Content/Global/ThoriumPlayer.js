@@ -7,12 +7,33 @@ import { Vector2 } from "../../TL/Modules/Vector2.js";
 import { Rectangle } from "../../TL/Modules/Rectangle.js";
 import { LifeShieldPlayer } from "./LifeShieldPlayer.js";
 import { ModBuff } from "../../TL/ModBuff.js";
+import { Rand } from "../../TL/Modules/Rand.js";
+import { ModItem } from "../../TL/ModItem.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
+const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+
+const { ItemID } = Terraria.ID
 
 export class ThoriumPlayer extends ModPlayer {
 
-    // SpringSteps
+    //Basic
+    static InCombat = false;
+    static CombatTimer = 0;
+    static CombatDelay = 320; 
+    static CombatTimeAccumulated = 0
+
+    //Cave Rare Mosnter
+    static SalamanterEyeEquipped = false;
+    static GiantShellSpineEquipped = false
+    static CrawdadClawEquipped = false
+
+    static CrietzEquipped = false
+    static CrietzInvoke = false
+    static CrietzMaxTimeDelay = 60
+    static CrietzTimeDelay = 0
+
+    // Spring Steps
     static SpringStepsEquipped = false;
     static jumps = 0;
     static allowJump = true;
@@ -21,7 +42,11 @@ export class ThoriumPlayer extends ModPlayer {
     static LifeRecoveryBuffDelayTime = 0;
     static LavaHugBuffDelayTime = 0;
     static LivingWoodAcornArmorBuff = false;
+
     static IncubatedEggBuff = false;
+    static IncubatedEggLimit = 4
+    static InccubatedEggCount = 0
+
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
@@ -46,6 +71,8 @@ export class ThoriumPlayer extends ModPlayer {
     static LifeShieldTimeDelay = 0;
     static LifeShieldMaxTimeDelay = 120;
 
+    static LuckyRabbitsFootEquipped = false
+    static BandofReplenishmentEquipped = false
     constructor() {
         super();
         this.previousItemType = -1;
@@ -66,6 +93,15 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.SheathMaxCooldown = undefined;
         ThoriumPlayer.SheatDamageMultiplier = 0;
         ThoriumPlayer.SheatCriticalChanceBonus = 0;
+
+        ThoriumPlayer.LuckyRabbitsFootEquipped = false
+        ThoriumPlayer.BandofReplenishmentEquipped = false
+
+        ThoriumPlayer.SalamanterEyeEquipped = false
+        ThoriumPlayer.CrawdadClawEquipped = false
+        ThoriumPlayer.GiantShellSpineEquipped = false
+
+        ThoriumPlayer.CrietzEquipped = false
     }
 
     PreUpdate(player) {
@@ -107,6 +143,26 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     PostUpdate(player) {
+        if (ThoriumPlayer.InCombat) {
+            ThoriumPlayer.CombatTimer++;
+            ThoriumPlayer.CombatTimeAccumulated++
+            
+            if (ThoriumPlayer.CombatTimer >= ThoriumPlayer.CombatDelay) {
+                ThoriumPlayer.InCombat = false;
+                ThoriumPlayer.CombatTimer = 0;
+                ThoriumPlayer.CombatTimeAccumulated = 0
+            }
+        }
+
+        if(!ThoriumPlayer.CrietzInvoke && ThoriumPlayer.CrietzEquipped) {
+            ThoriumPlayer.CrietzTimeDelay++
+
+            if(ThoriumPlayer.CrietzTimeDelay >= ThoriumPlayer.CrietzMaxTimeDelay) {
+                ThoriumPlayer.CrietzInvoke = true
+                ThoriumPlayer.CrietzTimeDelay = 0
+            }
+        }
+
         if (!ThoriumPlayer.SpringStepsEquipped) return;
 
         if (player.velocity.Y < 0 && ThoriumPlayer.allowJump) {
@@ -154,8 +210,8 @@ export class ThoriumPlayer extends ModPlayer {
             }
         }
 
-        if(player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
-            finalDamage -= this.WeaponDamage * 0.2 
+        if (player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
+            finalDamage -= this.WeaponDamage * 0.2
         }
 
         return this.WeaponDamage = finalDamage;
@@ -172,7 +228,9 @@ export class ThoriumPlayer extends ModPlayer {
         }
     }
 
-    OnHitNPC(player, item, target, damage, knockback, crit) {
+    OnHitNPC(player, item, npc, damageDone, knockBack) {
+        ThoriumPlayer.EnterCombat();
+
         if (
             ThoriumPlayer.SheathMaxCooldown !== undefined &&
             ThoriumPlayer.SheatType !== undefined &&
@@ -183,16 +241,42 @@ export class ThoriumPlayer extends ModPlayer {
             ThoriumPlayer.SheathCooldown = 0;
             ThoriumPlayer._hitThisSwing = true;
         }
+
+        if(ThoriumPlayer.CrietzInvoke && ThoriumPlayer.IsCriticalDamage(item, damageDone)) {
+            ThoriumPlayer.CrietzProjectile(player, npc)
+        }
     }
 
     OnHitNPCWithProj(player, npc, projectile) {
+        ThoriumPlayer.EnterCombat();
+
         if (ThoriumPlayer.IncubatedEggBuff) {
             if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
-                if (Math.random() < 0.1) return;
+                if(ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return
+                if (Math.random() < 0.9) return;
 
                 const eggType = ModProjectile.getTypeByName('IncubatedSpider');
                 const source = projectile.GetProjectileSource_FromThis();
-                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, 1, 0, player.whoAmI, 0, 0, 0, null);
+
+                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, 2, 0, player.whoAmI, 0, 0, 0, null);
+                ThoriumPlayer.InccubatedEggCount++
+            }
+        }
+
+        if(ThoriumPlayer.CrietzInvoke) {
+            ThoriumPlayer.CrietzProjectile(player, npc)
+        }
+    }
+
+    OnHurt(player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
+        ThoriumPlayer.EnterCombat();
+        
+        if(!pvp && ThoriumPlayer.BandofReplenishmentEquipped) {
+            if(damage > 3 && Rand.Next(0, 3) === 0) {
+                player.Heal(1)
+
+                player.statMana += 1;
+                player.ManaEffect(1)
             }
         }
     }
@@ -208,6 +292,11 @@ export class ThoriumPlayer extends ModPlayer {
 
     MultiplyDamage(damage) {
         return damage * (1 + ThoriumPlayer.SheatDamageMultiplier);
+    }
+
+    static IsCriticalDamage(item, damageDone) {
+        const baseDamage = item.damage;
+        return damageDone >= baseDamage * 1.5;
     }
 
     static ReadySeathEffect(player) {
@@ -237,5 +326,65 @@ export class ThoriumPlayer extends ModPlayer {
             d.noGravity = true;
             d.velocity = Vector2.new(speedX, speedY);
         }
+    }
+
+    static LuckyRabbitsFootSpawnCoins(npc) {
+        const COPPER = ItemID.CopperCoin;
+        const SILVER = ItemID.SilverCoin;
+        const GOLD = ItemID.GoldCoin;
+        const PLAT = ItemID.PlatinumCoin;
+
+        let value = npc.value;
+
+        let plat = Math.floor(value / 1000000);
+        value %= 1000000;
+
+        let gold = Math.floor(value / 10000);
+        value %= 10000;
+
+        let silver = Math.floor(value / 100);
+        value %= 100;
+
+        let copper = value;
+
+        const x = npc.position.X;
+        const y = npc.position.Y;
+        const w = npc.width;
+        const h = npc.height;
+
+        if (plat > 0)
+            NewItem(x, y, w, h, PLAT, plat, false, 0, false);
+
+        if (gold > 0)
+            NewItem(x, y, w, h, GOLD, gold, false, 0, false);
+
+        if (silver > 0)
+            NewItem(x, y, w, h, SILVER, silver, false, 0, false);
+
+        if (copper > 0)
+            NewItem(x, y, w, h, COPPER, copper, false, 0, false);
+    }
+
+    static EnterCombat() {
+        ThoriumPlayer.InCombat = true;
+        ThoriumPlayer.CombatTimer = 0;
+    }
+
+    static CrietzProjectile(player, npc) {
+        const projType = ModProjectile.getTypeByName('CrietzPro');
+        const speed = 2;
+        const count = Rand.Next(2, 4);
+        const baseDir = Vector2.new(0, -1);
+        for (let i = 0; i < count; i++) {
+            const angle = (Rand.NextFloat() < 0.5 ? -1 : 1) * (0.3 + Rand.NextFloat() * 0.3);
+            const dir = Vector2.RotatedBy(baseDir, angle);
+            const vel = Vector2.Multiply(dir, speed);
+            const damage = player.HeldItem != null ? player.HeldItem.damage : 10;
+            const source = player.GetProjectileSource_Item(player.HeldItem);
+            Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'](
+                source, npc.Center, vel, projType, damage, 4, player.whoAmI, 0, 0, 0, null
+            );
+        }
+        ThoriumPlayer.CrietzInvoke = false;
     }
 }

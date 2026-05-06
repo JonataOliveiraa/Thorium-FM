@@ -92,12 +92,29 @@
     "TechniqueBlankScroll": "Pergaminho de Técnica em Branco",
     "EnchantedCane": "Bengala Encantada",
     "EnchantedStaff": "Cajado Encantado",
-    "GrandFlareGun": "Calibre de Grande Explosão",
+    "GrandFlareGun": "Lança-sinalizador Grande",
     "StormFlare": "Chamas da Tempestade",
     "StormHatchlingStaff": "Cajado do Filhote da Tempestade",
     "TalonBurst": "Explosão da Garra",
     "ThunderTalon": "Garra do Trovão",
-    "Zephyr": "Zéfiro"
+    "Stun": "Atordoar",
+    "PrehistoricAmberStaff": "Cajado com Âmbar Pré-histórico",
+    "MagickStaff": "Cajado Mágicko",
+    "ThunderBirdBag": "Bolsa do Tesouro (O Grande Passáro Do Trovão)",
+    "DeepStaff": "Cajado Profundo",
+    "LuckyRabbitsFoot": "Pé de Coelho da Sorte",
+    "ManaBauble": "Bugiganga de Mana",
+    "SalamanderEye": "Olho de Salamantra",
+    "GiantShellSpine": "Espinho de Carapaça Gigante",
+    "CrawdadClaw": "Garra de Lagosta",
+    "SoulStone": "Pedra da Alma",
+    "Talon": "Garras",
+    "BrambleShot": "Disparo de Silveira",
+    "Crietz": "Crietz",
+    "OpalRobe": "Roupão de Opala",
+    "AquamarineRobe": "Roupão de Água-marinha",
+    "CyanPhaseblade": "Sabre de Luz Ciano",
+    "PinkPhaseblade": "Sabre de Luz Rosa"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -118,7 +135,7 @@
     "RubyRing": "Aumenta o dano corpo a corpo em 1",
     "SapphireRing": "Aumenta o dano mágico em 1",
     "TheRing": "Aumenta todo o dano em 2\nAumenta a penetração de armadura em 2\nAumenta a chance de acerto crítico em 4%",
-    "IncubatedEgg": "'Uma macabra incubação nesse ovo'\nAtaques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas",
+    "IncubatedEgg": "Ataques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas\n'Uma macabra incubação aconteceu nesse ovo'",
     "LeatherSheath": "Golpes com espadas, machados e picaretas causam {0}% de dano e a chance de acerto crítico é aumentada em {1}%\nA arma deve estar na mão e sem uso por {2} segundos",
     "WebGun": "Dispara um glóbulo pegajoso de teia úmida",
     "DepthScales": "A evolução alcançou isso para profundezas...",
@@ -140,7 +157,20 @@
     "TechniqueBlankScroll": "Usado na criação de habilidades únicas de técnica",
     "EnchantedCane": "Invoca um escudo que atordoa os inimigos próximos",
     "EnchantedStaff": "Invoca um raio encantado que regenera a mana ao eliminar um inimigo",
-    "LifeShieldLabel": "Você gera constantemente um escudo de {0} de vida"
+    "LifeShieldLabel": "Você gera constantemente um escudo de {0} de vida",
+    "PrehistoricAmberStaff": "Invoca alguns dinossauros furiosos para atacar seus inimigos\n'A vida encontrou um caminho'",
+    "MagickStaff": "Lança um turbilhão elemental flutuante",
+    "DeepStaff": "Consome 5 de vida\nDispara um raio de magia sombria ao custo de vida\nInimigos atingidos queimam brevemente com energia sombria",
+    "LuckyRabbitsFoot": "'Feito com pelo falso de verdade!'\nEnquanto equipado, sua sorte é levemente aumentada\nEnquanto equipado, inimigos derrotados têm uma chance de dropar 100% mais moedas",
+    "ManaBauble": "'Uma esfera de energia mágica coalescida'\nMana máximo aumentado em 10",
+    "SalamanderEye": "Durante o combate, sua recuperação de vida aumenta em 1",
+    "GiantShellSpine": "Durante o combate, sua defesa aumenta em 1 ao longo do tempo, até no máximo 4",
+    "CrawdadClaw": "Durante o combate, sua penetração de armadura aumenta em 1 ao longo do tempo, até no máximo 2",
+    "GrandFlareGun": "Requer a munição Chamas da Tempestade para funcionar\nInvoca o Grande Pássaro do Trovão, mas apenas durante o dia no deserto\n'Mire para os céus!'",
+    "SoulStone": "+10% de dano de invocação\nDiminui sua vida máxima em 20\n'A pedra lentamente se alimenta da sua alma'",
+    "BrambleShot": "Envenena flechas de madeira",
+    "Crietz": "Após um segundo, seu próximo ataque crítico causa uma explosão de energia que acerta inimigos próximos",
+		"Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -173,23 +203,39 @@
   "NPCName": {
     "Blacksmith": "Ferreiro",
     "DesertAcolyte": "Acólito do Deserto",
-    "ArmyAnt": "Formiga Soldado",
-    "FireAnt": "Formiga Flamejante",
+    "ArmyAnt": "Formiga Guerreira",
+    "FireAnt": "Formiga de Fogo",
     "StrangeBulb": "Bulbo Estranho",
-    "MahoganyEnt": "Guardião de Mogno",
-    "EarthenGolem": "Golem Terroso",
-    "EarthenBat": "Morcego Terroso",
+    "MahoganyEnt": "Ent de Mogno",
+    "EarthenGolem": "Golem Terreno",
+    "EarthenBat": "Morcego Terreno",
     "GildedBat": "Morcego Dourado",
-    "GildedLycan": "Lycan Dourado",
-    "GildedSlime": "Geleia Dourado",
-    "GildedSlimeling": "Geleinha Dourado",
-    "PatchWerk": "O Retalhoso"
+    "GildedLycan": "Licano Dourado",
+    "GildedSlime": "Slime Dourado",
+    "GildedSlimeling": "Slimeling Dourado",
+    "TheGrandThunderBird": "O Grande Pássaro do Trovão",
+    "StormHatchling": "Filhote da Tempestade",
+    "PatchWerk": "O Retalhoso",
+    "TheInnocent": "O Inocente",
+    "LivingHemorrage": "Hemorragia Viva"
   },
   "Bestiary": {
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
-    "FireAnt": "Saiu direto do inferno, tal formiga em chamas que busca se aquecer",
-    "StrangeBulb": "Uma espécie de planta bizarra que ainda não atingiu a maturidade. Talvez seja melhor assim",
-    "MahoganyEnt": "Uma massa senciente de mogno que busca proteger a flora da selva por meios mortais"
+    "Blacksmith": "Um artesão experiente que molda metal em armas e ferramentas. Seu trabalho é tão confiável quanto seu temperamento é estável",
+    "DesertAcolyte": "O Acólito do Deserto é bastante nervoso, mas vende todo tipo de equipamento para aqueles interessados em arremessar coisas em monstros",
+    "FireAnt": "Ela emergiu diretamente do inferno, como uma formiga em chamas buscando calor",
+    "StrangeBulb": "Uma espécie bizarra de planta que ainda não atingiu sua maturidade. Talvez seja melhor assim",
+    "MahoganyEnt": "Uma massa senciente de mogno que busca proteger a flora da selva por meios letais",
+    "EarthenGolem": "Um enorme construto de pedra e terra compactadas, animado por forças antigas. Permanece inativo até ser perturbado, então reage com força esmagadora",
+    "EarthenBat": "Um morcego rudimentar formado de pedra que se esconde nos tetos das cavernas. Ele mergulha contra intrusos com velocidade surpreendente apesar de seu corpo rígido",
+    "GildedBat": "Um grande morcego dourado. Seu brilho metálico reflete a luz para desorientar suas presas antes de atacar",
+    "GildedLycan": "Um predador assustador coberto por uma armadura dourada natural. Ele persegue suas presas pacientemente antes de desferir ataques rápidos e brutais",
+    "GildedSlime": "Um organismo viscoso infundido com partículas douradas. Ele absorve impactos com facilidade e lentamente engole qualquer coisa descuidada o suficiente para se aproximar",
+    "GildedSlimeling": "Uma versão menor do Slime Dourado. Menos resistente, mas muito mais numerosa e irritantemente persistente",
+    "TheGrandThunderBird": "Abençoada com o domínio sobre as tempestades, esta ave majestosa sobrevoa os céus do deserto. Parecia estar testando você...",
+    "StormHatchling": "Uma aparição eletricamente carregada de um jovem Pássaro do Trovão",
+    "TheInnocent": "Esta criatura inocente vagava pacificamente pelas florestas de Terraria antes que a sombria corrupção a alcançasse",
+    "LivingHemorrage": "Um teratoma grotesco formado da própria carne do Carmesim. Não costuma cair facilmente"
   },
   "NPCChat": {
     "Blacksmith_1": "Precisa de algo forjado?",
@@ -239,5 +285,8 @@
   },
   "SinalizationChatMessage": {
     "OnPatchWerkDie": "O temido Retalhoso desmorona..."
+  },
+  "DeathMessage": {
+    "DeepStaff": "{0} drenou a própria alma por poder, levando à sua morte"
   }
 }

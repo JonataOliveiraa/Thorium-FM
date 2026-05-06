@@ -7,6 +7,7 @@ export { Petal } from "../Content/Items/Materials/Petal.js"
 export { YewWood } from "../Content/Items/Materials/YewWood.js"
 export { Blood } from "../Content/Items/Materials/Blood.js" 
 export { UnholyShards } from "../Content/Items/Materials/UnholyShards.js"
+export { Talon } from "../Content/Items/Materials/Talon.js"
 
 //Ore
 export { ThoriumOre } from "../Content/Items/Materials/ThoriumOre.js"

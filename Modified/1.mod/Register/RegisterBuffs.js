@@ -1,4 +1,6 @@
 export { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
+export { PrehistoricAmberStaffBuff } from "../Content/Buffs/PrehistoricAmberStaffBuff.js";
+export { ElementalDecayBuff } from "../Content/Buffs/ElementalDecayBuff.js";
 export { LifeRecoveryBuff } from "../Content/Buffs/Healer/LifeRecoveryBuff.js";
 export { StunnedBuff } from "../Content/Buffs/StunnedBuff.js";
 export { LavaHugBuff } from "../Content/Buffs/LavaHugBuff.js";
