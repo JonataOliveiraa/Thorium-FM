@@ -114,7 +114,12 @@
     "OpalRobe": "Roupão de Opala",
     "AquamarineRobe": "Roupão de Água-marinha",
     "CyanPhaseblade": "Sabre de Luz Ciano",
-    "PinkPhaseblade": "Sabre de Luz Rosa"
+    "PinkPhaseblade": "Sabre de Luz Rosa",
+    "AquamarineRing": "Anel de Água-marinha",
+    "OpalRing": "Anel de Opala",
+    "OpalStaff": "Cajado de Opala",
+    "AquamarineStaff": "Cajado de Água-marinha",
+    "MoltenScale": "Escama Fundida"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -170,7 +175,10 @@
     "SoulStone": "+10% de dano de invocação\nDiminui sua vida máxima em 20\n'A pedra lentamente se alimenta da sua alma'",
     "BrambleShot": "Envenena flechas de madeira",
     "Crietz": "Após um segundo, seu próximo ataque crítico causa uma explosão de energia que acerta inimigos próximos",
-		"Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana"
+		"Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana",
+    "AquamarineRing": "Aumenta o dano radiante em 1",
+    "OpalRing": "Aumenta o dano sinfônico em 1",
+    "MoltenScale": "Incendeia os inimigos próximos"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -217,7 +225,12 @@
     "StormHatchling": "Filhote da Tempestade",
     "PatchWerk": "O Retalhoso",
     "TheInnocent": "O Inocente",
-    "LivingHemorrage": "Hemorragia Viva"
+    "LivingHemorrage": "Hemorragia Viva",
+    "CoinBagGold": "Bolsa de Moeda de Ouro",
+    "CoinBagSilver": "Bolsa de Moeda de Prata",
+    "CoinBagCopper": "Bolsa de Moeda de Cobre",
+    "BatOutaHell": "Morcego Fora do Inferno",
+    "FlamekinCaster": "Conjurador Fogokin"
   },
   "Bestiary": {
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
@@ -235,7 +248,11 @@
     "TheGrandThunderBird": "Abençoada com o domínio sobre as tempestades, esta ave majestosa sobrevoa os céus do deserto. Parecia estar testando você...",
     "StormHatchling": "Uma aparição eletricamente carregada de um jovem Pássaro do Trovão",
     "TheInnocent": "Esta criatura inocente vagava pacificamente pelas florestas de Terraria antes que a sombria corrupção a alcançasse",
-    "LivingHemorrage": "Um teratoma grotesco formado da própria carne do Carmesim. Não costuma cair facilmente"
+    "LivingHemorrage": "Um teratoma grotesco formado da própria carne do Carmesim. Não costuma cair facilmente",
+    "CoinBagGold": "Você pensaria que o ouro deixaria este saco ganancioso de moedas mais pesado, mas isso só aumenta sua determinação em fugir dos Terrarianos",
+    "CoinBagSilver": "Tendo vagado pelas cavernas, este saco de moedas desaparece da cena assim que um Terrariano ganancioso aparece",
+    "CoinBagCopper": "Esta pilha encantada de moedas ganhou consciência há pouco tempo, mas fará de tudo para manter suas riquezas para si mesma",
+    "FlamekinCaster": "Uma criatura bizarra utiliza o poder das poças de lava encontradas nas profundezas das cavernas para invocar morcegos de fogo explosivos"
   },
   "NPCChat": {
     "Blacksmith_1": "Precisa de algo forjado?",

@@ -94,7 +94,7 @@ export class ModRecipe {
             Terraria.Main.availableRecipeY = Terraria.Main.availableRecipeY.cloneResized(index3 + 1);
         }
         
-        tl.log('\n' + '  New Recipe - Slot: ' + nextSlot + '\n  ' + Terraria.Recipe.currentRecipe['string ToString()']());
+        //tl.log('\n' + '  New Recipe - Slot: ' + nextSlot + '\n  ' + Terraria.Recipe.currentRecipe['string ToString()']());
         
         Terraria.Recipe.AddRecipe();
     }

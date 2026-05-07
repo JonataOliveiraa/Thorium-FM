@@ -16,6 +16,7 @@ import { SurfaceBackgroundLoader, UndergroundBackgroundLoader } from './../Loade
 import { SceneEffectLoader } from './../Loaders/SceneEffectLoader.js';
 import { MenuLoader } from './../Loaders/MenuLoader.js';
 import { SubworldLoader } from './../Loaders/SubworldLoader.js';
+import { RemoveItemsRecipes } from './../../Content/Global/Hooks/RemoveItemsRecipes.js'
 
 let isFirstJoin = true;
 
@@ -59,6 +60,8 @@ export class MainHooks {
             SystemLoader.PostSetupContent();
             SystemLoader.AddRecipeGroups();
             SystemLoader.AddRecipes();
+
+            RemoveItemsRecipes.ApplyRecipeRemoval()
             
             new ModRecipe().SetResult(5013).AddIngredient(5013).SetProperty('needMechdusa', true).AddTile(668).Register();
             Terraria.ID.ContentSamples.FixItemsAfterRecipesAreAdded();

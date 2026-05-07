@@ -31,35 +31,23 @@ export class RemoveItemsRecipes extends GlobalHooks {
         ItemID.ChlorophyteExtractinator
     ]
 
-    RemoveRecipes(items = []) {
-        if (items.length === 0) return;
+    static ApplyRecipeRemoval() {
+        const itemsToRemove = new Set(RemoveItemsRecipes.ItemsToRemove);
+        const recipeArr = Main.recipe;
 
-        const _items = new Set(items);
-        const recipeArr = Main.recipe; 
-        
-        let validRecipeCount = 0;
-        let removedCount = 0;
-
-        for (let i = 0; i < Recipe.numRecipes; i++) {
+        for (let i = 0; i < recipeArr.length; i++) {
             const recipe = recipeArr[i];
-            
-            if (_items.has(recipe.createItem.type)) {
-                removedCount++;
-                continue;
+            if (recipe && itemsToRemove.has(recipe.createItem.type)) {
+                for (let j = 0; j < recipe.requiredItem.length; j++) {
+                    const ing = recipe.requiredItem[j];
+                    if (ing && ing.type !== 0) {
+                        ing['void SetDefaults(int Type, ItemVariant variant)'](5013, null);
+                        ing.stack = 1;
+                    }
+                }
+                recipe.needMechdusa = true;
+                recipe.notDecraftable = true;
             }
-            
-            recipeArr[validRecipeCount] = recipe;
-            validRecipeCount++;
         }
-
-        Recipe.numRecipes = validRecipeCount;
-        ModRecipe.MAX_VANILLA_RECIPES -= removedCount;
-    }
-
-    Initialize() {
-        Recipe.SetupRecipes.hook(original => {
-            original();
-            this.RemoveRecipes(RemoveItemsRecipes.ItemsToRemove);
-        });
     }
 }

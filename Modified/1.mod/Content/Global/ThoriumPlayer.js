@@ -9,6 +9,7 @@ import { LifeShieldPlayer } from "./LifeShieldPlayer.js";
 import { ModBuff } from "../../TL/ModBuff.js";
 import { Rand } from "../../TL/Modules/Rand.js";
 import { ModItem } from "../../TL/ModItem.js";
+import { Bard, Healer, Thrower } from "./ThoriumClasses.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
@@ -16,6 +17,16 @@ const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, 
 const { ItemID } = Terraria.ID
 
 export class ThoriumPlayer extends ModPlayer {
+    static class = {
+        Bard: new Bard(),
+        Healer: new Healer(),
+        Thrower: new Thrower()
+    }
+
+    constructor() {
+        super()
+        this.previousItemType = -1;
+    }
 
     //Basic
     static InCombat = false;
@@ -50,6 +61,10 @@ export class ThoriumPlayer extends ModPlayer {
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
+    static MoltenScaleEquipped = false
+    static MoltenScaleMaxTimeDelay = 15
+    static MoltenScaleTimeDelay = 0
+
     // Sheath
     static _hitThisSwing = false;
     static ShealthTypes = {
@@ -73,10 +88,6 @@ export class ThoriumPlayer extends ModPlayer {
 
     static LuckyRabbitsFootEquipped = false
     static BandofReplenishmentEquipped = false
-    constructor() {
-        super();
-        this.previousItemType = -1;
-    }
 
     OnEnterWorld(player) {
     }
@@ -102,6 +113,13 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.GiantShellSpineEquipped = false
 
         ThoriumPlayer.CrietzEquipped = false
+
+        ThoriumPlayer.class.Bard.symphonicDamage = 0
+        ThoriumPlayer.class.Healer.radiantDamage = 0
+        ThoriumPlayer.class.Thrower.throwingDamage = 0
+
+        ThoriumPlayer.MoltenScaleEquipped = false
+
     }
 
     PreUpdate(player) {

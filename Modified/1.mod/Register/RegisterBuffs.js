@@ -1,12 +1,33 @@
-export { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
-export { PrehistoricAmberStaffBuff } from "../Content/Buffs/PrehistoricAmberStaffBuff.js";
-export { ElementalDecayBuff } from "../Content/Buffs/ElementalDecayBuff.js";
-export { LifeRecoveryBuff } from "../Content/Buffs/Healer/LifeRecoveryBuff.js";
-export { StunnedBuff } from "../Content/Buffs/StunnedBuff.js";
-export { LavaHugBuff } from "../Content/Buffs/LavaHugBuff.js";
-export { EnchantedCaneBuff } from "../Content/Buffs/EnchantedCaneBuff.js";
-export { CharmedBuff } from "../Content/Buffs/CharmedBuff.js";
-export { HatclingBuff } from "../Content/Buffs/HatclingBuff.js";
+import { ModBuff } from '../TL/ModBuff.js';
 
-//Mounts
-export { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
+import { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
+import { PrehistoricAmberStaffBuff } from "../Content/Buffs/PrehistoricAmberStaffBuff.js";
+import { ElementalDecayBuff } from "../Content/Buffs/ElementalDecayBuff.js";
+import { LifeRecoveryBuff } from "../Content/Buffs/Healer/LifeRecoveryBuff.js";
+import { StunnedBuff } from "../Content/Buffs/StunnedBuff.js";
+import { LavaHugBuff } from "../Content/Buffs/LavaHugBuff.js";
+import { EnchantedCaneBuff } from "../Content/Buffs/EnchantedCaneBuff.js";
+import { CharmedBuff } from "../Content/Buffs/CharmedBuff.js";
+import { HatclingBuff } from "../Content/Buffs/HatclingBuff.js";
+
+// Mounts
+import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
+
+const List = [
+    LivingWoodAcornBuff,
+    PrehistoricAmberStaffBuff,
+    ElementalDecayBuff,
+    LifeRecoveryBuff,
+    StunnedBuff,
+    LavaHugBuff,
+    EnchantedCaneBuff,
+    CharmedBuff,
+    HatclingBuff,
+    MagmaCharmBuff
+]
+
+export function RegisterBuffs() {
+    for (const Buff of List) {
+        ModBuff.register(Buff)
+    }
+}

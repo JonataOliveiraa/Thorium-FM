@@ -1,1 +1,0 @@
-export { ThoriumMenu } from "../Content/Menus/ThoriumMenu.js";

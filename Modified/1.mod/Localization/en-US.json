@@ -114,7 +114,12 @@
     "OpalRobe": "Opal Robe",
     "AquamarineRobe": "Aquamarine Robe",
     "CyanPhaseblade": "Cyan Phaseblade",
-    "PinkPhaseblade": "Pink Phaseblade"
+    "PinkPhaseblade": "Pink Phaseblade",
+    "AquamarineRing": "Aquamarine Ring",
+    "OpalRing": "Opal Ring",
+    "OpalStaff": "Opal Staff",
+    "AquamarineStaff": "Aquamarine Staff",
+    "MoltenScale": "Molten Scale"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -170,7 +175,10 @@
     "SoulStone": "10% increased summon damage\nDecreases your maximum life by 20\n'The stone slowly feeds off your soul'",
     "BrambleShot": "Turns wooden arrows into poison arrows",
     "Crietz": "Once every second, your next critical strike causes a burst of damaging energy",
-		"Robe": "Increases maximum mana by 40\n8% reduced mana cost"
+		"Robe": "Increases maximum mana by 40\n8% reduced mana cost",
+    "AquamarineRing": "Increases radiant damage by 1",
+    "OpalRing": "Increases symphonic damage by 1",
+    "MoltenScale": "Nearby enemies will be set on fire"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -217,7 +225,12 @@
     "TheGrandThunderBird": "The Grand Thunder Bird",
     "StormHatchling": "Storm Hatchling",
     "TheInnocent": "The Innocent",
-    "LivingHemorrage": "Living Hemorrage"
+    "LivingHemorrage": "Living Hemorrage",
+    "CoinBagGold": "Gold Coin Bag",
+    "CoinBagSilver": "Silver Coin Bag",
+    "CoinBagCopper": "Copper Coin Bag",
+    "BatOutaHell": "Bat Out a Hell",
+    "FlamekinCaster": "Flamekin Caster"
   },
   "Bestiary": {
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
@@ -235,7 +248,11 @@
     "TheGrandThunderBird": "Blessed with the dominion over storms, this majestic bird soars through the desert skies. It seemed to be testing you...",
     "StormHatchling": "An electrically charged apparition of an adolescent Thunder Bird.",
     "TheInnocent": "This innocent creature once peacefully roamed the forests of Terraria before the Corruption's dark spread reached it",
-    "LivingHemorrage": "A gruesome teratoma formed from the flesh of the Crimson itself. Doesn't like to go down easily"
+    "LivingHemorrage": "A gruesome teratoma formed from the flesh of the Crimson itself. Doesn't like to go down easily",
+    "CoinBagGold": "You'd think gold would just weigh down this greedy sack of coins, but it just boosts its resolve to run from Terrarians",
+    "CoinBagSilver": "Having been around the caverns, this bag of coins leaves the scene as soon as a greedy Terrarian makes their appearance",
+    "CoinBagCopper": "This enchanted pile of coins only just recently gained sentience, but it will try its hardest to keep its riches for itself",
+    "FlamekinCaster": "A bizarre creature harnesses the power of lava pools found deep in the caverns to summon explosive fire bats"
   },
   "NPCChat": {
     "Blacksmith_1": "Need something forged?",
