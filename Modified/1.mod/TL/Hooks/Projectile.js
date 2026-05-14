@@ -34,94 +34,18 @@ export class ProjectileHooks {
             Terraria.Projectile['void SetDefaults(int Type)'
             ].hook((original, self, type) => {
                 original(self, type);
-                
-                if (!ProjectileLoader.isModType(type)) {
-                    ProjectileLoader.SetDefaults(self);
-                    return;
+                if (ProjectileLoader.isModType(type)) {
+                    self.active = true;
+                    const proj = ProjectileLoader.getModProjectile(type);
+                    if (proj) {
+                        proj?.SetDefaults(self);
+                        Object.assign(self, proj?.Projectile);
+                    }
+                    self.width = self.width * self.scale;
+                    self.height = self.height * self.scale;
+                    self.maxPenetrate = self.penetrate;
                 }
-                
-                self.active = true;
-                
-                /*self.ownerHitCheckDistance = 1000;
-                self.counterweight = false;
-                self.sentry = false;
-                self.arrow = false;
-                self.bobber = false;
-                self.numHits = 0;
-                self.netImportant = false;
-                self.manualDirectionChange = false;
-                self.decidesManualFallThrough = false;
-                self.shouldFallThrough = false;
-                self.bannerIdToRespondTo = 0;
-                self.stopsDealingDamageAfterPenetrateHits = false;
-                self.localNPCHitCooldown = -2;
-                self.idStaticNPCHitCooldown = -1;
-                self.usesLocalNPCImmunity = false;
-                self.usesIDStaticNPCImmunity = false;
-                self.usesOwnerMeleeHitCD = false;
-                self.appliesImmunityTimeOnSingleHits = false;
-                self.noDropItem = false;
-                self.minion = false;
-                self.minionSlots = 0;
-                self.soundDelay = 0;
-                self.spriteDirection = 1;
-                self.melee = false;
-                self.ranged = false;
-                self.magic = false;
-                self.ownerHitCheck = false;
-                self.hide = false;
-                self.lavaWet = false;
-                self.wetCount = 0;
-                self.wet = false;
-                self.ignoreWater = false;
-                self.isAPreviewDummy = false;
-                self.hostile = false;
-                self.reflected = false;
-                self.netUpdate = false;
-                self.netUpdate2 = false;
-                self.netSpam = 0;
-                self.numUpdates = 0;
-                self.extraUpdates = 0;
-                self.identity = 0;
-                self.restrikeDelay = 0;
-                self.light = 0;
-                self.penetrate = 1;
-                self.tileCollide = true;
-                self.position = Microsoft.Xna.Framework.Vector2.Zero;
-                self.velocity = Microsoft.Xna.Framework.Vector2.Zero;
-                self.aiStyle = 0;
-                self.alpha = 0;
-                self.glowMask = -1;
-                self.type = type;
-                self.active = true;
-                self.rotation = 0;
-                self.scale = 1;
-                self.owner = 255;
-                self.timeLeft = 3600;
-                self.friendly = false;
-                self.damage = 0;
-                self.originalDamage = 0;
-                self.knockBack = 0;
-                self.miscText = '';
-                self.coldDamage = false;
-                self.noEnchantments = false;
-                self.noEnchantmentVisuals = false;
-                self.trap = false;
-                self.npcProj = false;
-                self.originatedFromActivableTile = false;
-                self.projUUID = -1;
-                self.frame = 0;
-                self.frameCounter = 0;*/
-                
-                const proj = ProjectileLoader.getModProjectile(type);
-                if (proj) {
-                    proj?.SetDefaults(self);
-                    Object.assign(self, proj?.Projectile);
-                }
-                
-                self.width = self.width * self.scale;
-                self.height = self.height * self.scale;
-                self.maxPenetrate = self.penetrate;
+                ProjectileLoader.SetDefaults(self);
             });
         }
         
@@ -195,8 +119,9 @@ export class ProjectileHooks {
         if (this.HookList.Kill(info)) {
             Terraria.Projectile['void Kill()'
             ].hook((original, self) => {
-                if (this.tempProj.has(self.whoAmI)) 
+                if (this.tempProj.has(self.whoAmI)) {
                     this.tempProj.delete(self.whoAmI);
+                }
                 const timeLeft = self.timeLeft;
                 let flag = true;
                 if (self.tileCollide) {

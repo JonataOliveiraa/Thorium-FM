@@ -7,4 +7,4 @@ export class ModAsset {
         this.asset.SubmitLoadedContent(value, null);
         this.asset.Value = value;
     }
-}   
+}

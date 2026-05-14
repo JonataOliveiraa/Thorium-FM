@@ -16,7 +16,7 @@ export class WorldGenHooks {
     static HookList = {
         All: (info) => true,
         PlaceTile: (info) => info.hasTiles || info.hasGlobalTiles,
-        IsTileReplacable: (info) => info.hasTiles || info.hasGlobalTiles,
+        IsTileReplaceable: (info) => info.hasTiles || info.hasGlobalTiles,
         ReplaceTile: (info) => info.hasTiles || info.hasGlobalTiles,
         CanKillTile: (info) => info.hasTiles || info.hasGlobalTiles,
         KillTile: (info) => info.hasTiles || info.hasGlobalTiles,
@@ -77,7 +77,7 @@ export class WorldGenHooks {
             });
         }
         
-        if (this.HookList.IsTileReplacable(info)) {
+        if (this.HookList.IsTileReplaceable(info)) {
             Terraria.WorldGen['bool IsTileReplaceable(int x, int y)'
             ].hook((original, x, y) => {
                 const type = new TileData(x, y).type;

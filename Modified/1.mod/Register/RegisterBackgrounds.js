@@ -1,5 +1,4 @@
-import { ModSurfaceBackground } from "../TL/ModBackgrounds.js"
-import { ModUndergroundBackground } from "../TL/ModBackgrounds.js"
+import { ModSurfaceBackground, ModUndergroundBackground } from "../TL/ModBackgrounds.js"
 
 // Backgrounds
 import { AquaticDepthsSurface_BG } from "../Content/Backgrounds/AquaticDepthsUG_BG.js"
@@ -10,7 +9,7 @@ const ListSurface = [
 ]
 
 const ListUnderground = [
-  AquaticDepthsUG_BG
+  AquaticDepthsUG_BG,
 ]
 
 export function RegisterBackgrounds() {
@@ -21,3 +20,4 @@ export function RegisterBackgrounds() {
     ModUndergroundBackground.register(Background)
   }
 }
+

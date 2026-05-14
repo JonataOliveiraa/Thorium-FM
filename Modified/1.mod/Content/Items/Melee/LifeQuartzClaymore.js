@@ -1,4 +1,4 @@
-import { Terraria } from "../../../TL/ModImports";
+import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from '../../../TL/ModItem.js';
 import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
@@ -40,7 +40,7 @@ export class LifeQuartzClaymore extends ModItem {
 
     AddRecipes() {
         this.CreateRecipe(1)
-            .AddIngredient(Terraria.ID.ItemID.LifeCrystal)
+            .AddIngredient(Terraria.ID.ItemID.LifeCrystal, 1)
             .AddIngredient(ModItem.getTypeByName('LifeQuartzOre'), 10)
             .AddTile(Terraria.ID.TileID.Anvils)
             .Register();

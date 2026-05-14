@@ -1,8 +1,16 @@
 {
-  "packStructureVersion": 32,
+  "packStructureVersion": 34,
   "title": "Thorium Fan Made",
   "guid": "eb467fbb-e67c-420b-9889-49bfa5099429",
+  "descriptionEnglish": "<h1 style=\"text-align:center;\">Thorium Mod Mobile Port</h1><p style=\"text-align:center;\"><i>Unofficial TL Pro port • Free to use • Singleplayer only</i></p><p>Thorium Mod is one of the most well-known expansion mods for Terraria, designed to integrate naturally with the vanilla experience while expanding progression, exploration, equipment variety, enemies, bosses, and overall gameplay. Rather than replacing the base game, Thorium feels like a natural continuation of Terraria itself.</p><p>This project is an unofficial mobile port developed independently by our team for TL Pro. The port is completely free to use and was created to bring part of the original Thorium experience to Terraria Mobile.</p><p>Current adapted content includes:</p><p>• 130+ items <br> • 15+ new NPCs <br> • 5+ ores and materials <br> • Large variety of new weapons and equipment <br> • 1 boss encounter <br> • Additional biome content <br> • Semi-complete world generation <br> • Expanded progression content</p><p>Some mechanics and systems from the original PC version were not adapted due to TL Pro and mobile engine limitations. Even so, the project aims to preserve the identity, balance, and progression style of the original mod as closely as possible.</p><p style=\"text-align:center;\"><small>Multiplayer is not supported.</small></p>",
   "authors": [
+    {
+      "name": "Thorium Team",
+      "file": "0.png",
+      "icon_height": 70,
+      "color": "#59de5b",
+      "link": "https://forums.terraria.org/index.php?threads/the-thorium-mod.40788/"
+    },
     {
       "name": "Zayahーざや",
       "file": "1.webp",

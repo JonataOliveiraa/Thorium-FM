@@ -291,6 +291,14 @@ export class ModPlayer {
         return itemType;
     }
     
+    /**
+     * @param {object} parts - {head, body, legs}
+     * ex: parts.legs = false; // hide legs
+     */
+    ShouldDrawParts(player, parts) {
+        
+    }
+    
     SendMessage(player, message) {
         return true;
     }

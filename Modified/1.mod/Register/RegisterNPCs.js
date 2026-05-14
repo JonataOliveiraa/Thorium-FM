@@ -45,6 +45,12 @@ import { SeveredLegs } from '../Content/NPCs/BloodMoon/SeveredLegs.js';
 // Thunder Bird
 import { StormHatchling } from '../Content/NPCs/Boss/StormHatchling.js';
 import { TheGrandThunderBird } from '../Content/NPCs/Boss/TheGrandThunderBird.js';
+
+// Queen Jellyfish
+import { ZealousJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/ZealousJellyfish.js';
+import { SpittingJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/SpittingJellyfish.js';
+import { DistractingJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/DistractingJellyfish.js';
+import { QueenJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/QueenJellyfish.js';
 import { CoinBagCopper } from '../Content/NPCs/Cavern/CoinBagCopper.js';
 import { CoinBagSilver } from '../Content/NPCs/Cavern/CoinBagSilver.js';
 import { CoinBagGold } from '../Content/NPCs/Cavern/CoinBagGold.js';
@@ -90,6 +96,11 @@ const List = [
 
     StormHatchling,
     TheGrandThunderBird,
+
+    ZealousJellyfish,
+    SpittingJellyfish,
+    DistractingJellyfish,
+    QueenJellyfish,
 
     CoinBagCopper,
     CoinBagSilver,

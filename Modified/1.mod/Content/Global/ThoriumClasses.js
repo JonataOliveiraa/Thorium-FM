@@ -4,6 +4,8 @@ export class Bard {
         this.multiplier = 1.0;
         this.description = "Bard";
     }
+
+    itemNamePrefix = '[i:3943]'
 }
 
 export class Healer {
@@ -13,6 +15,8 @@ export class Healer {
         this.healPower = 0;
         this.description = "Healer";
     }
+
+    itemNamePrefix = '[i:6033]'
 }
 
 export class Thrower {

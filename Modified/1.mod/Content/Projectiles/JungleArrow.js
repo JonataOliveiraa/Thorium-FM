@@ -20,7 +20,6 @@ export class JungleArrow extends ModProjectile {
         this.Projectile.height = 18;
         this.Projectile.friendly = true;
         this.Projectile.ranged = true;
-        this.Projectile.noMelee = false;
         this.Projectile.penetrate = 1;
         this.Projectile.ignoreWater = true;
         this.Projectile.tileCollide = true;
@@ -33,19 +32,40 @@ export class JungleArrow extends ModProjectile {
     AI(proj) {
         proj.rotation = Vector2.ToRotation(proj.velocity) + Math.PI / 2;
 
-        if (Math.random() < 1.4) {
-            let dust = Terraria.Dust.NewDustDirect(
+        if (Math.random() < 0.3) {
+            const dust = Terraria.Dust.NewDustDirect(
                 proj.position,
                 proj.width,
                 proj.height,
-                135,
+                2,
                 proj.velocity.X * 0.1, proj.velocity.Y * 0.1,
                 100,
                 Color.ForestGreen,
-                0.6
+                0.8
             );
             if (dust) {
                 dust.noGravity = true;
+                dust.noLight = true;
+            }
+        }
+    }
+
+    OnKill(proj, timeLeft) {
+        for (let i = 0; i < 8; i++) {
+            const dust = Terraria.Dust.NewDustDirect(
+                proj.position,
+                proj.width,
+                proj.height,
+                2,
+                (Math.random() - 0.5) * 4,
+                (Math.random() - 0.5) * 4,
+                100,
+                Color.ForestGreen,
+                1.0
+            );
+            if (dust) {
+                dust.noLight = true;
+                dust.noGravity = false;
             }
         }
     }

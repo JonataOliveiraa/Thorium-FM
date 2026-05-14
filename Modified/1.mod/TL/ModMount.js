@@ -6,6 +6,8 @@ export class ModMount {
     Data = null;
     Mount = {};
     
+    hideEntirePlayer = false;
+    
     constructor() {}
     
     get BackTexture() { return 'Textures/' + this.Texture + '_Back'; }

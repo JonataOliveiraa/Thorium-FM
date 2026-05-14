@@ -128,6 +128,12 @@ export class PropsReplace extends GlobalHooks {
                 self._nameOverride = ModLocalization.Translate('ItemName.ScarletBlock');
                 self.value = Terraria.Item.sellPrice(0, 0, 5, 0);
             }
+
+            //Grim Astroturf
+            if(Type === Terraria.ID.ItemID.AncientCopperBrick) {
+                self._nameOverride = ModLocalization.Translate('ItemName.GrimAstroturf');
+                self.value = Terraria.Item.sellPrice(0, 0, 0, 0);
+            }
         });
     }
 }

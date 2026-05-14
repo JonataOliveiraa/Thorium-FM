@@ -13,6 +13,7 @@ import { Bard, Healer, Thrower } from "./ThoriumClasses.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+const StrikeNPCNoInteraction = 'double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)';
 
 const { ItemID } = Terraria.ID
 
@@ -31,7 +32,7 @@ export class ThoriumPlayer extends ModPlayer {
     //Basic
     static InCombat = false;
     static CombatTimer = 0;
-    static CombatDelay = 320; 
+    static CombatDelay = 320;
     static CombatTimeAccumulated = 0
 
     //Cave Rare Mosnter
@@ -61,9 +62,21 @@ export class ThoriumPlayer extends ModPlayer {
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
+    static YewWoodSetBonus = false
+    static YewWoodAccumulated = 0
+    static YewWoodHitsCount = 0
+
+    static ThumbRingEquipped = false
+
+    static SpiritsGraceEquipped =false
+
     static MoltenScaleEquipped = false
     static MoltenScaleMaxTimeDelay = 15
     static MoltenScaleTimeDelay = 0
+
+    static SeaTurtlesBulwarkEquipped = false
+    static SeaTurtlesBulwarkMaxTimeDelay = 60
+    static SeaTurtlesBulwarkTimeDelay = 0
 
     // Sheath
     static _hitThisSwing = false;
@@ -120,6 +133,14 @@ export class ThoriumPlayer extends ModPlayer {
 
         ThoriumPlayer.MoltenScaleEquipped = false
 
+        ThoriumPlayer.SeaTurtlesBulwarkEquipped = false
+
+        ThoriumPlayer.YewWoodSetBonus = false
+        ThoriumPlayer.YewWoodAccumulated = 0
+
+        ThoriumPlayer.ThumbRingEquipped = false
+
+        ThoriumPlayer.SpiritsGraceEquipped = false
     }
 
     PreUpdate(player) {
@@ -164,7 +185,7 @@ export class ThoriumPlayer extends ModPlayer {
         if (ThoriumPlayer.InCombat) {
             ThoriumPlayer.CombatTimer++;
             ThoriumPlayer.CombatTimeAccumulated++
-            
+
             if (ThoriumPlayer.CombatTimer >= ThoriumPlayer.CombatDelay) {
                 ThoriumPlayer.InCombat = false;
                 ThoriumPlayer.CombatTimer = 0;
@@ -172,13 +193,17 @@ export class ThoriumPlayer extends ModPlayer {
             }
         }
 
-        if(!ThoriumPlayer.CrietzInvoke && ThoriumPlayer.CrietzEquipped) {
+        if (!ThoriumPlayer.CrietzInvoke && ThoriumPlayer.CrietzEquipped) {
             ThoriumPlayer.CrietzTimeDelay++
 
-            if(ThoriumPlayer.CrietzTimeDelay >= ThoriumPlayer.CrietzMaxTimeDelay) {
+            if (ThoriumPlayer.CrietzTimeDelay >= ThoriumPlayer.CrietzMaxTimeDelay) {
                 ThoriumPlayer.CrietzInvoke = true
                 ThoriumPlayer.CrietzTimeDelay = 0
             }
+        }
+
+        if (ThoriumPlayer.SeaTurtlesBulwarkEquipped && ThoriumPlayer.SeaTurtlesBulwarkTimeDelay > 0) {
+            ThoriumPlayer.SeaTurtlesBulwarkTimeDelay--
         }
 
         if (!ThoriumPlayer.SpringStepsEquipped) return;
@@ -235,6 +260,15 @@ export class ThoriumPlayer extends ModPlayer {
         return this.WeaponDamage = finalDamage;
     }
 
+    ModifyShootStats(player, stats) {
+        let finalDamageBonus = 0
+
+        if(player.HeldItem.useAmmo == Terraria.ID.AmmoID.Arrow && ThoriumPlayer.ThumbRingEquipped) {
+            finalDamageBonus += stats.damage * 0.05    
+        }
+
+        stats.damage += finalDamageBonus
+    }
 
     PostUpdateBuffs(player) {
         if (
@@ -260,7 +294,7 @@ export class ThoriumPlayer extends ModPlayer {
             ThoriumPlayer._hitThisSwing = true;
         }
 
-        if(ThoriumPlayer.CrietzInvoke && ThoriumPlayer.IsCriticalDamage(item, damageDone)) {
+        if (ThoriumPlayer.CrietzInvoke && ThoriumPlayer.IsCriticalDamage(item, damageDone)) {
             ThoriumPlayer.CrietzProjectile(player, npc)
         }
     }
@@ -268,9 +302,13 @@ export class ThoriumPlayer extends ModPlayer {
     OnHitNPCWithProj(player, npc, projectile) {
         ThoriumPlayer.EnterCombat();
 
+        const isRangedWeapon = player.HeldItem.ranged
+
+        if (isRangedWeapon) ThoriumPlayer.YewWoodHitsCount++
+
         if (ThoriumPlayer.IncubatedEggBuff) {
             if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
-                if(ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return
+                if (ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return
                 if (Math.random() < 0.9) return;
 
                 const eggType = ModProjectile.getTypeByName('IncubatedSpider');
@@ -281,21 +319,56 @@ export class ThoriumPlayer extends ModPlayer {
             }
         }
 
-        if(ThoriumPlayer.CrietzInvoke) {
+        if (ThoriumPlayer.CrietzInvoke) {
             ThoriumPlayer.CrietzProjectile(player, npc)
+        }
+
+        if (ThoriumPlayer.YewWoodHitsCount > 6 && ThoriumPlayer.YewWoodSetBonus && isRangedWeapon) {
+            let damage = player.HeldItem.damage
+            ThoriumPlayer.MiniCriticalDamage(npc, damage + Rand.Next(damage, damage + Math.round(damage * 0.1)))
+            ThoriumPlayer.YewWoodHitsCount = 0
+        }
+
+        if (ThoriumPlayer.ThumbRingEquipped) {
+            if (projectile.arrow) {
+                npc.AddBuff(153, Rand.Next(60, 120), false)
+            }
         }
     }
 
     OnHurt(player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
         ThoriumPlayer.EnterCombat();
-        
-        if(!pvp && ThoriumPlayer.BandofReplenishmentEquipped) {
-            if(damage > 3 && Rand.Next(0, 3) === 0) {
+
+        if (!pvp && ThoriumPlayer.BandofReplenishmentEquipped) {
+            if (damage > 3 && Rand.Next(0, 3) === 0) {
                 player.Heal(1)
 
                 player.statMana += 1;
                 player.ManaEffect(1)
             }
+        }
+
+        if (!pvp && ThoriumPlayer.SeaTurtlesBulwarkEquipped && ThoriumPlayer.SeaTurtlesBulwarkTimeDelay <= 0) {
+            const projType = ModProjectile.getTypeByName('SeaTurtlesBulwarkPro');
+            const speed = 2.0 + Math.random() * 1.5;
+            const angle = Math.random() * Math.PI * 2;
+            const vel = Vector2.new(Math.cos(angle) * speed, Math.sin(angle) * speed);
+            const source = Terraria.Projectile.GetNoneSource()
+            const healValue = Math.floor(damage * 0.25)
+
+            NewProjectile(
+                source,
+                player.Center,
+                vel,
+                projType,
+                0,
+                0,
+                player.whoAmI,
+                0, 0, healValue,
+                null
+            );
+
+            ThoriumPlayer.SeaTurtlesBulwarkTimeDelay = ThoriumPlayer.SeaTurtlesBulwarkMaxTimeDelay;
         }
     }
 
@@ -310,6 +383,37 @@ export class ThoriumPlayer extends ModPlayer {
 
     MultiplyDamage(damage) {
         return damage * (1 + ThoriumPlayer.SheatDamageMultiplier);
+    }
+
+    UseTimeMultiplier(player, item) {
+        if (ThoriumPlayer.YewWoodAccumulated > 0) {
+            if (player.HeldItem.ranged)
+                return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
+        }
+        return 1.0;
+    }
+
+    UseAnimationMultiplier(player, item) {
+        if (ThoriumPlayer.YewWoodAccumulated > 0) {
+            if (player.HeldItem.ranged)
+                return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
+        }
+        return 1.0;
+    }
+
+    OnRespawn(player) {
+        if(ThoriumPlayer.SpiritsGraceEquipped) {
+            player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
+        }
+    }
+
+    static MiniCriticalDamage(npc, damage) {
+        npc[StrikeNPCNoInteraction](
+            Math.round(damage * 0.75),
+            0,
+            npc.direction ?? 1,
+            true, false, false
+        );
     }
 
     static IsCriticalDamage(item, damageDone) {

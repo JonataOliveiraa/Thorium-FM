@@ -9,9 +9,11 @@ import { LavaHugBuff } from "../Content/Buffs/LavaHugBuff.js";
 import { EnchantedCaneBuff } from "../Content/Buffs/EnchantedCaneBuff.js";
 import { CharmedBuff } from "../Content/Buffs/CharmedBuff.js";
 import { HatclingBuff } from "../Content/Buffs/HatclingBuff.js";
+import { BubbledBuff } from "../Content/Buffs/BubbledBuff.js";
 
 // Mounts
 import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
+import { SpiritsGraceBuff } from '../Content/Buffs/SpiritsGraceBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
@@ -23,7 +25,9 @@ const List = [
     EnchantedCaneBuff,
     CharmedBuff,
     HatclingBuff,
-    MagmaCharmBuff
+    BubbledBuff,
+    MagmaCharmBuff,
+    SpiritsGraceBuff,
 ]
 
 export function RegisterBuffs() {

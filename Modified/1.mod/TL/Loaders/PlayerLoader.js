@@ -475,6 +475,12 @@ export class PlayerLoader {
         return newType ?? itemType;
     }
     
+    static ShouldDrawParts(player, parts) {
+        for (const modPlayer of this.RegisteredPlayers) {
+            modPlayer?.ShouldDrawParts(player, parts);
+        }
+    }
+    
     static SendMessage(player, message) {
         if (this.RegisteredPlayers.some(gP => (gP?.SendMessage(player, message) ?? true) === false)) {
             return false;

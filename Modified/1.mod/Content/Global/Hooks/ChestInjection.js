@@ -2,6 +2,7 @@ import { TileData } from "../../../TL/Modules/TileData.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ChestStyle1 } from "../Enums/ChestStyle1.js";
+import { Rand } from "../../../TL/Modules/Rand.js";
 
 const { Main, Item, InventoryStorage } = Terraria;
 
@@ -39,6 +40,30 @@ const InjectionRules = [
         calculateAmount: (total) => Math.max(1, Math.floor(total * 0.15)),
         action: 'replace',
         salt: 613
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Honey,
+        getItemID: () => Terraria.ID.ItemID.Beenade,
+        stack: Rand.Next(15, 30),
+        calculateAmount: (total) => total,
+        action: 'replace',
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Ivy,
+        getItemID: () => ModItem.getTypeByName('TheDigester'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace',
+    },
+    {
+        type: 21,
+        style: ChestStyle1.RichMahogany,
+        getItemID: () => ModItem.getTypeByName('TheDigester'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
     }
 ];
 

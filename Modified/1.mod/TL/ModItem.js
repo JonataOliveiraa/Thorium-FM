@@ -399,7 +399,7 @@ export class ModItem extends ModTexturedType {
     }
     
     CreateRecipeGroup(itemTypes = []) {
-        return ModRecipe.CreateRecipeGroup(ModLocalization.getTranslationItemName(this.Type).Value, itemTypes);
+        return ModRecipe.CreateRecipeGroup(Terraria.Lang['LocalizedText GetItemName(int id)'](itemTypes[0]).Value, itemTypes);
     }
     
     AddRecipes() {

@@ -9,6 +9,8 @@ export class MenuLoader {
     static oldLogo2 = null;
     static oldLogo3 = null;
     static oldLogo4 = null;
+    static oldLogo5 = null;
+    static oldLogo6 = null;
     static oldSun = null;
     static oldMoon = null;
     
@@ -21,11 +23,15 @@ export class MenuLoader {
             this.oldLogo2 = assets.Logo2;
             this.oldLogo3 = assets.Logo3;
             this.oldLogo4 = assets.Logo4;
+            this.oldLogo5 = assets.Logo5;
+            this.oldLogo6 = assets.Logo6;
             
             assets.Logo = logoTexture.asset.asset;
             assets.Logo2 = logoTexture.asset.asset;
             assets.Logo3 = logoTexture.asset.asset;
             assets.Logo4 = logoTexture.asset.asset;
+            assets.Logo5 = logoTexture.asset.asset;
+            assets.Logo6 = logoTexture.asset.asset;
         }
         
         const sunTexture = new ModTexture('Textures/' + this.CurrentMenu.SunTexture);
@@ -49,8 +55,10 @@ export class MenuLoader {
             assets.Logo2 = this.oldLogo2;
             assets.Logo3 = this.oldLogo3;
             assets.Logo4 = this.oldLogo4;
+            assets.Logo5 = this.oldLogo5;
+            assets.Logo6 = this.oldLogo6;
             
-            this.oldLogo1 = this.oldLogo2 = this.oldLogo3 = this.oldLogo4 = null;
+            this.oldLogo1 = this.oldLogo2 = this.oldLogo3 = this.oldLogo4 = this.oldLogo5 = this.oldLogo6 = null;
         }
         
         if (this.oldSun) {

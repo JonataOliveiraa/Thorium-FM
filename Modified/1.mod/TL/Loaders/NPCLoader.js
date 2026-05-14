@@ -159,6 +159,7 @@ export class NPCLoader {
         resizeArrayProperty(Terraria.Main, 'slimeRainNPC', nextNPC);
         resizeArrayProperty(Terraria.Main, 'npcCatchable', nextNPC);
         resizeArrayProperty(Terraria.Main, 'npcFrameCount', nextNPC, 1);
+        resizeArrayProperty(Terraria.Main.SceneMetrics, 'ClosestNPCPosition', nextNPC);
         resizeArrayProperty(Terraria.Main.SceneMetrics, 'NPCBannerBuff', nextNPC);
         resizeArrayProperty(Terraria.NPC, 'ShimmeredTownNPCs', nextNPC);
         resizeArrayProperty(Terraria.NPC, 'npcsFoundForCheckActive', nextNPC);
@@ -412,12 +413,12 @@ export class NPCLoader {
         return -1;
     }
     
-    static OnSpawn(npc, source) {
+    static OnSpawn(npc) {
         if (this.isModType(npc.type)) {
-            this.getModNPC(npc.type)?.OnSpawn(npc, source);
+            this.getModNPC(npc.type)?.OnSpawn(npc);
         }
         for (const gNpc of GlobalNPC.RegisteredNPCs) {
-            gNpc?.OnSpawn(npc, source);
+            gNpc?.OnSpawn(npc);
         }
     }
     

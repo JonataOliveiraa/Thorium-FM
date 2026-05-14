@@ -3,11 +3,14 @@ import { Terraria } from "../../TL/ModImports.js";
 import { ModItem } from "../../TL/ModItem.js";
 import { Rand } from "../../TL/Modules/Rand.js";
 
+const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+
 export class gTilesLoot extends GlobalTile {
     constructor() {
         super();
     }
 
+    _Count = 0
     static Loots = [
         { tileType: Terraria.ID.TileID.LeafBlock, loot: 'LivingLeaf', condition: (x, y) => Rand.Next(6) === 0 },
         { tileType: Terraria.ID.TileID.TeamBlockBlue, loot: 'ThoriumOre', condition: null },
@@ -36,7 +39,6 @@ export class gTilesLoot extends GlobalTile {
             }
         }
 
-        const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
         NewItem(x * 16, y * 16, 16, 16, itemId, 1, false, 0, false);
 
         return false;

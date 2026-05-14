@@ -5,9 +5,6 @@ import { ModItem } from '../../TL/ModItem.js';
 const { Main, ID, WorldGen } = Terraria;
 const { TileID, WallID, ItemID } = ID;
 
-// Se você tiver um módulo para itens do mod, descomente e use:
-// import { ModItem } from '../../TL/ModItem.js';
-
 export class ScarletChestStructure {
     Generate() {
         const depths = [
@@ -191,6 +188,8 @@ export class ScarletChestStructure {
             ModItem.getTypeByName('EmeraldRing'),
             ModItem.getTypeByName('RubyRing'),
             ModItem.getTypeByName('SapphireRing'),
+            ModItem.getTypeByName('AquamarineRing'),
+            ModItem.getTypeByName('OpalRing'),
             ModItem.getTypeByName('TheRing')
         ].filter(id => typeof id === 'number' && id > 0);
 

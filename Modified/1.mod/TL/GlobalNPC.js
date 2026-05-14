@@ -10,7 +10,7 @@ export class GlobalNPC {
         
     }
     
-    OnSpawn(npc, source) {
+    OnSpawn(npc) {
         
     }
     

@@ -1,5 +1,6 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class SeaTurtlesBulwark extends ModItem {
     constructor() {
@@ -15,10 +16,17 @@ export class SeaTurtlesBulwark extends ModItem {
         this.Item.accessory = true;
         this.Item.defense = 2;
     }
+
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
+    }
     
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        player.statDefense += 2;
+        ThoriumPlayer.SeaTurtlesBulwarkEquipped = true
     }
 }

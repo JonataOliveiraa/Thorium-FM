@@ -183,11 +183,13 @@ export class FlamekinCaster extends ModNPC {
 
         // Fase 1: invoca 1 morcego
         if (npc.ai[1] === 45) {
+            if(Math.random() > 0.5) return;
             this.SummonBats(npc, 1);
         }
 
         // Fase 2: invoca 3 morcegos
-        if (npc.ai[1] === 110) {
+        if (npc.ai[1] === 90) {
+            if(Math.random() > 0.8) return;
             this.SummonBats(npc, 3);
         }
 

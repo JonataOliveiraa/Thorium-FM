@@ -12,7 +12,6 @@ import { OreInjection } from '../Content/Global/Hooks/OreInjection.js'
 import { PropsReplace } from '../Content/Global/Hooks/PropsReplace.js'
 import { ToolTipsReplace } from '../Content/Global/Hooks/ToolTipsReplace.js'
 import { RemoveItemsRecipes } from '../Content/Global/Hooks/RemoveItemsRecipes.js'
-import { HidePlayerInMount } from '../Content/Global/Hooks/HidePlayerInMount.js'
 
 // Players
 import { LifeShieldPlayer } from '../Content/Global/LifeShieldPlayer.js'
@@ -40,6 +39,11 @@ import { LeakyMarineWall } from '../Content/Global/Walls/LeakyMarineWall.js'
 
 // NPCs
 import { UpdateNPCBuff } from '../Content/Global/NPCs/UpdateNPCBuff.js'
+import { ItemsClassIcon } from "../Content/Global/Hooks/ItemsClassIcon.js"
+import { GrimAstroturf } from "../Content/Global/Tiles/GrimAstroturf.js"
+import { BigTilesNoDrop } from "../Content/Global/Hooks/BigTilesNoDrop.js"
+import { AncientPhylactery } from "../Content/Global/Tiles/AncientPhylactery.js"
+import { MarkedGrave } from "../Content/Global/Tiles/MarkedGrave.js"
 
 const List = [
   // GlobalHooks
@@ -50,7 +54,7 @@ const List = [
   PropsReplace,
   ToolTipsReplace,
   RemoveItemsRecipes,
-  HidePlayerInMount,
+  BigTilesNoDrop,
   
   // ModPlayer
   LifeShieldPlayer,
@@ -71,11 +75,17 @@ const List = [
   MossyGoldOreTile,
   MarineBolders,
   BloodAltar,
+  AncientPhylactery,
+  MarkedGrave,
   ScarletTile,
   LeakyMarineWall,
+  GrimAstroturf,
   
   // GlobalNPC
-  UpdateNPCBuff
+  UpdateNPCBuff,
+
+  //Tests
+  ItemsClassIcon
 ]
 
 export function RegisterGlobal() {

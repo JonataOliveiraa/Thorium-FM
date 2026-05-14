@@ -1,3 +1,5 @@
+import { ModRecipe } from './ModRecipe.js';
+
 export class GlobalItem {
     static RegisteredItems = [];
     constructor() {}
@@ -171,8 +173,8 @@ export class GlobalItem {
         
     }
     
-    CreateRecipe(itemId, count = 1) {
-        return new ModRecipe().SetResult(itemId, count);
+    CreateRecipe(itemId, stack = 1) {
+        return new ModRecipe().SetResult(itemId, stack);
     }
     
     static register(gItem) {

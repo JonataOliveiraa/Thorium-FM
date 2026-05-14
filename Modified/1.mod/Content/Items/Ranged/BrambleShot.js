@@ -1,9 +1,10 @@
 import { Vector2 } from '../../../TL/Modules/Vector2.js';
-import { Terraria } from './../../../TL/ModImports.js';
+import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
 
-const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
+const { Rand } = Modules;
+const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class BrambleShot extends ModItem {
     constructor() {
@@ -15,47 +16,85 @@ export class BrambleShot extends ModItem {
         this.SetWeaponValues(24, 2, 4);
         this.SetDefaultWeaponStyle(26, true);
         this.Item.ranged = true;
-        this.Item.noMelee = true
-        this.Item.shoot = 1
+        this.Item.shoot = 1;
         this.Item.shootSpeed = 8;
+        this.Item.useAmmo = Terraria.ID.AmmoID.Arrow;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 54, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
         this.Item.UseSound = Terraria.ID.SoundID.Item108;
     }
 
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        if (type === Terraria.ID.ProjectileID.WoodenArrowFriendly) {
-            velocity = Vector2.Multiply(velocity, 1.2)
-            const projType = ModProjectile.getTypeByName('JungleArrow');
+        player['void ChangeDir(int dir)'](velocity.X >= 0 ? 1 : -1);
 
-            const source = player.GetProjectileSource_Item(item);
+        if (!player.HasAmmo(item, false)) return false;
 
-            NewProjectile(
-                source,
-                position.X,
-                position.Y,
-                velocity.X,
-                velocity.Y,
-                projType,
-                damage,
-                knockBack,
-                player.whoAmI,
-                0, 0, 0,
-                null
-            );
+        const projType = this.ConsumeAmmo(player, item.useAmmo);
+        if (!projType || projType <= 0) return false;
 
-            return false;
+        const finalType = projType === Terraria.ID.ProjectileID.WoodenArrowFriendly
+            ? ModProjectile.getTypeByName('JungleArrow')
+            : projType;
+
+        NewProjectile(
+            player.GetProjectileSource_Item(item),
+            position,
+            Vector2.Multiply(velocity, 1.2),
+            finalType,
+            damage, knockBack,
+            player.whoAmI,
+            0, 0, 0, null
+        );
+        return false;
+    }
+
+    PickAmmo(player, ammoId) {
+        const inv = player.inventory;
+        let obj = null;
+        let found = false;
+        for (let i = 54; i < 58; i++) {
+            obj = inv[i];
+            if (obj.ammo === ammoId && obj.stack > 0) { found = true; break; }
         }
+        if (!found) {
+            for (let j = 0; j < 54; j++) {
+                obj = inv[j];
+                if (obj.ammo === ammoId && obj.stack > 0) { found = true; break; }
+            }
+        }
+        return found ? obj : null;
+    }
 
+    CanConsumeAmmo(player, ammoId) {
+        if (player.magicQuiver && (ammoId === Terraria.ID.AmmoID.Arrow || ammoId === Terraria.ID.AmmoID.Stake) && Rand.NextInt(0, 5) === 0) return false;
+        if (player.ammoBox && Rand.NextInt(0, 5) === 0) return false;
+        if (player.ammoPotion && Rand.NextInt(0, 5) === 0) return false;
+        if (player.chloroAmmoCost80 && Rand.NextInt(0, 5) === 0) return false;
+        if (player.ammoCost80 && Rand.NextInt(0, 5) === 0) return false;
+        if (player.ammoCost75 && Rand.NextInt(0, 4) === 0) return false;
         return true;
+    }
+
+    ConsumeAmmo(player, ammoId) {
+        const obj = this.PickAmmo(player, ammoId);
+        if (!obj) return -1;
+        let projToShoot = obj.shoot > 0 ? obj.shoot : -1;
+        if (player.hasMoltenQuiver && projToShoot === 1) projToShoot = 2;
+        if (projToShoot > 0 && this.CanConsumeAmmo(player, ammoId)) {
+            if (obj.consumable) {
+                obj.stack--;
+                if (obj.stack <= 0) obj['void TurnToAir(bool fullReset)'](true);
+            }
+        }
+        return projToShoot;
     }
 
     AddRecipes() {
         this.CreateRecipe(1)
-            .AddIngredient(Terraria.ID.ItemID.JungleSpores, 1)
+            .AddIngredient(Terraria.ID.ItemID.JungleSpores, 7)
             .AddIngredient(Terraria.ID.ItemID.FallenStar, 1)
             .AddTile(Terraria.ID.TileID.WorkBenches)
-            .Register()
+            .Register();
     }
 
     HoldoutOffset(item, player) {

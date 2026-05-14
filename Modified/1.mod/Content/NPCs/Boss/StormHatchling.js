@@ -25,7 +25,6 @@ export class StormHatchling extends ModNPC {
     this.NPC.noGravity = true;
     this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
     this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
-    this.AnimationType = Terraria.ID.NPCID.Bat;
     this.NPC.value = ModNPC.NPCValue(0, 0, 0, 0);
   }
 

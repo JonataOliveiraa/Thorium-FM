@@ -20,6 +20,13 @@ import { ModTexture } from "../../../TL/ModTexture.js";
 import { LeakyMossyMarineBlock } from "../Tiles/LeakyMossyMarineBlock.js";
 import { OpalTile } from "../Tiles/OpalTile.js";
 import { DepthsAquamarineTile } from "../Tiles/DepthsAquamarineTile.js";
+import { BardEmblem } from "../Items/BardEmblem.js";
+import { ClericEmblem } from "../Items/ClericEmblem.js";
+import { ModHealerItem } from "../../../Common/ModHealerItem.js";
+import { ModItem } from "../../../TL/ModItem.js";
+import { GrimAstroturf } from "../Tiles/GrimAstroturf.js";
+import { AncientPhylactery } from "../Tiles/AncientPhylactery.js";
+import { MarkedGrave } from "../Tiles/MarkedGrave.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -49,14 +56,23 @@ export class TextureReplace extends ModSystem {
 
       ArcaneArmorFabricator.InjectTexture()
       BloodAltar.InjectTexture()
+      AncientPhylactery.InjectTexture()
+      MarkedGrave.InjectTexture()
 
       ScarletTile.InjectTexture()
       Containers2.InjectTexture()
+
+      BardEmblem.InjectTexture()
+      ClericEmblem.InjectTexture()
+      GrimAstroturf.InjectTexture()
   }
 
   PostSetupContent() {
     LifeShieldPlayer.SaveDefaultTextures()
     LifeShieldPlayer.LoadTextures()
+
+    //Loading Items Type
+    ModHealerItem.healerItemsName = new Set([...ModHealerItem.healerItemsName].map(str => ModItem.getTypeByName(str)))
   }
 }
 

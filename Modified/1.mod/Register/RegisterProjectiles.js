@@ -59,6 +59,12 @@ import { EnchantedStaffPro } from '../Content/Projectiles/EnchantedStaffPro.js';
 
 // Thunder Bird
 import { GrandThunderBirdCloud } from '../Content/Projectiles/Boss/GrandThunderBirdCloud.js';
+
+// Queen Jellyfish
+import { BubblePulse } from '../Content/Projectiles/Boss/BubblePulse.js';
+import { BubbleBomb } from '../Content/Projectiles/Boss/BubbleBomb.js';
+import { QueenTorrent } from '../Content/Projectiles/Boss/QueenTorrent.js';
+import { QueenJellyfishArm } from '../Content/Projectiles/Boss/QueenJellyfishArm.js';
 import { GrandThunderBirdZap } from '../Content/Projectiles/Boss/GrandThunderBirdZap.js';
 import { TheGrandThunderBirdEnd } from '../Content/Projectiles/Boss/TheGrandThunderBirdEnd.js';
 import { ThunderBirdScreech } from '../Content/Projectiles/Boss/ThunderBirdScreech.js';
@@ -69,6 +75,13 @@ import { StormFlareP } from '../Content/Projectiles/StormFlareP.js';
 import { StormHatchlingStaffPro } from '../Content/Projectiles/StormHatchlingStaffPro.js';
 import { ThunderZap } from '../Content/Projectiles/ThunderZap.js';
 import { TalonBurstPro } from '../Content/Projectiles/TalonBurstPro.js';
+import { SeaTurtlesBulwarkPro } from '../Content/Projectiles/SeaTurtlesBulwarkPro.js';
+import { BubbleConchPro } from '../Content/Projectiles/BubbleConchPro.js';
+import { TheDigesterPro } from '../Content/Projectiles/TheDigesterPro.js';
+import { CyanPhasebladePro } from '../Content/Projectiles/CyanPhasebladePro.js';
+import { LightPinkPhasebladePro } from '../Content/Projectiles/LightPinkPhasebladePro.js';
+import { ShadowflameStaffPro } from '../Content/Projectiles/ShadowflameStaffPro.js';
+import { ShadowWandPro } from '../Content/Projectiles/ShadowWandPro.js';
 
 const List = [
     IceCubePro,
@@ -102,6 +115,7 @@ const List = [
     StunPro,
     MagickStaffPro,
     AquamarineStaffPro,
+    TheDigesterPro,
 
     BloomingBowPro,
     BloomingStaffPro,
@@ -114,9 +128,15 @@ const List = [
     ThoriumBolt,
     ThoriumSpark,
 
+    CyanPhasebladePro,
+    LightPinkPhasebladePro,
+
     ShadowBolt,
     EnchantedCanePro,
     EnchantedStaffPro,
+
+    ShadowflameStaffPro,
+    ShadowWandPro,
 
     GrandThunderBirdCloud,
     GrandThunderBirdZap,
@@ -128,7 +148,15 @@ const List = [
     StormFlareP,
     StormHatchlingStaffPro,
     ThunderZap,
-    TalonBurstPro
+    TalonBurstPro,
+
+    SeaTurtlesBulwarkPro,
+    BubbleConchPro,
+
+    BubblePulse,
+    BubbleBomb,
+    QueenTorrent,
+    QueenJellyfishArm,
 ]
 
 export function RegisterProjectiles() {

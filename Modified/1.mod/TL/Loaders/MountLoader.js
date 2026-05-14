@@ -34,7 +34,7 @@ export class MountLoader {
     
     static LoadMount(mount) {
         this.Count++;
-        const nextMount = this.MAX_VANILLA_ID + this.Count;
+        const nextMount = Terraria.Mount.mounts.length + 1;// this.MAX_VANILLA_ID + this.Count;
         
         mount.Type = mount.Mount._type = nextMount - 1;
         this.ModTypes.add(mount.Type);

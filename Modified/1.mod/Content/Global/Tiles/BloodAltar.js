@@ -1,6 +1,7 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
 import { Color } from "../../../TL/Modules/Color.js";
+import { TileData } from "../../../TL/Modules/TileData.js";
 import { WorldDB } from "../../../TL/WorldDB.js";
 
 const { Main } = Terraria
@@ -20,10 +21,37 @@ export class BloodAltar extends GlobalTile {
     }
 
     CanKillTile(i, j, type, blockDamaged) {
-        if (type === this.Type) {
-            if (!WorldDB.has('Thorium:HasBeenDefeated_Visconde')) return false
+        const targetType = Terraria.ID.TileID.HoneyDispenser;
+
+        for (let scanX = i - 1; scanX <= i + 1; scanX++) {
+            for (let scanY = j - 3; scanY <= j; scanY++) {
+
+                const tile = new TileData(scanX, scanY);
+
+                if (tile.type !== targetType) continue;
+
+                let left = scanX - Math.floor(tile.frameX / 18);
+                let top = scanY - Math.floor(tile.frameY / 18);
+
+                const bottom1 = new TileData(left, top + 3);
+                const bottom2 = new TileData(left + 1, top + 3);
+                const bottom3 = new TileData(left + 2, top + 3);
+
+                const supportBroken = !bottom1.isSolid || !bottom2.isSolid || !bottom3.isSolid;
+
+                const breakingSupport = (j === top + 3) && (i >= left && i <= left + 2);
+
+                const breakingAltar = (j >= top && j <= top + 2) && (i >= left && i <= left + 2);
+
+                if (supportBroken || breakingSupport || breakingAltar) {
+                    if (!WorldDB.has('Thorium:HasBeenDefeated_Visconde')) {
+                        return false;
+                    }
+                }
+            }
         }
-        return true
+
+        return true;
     }
 
     static InjectTexture() {

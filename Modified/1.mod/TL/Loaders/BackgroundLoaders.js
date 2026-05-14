@@ -91,7 +91,7 @@ export class SurfaceBackgroundLoader {
     }
     
     static SetupContent() {
-        this.TotalCount = Terraria.Main.maxBackgrounds;//BG_STYLES_COUNT;
+        this.TotalCount = Terraria.Main.maxBackgrounds;
         for (const bg of this.Backgrounds) {
             bg.Slot = this.TotalCount;
             this.TotalCount++;

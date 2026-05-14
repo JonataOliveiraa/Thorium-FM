@@ -25,7 +25,8 @@ export class ModLocalization {
     static CultureNames = new Set([
     'de-DE', 'en-US', 'es-ES',
     'fr-FR', 'it-IT', 'pl-PL',
-    'pt-BR', 'ru-RU', 'zh-Hans'
+    'pt-BR', 'ru-RU', 'zh-Hans',
+    'ja-JP', 'ko-KR', 'zh-Hant'
     ]);
     
     static get ActiveCultureName() {
@@ -41,9 +42,10 @@ export class ModLocalization {
         if (activeCultureName !== this.CurrentLanguage) {
             this.CurrentLanguage = activeCultureName;
             const path = this.path();
-            if (tl.file.exists(path)) this.Translations = JSON.parse(tl.file.read(path));
-            else if (tl.file.exists(this.path('en-US'))) this.Translations = JSON.parse(tl.file.read(this.path('en-US')));
-            else tl.log(`Failed to load translations: File not found in <${tl.mod.path}/Localization/[CultureName].json>`);
+            const parse = s => JSON.parse(s.replace(/^\s*\/\/.*$/gm, ''));
+            if (tl.file.exists(path)) this.Translations = parse(tl.file.read(path));
+            else if (tl.file.exists(this.path('en-US'))) this.Translations = parse(tl.file.read(this.path('en-US')));
+            else tl.log(`Failed to load translations: File not found at <${tl.mod.path}/Localization/${activeCultureName}.json>`);
         }
     }
     

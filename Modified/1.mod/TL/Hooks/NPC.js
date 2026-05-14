@@ -6,7 +6,7 @@ import { CombinedLoader } from './../Loaders/CombinedLoader.js';
 import { NPCSpawnInfo } from './../NPCSpawnInfo.js';
 
 const NewText = Terraria.Main['void NewText(string newText, byte R, byte G, byte B)'];
-const { Rectangle } = Modules;
+const { Rectangle, Vector2 } = Modules;
 
 export class NPCHooks {
     static initialized = false;
@@ -38,7 +38,7 @@ export class NPCHooks {
         UsesPartyHat: (info) => info.hasNPCs,
         GUINPCDialogue: (info) => info.hasNPCs,
         SpawnNPC: (info) => info.hasNPCs,
-        NewNPC: (info) => info.hasNPCs || info.hasGlobalNPCs,
+        OnSpawn: (info) => info.hasNPCs || info.hasGlobalNPCs,
         SetupShop: (info) => info.hasNPCs || info.hasGlobalNPCs
     };
     
@@ -236,13 +236,13 @@ export class NPCHooks {
         if (this.HookList.NPCLoot(info)) {
             Terraria.NPC['void NPCLoot()'
             ].hook((original, self) => {
+                original(self);
                 if (!NPCLoader.isModType(self.type)) {
-                    original(self);
                     NPCLoader.OnKill(self);
                     return;
                 }
                 
-                if (Terraria.Main.netMode == 1) return;
+                if (Terraria.Main.netMode === 1) return;
                 
                 const closestPlayer = Terraria.Main.player[Terraria.Main.myPlayer];
                 
@@ -252,6 +252,10 @@ export class NPCHooks {
                         Terraria.Main.BestiaryTracker.Kills.RegisterKill(self);
                     }
                     self.CountKillForBannersAndDropThem();
+                }
+                
+                if (self.SpawnedFromStatue && ((Terraria.ID.NPCID.Sets.NoEarlymodeLootWhenSpawnedFromStatue[self.type] && !Terraria.Main.hardMode) || (Terraria.ID.NPCID.Sets.StatueSpawnedDropRarity[self.type] !== -1 && (Terraria.Main.rand['float NextFloat()']() >= Terraria.ID.NPCID.Sets.StatueSpawnedDropRarity[self.type] || !self.AnyInteractions())))) {
+                    return;
                 }
                 
                 let canDrop = false;
@@ -458,10 +462,10 @@ export class NPCHooks {
         if (this.HookList.UpdateNPC_BuffApplyDOTs(info)) {
             Terraria.NPC['void UpdateNPC_BuffApplyDOTs()'
             ].hook((original, self) => {
+                original(self);
                 if (this.BlackListedNPCs.has(self.type)) return;
                 if (self.dontTakeDamage) return;
                 NPCLoader.UpdateLifeRegen(self, self.lifeRegenExpectedLossPerSecond);
-                original(self);
             });
         }
         
@@ -726,14 +730,13 @@ export class NPCHooks {
             });
         }
         
-        if (this.HookList.NewNPC(info)) {
-            Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'
-            ].hook((original, source, x, y, type, start, ai0, ai1, ai2, ai3, target) => {
-                let index = original(source, x, y, type, start, ai0, ai1, ai2, ai3, target);
-                if (index < 200) {
-                    NPCLoader.OnSpawn(Terraria.Main.npc[index], source);
-                }
-                return index;
+        if (this.HookList.OnSpawn(info)) {
+            Terraria.NPC['void GiveTownUniqueDataToNPCsThatNeedIt(int Type, int nextNPC)'
+            ].hook((original, type, index) => {
+                original(type, index);
+                const npc = Terraria.Main.npc[index]
+                npc.active = true;
+                NPCLoader.OnSpawn(npc);
             });
         }
         

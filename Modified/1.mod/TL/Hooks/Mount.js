@@ -25,7 +25,7 @@ export class MountHooks {
         if (this.HookList.SetMount(info)) {
             Terraria.Mount['void SetMount(int m, Player mountedPlayer, bool ignoreEffect)'
             ].hook((original, self, m, mountedPlayer, ignoreEffect) => {
-                if (m < MountLoader.MAX_VANILLA_ID) {
+                if (!MountLoader.isModType(m)) {
                     original(self, m, mountedPlayer, ignoreEffect);
                     return;
                 }
@@ -96,7 +96,7 @@ export class MountHooks {
             Terraria.Mount['int JumpHeight(float xVelocity)'
             ].hook((original, self, xVelocity) => {
                 const jumpHeight = original(self, xVelocity);
-                if (self._type < MountLoader.MAX_VANILLA_ID) {
+                if (!MountLoader.isModType(self._type)) {
                     return jumpHeight;
                 }
                 return MountLoader.JumpHeight(self, jumpHeight, xVelocity);
@@ -107,7 +107,7 @@ export class MountHooks {
             Terraria.Mount['float JumpSpeed(float xVelocity)'
             ].hook((original, self, xVelocity) => {
                 const jumpSpeed = original(self, xVelocity);
-                if (self._type < MountLoader.MAX_VANILLA_ID) {
+                if (!MountLoader.isModType(self._type)) {
                     return jumpSpeed;
                 }
                 return MountLoader.JumpSpeed(self, jumpSpeed, xVelocity);
@@ -140,7 +140,7 @@ export class MountHooks {
             ].hook((original, self, player, mousePosition, toggleOn) => {
                 original(self, player, mousePosition, toggleOn);
                 if (MountLoader.isModType(self._type)) {
-                    MountLoader.UseAbility(mount, player, mousePosition, toggleOn);
+                    MountLoader.UseAbility(self, player, mousePosition, toggleOn);
                 }
             });
         }

@@ -33,7 +33,7 @@ export class BandofReplenishment extends ModItem {
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(ModItem.getTypeByName('ThoriumBar'), 5)
-            .AddIngredient(Terraria.ID.ItemID.LifeCrysta, 1)
+            .AddIngredient(Terraria.ID.ItemID.LifeCrystal, 1)
             .AddIngredient(Terraria.ID.ItemID.ManaCrystal, 1)
             .AddTile(ThoriumAnvil.Type)
             .Register();

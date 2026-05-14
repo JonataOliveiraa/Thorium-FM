@@ -121,7 +121,7 @@ import { OpalRobe } from '../Content/Items/Mage/OpalRobe.js';
 
 // Aquamarine & Opal
 import { CyanPhaseblade } from '../Content/Items/Mage/CyanPhaseblade.js';
-import { PinkPhaseblade } from '../Content/Items/Mage/PinkPhaseblade.js';
+import { LightPinkPhaseblade } from '../Content/Items/Mage/LightPinkPhaseblade.js';
 import { AquamarineStaff } from '../Content/Items/Mage/AquamarineStaff.js';
 
 // Tiles
@@ -141,6 +141,18 @@ import { OpalStaff } from '../Content/Items/Mage/OpalStaff.js';
 import { AquamarineRing } from '../Content/Items/BasicAccessories/Rings/AquamarineRing.js';
 import { OpalRing } from '../Content/Items/BasicAccessories/Rings/OpalRing.js';
 import { MoltenScale } from '../Content/Items/BasicAccessories/Shields/MoltenScale.js';
+import { TheDigester } from '../Content/Items/Healer/TheDigester.js';
+import { ModHealerItem } from '../Common/ModHealerItem.js';
+import { ModBardItem } from '../Common/ModBardItem.js';
+import { LifeQuartzClaymore } from '../Content/Items/Melee/LifeQuartzClaymore.js';
+import { BandofReplenishment } from '../Content/Items/BasicAccessories/BandofReplenishment.js';
+import { ShadowflameStaff } from '../Content/Items/YewWood/ShadowflameStaff.js';
+import { ShadowWand } from '../Content/Items/YewWood/ShadowWand.js';
+import { YewWoodHelmet } from '../Content/Items/YewWood/YewWoodHelmet.js';
+import { YewWoodBreastguard } from '../Content/Items/YewWood/YewWoodBreastguard.js';
+import { YewWoodLeggings } from '../Content/Items/YewWood/YewWoodLeggings.js';
+import { ThumbRing } from '../Content/Items/YewWood/ThumbRing.js';
+import { SpiritsGrace } from '../Content/Items/BasicAccessories/SpiritsGrace.js';
 
 // Register all items
 
@@ -173,6 +185,7 @@ const List = [
     ThoriumStaff,
     ThoriumBow,
     ThoriumSpear,
+    BandofReplenishment,
 
     AmberRing,
     AmethystRing,
@@ -184,6 +197,7 @@ const List = [
     AquamarineRing,
     OpalRing,
     IncubatedEgg,
+    SpiritsGrace,
     LuckyRabbitsFoot,
     ManaBauble,
     GiantShellSpine,
@@ -239,7 +253,15 @@ const List = [
     SteelPickaxe,
     SteelBow,
 
+    YewWoodHelmet,
+    YewWoodBreastguard,
+    YewWoodLeggings,
+    ShadowflameStaff,
+    ShadowWand,
+    ThumbRing,
+
     EnchantedCane,
+    LifeQuartzClaymore,
 
     LootRang,
     MagmaCharmItem,
@@ -251,9 +273,10 @@ const List = [
     OpalRobe,
 
     CyanPhaseblade,
-    PinkPhaseblade,
+    LightPinkPhaseblade,
     AquamarineStaff,
     OpalStaff,
+    TheDigester,
 
     ThoriumAnvil,
 
@@ -270,5 +293,13 @@ const List = [
 export function RegisterItems() {
     for(const Item of List) {
         ModItem.register(Item)
+
+        if(Item.prototype instanceof ModHealerItem) {
+            ModHealerItem.healerItemsName.add(Item.name)
+        }
+
+        if(Item.prototype instanceof ModBardItem) {
+            ModBardItem.bardItemsName.add(Item.name)
+        }
     }
 }

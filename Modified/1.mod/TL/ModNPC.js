@@ -125,7 +125,7 @@ export class ModNPC extends ModTexturedType {
         return TownNPCProfiles.LegacyWithSimpleShimmer(this.constructor.name, headId, shimmerHeadId, true, true);
     }
     
-    OnSpawn(npc, source) {
+    OnSpawn(npc) {
         
     }
     

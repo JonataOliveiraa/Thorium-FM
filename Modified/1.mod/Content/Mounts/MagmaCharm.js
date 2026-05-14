@@ -34,7 +34,7 @@ export class MagmaCharm extends ModMount {
         this.Data.totalFrames = 8;
         
         // CORREÇÃO: yOffset positivo joga a montaria para BAIXO (chão)
-        const yOffset = 18; 
+        const yOffset = 8; 
         this.Data.playerYOffsets = new Array(20).fill(yOffset).makeGeneric('int'); 
         
         this.Data.xOffset = 13;
@@ -113,5 +113,10 @@ export class MagmaCharm extends ModMount {
             dust.noGravity = true;
         }
         return false; // Evita a poeira padrão do Terraria para usar apenas a sua
+    }
+
+    Draw() {
+        this.hideEntirePlayer = true
+        return true
     }
 }

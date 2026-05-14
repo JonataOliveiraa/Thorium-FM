@@ -11,8 +11,9 @@ import { ProjectileLoader } from './../Loaders/ProjectileLoader.js';
 import { TileData } from './../Modules/TileData.js';
 import { SubworldLoader } from './../Loaders/SubworldLoader.js';
 import { AchievementLoader } from './../Loaders/AchievementLoader.js';
+import { MountLoader } from './../Loaders/MountLoader.js';
 
-const { Vector2 } = Modules;
+const { Color, Vector2 } = Modules;
 const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];
 
 export class PlayerHooks {
@@ -22,7 +23,7 @@ export class PlayerHooks {
     // Here you can disable the hooks that won't be used in your mod to avoid unnecessary processing
     static HookList = {
         All: (info) => true,
-        Spawn: (info) => { return false },
+        Spawn: (info) => info.hasPlayers,
         TileInteractionsCheck: (info) => info.hasTiles || info.hasGlobalTiles,
         TileInteractionsCheckLongDistance: (info) => info.hasTiles || info.hasGlobalTiles,
         TileInteractionsUse: (info) => info.hasTiles || info.hasGlobalTiles,
@@ -66,7 +67,8 @@ export class PlayerHooks {
         SetupStartingItems: (info) => info.hasPlayers,
         AddBuff_ActuallyTryToAddTheBuff: (info) => info.hasBuffs,
         AddBuff_TryUpdatingExistingBuffTime: (info) => info.hasBuffs,
-        GUIBuffs: (info) => info.hasBuffs
+        GUIBuffs: (info) => info.hasBuffs,
+        DrawPlayerLayers: (info) => info.hasPlayers || info.hasMounts
     };
     
     static Initialize(info) {
@@ -285,7 +287,7 @@ export class PlayerHooks {
                     let num1 = 120;
                     healAmount = Terraria.Main.rand['int Next(int minValue, int maxValue)'](healLife, num1 + 1);
                     if (Terraria.Main.myPlayer === self.whoAmI) {
-                        let num2 = Main.rand['float NextFloat()']();
+                        let num2 = Terraria.Main.rand['float NextFloat()']();
                         let time = 0;
                         if (num2 <= 0.10000000149011612) time = 240;
                         else if (num2 <= 0.30000001192092896) time = 120;
@@ -314,7 +316,7 @@ export class PlayerHooks {
                 let skipUsageCheck = self.ItemCheck_PayMana_ShouldSkipManaUse(item, altFire);
                 let rawAmountToPay = Terraria.Player.ItemCheck_PayMana_GetManaCostToPay(item, altFire);
                 if (skipUsageCheck) return canUse;
-                if (!self.CheckManaPredictWithoutUse(rawAmountToPay, false)) {
+                if (!self.CheckManaPredictWithoutUse(rawAmountToPay, true)) {
                     let num = Math.floor(rawAmountToPay * self.manaCost);
                     let missing = num - self.statMana;
                     if (missing > 0) CombinedLoader.OnMissingMana(item, self, missing);
@@ -885,6 +887,86 @@ export class PlayerHooks {
                 if (isMount) return;
                 player.DelBuff(buffIndex);
                 BuffLoader.OnRemove(player, buffType, buffTime, buffIndex);
+            });
+        }
+        
+        if (this.HookList.DrawPlayerLayers(info)) {
+            Terraria.DataStructures.PlayerDrawSet['void CreateCompositeData()'
+            ].hook((original, self) => {
+                const player = self.drawPlayer;
+                
+                let hideEntirePlayer = false;
+                
+                if (player) {
+                    if (player.mount.Active) {
+                        const type = player.mount.Type;
+                        if (MountLoader.isModType(type)) {
+                            if (MountLoader.getModMount(type)?.hideEntirePlayer) {
+                                hideEntirePlayer = true;
+                            }
+                        }
+                    }
+                    
+                    const parts = { head: true, body: true, legs: true };
+                    PlayerLoader.ShouldDrawParts(player, parts);
+                    
+                    if (!parts.head && !parts.body && !parts.legs) {
+                        hideEntirePlayer = true;
+                    }
+                    
+                    if (hideEntirePlayer) {
+                        self.stealth = 1;
+                        const transparent = Color.Transparent;
+                        self.colorArmorHead = transparent;
+                        self.colorArmorBody = transparent;
+                        self.colorArmorLegs = transparent;
+                        self.colorEyeWhites = transparent;
+                        self.colorEyes = transparent;
+                        self.colorHair = transparent;
+                        self.colorHead = transparent;
+                        self.colorBodySkin = transparent;
+                        self.colorShirt = transparent;
+                        self.colorUnderShirt = transparent;
+                        self.colorPants = transparent;
+                        self.colorShoes = transparent;
+                        self.colorLegs = transparent;
+                        self.headGlowColor = transparent;
+                        self.bodyGlowColor = transparent;
+                        self.armGlowColor = transparent;
+                        self.legsGlowColor = transparent;
+                        self.colorDisplayDollSkin = transparent;
+                    } else {
+                        if (!parts.head) {
+                            const transparent = Color.Transparent;
+                            self.colorArmorHead = transparent;
+                            self.colorEyeWhites = transparent;
+                            self.colorEyes = transparent;
+                            self.colorHair = transparent;
+                            self.colorHead = transparent;
+                            self.headGlowColor = transparent;
+                        }
+                        if (!parts.body) {
+                            const transparent = Color.Transparent;
+                            self.colorArmorBody = transparent;
+                            self.colorBodySkin = transparent;
+                            self.colorShirt = transparent;
+                            self.colorUnderShirt = transparent;
+                            self.bodyGlowColor = transparent;
+                            self.armGlowColor = transparent;
+                        }
+                        if (!parts.legs) {
+                            self.stealth = 1;
+                            const transparent = Color.Transparent;
+                            self.colorArmorLegs = transparent;
+                            self.colorPants = transparent;
+                            self.colorShoes = transparent;
+                            self.colorLegs = transparent;
+                            self.legsGlowColor = transparent;
+                        }
+                    }
+                }
+                
+                original(self);
             });
         }
         

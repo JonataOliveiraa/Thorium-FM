@@ -31,7 +31,7 @@
     "LivingLeaf": "Folha viva",
     "MarineKelp": "Algas Marinhas",
     "Petal": "Pétala",
-    "Yew Wood": "Madeira de Teixo",
+    "YewWood": "Madeira de Teixo",
     "FrostFury": "Fúria Congelante",
     "IceCube": "O Cubo de Gelo",
     "IcyArrow": "Flecha Congelada",
@@ -114,12 +114,21 @@
     "OpalRobe": "Roupão de Opala",
     "AquamarineRobe": "Roupão de Água-marinha",
     "CyanPhaseblade": "Sabre de Luz Ciano",
-    "PinkPhaseblade": "Sabre de Luz Rosa",
+    "LightPinkPhaseblade": "Sabre de Luz Rosa Claro",
     "AquamarineRing": "Anel de Água-marinha",
     "OpalRing": "Anel de Opala",
     "OpalStaff": "Cajado de Opala",
     "AquamarineStaff": "Cajado de Água-marinha",
-    "MoltenScale": "Escama Fundida"
+    "MoltenScale": "Escama Fundida",
+    "BandofReplenishment": "Faixa de Reabastecimento",
+    "TheDigester": "O Digestor",
+    "MagmaCharmItem": "Talismã de Magma",
+    "ShadowflameStaff": "Cajado da Chama Sombria",
+    "ShadowWand": "Varinha das Sombras",
+    "YewWoodHelmet": "Capacete de Madeira de Teixo",
+    "YewWoodBreastguard": "Peitoral de Madeira de Teixo",
+    "YewWoodLeggings": "Grevas de Madeira de Teixo",
+    "GrimAstroturf": "Grama Sintética"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -178,20 +187,26 @@
 		"Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana",
     "AquamarineRing": "Aumenta o dano radiante em 1",
     "OpalRing": "Aumenta o dano sinfônico em 1",
-    "MoltenScale": "Incendeia os inimigos próximos"
+    "MoltenScale": "Incendeia os inimigos próximos",
+    "SeaTurtlesBulwark": "Ao sofrer dano, libera uma partícula tangível que recupera 25% do dano sofrido",
+    "BandofReplenishment": "Aumenta levemente regeneração de vida de mana\nReceber mais de três pontos de dano restaurará sua vida e mana",
+    "MagmaCharmItem": "Transforma você em uma larva de magma",
+    "ShadowflameStaff": "Dispara um orbe lento de magia de chama sombria",
+    "ShadowWand": "Libera uma explosão caótica de energia sombria"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
     "Icy": "Uma aura congelante se estabiliza, incinerando os inimigos próximos com chamas congelantes",
     "Silk": "25% de aumento no dano mágico enquanto estiver acima de 90% da mana máxima",
     "Steel": "Reduz todo o dano recebido em 8%",
-    "Thorium": "10% de aumento de dano de todas as fontes"
+    "Thorium": "10% de aumento de dano de todas as fontes",
+    "YewWood": "A cada 6 golpes, seu próximo ataque à distância causará um mini-crítico de 150% de dano."
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",
     "LifeRecoveryBuff": "Recuperação de Vida",
     "StunnedBuff": "Atordoado",
-    "MagmaCharmBuff": "Amuleto de Magma",
+    "MagmaCharmBuff": "Talismã de Magma",
     "LavaHugBuff": "Abraço da Lava",
     "EnchantedCaneBuff": "Barreira Encantada",
     "CharmedBuff": "Apaixonado"
