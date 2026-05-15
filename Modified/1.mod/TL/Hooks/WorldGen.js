@@ -15,14 +15,15 @@ export class WorldGenHooks {
     // Here you can disable the hooks that won't be used in your mod to avoid unnecessary processing
     static HookList = {
         All: (info) => true,
-        PlaceTile: (info) => info.hasTiles || info.hasGlobalTiles,
-        IsTileReplaceable: (info) => info.hasTiles || info.hasGlobalTiles,
-        ReplaceTile: (info) => info.hasTiles || info.hasGlobalTiles,
-        CanKillTile: (info) => info.hasTiles || info.hasGlobalTiles,
-        KillTile: (info) => info.hasTiles || info.hasGlobalTiles,
-        KillTile_PlaySounds: (info) => info.hasTiles || info.hasGlobalTiles,
-        KillTile_DropItems: (info) => info.hasTiles || info.hasGlobalTiles,
-        SlopeTile: (info) => info.hasTiles || info.hasGlobalTiles,
+        PlaceTile: (info) => info.hasGlobalTiles,
+        IsTileReplaceable: (info) => info.hasGlobalTiles,
+        ReplaceTile: (info) => info.hasGlobalTiles,
+        CanKillTile: (info) => info.hasGlobalTiles,
+        KillTile: (info) => info.hasGlobalTiles,
+        KillTile_PlaySounds: (info) => info.hasGlobalTiles,
+        KillTile_DropItems: (info) => info.hasGlobalTiles,
+        SlopeTile: (info) => info.hasGlobalTiles,
+        ShakeTree: (info) => info.hasGlobalTiles,
         SaveAndQuit: (info) => true,
         SpawnTownNPC: (info) => info.hasNPCs
     };
@@ -37,43 +38,9 @@ export class WorldGenHooks {
                     return false;
                 }
                 
-                if (!TileLoader.isModType(type)) {
-                    const placed = original(i, j, type, mute, forced, plr, style);
-                    if (placed) TileLoader.OnPlace(i, j, type, plr, style);
-                    return placed;
-                }
-                
-                let flag = false;
-                
-                if (i >= 0 && j >= 0 && i < Terraria.Main.maxTilesX && j < Terraria.Main.maxTilesY) {
-                    let trackCache = Terraria.Main.tile.get_Item(i, j);
-                    if (trackCache == null) return false;
-                    
-                    const isEmptyTile = Terraria.Collision.EmptyTile(i, j, false);
-                    
-                    if ((forced || isEmptyTile) && !trackCache['bool active()']()) {
-                        // Solid Tiles
-                        if (Terraria.Main.tileSolid[type]) {
-                            trackCache['void active(bool active)'](true);
-                            trackCache.type = type;
-                            flag = true;
-                        }
-                    } 
-                    
-                    if (trackCache['bool active()']() && flag) {
-                        if (Terraria.ID.TileID.Sets.BlocksWaterDrawingBehindSelf) {
-                            Terraria.WorldGen.SquareWallFrame(i, j, true);
-                        }
-                        Terraria.WorldGen.SquareTileFrame(i, j, true);
-                        
-                        if (!mute) {
-                            PlaySound(Terraria.ID.SoundID.Dig, i * 16, j * 16);
-                        }
-                    }
-                }
-                
-                if (flag) TileLoader.OnPlace(i, j, type, plr, style);
-                return flag;
+                const placed = original(i, j, type, mute, forced, plr, style);
+                if (placed) TileLoader.OnPlace(i, j, type, plr, style);
+                return placed;
             });
         }
         
@@ -95,20 +62,22 @@ export class WorldGenHooks {
             Terraria.WorldGen['bool ReplaceTile(int x, int y, int targetType, int targetStyle)'
             ].hook((original, x, y, targetType, targetStyle) => {
                 const result = original(x, y, targetType, targetStyle);
-                if (result) {
-                    TileLoader.OnReplace(x, y, targetType, targetStyle);
-                }
+                if (result) TileLoader.OnReplace(x, y, targetType, targetStyle);
                 return result;
             });
         }
         
         if (this.HookList.CanKillTile(info)) {
-            Terraria.WorldGen['bool CanKillTile(int i, int j, ref bool blockDamaged)'
-            ].hook((original, i, j, blockDamaged) => {
-                if (TileLoader.CanKillTile(i, j, blockDamaged) === false) {
+            Terraria.WorldGen['bool CanKillTile(int i, int j)'
+            ].hook((original, i, j) => {
+                const canKillTile = TileLoader.CanKillTile(i, j);
+                if (canKillTile === false) {
                     return false;
                 }
-                return original(i, j, blockDamaged);
+                if (canKillTile === true) {
+                    return true;
+                }
+                return original(i, j);
             });
         }
         
@@ -132,16 +101,11 @@ export class WorldGenHooks {
         
         if (this.HookList.KillTile_DropItems(info)) {
             Terraria.WorldGen['void KillTile_DropItems(int x, int y, Tile tileCache, bool includeLargeObjectDrops)'
-            ].hook((original, x, y, tile, includeLargeObjectDrops) => {
-                if (!TileLoader.isModType(tile.type)) {
-                    if (GlobalTile.RegisteredTiles.some(gT => gT.CanDrop(x, y, tile.type) === false)) {
-                        return;
-                    }
-                    GlobalTile.RegisteredTiles.forEach(gT => gT.Drop(x, y, tile.type));
-                    original(x, y, tile, includeLargeObjectDrops);
-                    return;
+            ].hook((original, i, j, tile, includeLargeObjectDrops) => {
+                if (TileLoader.CanDropItems(i, j, tile, includeLargeObjectDrops)) {
+                    original(i, j, tile, includeLargeObjectDrops);
+                    TileLoader.DropItems(i, j, tile);
                 }
-                TileLoader.Drop(x, y, tile, includeLargeObjectDrops);
             });
         }
         
@@ -155,6 +119,23 @@ export class WorldGenHooks {
                     }
                 }
                 return original(i, j, slope, noEffects, quiet);
+            });
+        }
+        
+        if (this.HookList.ShakeTree(info)) {
+            Terraria.WorldGen['void ShakeTree(int i, int j)'
+            ].hook((original, i, j) => {
+                if (Terraria.WorldGen.numTreeShakes === Terraria.WorldGen.maxTreeShakes) {
+                    original(i, j);
+                    return;
+                }
+                
+                const treeType = Terraria.WorldGen['TreeTypes GetTreeType(int x, int y)'](i, j);
+                
+                if (TileLoader.PreShakeTree(i, j, treeType)) {
+                    original(i, j);
+                    TileLoader.ShakeTree(i, j, treeType);
+                }
             });
         }
         

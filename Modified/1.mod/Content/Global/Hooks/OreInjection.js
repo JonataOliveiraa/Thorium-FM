@@ -9,65 +9,80 @@ export class OreInjection extends GlobalHooks {
         WorldGen['void NotTheBees()'].hook((original, self) => {
             const worldArea = Main.maxTilesX * Main.maxTilesY;
 
-            //Thorium
-            const thoriumOre = Terraria.ID.TileID.TeamBlockBlue;
-            const amountOfVeinsThoriumOre = Math.floor(worldArea * 0.00005); 
+            const D = {
+                surface: Math.floor(Main.worldSurface),
+                rock: Math.floor(Main.rockLayer),
+                deep: Math.floor(Main.maxTilesY * 0.78),
+                preHell: Math.floor(Main.maxTilesY * 0.88),
+                safeBottom: Math.floor(Main.maxTilesY * 0.93),
+            };
 
-            for (let i = 0; i < amountOfVeinsThoriumOre; i++) {
-                const x = Rand.Next(100, Main.maxTilesX - 100);
-                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
-                const strength = Rand.NextFloat(5, 10); 
-                const steps = Rand.Next(5, 12);
+            const ores = [
+                {
+                    name: "PreThorium",
+                    tile: Terraria.ID.TileID.TeamBlockBlue,
+                    amount: worldArea * 0.000085,
+                    depth: { min: D.surface, max: D.safeBottom },
+                    strength: { min: 5, max: 10 },
+                    steps: { min: 5, max: 12 },
+                },
+                {
+                    name: "Thorium",
+                    tile: Terraria.ID.TileID.TeamBlockBlue,
+                    amount: worldArea * 0.000055,
+                    depth: { min: D.preHell, max: D.safeBottom },
+                    strength: { min: 7, max: 10 },
+                    steps: { min: 7, max: 12 },
+                },
+                {
+                    name: "LifeQuartz",
+                    tile: Terraria.ID.TileID.TeamBlockRed,
+                    amount: worldArea * 0.00010,
+                    depth: { min: D.rock, max: D.safeBottom },
+                    strength: { min: 4, max: 6 },
+                    steps: { min: 6, max: 10 },
+                },
+                {
+                    name: "PreOpal (Underground)",
+                    tile: Terraria.ID.TileID.AncientGoldBrick,
+                    amount: worldArea * 0.000020,
+                    depth: { min: D.surface, max: D.rock },
+                    strength: { min: 2, max: 4 },
+                    steps: { min: 3, max: 5 },
+                },
+                {
+                    name: "PreOpal (Scattered)",
+                    tile: Terraria.ID.TileID.AncientGoldBrick,
+                    amount: worldArea * 0.000018,
+                    depth: { min: D.surface, max: D.safeBottom },
+                    strength: { min: 1, max: 3 },
+                    steps: { min: 3, max: 5 },
+                },
+                {
+                    name: "Opal",
+                    tile: Terraria.ID.TileID.AncientGoldBrick,
+                    amount: worldArea * 0.000012,
+                    depth: { min: D.preHell, max: D.safeBottom },
+                    strength: { min: 2, max: 4 },
+                    steps: { min: 4, max: 6 },
+                },
+            ];
 
-                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, strength, steps, thoriumOre, false, 0, 0, false, true, -1
-                );
+            for (const ore of ores) {
+                const count = Math.floor(ore.amount);
+
+                for (let i = 0; i < count; i++) {
+                    const x = Rand.Next(100, Main.maxTilesX - 100);
+                    const y = Rand.Next(ore.depth.min, ore.depth.max);
+                    const strength = Rand.NextFloat(ore.strength.min, ore.strength.max);
+                    const steps = Rand.Next(ore.steps.min, ore.steps.max);
+
+                    WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
+                        x, y, strength, steps, ore.tile, false, 0, 0, false, true, -1
+                    );
+                }
             }
 
-            //LifeQuartz
-            const lifeQuartz = Terraria.ID.TileID.TeamBlockRed;
-            const amountOfVeinsLifeQuartz = Math.floor(worldArea * 0.00003); 
-
-            for (let i = 0; i < amountOfVeinsLifeQuartz; i++) {
-                const x = Rand.Next(100, Main.maxTilesX - 100);
-                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
-                const strength = Rand.NextFloat(3, 8); 
-                const steps = Rand.Next(10, 15);
-
-                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, strength, steps, lifeQuartz, false, 0, 0, false, true, -1
-                );
-            }
-
-            //Aquamarine
-            const aquaMarine = Terraria.ID.TileID.AncientGreenBrick
-            const amountOfVeinsAquaMarine = Math.floor(worldArea * 0.000018); 
-
-            for (let i = 0; i < amountOfVeinsAquaMarine; i++) {
-                const x = Rand.Next(100, Main.maxTilesX - 100);
-                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
-                const strength = Rand.NextFloat(2, 4); 
-                const steps = Rand.Next(3, 5);
-
-                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, strength, steps, aquaMarine, false, 0, 0, false, true, -1
-                );
-            }
-
-            //Opal
-            const opal = Terraria.ID.TileID.AncientGoldBrick
-            const amountOfVeinsopal = Math.floor(worldArea * 0.000018); 
-
-            for (let i = 0; i < amountOfVeinsopal; i++) {
-                const x = Rand.Next(100, Main.maxTilesX - 100);
-                const y = Rand.Next(Math.floor(Main.worldSurface), Main.maxTilesY - 200);
-                const strength = Rand.NextFloat(2, 4); 
-                const steps = Rand.Next(3, 5);
-
-                WorldGen['void TileRunner(int i, int j, double strength, int steps, int type, bool addTile, double speedX, double speedY, bool noYChange, bool overRide, int ignoreTileType)'](
-                    x, y, strength, steps, opal, false, 0, 0, false, true, -1
-                );
-            }
             return original(self);
         });
     }

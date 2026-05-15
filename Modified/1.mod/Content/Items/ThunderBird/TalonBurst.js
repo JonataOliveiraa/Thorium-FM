@@ -12,17 +12,23 @@ export class TalonBurst extends ModItem {
   }
 
   SetDefaults() {
+    // Hitbox
+    this.Item.width = 30;
+    this.Item.height = 30;
+
+    // Weapon Damage
     this.Item.ranged = true;
-    this.Item.noMelee = true
-    this.Item.shoot = 1;
-    this.Item.shootSpeed = 30;
+    this.Item.noMelee = true;
     this.Item.useAmmo = Terraria.ID.AmmoID.Arrow;
+    this.Item.shoot = 1;
+    this.Item.shootSpeed = 20;
+    this.SetWeaponValues(10, 1, 0);
+    this.SetDefaultWeaponStyle(25, true);
+    this.Item.useStyle = 5;
 
-    this.SetWeaponValues(8, 0, 0);
-    this.SetDefaultWeaponStyle(30, true);
-
-    this.Item.value = Terraria.Item.sellPrice(0, 0, 5, 25);
-    this.Item.rare = Terraria.ID.ItemRarityID.White;
+    // Other
+    this.Item.value = Terraria.Item.sellPrice(0, 0, 20, 0);
+    this.Item.rare = Terraria.ID.ItemRarityID.Blue;
     this.Item.UseSound = Terraria.ID.SoundID.Item5;
   }
 
@@ -30,9 +36,7 @@ export class TalonBurst extends ModItem {
     let finalType = type;
     if (type === 1) {
       finalType = ModProjectile.getTypeByName("TalonBurstPro");
-      damage = Math.floor(damage * 1.2);
     }
-
     try {
       NewProjectile2(Projectile.GetNoneSource(), position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
     } catch (e) { }

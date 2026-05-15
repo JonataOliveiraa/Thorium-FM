@@ -41,7 +41,7 @@ export class TheDigesterPro extends ModProjectile {
 
     OnHitNPC(proj, npc) {
         npc.AddBuff(20, 180, false);
-        Terraria.Main.player[proj.own].Heal(2)
+        Terraria.Main.player[proj.owner].Heal(2)
         
         for (let i = 0; i < 10; i++) {
             const dust = Terraria.Dust.NewDustDirect(

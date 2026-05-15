@@ -189,6 +189,8 @@ export class SceneEffectLoader {
     static oldBgTextures = new Array(4);
     static oldBgTextureIndexes = new Array(4);
     
+    static TextureNeedsUpdate = false;
+    
     static FindPriorityScene() {
         if (this.CurrentScene?.IsActive)
             return this.CurrentScene;
@@ -198,6 +200,11 @@ export class SceneEffectLoader {
     }
     
     static Update() {
+        if (this.TextureNeedsUpdate) {
+            this.ChangeTextures();
+            this.TextureNeedsUpdate = false;
+        }
+        
         this.CalculateVanillaPriority();
         this.OldScene = this.CurrentScene;
         this.CurrentScene = this.FindPriorityScene();
@@ -205,14 +212,16 @@ export class SceneEffectLoader {
         
         if ((this.CurrentScene?.Priority ?? -1) >= this.VanillaPriority) {
             this.AnySceneActive = true;
+            Terraria.Main.debugWords = tl.mod.uuid;
         } else {
             this.AnySceneActive = false;
+            Terraria.Main.debugWords = '';
         }
         
         if (this.OldAnySceneActive !== this.AnySceneActive) {
             this.ResetTextures();
             if (this.AnySceneActive) {
-                this.ChangeTextures();
+                this.TextureNeedsUpdate = true;
             }
         }
     }
@@ -334,6 +343,12 @@ export class SceneEffectLoader {
     static CalculateVanillaPriority() {
         const player = Terraria.Main.player[Terraria.Main.myPlayer];
         
+        const isOtherSceneActive = Terraria.Main.debugWords ? (Terraria.Main.debugWords !== tl.mod.uuid) : false;
+        if (isOtherSceneActive) {
+            this.VanillaPriority = Number.MAX_VALUE;
+            return;
+        }
+        
         if (player.ZoneTowerSolar || player.ZoneTowerVortex || player.ZoneTowerNebula || player.ZoneTowerStardust)
             this.VanillaPriority = 4;
         else if (player.ZoneDungeon || player.ZoneLihzhardTemple || player.ZoneGlowshroom || player.ZoneCorrupt || player.ZoneCrimson || player.ZoneShimmer)
@@ -386,5 +401,6 @@ export class SceneEffectLoader {
         this.OldAnySceneActive = false;
         this.CurrentScene = null;
         this.VanillaPriority = 0;
+        Terraria.Main.debugWords = '';
     }
 }

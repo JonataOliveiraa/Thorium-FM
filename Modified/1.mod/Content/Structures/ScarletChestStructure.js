@@ -178,7 +178,7 @@ export class ScarletChestStructure {
             Terraria.ID.ItemID.LavaCharm
         ].filter(id => typeof id === 'number' && id > 0);
 
-        const rareId = rareCandidates.length ? rareCandidates[Rand.NextInt(0, rareCandidates.length)] : Terraria.ID.ItemID.IronBar;
+        const rareId = rareCandidates.length ? rareCandidates[Rand.Next(0, rareCandidates.length)] : Terraria.ID.ItemID.IronBar;
         addItem(rareId, 1);
 
         const ringCandidates = [
@@ -193,7 +193,7 @@ export class ScarletChestStructure {
             ModItem.getTypeByName('TheRing')
         ].filter(id => typeof id === 'number' && id > 0);
 
-        const ringId = ringCandidates.length ? ringCandidates[Rand.NextInt(0, ringCandidates.length)] : Terraria.ID.ItemID.IronBar;
+        const ringId = ringCandidates.length ? ringCandidates[Rand.Next(0, ringCandidates.length)] : Terraria.ID.ItemID.IronBar;
         addItem(ringId, 1);
 
         if (Rand.NextChance(0.2)) {
@@ -201,14 +201,14 @@ export class ScarletChestStructure {
         }
 
         if (Rand.NextChance(0.33)) {
-            const dynamiteCount = Rand.NextInt(1, 4);
+            const dynamiteCount = Rand.Next(1, 4);
             addItem(ItemID.Dynamite, dynamiteCount);
         }
 
         if (Rand.NextChance(0.5)) {
             const thoriumBarID = ModItem.getTypeByName('ThoriumBar');
             if (thoriumBarID && typeof thoriumBarID === 'number' && thoriumBarID > 0) {
-                const barCount = Rand.NextInt(3, 7);
+                const barCount = Rand.Next(3, 7);
                 addItem(thoriumBarID, barCount);
             }
         }
@@ -238,11 +238,11 @@ export class ScarletChestStructure {
         const commonCount = 5;
         for (let i = 0; i < commonCount && i < shuffled.length; i++) {
             const item = shuffled[i];
-            const stack = Rand.NextInt(item.min, item.max + 1);
+            const stack = Rand.Next(item.min, item.max + 1);
             addItem(item.id, stack);
         }
 
-        addItem(ItemID.SilverCoin, Rand.NextInt(50, 91));
+        addItem(ItemID.SilverCoin, Rand.Next(50, 91));
 
         storage.SyncToChest();
     }

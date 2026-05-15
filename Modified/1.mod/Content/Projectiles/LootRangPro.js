@@ -15,7 +15,6 @@ export class LootRangPro extends ModProjectile {
     this.Projectile.scale = 1;
 
     this.Projectile.aiStyle = 3;
-    this.Projectile.AIType = 52
 
     this.Projectile.friendly = true;
     this.Projectile.hostile = false;
@@ -29,6 +28,8 @@ export class LootRangPro extends ModProjectile {
     this.Projectile.extraUpdates = 1;
     this.Projectile.usesLocalNPCImmunity = true;
     this.Projectile.localNPCHitCooldown = -1;
+
+    this.AIType = 52
   }
 
   OnHitNPC(proj, npc) {

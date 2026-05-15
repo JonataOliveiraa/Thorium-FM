@@ -2,7 +2,11 @@ import { System } from './../ModImports.js';
 
 export class Prototypes {
     static Initialize() {
-        Uint8Array.prototype.makeGeneric = function(Type) {
+        // TL
+        if (!tl.device) tl.device = {};
+        
+        // Arrays
+        function makeGeneric(Type) {
             if (typeof Type === 'string') {
                 Type = Prototypes._getTypeByName(Type);
                 if (!Type) return this;
@@ -15,18 +19,8 @@ export class Prototypes {
             return list.ToArray();
         }
         
-        Array.prototype.makeGeneric = function(Type) {
-            if (typeof Type === 'string') {
-                Type = Prototypes._getTypeByName(Type);
-                if (!Type) return this;
-            }
-            const list = System.Collections.Generic.List.makeGeneric(Type).new();
-            list['void .ctor()']();
-            for (let i = 0; i < this.length; i++) {
-                list.Add(this[i]);
-            }
-            return list.ToArray();
-        }
+        Uint8Array.prototype.makeGeneric = makeGeneric;
+        Array.prototype.makeGeneric = makeGeneric;
     }
     
     static _getTypeByName(name) {

@@ -87,6 +87,10 @@
     "ThoriumHelmet": "Elmo de Tório",
     "ThoriumMail": "Peitoral de Tório",
     "ThoriumGreaves": "Grevas de Tório",
+    "ThoriumBlade": "Lâmina de Tório",
+    "ThoriumBoomerang": "Bumerangue de Tório",
+    "ThoriumStaff": "Cajado de Tório",
+    "ThoriumBow": "Arco de Tório",
     "LifeGem": "Gema da Vida",
     "LifeQuartzClaymore": "Espada Grande de Quartzo de Vida",
     "TechniqueBlankScroll": "Pergaminho de Técnica em Branco",
@@ -128,7 +132,18 @@
     "YewWoodHelmet": "Capacete de Madeira de Teixo",
     "YewWoodBreastguard": "Peitoral de Madeira de Teixo",
     "YewWoodLeggings": "Grevas de Madeira de Teixo",
-    "GrimAstroturf": "Grama Sintética"
+    "GrimAstroturf": "Grama Sintética",
+    "SpiritsGrace": "Graças do Espírito",
+    "SandstoneIngot": "Lingote de Arenito",
+    "SandstoneAxe": "Machado de Arenito",
+    "SandstonePickaxe": "Picareta de Arenito",
+    "SandstoneHammer": "Martelo de Arenito",
+    "SandstoneBow": "Arco de Arenito",
+    "SandstoneHelmet": "Elmo de Arenito",
+    "SandstoneMail": "Armadura de Arenito",
+    "SandstoneGreaves": "Grevas de Arenito",
+    "SandstoneScimitar": "Cimitarra de Arenito",
+    "ThumbRing": "Anel de Polegar"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -165,6 +180,10 @@
     "ThoriumHelmet": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "ThoriumMail": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "ThoriumGreaves": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
+    "ThoriumBlade": "'Isso pulsa como energia'",
+    "ThoriumBoomerang": "'Isso pulsa como energia'",
+    "ThoriumStaff": "'Isso pulsa como energia'",
+    "ThoriumBow": "'Isso pulsa como energia'",
     "LifeGem": "Aumenta a vida máxima em 20 e a regeneração de vida",
     "LifeQuartzClaymore": "Recupera vida ao atingir um inimigo",
     "UnholyShards": "'Uma lágrima de uma lua ensanguentada'",
@@ -184,7 +203,7 @@
     "SoulStone": "+10% de dano de invocação\nDiminui sua vida máxima em 20\n'A pedra lentamente se alimenta da sua alma'",
     "BrambleShot": "Envenena flechas de madeira",
     "Crietz": "Após um segundo, seu próximo ataque crítico causa uma explosão de energia que acerta inimigos próximos",
-		"Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana",
+    "Robe": "Aumenta o máximo de mana em 40\n8% de redução no custo de mana",
     "AquamarineRing": "Aumenta o dano radiante em 1",
     "OpalRing": "Aumenta o dano sinfônico em 1",
     "MoltenScale": "Incendeia os inimigos próximos",
@@ -192,7 +211,15 @@
     "BandofReplenishment": "Aumenta levemente regeneração de vida de mana\nReceber mais de três pontos de dano restaurará sua vida e mana",
     "MagmaCharmItem": "Transforma você em uma larva de magma",
     "ShadowflameStaff": "Dispara um orbe lento de magia de chama sombria",
-    "ShadowWand": "Libera uma explosão caótica de energia sombria"
+    "ShadowWand": "Libera uma explosão caótica de energia sombria",
+    "SpiritsGrace": "Seus respawns acontecem 33% mais rápido e concedem 15% mais vida\nSeus respawns também concedem maior tempo de invulnerabilidade e velocidade de movimento\n'Não deixe isso te abalar...'",
+    "SandstoneIngot": "Refinado das areias do deserto",
+    "SandstoneBow": "Esculpido de pedra de deserto endurecida",
+    "SandstoneHelmet": "5% de aumento no dano à distância\n2% de aumento na velocidade de movimento",
+    "SandstoneMail": "5% de aumento no dano à distância\n5% de aumento na velocidade de movimento",
+    "SandstoneGreaves": "5% de aumento no dano à distância\n3% de aumento na velocidade de movimento",
+    "TheDigester": "Dispara um glóbulo de gosma digestiva que gruda nos inimigos\nJogadores que causarem dano a inimigos afetados recuperam 10% do dano causado como vida\nInimigos afetados só podem conceder até 20 de vida por aplicação da gosma",
+    "ThumbRing": "Aumenta o dano de flechas em 5%\nAcertos críticos com flechas aplicam chama sombria brevemente nos inimigos"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -200,7 +227,8 @@
     "Silk": "25% de aumento no dano mágico enquanto estiver acima de 90% da mana máxima",
     "Steel": "Reduz todo o dano recebido em 8%",
     "Thorium": "10% de aumento de dano de todas as fontes",
-    "YewWood": "A cada 6 golpes, seu próximo ataque à distância causará um mini-crítico de 150% de dano."
+    "YewWood": "A cada 6 golpes, seu próximo ataque à distância causará um mini-crítico de 150% de dano.",
+    "Sandstone": "Os ventos do deserto te concederam um duplo salto de areia"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",
@@ -209,7 +237,8 @@
     "MagmaCharmBuff": "Talismã de Magma",
     "LavaHugBuff": "Abraço da Lava",
     "EnchantedCaneBuff": "Barreira Encantada",
-    "CharmedBuff": "Apaixonado"
+    "CharmedBuff": "Apaixonado",
+    "SpiritsGraceBuff": "Graças do Espírito"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo",
@@ -218,7 +247,8 @@
     "MagmaCharmBuff": "Seu corpo se encolheu para uma larva de magma",
     "LavaHugBuff": "Regenera a vida e a mana a cada 2 segundos",
     "EnchantedCaneBuff": "Você está protegido por uma barreira encantada",
-    "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%"
+    "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
+    "SpiritsGraceBuff": "Concede maior tempo de invulnerabilidade e velocidade de movimento"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"
@@ -245,7 +275,8 @@
     "CoinBagSilver": "Bolsa de Moeda de Prata",
     "CoinBagCopper": "Bolsa de Moeda de Cobre",
     "BatOutaHell": "Morcego Fora do Inferno",
-    "FlamekinCaster": "Conjurador Fogokin"
+    "FlamekinCaster": "Conjurador Fogokin",
+    "Biter": "Mordedor"
   },
   "Bestiary": {
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
@@ -267,7 +298,8 @@
     "CoinBagGold": "Você pensaria que o ouro deixaria este saco ganancioso de moedas mais pesado, mas isso só aumenta sua determinação em fugir dos Terrarianos",
     "CoinBagSilver": "Tendo vagado pelas cavernas, este saco de moedas desaparece da cena assim que um Terrariano ganancioso aparece",
     "CoinBagCopper": "Esta pilha encantada de moedas ganhou consciência há pouco tempo, mas fará de tudo para manter suas riquezas para si mesma",
-    "FlamekinCaster": "Uma criatura bizarra utiliza o poder das poças de lava encontradas nas profundezas das cavernas para invocar morcegos de fogo explosivos"
+    "FlamekinCaster": "Uma criatura bizarra utiliza o poder das poças de lava encontradas nas profundezas das cavernas para invocar morcegos de fogo explosivos",
+    "Biter": "O processo de zumbificação pode resultar em individualidades. Esse é um que simplesmente sangra muito"
   },
   "NPCChat": {
     "Blacksmith_1": "Precisa de algo forjado?",
@@ -316,9 +348,13 @@
     }
   },
   "SinalizationChatMessage": {
-    "OnPatchWerkDie": "O temido Retalhoso desmorona..."
+    "OnPatchWerkDie": "O temido Retalhoso desmorona...",
+    "OnClickInInativeAncientPhylactery": "Parece estar inativo..."
   },
   "DeathMessage": {
     "DeepStaff": "{0} drenou a própria alma por poder, levando à sua morte"
+  },
+  "Others": {
+    "NoMultiplayer": "Modo multiplayer desabilitado por {0}"
   }
 }

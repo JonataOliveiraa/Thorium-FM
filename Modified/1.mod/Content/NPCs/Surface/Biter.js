@@ -1,8 +1,11 @@
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
+
 export class Biter extends ModNPC {
     constructor() {
         super();
@@ -22,8 +25,8 @@ export class Biter extends ModNPC {
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
         this.NPC.value = ModNPC.NPCValue(0, 0, 1, 0);
-        
-        this.AnimationType = Terraria.ID.NPCID.Zombie; 
+
+        this.AnimationType = Terraria.ID.NPCID.Zombie;
     }
 
     SpawnChance(info) {
@@ -33,13 +36,22 @@ export class Biter extends ModNPC {
         return 0;
     }
 
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface);
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime);
+
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate('Bestiary.MahoganyEnt');
+        bestiaryEntry.Info.Add(FlavorText);
+    }
+
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 4, 2, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 4, 1, 2));
     }
 
     OnHitPlayer(npc, player, target, damage, crit) {
         const buffType = Terraria.ID.BuffID.Bleeding;
         const duration = 60 * 30;
-        if(Math.random() < 0.85) player['void AddBuff(int type, int time, bool fromNetPvP)'](buffType, duration, false);
+        if (Math.random() < 0.85) player['void AddBuff(int type, int time, bool fromNetPvP)'](buffType, duration, false);
     }
 }

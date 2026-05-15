@@ -84,6 +84,21 @@ export class TheGrandThunderBird extends ModNPC {
     this.NPC.value = ModNPC.NPCValue(0, 0, 50, 0);
   }
 
+  ApplyDifficultyAndPlayerScaling(npc, numPlayers, balance, bossAdjustment) {
+    let lifeMax = 1500;
+    let damage = 40;
+    if (Terraria.Main.masterMode) {
+      lifeMax = 2700;
+      damage = 90;
+    } else if (Terraria.Main.expertMode) {
+      lifeMax = 2100;
+      damage = 60;
+    }
+    npc.lifeMax = lifeMax * balance;
+    npc.damage = damage;
+    npc.defense = 6;
+  }
+
   SetBestiary(database, bestiaryEntry) {
     bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert)
     const FlavorText = FlavorTextBestiaryInfoElement.new();
@@ -97,6 +112,7 @@ export class TheGrandThunderBird extends ModNPC {
 
     // Classic Mode
     const notExpert = Conditions.NotExpert.new();
+    ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('SandstoneIngot'), 1, 16, 20, 1)
     const options = [
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('TalonBurst'), 1, 1, 1, 1),
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('StormHatchlingStaff'), 1, 1, 1, 1),

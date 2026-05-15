@@ -1,8 +1,13 @@
 export class GlobalTile {
     static RegisteredTiles = [];
+    
     constructor() {}
     
     SetStaticDefaults() {
+        
+    }
+    
+    PostSetupContent() {
         
     }
     
@@ -22,8 +27,16 @@ export class GlobalTile {
         
     }
     
+    GetMinPick(player, x, y, tile) {
+        return 0;
+    }
+    
+    GetMineResist(player, x, y, tile) {
+        return 1.0;
+    }
+    
     CanKillTile(i, j, type, blockDamaged) {
-        return true;
+        return null;
     }
     
     KillTile(i, j, type, fail, effectOnly, noItem) {
@@ -34,24 +47,16 @@ export class GlobalTile {
         return true;
     }
     
-    CanDrop(x, y, type) {
+    CanDropItems(i, j, tile) {
         return true;
     }
     
-    Drop(x, y, type) {
-        
-    }
-    
-    IsTileSpelunkable(i, j, type) {
-        
-    }
-    
-    IsTileBiomeSightable(type, frameX, frameY) {
+    DropItems(i, j, tile) {
         
     }
     
     RightClick(player, i, j, type) {
-        return true;
+        return null;
     }
     
     MouseOver(player, i, j, type) {
@@ -63,7 +68,7 @@ export class GlobalTile {
     }
     
     PreHitWire(i, j, type) {
-        
+        return true;
     }
     
     HitWire(i, j, type) {
@@ -74,10 +79,18 @@ export class GlobalTile {
         return true;
     }
     
+    PreShakeTree(i, j, treeType) {
+        return true;
+    }
+    
+    ShakeTree(i, j, treeType) {
+        
+    }
+    
     static register(gTile) {
-        this.RegisteredTiles.push(new gTile());
+        GlobalTile.RegisteredTiles.push(new gTile());
     }
     static getByName(name) {
-        return this.RegisteredTiles.find(t => t.constructor.name === name);
+        return GlobalTile.RegisteredTiles.find(t => t.constructor.name === name);
     }
 }

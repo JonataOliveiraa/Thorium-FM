@@ -1,6 +1,7 @@
 import { Terraria, Modules } from "./../../../TL/ModImports.js";
 import { ModNPC } from "./../../../TL/ModNPC.js";
 
+const { ItemDropRule } = Terraria.GameContent.ItemDropRules
 const { Color, Vector2 } = Modules;
 const { BestiaryDatabaseNPCsPopulator } = Terraria.GameContent.Bestiary;
 
@@ -26,6 +27,21 @@ export class StormHatchling extends ModNPC {
     this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
     this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
     this.NPC.value = ModNPC.NPCValue(0, 0, 0, 0);
+  }
+
+  ApplyDifficultyAndPlayerScaling(npc, numPlayers, balance, bossAdjustment) {
+    let lifeMax = 20;
+    let damage = 20;
+    if (Terraria.Main.masterMode) {
+      lifeMax = 42;
+      damage = 60;
+    } else if (Terraria.Main.expertMode) {
+      lifeMax = 28;
+      damage = 40;
+    }
+    npc.lifeMax = lifeMax * balance;
+    npc.damage = damage;
+    npc.defense = 2;
   }
 
   PreAI(npc) {
@@ -94,15 +110,19 @@ export class StormHatchling extends ModNPC {
       npc.TargetClosest(true);
       player = Terraria.Main.player[npc.target];
     }
+
+    if (!player || !player.active) return;
+
     let vel = npc.velocity;
     let toPlayer = Vector2.Subtract(player.Center, npc.Center);
+    let dist = toPlayer.Length();
     let dir = Vector2.SafeNormalize(toPlayer, Vector2.Zero);
 
-    const speed = 7
-    const accel = 0.2
-    vel = Vector2.Add(vel, Vector2.Multiply(dir, accel));
+    const speed = 3;
+    const accel = 0.1;
 
-    if (Vector2.DistanceSquared(Vector2.Zero, vel) > speed * speed) {
+    vel = Vector2.Add(vel, Vector2.Multiply(dir, accel));
+    if (vel.LengthSquared() > speed * speed) {
       vel = Vector2.Multiply(Vector2.SafeNormalize(vel, Vector2.Zero), speed);
     }
 

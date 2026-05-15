@@ -1,37 +1,46 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { Color } from "../../../TL/Modules/Color.js";
 
 export class LifeQuartzTile extends GlobalTile {
     HitSound = Terraria.ID.SoundID.Tink;
-    Type = Terraria.ID.TileID.TeamBlockRed;
+    static Type = Terraria.ID.TileID.TeamBlockRed;
 
     IsTileSpelunkable(i, j, type) {
-        if (type === this.Type) {
+        if (type === LifeQuartzTile.Type) {
             return true;
         }
         return null;
     }
 
     SetStaticDefaults() {
-        const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
+        const translatedName = ModLocalization.Translate('ItemName.LifeQuartzOre');
+        const localizedText = Terraria.Localization.LocalizedText.new();
+        localizedText['void .ctor(string key, string text)']('LifeQuartzOre', translatedName);
+
+        Terraria.Lang._mapLegendCache[
+            Terraria.Map.MapHelper.TileToLookup(LifeQuartzTile.Type, 0)
+        ] = localizedText;
+
+        const idx1 = Terraria.Map.MapHelper.tileLookup[LifeQuartzTile.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(255, 35, 108);
-        
-        Terraria.Main.tileSpelunker[this.Type] = true;
-        Terraria.Main.tileOreFinderPriority[this.Type] = 410;
-        Terraria.Main.tileShine[this.Type] = 900;
-        Terraria.Main.tileMergeDirt[this.Type] = true;
-        Terraria.ID.TileID.Sets.Ore[this.Type] = true;
+
+        Terraria.Main.tileSpelunker[LifeQuartzTile.Type] = true;
+        Terraria.Main.tileOreFinderPriority[LifeQuartzTile.Type] = 300;
+        Terraria.Main.tileShine[LifeQuartzTile.Type] = 300;
+        Terraria.Main.tileMergeDirt[LifeQuartzTile.Type] = true;
+        Terraria.ID.TileID.Sets.Ore[LifeQuartzTile.Type] = true;
     }
 
     KillSound(i, j, type, fail) {
-        if (type === this.Type) {
+        if (type === LifeQuartzTile.Type) {
             const playSound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];
             playSound(this.HitSound, i * 16, j * 16, 1, 1.0, 0.0);
             
             return false;
         }
-        return true;
+        return null;
     }
 
     static InjectTexture() {

@@ -24,8 +24,6 @@ export class MainHooks {
     
     static HookList = {
         All: (info) => true,
-        IsTileSpelunkable: (info) => info.hasTiles,
-        IsTileBiomeSightable: (info) => info.hasTiles,
         AnglerQuestSwap: (info) => info.hasItems,
         DrawProj: (info) => info.hasProjectiles || info.hasGlobalProjectiles,
         DrawNPCHeadFriendly: (info) => info.hasNPCs,
@@ -68,28 +66,6 @@ export class MainHooks {
             Terraria.Recipe.UpdateWhichItemsAreCrafted();
             Terraria.GameContent.ShimmerTransforms.UpdateRecipeSets();
         });
-        
-        if (this.HookList.IsTileSpelunkable(info)) {
-            Terraria.Main['bool IsTileSpelunkable(Tile t)'
-            ].hook((original, tile) => {
-                const hasValue = TileLoader.IsTileSpelunkable(tile);
-                if (typeof hasValue === 'boolean') {
-                    return hasValue;
-                }
-                return original(tile);
-            });
-        }
-        
-        if (this.HookList.IsTileBiomeSightable(info)) {
-            Terraria.Main['bool IsTileBiomeSightable(ushort type, short tileFrameX, short tileFrameY, ref Color sightColor)'
-            ].hook((original, type, frameX, frameY, sightColor) => {
-                const hasValue = TileLoader.IsTileBiomeSightable(type, frameX, frameY);
-                if (typeof hasValue === 'boolean') {
-                    return hasValue;
-                }
-                return original(type, frameX, frameY, sightColor);
-            });
-        }
         
         if (this.HookList.AnglerQuestSwap(info)) {
             Terraria.Main['void AnglerQuestSwap()'
@@ -361,8 +337,9 @@ export class MainHooks {
                 const flag = Terraria.Main.BackgroundEnabled && (!Terraria.Main.remixWorld || (Terraria.Main.gameMenu && !Terraria.WorldGen.remixWorldGen)) &&
                 (!Terraria.WorldGen.remixWorldGen || !Terraria.WorldGen.drunkWorldGen) && !Terraria.Main.mapFullscreen;
                 
-                if (flag && Terraria.Main.bgStyle >= 14) {
-                    SurfaceBackgroundLoader.DrawCloseTexture(Terraria.Main.bgStyle);
+                const style = Terraria.Main.bgStyle;
+                if (flag && SurfaceBackgroundLoader.isModType(style)) {
+                    SurfaceBackgroundLoader.DrawCloseTexture(style);
                 }
                 
                 return original(self);
@@ -371,7 +348,8 @@ export class MainHooks {
             Terraria.Main['void UpdateBGVisibility_FrontLayer(Nullable`1 targetBiomeOverride, Nullable`1 transitionAmountOverride)'
             ].hook((original, self, biomeOverride, transitionOverride) => {
                 if (MenuLoader.CurrentMenu?.Background) {
-                    Terraria.Main.bgStyle = MenuLoader.CurrentMenu.Background.Slot;
+                    if (Terraria.Main.bgStyle < SurfaceBackgroundLoader.MAX_VANILLA_ID || SurfaceBackgroundLoader.isModType(Terraria.Main.bgStyle))
+                        Terraria.Main.bgStyle = MenuLoader.CurrentMenu.Background.Slot;
                 }
                 original(self, biomeOverride, transitionOverride);
                 SurfaceBackgroundLoader.ModifyFarFades();

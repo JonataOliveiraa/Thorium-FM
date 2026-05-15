@@ -20,6 +20,12 @@ export class BloodAltar extends GlobalTile {
         TileObjectData.readOnlyData = true;
     }
 
+    RightClick(player, i, j, type) {
+        if(this.Type === type) return false
+
+        return null
+    }
+
     CanKillTile(i, j, type, blockDamaged) {
         const targetType = Terraria.ID.TileID.HoneyDispenser;
 
@@ -51,7 +57,7 @@ export class BloodAltar extends GlobalTile {
             }
         }
 
-        return true;
+        return null;
     }
 
     static InjectTexture() {

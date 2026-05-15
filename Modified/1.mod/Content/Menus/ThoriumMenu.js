@@ -1,7 +1,11 @@
 import { Terraria } from '../../TL/ModImports.js';
+import { ModLocalization } from '../../TL/ModLocalization.js';
 import { ModMenu } from '../../TL/ModMenu.js';
-import { ModSurfaceBackground } from '../../TL/ModBackgrounds.js';
+import { Color } from '../../TL/Modules/Color.js';
 import { Vector2 } from '../../TL/Modules/Vector2.js';
+
+const GUIMainMenu = new NativeClass('', 'GUIMainMenu');
+const { Main } = Terraria
 
 export class ThoriumMenu extends ModMenu {
     constructor() {
@@ -11,10 +15,31 @@ export class ThoriumMenu extends ModMenu {
 
     SetStaticDefaults() {
         const MainMenu_Layout = new NativeClass('', 'MainMenu_Layout');
-        const instance = MainMenu_Layout.Instance;
+        const layout = MainMenu_Layout.Instance;
+        
+        if (layout.Multiplayer) {
+            if (layout.Multiplayer.Label) {
+                layout.Multiplayer.Label.Color = Color.Gray;
+            }
+
+            layout.Multiplayer.Color = Color.Gray;              // Tint padrão
+            layout.Multiplayer.HighlightColour = Color.Gray;    // Cor de realce (hover)
+            layout.Multiplayer.PressedLabelColour = Color.White; // Cor ao clicar
+            layout.Multiplayer.LabelHighlightTint = Color.Gray; 
+        }
+
+        const instance = layout;
         instance.CopyrightText = 'Thorium FanMade Unofficial v1.0.0';
         ['AnchorControl', 'Anchor', 'Alignment', 'Scale', 'MultiLineUseAlignment'].forEach(key => { instance.Copyright[key] = instance.VersionNumber[key]; });
         const basePos = instance.VersionNumber.Location;
         instance.Copyright.Location = Vector2.new(basePos.X, basePos.Y + 28);
+    }
+
+    Update(isOnTitleScreen) {
+        if (Main.menuMultiplayer && Main.menuMode === 1) {
+            Main.menuMultiplayer = false;
+            Main.menuMode = 15;
+            Main.statusText = ModLocalization.Translate('Others.NoMultiplayer').replace('{0}', "Thorium Fan Made");
+        }
     }
 }

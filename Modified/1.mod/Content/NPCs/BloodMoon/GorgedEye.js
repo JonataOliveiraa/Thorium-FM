@@ -60,7 +60,7 @@ export class GorgedEye extends ModNPC {
     }
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 20, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 4, 1, 2));
     }
 
     HitEffect(npc, hitDirection, damage) {

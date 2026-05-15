@@ -107,7 +107,7 @@ export class EarthenBat extends ModNPC {
 
     SpawnChance(info) {
         if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
-            return 0.05;
+            return 0.08;
         }
         return 0;
     }

@@ -88,10 +88,10 @@ export class StunPro extends ModProjectile {
         const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
         const origin = Vector2.new(texture.Width / 2, texture.Height / 2);
 
-        for (let k = proj.oldPos.length - 1; k >= 0; k--) {
+        for (let k = proj.oldPos.Length - 1; k >= 0; k--) {
             if (proj.oldPos[k].X === 0 && proj.oldPos[k].Y === 0) continue;
 
-            const progress = k / proj.oldPos.length;
+            const progress = k / proj.oldPos.Length;
             const alpha = (1 - progress) * 0.6;
             const scale = proj.scale * (1 - progress * 0.4);
 

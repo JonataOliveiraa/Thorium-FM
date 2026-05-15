@@ -15,7 +15,7 @@ export class WorldInteraction extends GlobalHooks {
 
             new ScarletChestStructure().Generate();
             new BloodChamberStructure().Generate();
-            // new AquaticDepths().Generate();
+            new AquaticDepths().Generate();
             new NaturalGraveyard().Generate();
             new ChestInjection().Inject();
         });

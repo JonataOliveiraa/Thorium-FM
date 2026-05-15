@@ -18,6 +18,8 @@ export class ModItem extends ModTexturedType {
     // string []
     MenuCategories = [];
     
+    ResearchUnlockCount = 1;
+    
     constructor() {
         super();
     }
@@ -35,6 +37,13 @@ export class ModItem extends ModTexturedType {
         Terraria.ID.ContentSamples.ItemsByType.Add(this.Type, item);
         Terraria.ID.ContentSamples.ItemPersistentIdsByNetIds.Add(this.Type, name);
         Terraria.ID.ContentSamples.ItemNetIdsByPersistentIds.Add(name, this.Type);
+        
+        if (this.ResearchUnlockCount > 0) {
+            const researchUnlockCount = Math.floor(this.ResearchUnlockCount || 0);
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance._sacrificeCountNeededByItemId.Add(this.Type, researchUnlockCount);
+            Terraria.Main.LocalPlayer.creativeTracker.ItemSacrifices._sacrificeCountByItemPersistentId.Add(name, researchUnlockCount);
+            Terraria.Main.LocalPlayer.creativeTracker.ItemSacrifices.SacrificesCountByItemIdCache.Add(this.Type, researchUnlockCount);
+        }
         
         ItemLoader.AddToMenu(this);
     }

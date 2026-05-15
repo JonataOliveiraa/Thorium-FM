@@ -4,13 +4,19 @@ import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { Color } from "../../../TL/Modules/Color.js";
 
 export class ArcaneArmorFabricator extends GlobalTile {
-    Type = Terraria.ID.TileID.DyeVat;
+    static Type = Terraria.ID.TileID.DyeVat;
 
     SetStaticDefaults() {
-        const idx1 = Terraria.Map.MapHelper.tileLookup[this.Type];
+        const idx1 = Terraria.Map.MapHelper.tileLookup[ArcaneArmorFabricator.Type];
         Terraria.Map.MapHelper.colorLookup[idx1] = Color.new(0, 0, 40);
 
-        Terraria.Lang._mapLegendCache[Terraria.Map.MapHelper.TileToLookup(this.Type, 0)].Value = ModLocalization.Translate('ItemName.ArcaneArmorFabricator')
+        Terraria.Lang._mapLegendCache[Terraria.Map.MapHelper.TileToLookup(ArcaneArmorFabricator.Type, 0)].Value = ModLocalization.Translate('ItemName.ArcaneArmorFabricator')
+    }
+
+    RightClick(player, i, j, type) {
+        if(ArcaneArmorFabricator.Type === type) return false
+
+        return null
     }
 
     static InjectTexture() {
@@ -19,6 +25,7 @@ export class ArcaneArmorFabricator extends GlobalTile {
 
         const arcaneArmorFabricatorItemTexture = tl.texture.load("Textures/TextureReplace/DyeVat/ArcaneArmorFabricator_Item.png");
         const arcaneArmorFabricatorTileTexture = tl.texture.load("Textures/TextureReplace/DyeVat/ArcaneArmorFabricator_Tile.png");
+        const arcaneArmorFabricatorHighlightTexture = tl.texture.load("Textures/TextureReplace/DyeVat/ArcaneArmorFabricator_Highlight.png")
 
         if (arcaneArmorFabricatorTileTexture != null) {
             Terraria.GameContent.TextureAssets.Tile[DyeVatTile].Value = arcaneArmorFabricatorTileTexture;
@@ -26,6 +33,10 @@ export class ArcaneArmorFabricator extends GlobalTile {
 
         if (arcaneArmorFabricatorItemTexture != null) {
             Terraria.GameContent.TextureAssets.Item[DyeVatItem].Value = arcaneArmorFabricatorItemTexture;
+        }
+
+        if(arcaneArmorFabricatorHighlightTexture != null) {
+            Terraria.GameContent.TextureAssets.HighlightMask[DyeVatTile].Value = arcaneArmorFabricatorHighlightTexture
         }
     }
 }

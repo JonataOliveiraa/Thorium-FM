@@ -10,7 +10,7 @@ export class ThoriumAnvil extends GlobalTile {
     RightClick(player, i, j, type) {
         if(ThoriumAnvil.Type === type) return false
 
-        return true
+        return null
     }
 
     SetStaticDefaults() {

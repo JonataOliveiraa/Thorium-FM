@@ -1,5 +1,6 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { ModTexture } from "../../../TL/ModTexture.js";
 import { Color } from "../../../TL/Modules/Color.js";
 import { TileData } from "../../../TL/Modules/TileData.js";
@@ -19,6 +20,15 @@ export class AncientPhylactery extends GlobalTile {
         TileObjectData.readOnlyData = false;
         data.LavaDeath = false;
         TileObjectData.readOnlyData = true;
+    }
+
+    RightClick(player, i, j, type) {
+        if(this.Type === type) {
+            console.log(ModLocalization.Translate('SinalizationChatMessage.OnClickInInativeAncientPhylactery'))
+            return false
+        }
+
+        return null
     }
 
     CanKillTile(i, j, type, blockDamaged) {
@@ -52,7 +62,7 @@ export class AncientPhylactery extends GlobalTile {
             }
         }
 
-        return true;
+        return null;
     }
 
     static InjectTexture() {
@@ -81,3 +91,10 @@ export class AncientPhylactery extends GlobalTile {
         }
     }
 }
+
+
+
+
+
+
+

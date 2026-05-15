@@ -12,17 +12,6 @@ export class MarineBolders extends GlobalTile {
     SetStaticDefaults() {
     }
 
-    CanDrop(x, y, type) {
-        const tile = new TileData(x, y);
-        const frameWidth = 54;
-        const currentStyle = Math.floor(tile.frameX / frameWidth);
-
-        if (type === this.Type &&  this.Style.includes(currentStyle)) {
-            return false;
-        }
-        return true;
-    }
-
     static InjectTexture() {
         const Tables2Tile = Terraria.ID.TileID.Tables2;
 

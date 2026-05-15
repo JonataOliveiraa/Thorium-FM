@@ -66,12 +66,12 @@ export class BrambleShot extends ModItem {
     }
 
     CanConsumeAmmo(player, ammoId) {
-        if (player.magicQuiver && (ammoId === Terraria.ID.AmmoID.Arrow || ammoId === Terraria.ID.AmmoID.Stake) && Rand.NextInt(0, 5) === 0) return false;
-        if (player.ammoBox && Rand.NextInt(0, 5) === 0) return false;
-        if (player.ammoPotion && Rand.NextInt(0, 5) === 0) return false;
-        if (player.chloroAmmoCost80 && Rand.NextInt(0, 5) === 0) return false;
-        if (player.ammoCost80 && Rand.NextInt(0, 5) === 0) return false;
-        if (player.ammoCost75 && Rand.NextInt(0, 4) === 0) return false;
+        if (player.magicQuiver && (ammoId === Terraria.ID.AmmoID.Arrow || ammoId === Terraria.ID.AmmoID.Stake) && Rand.Next(0, 5) === 0) return false;
+        if (player.ammoBox && Rand.Next(0, 5) === 0) return false;
+        if (player.ammoPotion && Rand.Next(0, 5) === 0) return false;
+        if (player.chloroAmmoCost80 && Rand.Next(0, 5) === 0) return false;
+        if (player.ammoCost80 && Rand.Next(0, 5) === 0) return false;
+        if (player.ammoCost75 && Rand.Next(0, 4) === 0) return false;
         return true;
     }
 

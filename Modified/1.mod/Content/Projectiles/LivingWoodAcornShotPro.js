@@ -72,12 +72,12 @@ export class LivingWoodAcornShotPro extends ModProjectile {
 
     PreDraw(proj) {
         // Se a engine ainda não gravou o cache de rastro, previne crash
-        if (!proj.oldPos || proj.oldPos.length === 0) return true;
+        if (!proj.oldPos || proj.oldPos.Length === 0) return true;
 
         const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
         const drawOrigin = Vector2.new(texture.Width * 0.5, texture.Height * 0.5);
 
-        for (let k = proj.oldPos.length - 1; k > 0; k--) {
+        for (let k = proj.oldPos.Length - 1; k > 0; k--) {
             // Verifica se a posição é válida (quando o projétil acabou de nascer os slots ficam em Zero)
             if (proj.oldPos[k].X === 0 && proj.oldPos[k].Y === 0) continue;
 

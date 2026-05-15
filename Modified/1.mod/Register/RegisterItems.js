@@ -31,7 +31,6 @@ import { ThoriumBlade } from '../Content/Items/Thorium/ThoriumBlade.js';
 import { ThoriumBoomerang } from '../Content/Items/Thorium/ThoriumBoomerang.js';
 import { ThoriumStaff } from '../Content/Items/Thorium/ThoriumStaff.js';
 import { ThoriumBow } from '../Content/Items/Thorium/ThoriumBow.js';
-import { ThoriumSpear } from '../Content/Items/Thorium/ThoriumSpear.js';
 
 // Basic Accessories
 import { AmberRing } from '../Content/Items/BasicAccessories/Rings/AmberRing.js';
@@ -154,6 +153,17 @@ import { YewWoodLeggings } from '../Content/Items/YewWood/YewWoodLeggings.js';
 import { ThumbRing } from '../Content/Items/YewWood/ThumbRing.js';
 import { SpiritsGrace } from '../Content/Items/BasicAccessories/SpiritsGrace.js';
 
+// Sandstone
+import { SandstoneAxe } from '../Content/Items/Sandstone/SandstoneAxe.js'
+import { SandstonePickaxe } from '../Content/Items/Sandstone/SandstonePickaxe.js'
+import { SandstoneHammer } from '../Content/Items/Sandstone/SandstoneHammer.js'
+import { SandstoneBow } from '../Content/Items/Sandstone/SandstoneBow.js'
+import { SandstoneHelmet } from '../Content/Items/Sandstone/SandstoneHelmet.js'
+import { SandstoneMail } from '../Content/Items/Sandstone/SandstoneMail.js'
+import { SandstoneGreaves } from '../Content/Items/Sandstone/SandstoneGreaves.js'
+import { SandstoneScimitar } from '../Content/Items/Sandstone/SandstoneScimitar.js'
+
+
 // Register all items
 
 const List = [
@@ -184,7 +194,6 @@ const List = [
     ThoriumBoomerang,
     ThoriumStaff,
     ThoriumBow,
-    ThoriumSpear,
     BandofReplenishment,
 
     AmberRing,
@@ -259,6 +268,15 @@ const List = [
     ShadowflameStaff,
     ShadowWand,
     ThumbRing,
+
+    SandstoneAxe,
+    SandstonePickaxe,
+    SandstoneHammer,
+    SandstoneBow,
+    SandstoneHelmet,
+    SandstoneMail,
+    SandstoneGreaves,
+    SandstoneScimitar,
 
     EnchantedCane,
     LifeQuartzClaymore,

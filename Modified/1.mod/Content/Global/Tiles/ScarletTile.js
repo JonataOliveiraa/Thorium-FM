@@ -29,7 +29,7 @@ export class ScarletTile extends GlobalTile {
             const player = Terraria.Main.player[Terraria.Main.myPlayer];
             if(!(player.HeldItem.pick >= 40)) return false
         }
-        return true
+        return null
     }
 
     static InjectTexture() {

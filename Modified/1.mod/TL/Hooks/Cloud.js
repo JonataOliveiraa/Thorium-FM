@@ -17,7 +17,7 @@ export class CloudHooks {
         if (this.HookList.AddCloud(info)) {
             Terraria.Cloud['void addCloud()'
             ].hook((original) => {
-                if (Terraria.Main.netMode == 2 || CloudLoader.Clouds.length == 0) {
+                if (Terraria.Main.netMode === 2 || CloudLoader.Clouds.length === 0) {
                     original();
                     return;
                 }

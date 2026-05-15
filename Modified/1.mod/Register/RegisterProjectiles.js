@@ -49,7 +49,6 @@ import { LootRangPro } from '../Content/Projectiles/LootRangPro.js';
 
 // Thorium
 import { ThoriumBoomerangPro } from '../Content/Projectiles/ThoriumBoomerangPro.js';
-import { ThoriumSpearPro } from '../Content/Projectiles/ThoriumSpearPro.js';
 import { ThoriumBolt } from '../Content/Projectiles/ThoriumBolt.js';
 import { ThoriumSpark } from '../Content/Projectiles/ThoriumSpark.js';
 
@@ -84,83 +83,82 @@ import { ShadowflameStaffPro } from '../Content/Projectiles/ShadowflameStaffPro.
 import { ShadowWandPro } from '../Content/Projectiles/ShadowWandPro.js';
 
 const List = [
-    IceCubePro,
-    IcyArrowPro,
-    TheSnowballPro,
-    IcyArmorEffect1,
+  IceCubePro,
+  IcyArrowPro,
+  TheSnowballPro,
+  IcyArmorEffect1,
 
-    LivingWoodAcornPro,
-    LivingWoodAcornShotPro,
+  LivingWoodAcornPro,
+  LivingWoodAcornShotPro,
 
-    PrehistoricAmberStaffPterosPro,
-    PrehistoricAmberStaffPterosProShoot,
-    PrehistoricAmberStaffTRexPro,
+  PrehistoricAmberStaffPterosPro,
+  PrehistoricAmberStaffPterosProShoot,
+  PrehistoricAmberStaffTRexPro,
 
-    IncubatedSpider,
-    CrietzPro,
+  IncubatedSpider,
+  CrietzPro,
 
-    WebGunPro1,
-    WebGunPro2,
-    JungleArrow,
+  WebGunPro1,
+  WebGunPro2,
+  JungleArrow,
 
-    StrangeBulbPro,
-    EarthenRock,
+  StrangeBulbPro,
+  EarthenRock,
 
-    DissolvePro,
-    FreezePro,
-    IgnitePro,
-    PoisonPro,
-    SiphonPro,
-    CharmPro,
-    StunPro,
-    MagickStaffPro,
-    AquamarineStaffPro,
-    TheDigesterPro,
+  DissolvePro,
+  FreezePro,
+  IgnitePro,
+  PoisonPro,
+  SiphonPro,
+  CharmPro,
+  StunPro,
+  MagickStaffPro,
+  AquamarineStaffPro,
+  TheDigesterPro,
 
-    BloomingBowPro,
-    BloomingStaffPro,
+  BloomingBowPro,
+  BloomingStaffPro,
 
-    ColdFrontPro,
-    LootRangPro,
+  ColdFrontPro,
+  LootRangPro,
 
-    ThoriumBoomerangPro,
-    ThoriumSpearPro,
-    ThoriumBolt,
-    ThoriumSpark,
+  ThoriumBoomerangPro,
+  ThoriumBolt,
+  ThoriumSpark,
 
-    CyanPhasebladePro,
-    LightPinkPhasebladePro,
+  CyanPhasebladePro,
+  LightPinkPhasebladePro,
 
-    ShadowBolt,
-    EnchantedCanePro,
-    EnchantedStaffPro,
+  ShadowBolt,
+  EnchantedCanePro,
+  EnchantedStaffPro,
 
-    ShadowflameStaffPro,
-    ShadowWandPro,
+  ShadowflameStaffPro,
+  ShadowWandPro,
 
-    GrandThunderBirdCloud,
-    GrandThunderBirdZap,
-    TheGrandThunderBirdEnd,
-    ThunderBirdScreech,
-    ThunderGust,
-    ThunderSpark,
+  GrandThunderBirdCloud,
+  GrandThunderBirdZap,
+  TheGrandThunderBirdEnd,
+  ThunderBirdScreech,
+  ThunderGust,
+  ThunderSpark,
 
-    StormFlareP,
-    StormHatchlingStaffPro,
-    ThunderZap,
-    TalonBurstPro,
+  StormFlareP,
+  StormHatchlingStaffPro,
+  ThunderZap,
+  TalonBurstPro,
 
-    SeaTurtlesBulwarkPro,
-    BubbleConchPro,
+  SeaTurtlesBulwarkPro,
+  BubbleConchPro,
 
-    BubblePulse,
-    BubbleBomb,
-    QueenTorrent,
-    QueenJellyfishArm,
+  BubblePulse,
+  BubbleBomb,
+  QueenTorrent,
+  QueenJellyfishArm,
 ]
 
 export function RegisterProjectiles() {
-    for (const Projectile of List) {
-        ModProjectile.register(Projectile)
-    }
+  for (const Projectile of List) {
+    ModProjectile.register(Projectile)
+  }
 }

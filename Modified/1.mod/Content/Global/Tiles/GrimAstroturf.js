@@ -29,7 +29,7 @@ export class GrimAstroturf extends GlobalTile {
             const player = Terraria.Main.player[Terraria.Main.myPlayer];
             if(!(player.HeldItem.pick >= 0)) return false
         }
-        return true
+        return null
     }
 
     static InjectTexture() {

@@ -53,7 +53,7 @@ export class FlamekinCaster extends ModNPC {
         const flag = Terraria.Main.remixWorld || info.SpawnTileY > (Terraria.Main.rockLayer + Terraria.Main.maxTilesY) / 2;
         if (!(info.CommonEnemy && !info.PlayerSafe && info.SpawnTileY > Terraria.Main.rockLayer && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water && flag))
             return 0;
-        return Terraria.Main.hardMode ? 0.001 : 0.005;
+        return Terraria.Main.hardMode ? 0.01 : 0.025;
     }
 
     OnSpawn(npc, source) {

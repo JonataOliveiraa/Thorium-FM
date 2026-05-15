@@ -53,7 +53,7 @@ export class BloodDrop extends ModNPC {
 
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 20, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 2));
     }
 
     HitEffect(npc, hitDirection, damage) {

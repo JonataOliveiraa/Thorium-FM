@@ -40,7 +40,7 @@ export class CoinBagGold extends ModNPC {
 
     SpawnChance(info) {
         if (Terraria.Main.hardMode && info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
-            return 0.0033;
+            return 0.0008;
         }
         return 0;
     }

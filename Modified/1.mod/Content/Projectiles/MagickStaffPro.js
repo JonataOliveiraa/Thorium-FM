@@ -67,7 +67,7 @@ export class MagickStaffPro extends ModProjectile {
     }
 
     OnTileCollide(proj, hitDirection) {
-        Effects.PlaySound(10, proj.Center.X, proj.Center.y, 1, 0, 1);
+        Effects.PlaySound(10, proj.Center.X, proj.Center.Y, 1, 0, 1);
 
         for (const dustType of dustTypes) {
             NewDust(

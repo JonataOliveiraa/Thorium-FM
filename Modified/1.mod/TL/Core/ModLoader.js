@@ -71,9 +71,9 @@ export class ModLoader extends ModSystem {
         Prototypes.Initialize();
         
         const IntPtr = new NativeClass('System', 'IntPtr');
+        tl.device.is32Bits = IntPtr.Size === 4;
         const info = {
-            is64Bits: !(IntPtr.Size === 4),
-            hasTiles: TileLoader.Tiles.length > 0,
+            is64Bits: !tl.device.is32Bits,
             hasGlobalTiles: GlobalTile.RegisteredTiles.length > 0,
             hasItems: ItemLoader.Items.length > 0,
             hasGlobalItems: GlobalItem.RegisteredItems.length > 0,
@@ -127,6 +127,7 @@ export class ModLoader extends ModSystem {
         MountLoader.PostSetupContent();
         TileLoader.PostSetupContent();
         BiomeLoader.PostSetupContent();
+        BackgroundLoaders.PostSetupContent();
         BuffLoader.PostSetupContent();
         ProjectileLoader.PostSetupContent();
         ItemLoader.PostSetupContent();

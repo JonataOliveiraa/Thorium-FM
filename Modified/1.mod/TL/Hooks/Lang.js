@@ -19,7 +19,7 @@ export class LangHooks {
         GetProjectileName: (info) => info.hasProjectiles,
         GetNPCName: (info) => info.hasNPCs,
         AnglerQuestChat: (info) => info.hasItems,
-        GetTextValue: (info) => info.hasItems
+        GetTextValue: (info) => info.hasNPCs
     };
     
     static Initialize(info) {

@@ -15,6 +15,4 @@ export class ThoriumOre extends ModItem {
 
     this.DefaultToPlaceableTile(Terraria.ID.TileID.TeamBlockBlue, 0)
   }
-
-  
 }

@@ -13,7 +13,7 @@ import { SubworldLoader } from './../Loaders/SubworldLoader.js';
 import { AchievementLoader } from './../Loaders/AchievementLoader.js';
 import { MountLoader } from './../Loaders/MountLoader.js';
 
-const { Color, Vector2 } = Modules;
+const { Color, Rand, Vector2 } = Modules;
 const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'];
 
 export class PlayerHooks {
@@ -24,9 +24,10 @@ export class PlayerHooks {
     static HookList = {
         All: (info) => true,
         Spawn: (info) => info.hasPlayers,
-        TileInteractionsCheck: (info) => info.hasTiles || info.hasGlobalTiles,
-        TileInteractionsCheckLongDistance: (info) => info.hasTiles || info.hasGlobalTiles,
-        TileInteractionsUse: (info) => info.hasTiles || info.hasGlobalTiles,
+        TileInteractionsCheck: (info) => info.hasGlobalTiles,
+        TileInteractionsCheckLongDistance: (info) => info.hasGlobalTiles,
+        TileInteractionsUse: (info) => info.hasGlobalTiles,
+        GetPickaxeDamage: (info) => info.hasGlobalTiles,
         ItemCheck: (info) => info.hasItems || info.hasGlobalItems || info.hasPlayers,
         ItemCheck_CheckCanUse: (info) => info.hasItems || info.hasGlobalItems || info.hasPlayers,
         ItemCheck_ApplyUseStyle: (info) => info.hasItems || info.hasGlobalItems,
@@ -82,7 +83,7 @@ export class PlayerHooks {
             player.ownedProjectileCounts = player.ownedProjectileCounts.cloneResized(ProjectileLoader.ProjectileCount);
             player.npcTypeNoAggro = player.npcTypeNoAggro.cloneResized(NPCLoader.NPCCount);
             
-            // Fixed double-click crash on buffs
+            // Fix double-click crash on buffs
             player.AddBuff(185, 2, false);
             
             BiomeLoader.SetupPlayer(player);
@@ -133,14 +134,30 @@ export class PlayerHooks {
         if (this.HookList.TileInteractionsUse(info)) {
             Terraria.Player['void TileInteractionsUse(int myX, int myY)'
             ].hook((original, self, mX, mY) => {
-                const type = new TileData(mX, mY).type;
-                if (type < TileLoader.MAX_VANILLA_ID) {
-                    original(self, mX, mY);
-                    return;
-                }
-                if (Terraria.GameContent.UI.WiresUI.Open) return;
+                if (Terraria.GameContent.UI.WiresUI.Open || self.ownedProjectileCounts[651] > 0) return;
+                
+                const releaseUseTile = self.releaseUseTile;
                 if (!self.tileInteractAttempted) return;
-                TileLoader.RightClick(self, mX, mY, type);
+                
+                const type = new TileData(mX, mY).type;
+                
+                if (releaseUseTile) {
+                    let flag1 = TileLoader.RightClick(self, mX, mY, type);
+                    if (flag1 !== false) {
+                        original(self, mX, mY);
+                    }
+                    if (flag1 === true) {
+                        self.tileInteractionHappened = true;
+                    }
+                }
+            });
+        }
+        
+        if (this.HookList.GetPickaxeDamage(info)) {
+            Terraria.Player['int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget)'
+            ].hook((original, self, x, y, pickPower, hitBufferIndex, tile) => {
+                const damage = original(self, x, y, pickPower, hitBufferIndex, tile);
+                return TileLoader.PickPowerCheck(self, pickPower, x, y, tile, damage);
             });
         }
         
@@ -208,7 +225,7 @@ export class PlayerHooks {
                     self['void SetItemAnimation(int frames)'](item.useAnimation * multiplier);
                     self.reuseDelay = item.reuseDelay;
                 }
-                if (self.itemAnimation == self.itemAnimationMax) {
+                if (self.itemAnimation === self.itemAnimationMax) {
                     CombinedLoader.UseAnimation(item, self);
                 }
             });
@@ -228,7 +245,7 @@ export class PlayerHooks {
                 }
                 
                 if (!flag) {
-                    let flag1 = item.type == 4711;
+                    let flag1 = item.type === 4711;
                     if (((item.pick > 0 || item.axe > 0 ? 1 : (item.hammer > 0 ? 1 : 0)) | (flag1 ? 1 : 0)) != 0)
                         self.toolTime = 1;
                     if (self.grappling[0] > -1) {
@@ -245,7 +262,7 @@ export class PlayerHooks {
                     //self.ApplyItemAnimation(item);
                     let flag2 = Terraria.ID.ItemID.Sets.SkipsInitialUseSound[item.type];
                     if (item.UseSound && !flag2) {
-                        let flag3 = item.useStyle == 5 || item.useStyle == 13 || item.shoot > 0;
+                        let flag3 = item.useStyle === 5 || item.useStyle === 13 || item.shoot > 0;
                         let nullable = Terraria.ID.ItemID.Sets.NetUseSoundSync[item.type];
                         if (nullable?.HasValue) flag3 = nullable.Value;
                             if (((self.whoAmI !== Terraria.Main.myPlayer ? 0 : (Terraria.Main.netMode === 1 ? 1 : 0)) & (flag3 ? 1 : 0)) !== 0) {
@@ -285,9 +302,9 @@ export class PlayerHooks {
                 if (item.type === 3001) {
                     let healLife = item.healLife;
                     let num1 = 120;
-                    healAmount = Terraria.Main.rand['int Next(int minValue, int maxValue)'](healLife, num1 + 1);
+                    healAmount = Rand.Next(healLife, num1 + 1);
                     if (Terraria.Main.myPlayer === self.whoAmI) {
-                        let num2 = Terraria.Main.rand['float NextFloat()']();
+                        let num2 = Rand.NextFloat();
                         let time = 0;
                         if (num2 <= 0.10000000149011612) time = 240;
                         else if (num2 <= 0.30000001192092896) time = 120;
@@ -299,7 +316,7 @@ export class PlayerHooks {
                 healMana = CombinedLoader.GetHealMana(item, self, healMana);
                 self.statLife = Math.max(0, Math.min(self.statLife + healAmount, self.statLifeMax2));
                 self.statMana = Math.max(0, Math.min(self.statMana + healMana, self.statManaMax2));
-                if (healAmount > 0 && Terraria.Main.myPlayer == self.whoAmI) {
+                if (healAmount > 0 && Terraria.Main.myPlayer === self.whoAmI) {
                     self.HealEffect(healAmount, true);
                 }
                 if (healMana > 0) {
@@ -447,7 +464,7 @@ export class PlayerHooks {
             Terraria.Player['void UpdateEquips(int i)'
             ].hook((original, self, i) => {
                 original(self, i);
-                if (Terraria.Main.myPlayer == i) {
+                if (Terraria.Main.myPlayer === i) {
                     CombinedLoader.UpdateEquips(self, updateInventory);
                 }
             });
@@ -907,7 +924,14 @@ export class PlayerHooks {
                         }
                     }
                     
-                    const parts = { head: true, body: true, legs: true };
+                    const parts = {
+                        head: true,
+                        body: true,
+                        legs: true,
+                        includeArmor: true,
+                        hidesTopSkin: false,
+                        hidesBottomSkin: false
+                    };
                     PlayerLoader.ShouldDrawParts(player, parts);
                     
                     if (!parts.head && !parts.body && !parts.legs) {
@@ -917,9 +941,11 @@ export class PlayerHooks {
                     if (hideEntirePlayer) {
                         self.stealth = 1;
                         const transparent = Color.Transparent;
-                        self.colorArmorHead = transparent;
-                        self.colorArmorBody = transparent;
-                        self.colorArmorLegs = transparent;
+                        if (parts.includeArmor) {
+                            self.colorArmorHead = transparent;
+                            self.colorArmorBody = transparent;
+                            self.colorArmorLegs = transparent;
+                        }
                         self.colorEyeWhites = transparent;
                         self.colorEyes = transparent;
                         self.colorHair = transparent;
@@ -935,10 +961,11 @@ export class PlayerHooks {
                         self.armGlowColor = transparent;
                         self.legsGlowColor = transparent;
                         self.colorDisplayDollSkin = transparent;
-                    } else {
+                    } else if (!parts.head || !parts.body || !parts.legs) {
+                        const transparent = Color.Transparent;
+                        self.stealth = 1;
                         if (!parts.head) {
-                            const transparent = Color.Transparent;
-                            self.colorArmorHead = transparent;
+                            if (parts.includeArmor) self.colorArmorHead = transparent;
                             self.colorEyeWhites = transparent;
                             self.colorEyes = transparent;
                             self.colorHair = transparent;
@@ -946,8 +973,7 @@ export class PlayerHooks {
                             self.headGlowColor = transparent;
                         }
                         if (!parts.body) {
-                            const transparent = Color.Transparent;
-                            self.colorArmorBody = transparent;
+                            if (parts.includeArmor) self.colorArmorBody = transparent;
                             self.colorBodySkin = transparent;
                             self.colorShirt = transparent;
                             self.colorUnderShirt = transparent;
@@ -955,14 +981,19 @@ export class PlayerHooks {
                             self.armGlowColor = transparent;
                         }
                         if (!parts.legs) {
-                            self.stealth = 1;
-                            const transparent = Color.Transparent;
-                            self.colorArmorLegs = transparent;
+                            if (parts.includeArmor) self.colorArmorLegs = transparent;
                             self.colorPants = transparent;
                             self.colorShoes = transparent;
                             self.colorLegs = transparent;
                             self.legsGlowColor = transparent;
                         }
+                    }
+                    
+                    if (parts.hidesTopSkin) {
+                        self.hidesTopSkin = true;
+                    }
+                    if (parts.hidesBottomSkin) {
+                        self.hidesBottomSkin = true;
                     }
                 }
                 

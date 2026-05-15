@@ -34,7 +34,7 @@ export class SpiritsGraceBuff extends ModBuff {
 
         Main.dust[dust].noGravity = true;
         Main.dust[dust].noLight = true;
-        Main.dust[dust].velocity *= 0;
+        Main.dust[dust].velocity = Vector2.Zero;
     }
 
     ApplyPlayer(player) {

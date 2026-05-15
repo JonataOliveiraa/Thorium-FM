@@ -15,7 +15,7 @@ export class ThoriumBoomerangPro extends ModProjectile {
     this.Projectile.scale = 1;
 
     this.Projectile.aiStyle = 3;
-    this.Projectile.AIType = 52
+    this.AIType = 52
 
     this.Projectile.friendly = true;
     this.Projectile.hostile = false;

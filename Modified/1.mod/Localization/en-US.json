@@ -87,6 +87,10 @@
     "ThoriumHelmet": "Thorium Helmet",
     "ThoriumMail": "Thorium Mail",
     "ThoriumGreaves": "Thorium Greaves",
+    "ThoriumBlade": "Thorium Blade",
+    "ThoriumBoomerang": "Thorium Boomerang",
+    "ThoriumStaff": "Thorium Staff",
+    "ThoriumBow": "Thorium Bow",
     "LifeGem": "Life Gem",
     "LifeQuartzClaymore": "Life Quartz Claymore",
     "TechniqueBlankScroll": "Blank Technique Scroll",
@@ -127,7 +131,19 @@
     "YewWoodHelmet": "Yew Wood Helmet",
     "YewWoodBreastguard": "Yew Wood Breastguard",
     "YewWoodLeggings": "Yew Wood Leggings",
-    "GrimAstroturf": "Grim Astroturf"
+    "GrimAstroturf": "Grim Astroturf",
+    "SpiritsGrace": "Spirit's Grace",
+    "SandstoneIngot": "Sandstone Ingot",
+    "SandstoneAxe": "Sandstone Axe",
+    "SandstonePickaxe": "Sandstone Pickaxe",
+    "SandstoneHammer": "Sandstone Hammer",
+    "SandstoneBow": "Sandstone Bow",
+    "SandstoneHelmet": "Sandstone Helmet",
+    "SandstoneMail": "Sandstone Mail",
+    "SandstoneGreaves": "Sandstone Greaves",
+    "SandstoneScimitar": "Sandstone Scimitar",
+    "TheDigester": "The Digester",
+    "ThumbRing": "Thumb Ring"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -164,6 +180,10 @@
     "ThoriumHelmet": "'It pulses with energy'\n2% increased critical strike chance",
     "ThoriumMail": "'It pulses with energy'\n2% increased critical strike chance",
     "ThoriumGreaves": "'It pulses with energy'\n2% increased critical strike chance",
+    "ThoriumBlade": "'It pulses with energy'",
+    "ThoriumBoomerang": "'It pulses with energy'",
+    "ThoriumStaff": "'It pulses with energy'",
+    "ThoriumBow": "'It pulses with energy'",
     "LifeGem": "Increases maximum life by 20 and life regeneration",
     "LifeQuartzClaymore": "Heals yourself upon hitting an enemy",
     "UnholyShards": "'A tear of the blood moon'",
@@ -183,14 +203,22 @@
     "SoulStone": "10% increased summon damage\nDecreases your maximum life by 20\n'The stone slowly feeds off your soul'",
     "BrambleShot": "Turns wooden arrows into poison arrows",
     "Crietz": "Once every second, your next critical strike causes a burst of damaging energy",
-		"Robe": "Increases maximum mana by 40\n8% reduced mana cost",
+    "Robe": "Increases maximum mana by 40\n8% reduced mana cost",
     "AquamarineRing": "Increases radiant damage by 1",
     "OpalRing": "Increases symphonic damage by 1",
     "MoltenScale": "Nearby enemies will be set on fire",
     "BandofReplenishment": "Increased health and mana regeneration\nTaking more than three damage will replenish health and mana",
     "MagmaCharmItem": "Transforms you into a Molten Maggot",
     "ShadowflameStaff": "Shoots a slow moving orb of shadowflame magic",
-    "ShadowWand": "Spews forth an erratic release of shadow energy"
+    "ShadowWand": "Spews forth an erratic release of shadow energy",
+    "SpiritsGrace": "Your respawns happen 33% faster and give 15% more health\nYour respawns also grant increased invulnerability time and movement speed\n'Don't let it get you down...'",
+    "SandstoneIngot": "Refined from the sands of the desert",
+    "SandstoneBow": "Carved from hardened desert stone",
+    "SandstoneHelmet": "5% increased ranged damage\n2% increased movement speed",
+    "SandstoneMail": "5% increased ranged damage\n5% increased movement speed",
+    "SandstoneGreaves": "5% increased ranged damage\n3% increased movement speed",
+    "TheDigester": "Propels a globule of digesting ooze that sticks to enemies\nPlayers that damage afflicted enemies recover 10% of their damage as health\nAfflicted enemies can only grant 20 health per application of ooze",
+    "ThumbRing": "Increases arrow damage by 5%\nArrow critical strikes briefly shadowflame enemies"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -198,7 +226,8 @@
     "Silk": "25% increased magic damage while above 90% maximum mana",
     "Steel": "Reduces all damage received by 8%",
     "Thorium": "10% increased damage from all sources",
-    "YewWood": "Every 6th strikes, your next ranged attack will mini-crit for 150% damage"
+    "YewWood": "Every 6th strikes, your next ranged attack will mini-crit for 150% damage",
+    "Sandstone": "Desert winds have granted you a sandy double jump"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Sprout Loyalty",
@@ -207,7 +236,8 @@
     "MagmaCharmBuff": "Magma Charm",
     "LavaHugBuff": "Lava's Embrace",
     "EnchantedCaneBuff": "Enchanted Barrier",
-    "CharmedBuff": "Charmed"
+    "CharmedBuff": "Charmed",
+    "SpiritsGraceBuff": "Spirit's Grace"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
@@ -216,7 +246,8 @@
     "MagmaCharmBuff": "Your body has shrunk to a Molten Maggot",
     "LavaHugBuff": "Increases life and mana regeneration every 2 seconds",
     "EnchantedCaneBuff": "You are protected by a magical barrier",
-    "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%"
+    "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
+    "SpiritsGraceBuff": "Increased invulnerability time and movement speed"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
@@ -243,7 +274,8 @@
     "CoinBagSilver": "Silver Coin Bag",
     "CoinBagCopper": "Copper Coin Bag",
     "BatOutaHell": "Bat Out a Hell",
-    "FlamekinCaster": "Flamekin Caster"
+    "FlamekinCaster": "Flamekin Caster",
+    "Biter": "Biter"
   },
   "Bestiary": {
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
@@ -259,13 +291,14 @@
     "GildedSlime": "A viscous organism infused with golden particles. It absorbs impacts with ease and slowly engulfs anything careless enough to get close",
     "GildedSlimeling": "A smaller offshoot of the Gilded Slime. Less durable, but far more numerous and annoyingly persistent",
     "TheGrandThunderBird": "Blessed with the dominion over storms, this majestic bird soars through the desert skies. It seemed to be testing you...",
-    "StormHatchling": "An electrically charged apparition of an adolescent Thunder Bird.",
+    "StormHatchling": "An electrically charged apparition of an adolescent Thunder Bird",
     "TheInnocent": "This innocent creature once peacefully roamed the forests of Terraria before the Corruption's dark spread reached it",
     "LivingHemorrage": "A gruesome teratoma formed from the flesh of the Crimson itself. Doesn't like to go down easily",
     "CoinBagGold": "You'd think gold would just weigh down this greedy sack of coins, but it just boosts its resolve to run from Terrarians",
     "CoinBagSilver": "Having been around the caverns, this bag of coins leaves the scene as soon as a greedy Terrarian makes their appearance",
     "CoinBagCopper": "This enchanted pile of coins only just recently gained sentience, but it will try its hardest to keep its riches for itself",
-    "FlamekinCaster": "A bizarre creature harnesses the power of lava pools found deep in the caverns to summon explosive fire bats"
+    "FlamekinCaster": "A bizarre creature harnesses the power of lava pools found deep in the caverns to summon explosive fire bats",
+    "Biter": "The zombification process can result in some unique outcomes. This variant just bleeds a lot"
   },
   "NPCChat": {
     "Blacksmith_1": "Need something forged?",
@@ -314,9 +347,13 @@
     }
   },
   "SinalizationChatMessage": {
-    "OnPatchWerkDie": "The dreaded Patchwerk falls apart..."
+    "OnPatchWerkDie": "The dreaded Patchwerk falls apart...",
+    "OnClickInInativeAncientPhylactery": "It seems to be dormant..."
   },
   "DeathMessage": {
     "DeepStaff": "{0} drained their own soul for power, leading to their death"
+  },
+  "Others": {
+    "NoMultiplayer": "Multiplayer disabled by {0}"
   }
 }

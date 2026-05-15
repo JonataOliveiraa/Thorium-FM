@@ -6,7 +6,7 @@ import { NPCLoader } from './../Loaders/NPCLoader.js';
 import { HairLoader } from './../Loaders/HairLoader.js';
 import { NPCHappiness } from './../NPCHappiness.js';
 
-const { Vector2 } = Modules;
+const { Rand, Vector2 } = Modules;
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 
 export class GameContentHooks {
@@ -71,8 +71,8 @@ export class GameContentHooks {
                 let Y = Math.floor(npc.position.Y + npc.height / 2);
                 
                 if (scattered) {
-                    X = Math.floor(npc.position.X + Terraria.Main.rand.Next(npc.width + 1));
-                    Y = Math.floor(npc.position.Y + Terraria.Main.rand.Next(npc.height + 1));
+                    X = Math.floor(npc.position.X + Rand.Next(npc.width + 1));
+                    Y = Math.floor(npc.position.Y + Rand.Next(npc.height + 1));
                 }
                 
                 let itemIndex = NewItem(X, Y, 0, 0, itemId, stack, false, -1, false);
@@ -87,12 +87,12 @@ export class GameContentHooks {
                     return;
                 }
                 
-                if (Terraria.Main.netMode == 2) {
+                if (Terraria.Main.netMode === 2) {
                     let itemSlot = NewItem(npc.position.X, npc.position.Y, npc.width, npc.height, itemId, stack, true, -1, false);
                     Terraria.Main.timeItemSlotCannotBeReusedFor[itemSlot] = 54000;
                     for (let rc = 0; rc < 255; rc++) {
                         if (Terraria.Main.player[rc].active && (npc.playerInteraction[rc] || !interactionRequired)) {
-                            Terraria.NetMessage.SendData(90, rc, -1, Terraria.Localization.NetworkText.Empty, itemSlot, 0, 0, 0, 0, 0, 0);
+                            Terraria.NetMessage.SendData(90, rc, -1, null, itemSlot, 0, 0, 0, 0, 0, 0);
                         }
                         Terraria.Main.item[itemSlot].active = false;
                     }

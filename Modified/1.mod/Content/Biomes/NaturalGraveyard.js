@@ -11,12 +11,12 @@ export class NaturalGraveyard extends ModBiome {
     }
 
     SetStaticDefaults() {
-        this.Priority = SceneEffectPriority.BiomeMedium;
+        this.Priority = SceneEffectPriority.BiomeLow;
         this.BiomeColor = Color.new(60, 55, 45);
     }
 
     IsBiomeActive(player, tileCounts) {
-        return tileCounts[Terraria.ID.TileID.AncientCopperBrick] >= 100;
+        return tileCounts[Terraria.ID.TileID.AncientCopperBrick] >= 50;
     }
 
     Generate() {
@@ -28,6 +28,9 @@ export class NaturalGraveyard extends ModBiome {
         const spawnX = Main.spawnTileX;
         const dungeonOnRight = dungeonX > spawnX;
         const scanStep = dungeonOnRight ? 1 : -1;
+
+        // Scan starts below floating island altitude, same principle as Thorium's worldSurfaceLow
+        const surfaceScanStartY = Math.floor(Main.worldSurface * 0.7);
 
         const scanStart = spawnX + scanStep * 30;
         const scanEnd = dungeonX - scanStep * 80;
@@ -41,7 +44,7 @@ export class NaturalGraveyard extends ModBiome {
             if (sx < 60 || sx >= Main.maxTilesX - 60) { sx += scanStep; continue; }
 
             let surfY = -1;
-            for (let y = 30; y < Main.worldSurface + 30; y++) {
+            for (let y = surfaceScanStartY; y < Main.worldSurface + 30; y++) {
                 if (y >= Main.maxTilesY) break;
                 const tile = Main.tile.get_Item(sx, y);
                 if (tile['bool active()']() && Main.tileSolid[tile.type]) {
@@ -125,11 +128,11 @@ export class NaturalGraveyard extends ModBiome {
         const biomeHalfWidth = Math.max(1, (endX - startX) / 2);
         const maxDepth = Math.floor(14 * Math.sqrt(scale));
 
-        // ---- Surface scan ----
+        // ---- Surface scan (starts below floating islands) ----
         const surfaces = {};
         for (let cx = startX - transitionWidth - 2; cx <= endX + transitionWidth + 2; cx++) {
             if (cx < 0 || cx >= Main.maxTilesX) continue;
-            for (let cy = 30; cy < Main.worldSurface + 60; cy++) {
+            for (let cy = surfaceScanStartY; cy < Main.worldSurface + 60; cy++) {
                 if (cy >= Main.maxTilesY) break;
                 const tile = Main.tile.get_Item(cx, cy);
                 if (tile['bool active()']() && Main.tileSolid[tile.type]) {
@@ -214,20 +217,15 @@ export class NaturalGraveyard extends ModBiome {
         // ---- 3) Altar: 5x5 rounded-corner platform embedded in terrain ----
         let altarX = -1;
         let altarSurfY = -1;
-        const altarHalfW = 2; // 5 wide total
-        const altarDepth = 5; // 5 deep total
+        const altarHalfW = 2;
+        const altarDepth = 5;
         const altarExclusion = 14;
 
-        // Slope map for 5x5 rounded corners
-        // slope(1)=cuts top-right, slope(2)=cuts top-left
-        // slope(3)=cuts bottom-right, slope(4)=cuts bottom-left
-        // Corner positions relative to top-left (0,0): corners at (0,0),(4,0),(0,4),(4,4)
         const cornerSlopes = new Map([
-            // [dx, dy] → slope
-            ['-2,0',  2], // top-left corner  → cut top-left
-            [ '2,0',  1], // top-right corner → cut top-right
-            ['-2,4',  4], // bottom-left      → cut bottom-left
-            [ '2,4',  3], // bottom-right     → cut bottom-right
+            ['-2,0', 2],
+            ['2,0',  1],
+            ['-2,4', 4],
+            ['2,4',  3],
         ]);
 
         for (let attempt = 0; attempt < 120; attempt++) {
@@ -237,7 +235,6 @@ export class NaturalGraveyard extends ModBiome {
             if (!sy) continue;
             if (ax - altarHalfW < startX + 10 || ax + altarHalfW > endX - 10) continue;
 
-            // Check surface is reasonably flat across 5 tiles
             let flat = true;
             for (let dx = -altarHalfW; dx <= altarHalfW; dx++) {
                 const s = surfaces[ax + dx];
@@ -253,18 +250,14 @@ export class NaturalGraveyard extends ModBiome {
         }
 
         if (altarX !== -1) {
-            // Build 5x5 platform going DOWN from surface
             for (let dx = -altarHalfW; dx <= altarHalfW; dx++) {
                 for (let dy = 0; dy < altarDepth; dy++) {
                     const tx = altarX + dx;
                     const ty = altarSurfY + dy;
                     if (tx < 0 || tx >= Main.maxTilesX || ty >= Main.maxTilesY) continue;
 
-                    // Skip the 4 absolute corners (they become "air" for the rounded look)
-                    const isCorner =
-                        (Math.abs(dx) === altarHalfW && (dy === 0 || dy === altarDepth - 1));
+                    const isCorner = (Math.abs(dx) === altarHalfW && (dy === 0 || dy === altarDepth - 1));
                     if (isCorner) {
-                        // Leave air but keep wall
                         const tile = Main.tile.get_Item(tx, ty);
                         tile['void active(bool active)'](false);
                         tile.wall = WallID.WroughtIronFence;
@@ -277,14 +270,11 @@ export class NaturalGraveyard extends ModBiome {
                     tile['void halfBrick(bool halfBrick)'](false);
                     tile.wall = WallID.WroughtIronFence;
 
-                    // Apply slope for rounded corners
-                    const key = `${dx},${dy}`;
-                    const slope = cornerSlopes.get(key) ?? 0;
+                    const slope = cornerSlopes.get(`${dx},${dy}`) ?? 0;
                     tile['void slope(byte slope)'](slope);
                 }
             }
 
-            // Clear above platform for BoneWelder (needs 3 wide, 3 tall)
             for (let dx = -2; dx <= 2; dx++) {
                 for (let dy = -4; dy < 0; dy++) {
                     const tx = altarX + dx;
@@ -296,7 +286,6 @@ export class NaturalGraveyard extends ModBiome {
                 }
             }
 
-            // Ensure the 3 center surface tiles are solid for the welder
             for (let dx = -1; dx <= 1; dx++) {
                 const gt = Main.tile.get_Item(altarX + dx, altarSurfY);
                 gt['void active(bool active)'](true);

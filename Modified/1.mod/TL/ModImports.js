@@ -19,6 +19,7 @@ import { Rand } from './Modules/Rand.js';
 import { Rectangle } from './Modules/Rectangle.js';
 import { TileData } from './Modules/TileData.js';
 import { Vector2 } from './Modules/Vector2.js';
+import { WorldGenRand } from './Modules/WorldGenRand.js';
 // Modules.Utils
 import { PrefixUtils } from './Modules/Utils/Prefix.js';
 import { WorldUtils } from './Modules/Utils/World.js';
@@ -33,6 +34,7 @@ export const Modules = {
     Rectangle,
     TileData,
     Vector2,
+    WorldGenRand,
     Utils: {
         PrefixUtils,
         WorldUtils

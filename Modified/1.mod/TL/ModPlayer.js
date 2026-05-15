@@ -292,7 +292,7 @@ export class ModPlayer {
     }
     
     /**
-     * @param {object} parts - {head, body, legs}
+     * @param {object} parts - {head, body, legs, includeArmor, hidesTopSkin, hidesBottomSkin}
      * ex: parts.legs = false; // hide legs
      */
     ShouldDrawParts(player, parts) {

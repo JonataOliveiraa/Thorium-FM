@@ -23,8 +23,8 @@ export class gTilesLoot extends GlobalTile {
         { tileType: Terraria.ID.TileID.AncientGoldBrick, loot: 'OpalGem', condition: null }
     ];
 
-    CanDrop(x, y, type) {
-        const lootData = gTilesLoot.Loots.find(l => l.tileType === type);
+    CanDropItems(x, y, tile) {
+        const lootData = gTilesLoot.Loots.find(l => l.tileType === tile.type);
         if (!lootData) return true;
 
         if (lootData.condition && !lootData.condition(x, y)) {

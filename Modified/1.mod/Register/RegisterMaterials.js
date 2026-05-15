@@ -17,6 +17,7 @@ import { LifeQuartzOre } from "../Content/Items/Materials/LifeQuartzOre.js";
 import { AquaiteOre } from "../Content/Items/Materials/AquaiteOre.js";
 import { AquamarineGem } from "../Content/Items/Materials/AquamarineGem.js";
 import { OpalGem } from "../Content/Items/Materials/OpalGem.js";
+import { SandstoneIngot } from "../Content/Items/Materials/SandstoneIngot.js";
 
 const List = [
     IcyShard,
@@ -33,7 +34,8 @@ const List = [
     LifeQuartzOre,
     AquaiteOre,
     AquamarineGem,
-    OpalGem
+    OpalGem,
+    SandstoneIngot,
 ]
 
 export function RegisterMaterials() {

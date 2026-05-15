@@ -35,7 +35,7 @@ export class IncubatedSpider extends ModProjectile {
         proj.velocity = v;
         
         if (Rand.Next(3) === 0) {
-            proj.timeLeft += Rand.NextInt(50, 100);
+            proj.timeLeft += Rand.Next(50, 100);
         } 
     }
 

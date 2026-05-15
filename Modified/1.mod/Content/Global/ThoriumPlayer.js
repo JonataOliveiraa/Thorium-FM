@@ -69,6 +69,7 @@ export class ThoriumPlayer extends ModPlayer {
     static ThumbRingEquipped = false
 
     static SpiritsGraceEquipped =false
+    static SpiritsGraceDieEffect = false
 
     static MoltenScaleEquipped = false
     static MoltenScaleMaxTimeDelay = 15
@@ -402,8 +403,9 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     OnRespawn(player) {
-        if(ThoriumPlayer.SpiritsGraceEquipped) {
+        if(ThoriumPlayer.SpiritsGraceDieEffect) {
             player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
+            ThoriumPlayer.SpiritsGraceDieEffect = false
         }
     }
 

@@ -19,24 +19,24 @@ export class ModLocalization {
         TownNPCMood: {},
         Achievements: {}
     };
-    
+
     static CurrentLanguage = null;
-    
+
     static CultureNames = new Set([
-    'de-DE', 'en-US', 'es-ES',
-    'fr-FR', 'it-IT', 'pl-PL',
-    'pt-BR', 'ru-RU', 'zh-Hans',
-    'ja-JP', 'ko-KR', 'zh-Hant'
+        'de-DE', 'en-US', 'es-ES',
+        'fr-FR', 'it-IT', 'pl-PL',
+        'pt-BR', 'ru-RU', 'zh-Hans',
+        'ja-JP', 'ko-KR', 'zh-Hant'
     ]);
-    
+
     static get ActiveCultureName() {
         return Terraria.Localization.Language.ActiveCulture?.Name ?? 'en-US';
     }
-    
+
     static path(key) {
         return `./Localization/${key ?? this.ActiveCultureName}.json`;
     }
-    
+
     static UpdateTranslations() {
         const activeCultureName = this.ActiveCultureName;
         if (activeCultureName !== this.CurrentLanguage) {
@@ -48,16 +48,16 @@ export class ModLocalization {
             else tl.log(`Failed to load translations: File not found at <${tl.mod.path}/Localization/${activeCultureName}.json>`);
         }
     }
-    
+
     static Translate(key, update = true, returnKey = true) {
         if (update) this.UpdateTranslations();
         return key.split('.').reduce((o, k) => (o && o[k] !== undefined) ? o[k] : (returnKey ? key : ''), this.Translations);
     }
-    
+
     static TryTranslate(key) {
         return this.Translate(key, true, false);
     }
-    
+
     static getTranslationItemName(type) {
         this.UpdateTranslations();
         const item = ModItem.getModItem(type);
@@ -70,7 +70,7 @@ export class ModLocalization {
         item.ModifyDisplayName();
         return this.getTranslation(item.DisplayName);
     }
-    
+
     static getTranslationItemTooltip(type) {
         this.UpdateTranslations();
         const item = ModItem.getModItem(type);
@@ -88,20 +88,23 @@ export class ModLocalization {
         }
         item.TooltipLines = lines;
         item.ModifyTooltipLines();
-        tooltip._text = this.getTranslation(item.TooltipLines.join('\n'));
+
+        if (item.TooltipLines.length > 0) {
+            tooltip._text = this.getTranslation(item.TooltipLines.join('\n'));
+        }
         return tooltip;
     }
-    
+
     static getTranslationAnglerQuest(type) {
         this.UpdateTranslations();
         const item = ModItem.getModItem(type);
         return this.Translations?.AnglerQuest[item.constructor.name] ?? 'AnglerQuest.' + item.constructor.name;
     }
-    
+
     static getTranslationArmorSetBonus(entryName) {
         return this.Translations?.ArmorSetBonus[entryName] ?? 'ArmorSetBonus.' + entryName;
     }
-    
+
     static getTranslationProjectileName(type) {
         this.UpdateTranslations();
         const proj = ModProjectile.getModProjectile(type);
@@ -109,7 +112,7 @@ export class ModLocalization {
         const entryName = proj.constructor.name;
         return this.getTranslation(this.Translations?.ProjectileName[entryName] ?? 'ProjectileName.' + entryName);
     }
-    
+
     static getTranslationNPCName(type) {
         this.UpdateTranslations();
         const npc = ModNPC.getModNPC(type);
@@ -119,7 +122,7 @@ export class ModLocalization {
         npc.ModifyDisplayName();
         return this.getTranslation(npc.DisplayName);
     }
-    
+
     static getTranslationBuffName(type) {
         this.UpdateTranslations();
         const buff = ModBuff.getModBuff(type);
@@ -129,7 +132,7 @@ export class ModLocalization {
         buff.ModifyDisplayName();
         return buff.DisplayName;
     }
-    
+
     static getTranslationBuffDescription(type) {
         this.UpdateTranslations();
         const buff = ModBuff.getModBuff(type);
@@ -139,26 +142,26 @@ export class ModLocalization {
         buff.ModifyDescription();
         return buff.Description;
     }
-    
+
     static ToLocalizedText(text) {
-    	return Terraria.Localization.Language.GetText(text);
+        return Terraria.Localization.Language.GetText(text);
     }
     static GetTextValue(key) {
         return this.ToLocalizedText(text).Value;
     }
-    
+
     static getTranslation(key) {
         return Terraria.Localization.Language.GetText(key);
     }
-    
+
     static exists(key) {
         return Terraria.Localization.Language['bool Exists(string key)'](key);
     }
-    
+
     static empty() {
         return Terraria.Localization.LocalizedText.Empty;
     }
-    
+
     static getLanguageID() {
         return Terraria.Localization.Language.ActiveCulture.CultureInfo.cultureID;
     }

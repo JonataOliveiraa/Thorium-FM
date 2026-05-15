@@ -97,10 +97,10 @@ const List = [
     StormHatchling,
     TheGrandThunderBird,
 
-    ZealousJellyfish,
-    SpittingJellyfish,
-    DistractingJellyfish,
-    QueenJellyfish,
+    // ZealousJellyfish,
+    // SpittingJellyfish,
+    // DistractingJellyfish,
+    // QueenJellyfish,
 
     CoinBagCopper,
     CoinBagSilver,

@@ -44,6 +44,8 @@ import { GrimAstroturf } from "../Content/Global/Tiles/GrimAstroturf.js"
 import { BigTilesNoDrop } from "../Content/Global/Hooks/BigTilesNoDrop.js"
 import { AncientPhylactery } from "../Content/Global/Tiles/AncientPhylactery.js"
 import { MarkedGrave } from "../Content/Global/Tiles/MarkedGrave.js"
+import { TileDustReplace } from "../Content/Global/Hooks/TileDustReplace.js"
+import { ArcaneArmorFabricator } from "../Content/Global/Tiles/ArcaneArmorFabricator.js"
 
 const List = [
   // GlobalHooks
@@ -55,6 +57,7 @@ const List = [
   ToolTipsReplace,
   RemoveItemsRecipes,
   BigTilesNoDrop,
+  TileDustReplace,
   
   // ModPlayer
   LifeShieldPlayer,
@@ -68,6 +71,7 @@ const List = [
   LifeQuartzTile,
   ThoriumOreTile,
   ThoriumAnvil,
+  ArcaneArmorFabricator,
   AquaiteTile,
   LeakyMarineBlock,
   LeakyMossyMarineBlock,

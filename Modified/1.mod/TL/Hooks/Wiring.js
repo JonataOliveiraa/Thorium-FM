@@ -11,7 +11,7 @@ export class WiringHooks {
     // Here you can disable the hooks that won't be used in your mod to avoid unnecessary processing
     static HookList = {
         All: (info) => true,
-        HitWireSingle: (info) => info.hasTiles,
+        HitWireSingle: (info) => info.hasGlobalTiles,
         CheckMech: (info) => info.hasNPCs || info.hasGlobalNPCs
     };
     
