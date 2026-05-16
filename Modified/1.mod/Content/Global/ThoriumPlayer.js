@@ -10,6 +10,7 @@ import { ModBuff } from "../../TL/ModBuff.js";
 import { Rand } from "../../TL/Modules/Rand.js";
 import { ModItem } from "../../TL/ModItem.js";
 import { Bard, Healer, Thrower } from "./ThoriumClasses.js";
+import { ModHealerItem } from "../../Common/ModHealerItem.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
@@ -68,7 +69,7 @@ export class ThoriumPlayer extends ModPlayer {
 
     static ThumbRingEquipped = false
 
-    static SpiritsGraceEquipped =false
+    static SpiritsGraceEquipped = false
     static SpiritsGraceDieEffect = false
 
     static MoltenScaleEquipped = false
@@ -131,6 +132,10 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.class.Bard.symphonicDamage = 0
         ThoriumPlayer.class.Healer.radiantDamage = 0
         ThoriumPlayer.class.Thrower.throwingDamage = 0
+
+        ThoriumPlayer.class.Bard.multiplier = 1.0
+        ThoriumPlayer.class.Healer.multiplier = 1.0
+        ThoriumPlayer.class.Thrower.multiplier = 1.0
 
         ThoriumPlayer.MoltenScaleEquipped = false
 
@@ -230,9 +235,6 @@ export class ThoriumPlayer extends ModPlayer {
         }
     }
 
-    UpdateEquips(player) {
-    }
-
     ModifyMaxStats(player) {
         if (ThoriumPlayer.LifeShieldActive) return this.CumulativeHealth = ThoriumPlayer.LifeShieldMaxExtraLife;
         return this.CumulativeHealth = 0;
@@ -264,8 +266,8 @@ export class ThoriumPlayer extends ModPlayer {
     ModifyShootStats(player, stats) {
         let finalDamageBonus = 0
 
-        if(player.HeldItem.useAmmo == Terraria.ID.AmmoID.Arrow && ThoriumPlayer.ThumbRingEquipped) {
-            finalDamageBonus += stats.damage * 0.05    
+        if (player.HeldItem.useAmmo == Terraria.ID.AmmoID.Arrow && ThoriumPlayer.ThumbRingEquipped) {
+            finalDamageBonus += stats.damage * 0.05
         }
 
         stats.damage += finalDamageBonus
@@ -403,7 +405,7 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     OnRespawn(player) {
-        if(ThoriumPlayer.SpiritsGraceDieEffect) {
+        if (ThoriumPlayer.SpiritsGraceDieEffect) {
             player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
             ThoriumPlayer.SpiritsGraceDieEffect = false
         }

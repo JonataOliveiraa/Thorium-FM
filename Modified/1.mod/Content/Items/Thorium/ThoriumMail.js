@@ -21,7 +21,7 @@ export class ThoriumMail extends ModItem {
         }
     }
 
-    UpdateEquip(player) {
+    UpdateEquip(item, player) {
         player.meleeCrit += 2;
         player.rangedCrit += 2;
         player.magicCrit += 2;

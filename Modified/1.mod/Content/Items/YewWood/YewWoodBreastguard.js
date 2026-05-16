@@ -21,7 +21,7 @@ export class YewWoodBreastguard extends ModItem {
         }
     }
 
-    UpdateEquip(player) {
+    UpdateEquip(item, player) {
         ThoriumPlayer.YewWoodAccumulated++
     }
 

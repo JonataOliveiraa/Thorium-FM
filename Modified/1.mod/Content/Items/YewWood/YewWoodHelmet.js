@@ -42,7 +42,7 @@ export class YewWoodHelmet extends ModItem {
     }
 
 
-    UpdateEquip(player) {
+    UpdateEquip(item, player) {
         ThoriumPlayer.YewWoodAccumulated++
     }
 

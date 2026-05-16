@@ -143,7 +143,8 @@
     "SandstoneGreaves": "Sandstone Greaves",
     "SandstoneScimitar": "Sandstone Scimitar",
     "TheDigester": "The Digester",
-    "ThumbRing": "Thumb Ring"
+    "ThumbRing": "Thumb Ring",
+    "ClericEmblem": "Cleric Emblem"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -218,7 +219,10 @@
     "SandstoneMail": "5% increased ranged damage\n5% increased movement speed",
     "SandstoneGreaves": "5% increased ranged damage\n3% increased movement speed",
     "TheDigester": "Propels a globule of digesting ooze that sticks to enemies\nPlayers that damage afflicted enemies recover 10% of their damage as health\nAfflicted enemies can only grant 20 health per application of ooze",
-    "ThumbRing": "Increases arrow damage by 5%\nArrow critical strikes briefly shadowflame enemies"
+    "ThumbRing": "Increases arrow damage by 5%\nArrow critical strikes briefly shadowflame enemies",
+    "radiantDamage": "{0}% increased radiant damage",
+    "symphonicDamage": "{0}% increased symphonic damage",
+    "throwingDamage": "{0}% increased throwing damage"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -352,6 +356,13 @@
   },
   "DeathMessage": {
     "DeepStaff": "{0} drained their own soul for power, leading to their death"
+  },
+  "ThoriumClasses": {
+    "Tooltips": {
+      "radiantDamage": " test 1 radiant",
+      "symphonicDamage": " test 2 symphonic",
+      "throwingDamage": " test 3 throwing"
+    }
   },
   "Others": {
     "NoMultiplayer": "Multiplayer disabled by {0}"

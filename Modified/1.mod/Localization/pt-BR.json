@@ -143,7 +143,8 @@
     "SandstoneMail": "Armadura de Arenito",
     "SandstoneGreaves": "Grevas de Arenito",
     "SandstoneScimitar": "Cimitarra de Arenito",
-    "ThumbRing": "Anel de Polegar"
+    "ThumbRing": "Anel de Polegar",
+    "ClericEmblem": "Emblema do Clérigo"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -219,7 +220,10 @@
     "SandstoneMail": "5% de aumento no dano à distância\n5% de aumento na velocidade de movimento",
     "SandstoneGreaves": "5% de aumento no dano à distância\n3% de aumento na velocidade de movimento",
     "TheDigester": "Dispara um glóbulo de gosma digestiva que gruda nos inimigos\nJogadores que causarem dano a inimigos afetados recuperam 10% do dano causado como vida\nInimigos afetados só podem conceder até 20 de vida por aplicação da gosma",
-    "ThumbRing": "Aumenta o dano de flechas em 5%\nAcertos críticos com flechas aplicam chama sombria brevemente nos inimigos"
+    "ThumbRing": "Aumenta o dano de flechas em 5%\nAcertos críticos com flechas aplicam chama sombria brevemente nos inimigos",
+    "radiantDamage": "{0}% de aumento nos danos por ataques radiantes",
+    "symphonicDamage": "{0}% de aumento nos danos por ataques sinfônicos",
+    "throwingDamage": "{0}% de aumento nos danos por ataques de arremesso"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -353,6 +357,13 @@
   },
   "DeathMessage": {
     "DeepStaff": "{0} drenou a própria alma por poder, levando à sua morte"
+  },
+  "ThoriumClasses": {
+    "Tooltips": {
+      "radiantDamage": " de dano radiante",
+      "symphonicDamage": " de dano sinfônico",
+      "throwingDamage": " de dano em arremesso"
+    }
   },
   "Others": {
     "NoMultiplayer": "Modo multiplayer desabilitado por {0}"

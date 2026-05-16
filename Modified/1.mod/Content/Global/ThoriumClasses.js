@@ -26,4 +26,6 @@ export class Thrower {
         this.healPower = 0;
         this.description = "Thrower";
     }
+
+    itemNamePrefix = '[i:5160]'
 }

@@ -22,7 +22,7 @@ export class YewWoodLeggings extends ModItem {
         }
     }
 
-    UpdateEquip(player) {
+    UpdateEquip(item, player) {
         ThoriumPlayer.YewWoodAccumulated++
     }
 
