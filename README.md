@@ -6,7 +6,7 @@
 
 This project is **not official**. It is a fan-made port created purely for fun and learning purposes. It has **no commercial purpose whatsoever** and is completely **free to use**.
 
-All original content, concepts, artwork, and design belong to their respective creators. This project is not affiliated with, endorsed by, or associated with the original Thorium Mod team or Re-Logic in any way.
+All original content, concepts, artwork, and design belong to their respective creators. This project is not affiliated with, endorsed by, or associated with the original Thorium Mod team in any way.
 
 ---
 
@@ -15,14 +15,14 @@ All original content, concepts, artwork, and design belong to their respective c
 All credits for the original content go to the creators of the official Thorium Mod:
 
 - **DivermanSam** — Original creator of the Thorium Mod
-  - 🧵 Forum thread: https://forums.terraria.org/index.php?threads/the-thorium-mod.40788/
-  - 🎮 Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2909886416
+  - Forum thread: https://forums.terraria.org/index.php?threads/the-thorium-mod.40788/
+  - Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2909886416
 
 Please support the original mod!
 
 ---
 
-## 👥 Contributors
+## Contributors
 
 ### Fan Made Team
 | Name | Role |
