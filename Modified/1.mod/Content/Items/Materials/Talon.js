@@ -10,6 +10,6 @@ export class Talon extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 0, 10);
-    this.Item.material = true
+    
   }
 }

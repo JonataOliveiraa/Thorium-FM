@@ -10,7 +10,7 @@ export class SandstoneIngot extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 3, 0);
-    this.Item.material = true
+    
     this.Item.rare = Terraria.ID.ItemRarityID.Blue
   }
 }

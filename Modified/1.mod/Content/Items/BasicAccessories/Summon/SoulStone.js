@@ -9,7 +9,7 @@ export class SoulStone extends ModItem {
     
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.material = true;
+        ;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
     }

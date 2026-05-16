@@ -10,6 +10,6 @@ export class Petal extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 0, 25);
-    this.Item.material = true
+    
   }
 }

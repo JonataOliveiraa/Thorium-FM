@@ -11,7 +11,7 @@ export class MagmaLocket extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.material = true;
+        ;
         this.Item.value = Terraria.Item.sellPrice(0, 1, 2, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
     }

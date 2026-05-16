@@ -10,7 +10,7 @@ export class ThoriumBar extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 8, 50);
-    this.Item.material = true
+    
     this.Item.rare = Terraria.ID.ItemRarityID.Blue
   }
 

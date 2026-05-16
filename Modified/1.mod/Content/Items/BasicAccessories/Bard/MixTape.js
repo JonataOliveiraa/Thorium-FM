@@ -10,7 +10,7 @@ export class MixTape extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.material = true;
+        ;
         this.Item.value = Terraria.Item.sellPrice(0, 1, 50, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
     }

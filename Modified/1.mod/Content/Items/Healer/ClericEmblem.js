@@ -14,7 +14,7 @@ export class ClericEmblem extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.material = true;
+        ;
         this.Item.value = Terraria.Item.sellPrice(0, 2, 30, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.LightRed;
     }
