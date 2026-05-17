@@ -7,7 +7,7 @@ const { Main } = Terraria;
 export class BloomingStaff extends ModItem {
     constructor() {
         super();
-        this.Texture = "Items/ArcaneWeapon/" + this.constructor.name;
+        this.Texture = "Items/Blooming/" + this.constructor.name;
     }
 
     SetStaticDefaults() {

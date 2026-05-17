@@ -90,9 +90,9 @@ import { Charm } from '../Content/Items/Mage/Charm.js';
 import { Stun } from '../Content/Items/Mage/Stun.js';
 
 // Blooming
-import { BloomingBlade } from '../Content/Items/ArcaneWeapon/BloomingBlade.js';
-import { BloomingBow } from '../Content/Items/ArcaneWeapon/BloomingBow.js';
-import { BloomingStaff } from '../Content/Items/ArcaneWeapon/BloomingStaff.js';
+import { BloomingBlade } from '../Content/Items/Blooming/BloomingBlade.js';
+import { BloomingBow } from '../Content/Items/Blooming/BloomingBow.js';
+import { BloomingStaff } from '../Content/Items/Blooming/BloomingStaff.js';
 
 // Steel
 import { SteelBlade } from '../Content/Items/Steel/SteelBlade.js';
@@ -164,6 +164,16 @@ import { SandstoneGreaves } from '../Content/Items/Sandstone/SandstoneGreaves.js
 import { SandstoneScimitar } from '../Content/Items/Sandstone/SandstoneScimitar.js'
 import { ModThrowerItem } from '../Common/ModThrowerItem.js';
 import { ClericEmblem } from '../Content/Items/Healer/ClericEmblem.js';
+import { CoralPurifier } from '../Content/Items/Coral/CoralPurifier.js';
+import { CoralCrossbow } from '../Content/Items/Coral/CoralCrossbow.js';
+import { SeahorseWand } from '../Content/Items/Coral/SeahorseWand.js';
+import { CoralPickaxe } from '../Content/Items/Coral/CoralPickaxe.js';
+import { CoralHelmet } from '../Content/Items/Coral/CoralHelmet.js';
+import { CoralChestguard } from '../Content/Items/Coral/CoralChestguard.js';
+import { CoralGreaves } from '../Content/Items/Coral/CoralGreaves.js';
+import { CoralSlasher } from '../Content/Items/Coral/CoralSlasher.js';
+import { CoralHamaxe } from '../Content/Items/Coral/CoralHamaxe.js';
+import { BloomingWand } from '../Content/Items/Blooming/BloomingWand.js';
 
 
 // Register all items
@@ -254,6 +264,7 @@ const List = [
     BloomingBlade,
     BloomingBow,
     BloomingStaff,
+    BloomingWand,
 
     SteelBlade,
     SteelChestplate,
@@ -279,6 +290,16 @@ const List = [
     SandstoneMail,
     SandstoneGreaves,
     SandstoneScimitar,
+
+    CoralHelmet,
+    CoralChestguard,
+    CoralGreaves,
+    CoralSlasher,
+    CoralPurifier,
+    CoralCrossbow,
+    CoralPickaxe,
+    CoralHamaxe,
+    SeahorseWand,
 
     EnchantedCane,
     LifeQuartzClaymore,

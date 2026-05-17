@@ -41,7 +41,7 @@ export class ThunderZap extends ModProjectile {
 
                 for (let i = 0; i < 200; i++) {
                     let npc = Terraria.Main.npc[i];
-                    if (npc && npc.active && !npc.friendly && npc.lifeMax > 5 && npc.whoAmI !== targetToIgnore) {
+                    if (npc && npc.active && !npc.friendly && npc.lifeMax > 5 && npc.whoAmI) {
                         let dx = npc.Center.X - proj.Center.X;
                         let dy = npc.Center.Y - proj.Center.Y;
                         let dist = Math.hypot(dx, dy);

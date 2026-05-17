@@ -5,7 +5,7 @@ import { ModBuff } from "./../../../TL/ModBuff.js";
 export class BloomingBlade extends ModItem {
     constructor() {
         super();
-        this.Texture = 'Items/ArcaneWeapon/' + this.constructor.name;
+        this.Texture = 'Items/Blooming/' + this.constructor.name;
     }
 
     SetDefaults() {

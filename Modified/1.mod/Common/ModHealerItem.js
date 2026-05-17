@@ -15,7 +15,7 @@ export class ModHealerItem extends ModItem {
 
     ModifyWeaponDamage(item, player, damage) {
         const cls = ThoriumPlayer.class.Healer;
-        item.damage = item.OriginalDamage * cls.multiplier
+        item.damage = item.OriginalDamage * cls.multiplier + cls.radiantDamage
 
         return damage
     }

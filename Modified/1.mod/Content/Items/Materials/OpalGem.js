@@ -10,8 +10,6 @@ export class OpalGem extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 10, 10);
-    
-
     this.DefaultToPlaceableTile(Terraria.ID.TileID.AncientGoldBrick, 0)
   }
 }

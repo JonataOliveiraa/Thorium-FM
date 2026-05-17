@@ -81,6 +81,13 @@ import { CyanPhasebladePro } from '../Content/Projectiles/CyanPhasebladePro.js';
 import { LightPinkPhasebladePro } from '../Content/Projectiles/LightPinkPhasebladePro.js';
 import { ShadowflameStaffPro } from '../Content/Projectiles/ShadowflameStaffPro.js';
 import { ShadowWandPro } from '../Content/Projectiles/ShadowWandPro.js';
+import { CoralPurifierPro } from '../Content/Projectiles/CoralPurifierPro.js';
+import { CoralCrossbowPro } from '../Content/Projectiles/CoralCrossbowPro.js';
+import { CoralCrossbowPro2 } from '../Content/Projectiles/CoralCrossbowPro2.js';
+import { SeahorseWandPro } from '../Content/Projectiles/SeahorseWandPro.js';
+import { SeahorseWandPro2 } from '../Content/Projectiles/SeahorseWandPro2.js';
+import { CoralSlasherPro } from '../Content/Projectiles/CoralSlasherPro.js';
+import { BloomingWandPro } from '../Content/Projectiles/BloomingWandPro.js';
 
 const List = [
   IceCubePro,
@@ -118,9 +125,17 @@ const List = [
 
   BloomingBowPro,
   BloomingStaffPro,
+  BloomingWandPro,
 
   ColdFrontPro,
   LootRangPro,
+
+  CoralPurifierPro,
+  CoralCrossbowPro,
+  CoralCrossbowPro2,
+  SeahorseWandPro,
+  SeahorseWandPro2,
+  CoralSlasherPro,
 
   ThoriumBoomerangPro,
   ThoriumBolt,

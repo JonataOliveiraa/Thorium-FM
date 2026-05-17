@@ -10,7 +10,6 @@ export class AquaiteOre extends ModItem {
   SetDefaults() {
     this.Item.maxStack = ModItem.CommonMaxStack;
     this.Item.value = Terraria.Item.buyPrice(0, 0, 4, 10);
-    
     this.Item.rare = Terraria.ID.ItemRarityID.Green
 
     this.DefaultToPlaceableTile(Terraria.ID.TileID.AncientBlueBrick, 0)

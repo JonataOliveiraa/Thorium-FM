@@ -80,6 +80,13 @@ export class ThoriumPlayer extends ModPlayer {
     static SeaTurtlesBulwarkMaxTimeDelay = 60
     static SeaTurtlesBulwarkTimeDelay = 0
 
+    static CoralSetBuff = false
+    static CoralSetCount = 0
+    static CoralSetResetCount = 0
+
+    static CoralSlasherCharge = 0;
+    static CoralSlasherReady = false;
+
     // Sheath
     static _hitThisSwing = false;
     static ShealthTypes = {
@@ -114,6 +121,10 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.IcyArmorBuff = false;
 
         ThoriumPlayer.LifeShieldActive = false;
+        ThoriumPlayer.LifeShieldMaxExtraLife = null
+        ThoriumPlayer.LifeShieldHealValue = 1;
+        // ThoriumPlayer.LifeShieldTimeDelay = 0;
+        // ThoriumPlayer.LifeShieldMaxTimeDelay = 120;
 
         ThoriumPlayer.SheatType = undefined;
         ThoriumPlayer.SheathMaxCooldown = undefined;
@@ -147,6 +158,9 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.ThumbRingEquipped = false
 
         ThoriumPlayer.SpiritsGraceEquipped = false
+
+        ThoriumPlayer.CoralSetBuff = false
+        ThoriumPlayer.CoralSetResetCount = 0
     }
 
     PreUpdate(player) {
@@ -159,7 +173,13 @@ export class ThoriumPlayer extends ModPlayer {
             this.previousItemType = player.HeldItem.type;
         }
 
+        if (ThoriumPlayer.CoralSetBuff && ThoriumPlayer.CoralSetCount > 0) {
+            ThoriumPlayer.LifeShieldActive = true;
+            ThoriumPlayer.LifeShieldMaxExtraLife = ThoriumPlayer.CoralSetCount;
+        }
+
         if (ThoriumPlayer.LifeShieldActive) {
+            if (ThoriumPlayer.LifeShieldMaxExtraLife === null) return;
             Terraria.GameContent.TextureAssets.Heart = LifeShieldPlayer.Heart_Shield_Texture;
             Terraria.GameContent.TextureAssets.Heart2 = LifeShieldPlayer.Heart2_Shield_Texture;
             Terraria.GameContent.TextureAssets.FancyHeart = LifeShieldPlayer.Heart_Shield_Texture;
@@ -210,6 +230,25 @@ export class ThoriumPlayer extends ModPlayer {
 
         if (ThoriumPlayer.SeaTurtlesBulwarkEquipped && ThoriumPlayer.SeaTurtlesBulwarkTimeDelay > 0) {
             ThoriumPlayer.SeaTurtlesBulwarkTimeDelay--
+        }
+
+        const coralSlasherType = ModItem.getTypeByName('CoralSlasher');
+        if (player.HeldItem.type === coralSlasherType && ThoriumPlayer.CoralSlasherCharge >= 3) {
+            const dustIdx = Terraria.Dust.NewDust(
+                player.position, player.width, player.height,
+                33, 0, 0, 0, Color.White, 1.2
+            );
+            const dust = Terraria.Main.dust[dustIdx];
+            if (dust) {
+                dust.noGravity = true;
+                const vel = dust.velocity;
+                vel.X = 0;
+                vel.Y = Rand.Next(-4, -2) * 0.5;
+                dust.velocity = vel;
+            }
+            if (!ThoriumPlayer.CoralSlasherReady && player.itemAnimation <= 1) {
+                ThoriumPlayer.CoralSlasherReady = true;
+            }
         }
 
         if (!ThoriumPlayer.SpringStepsEquipped) return;
@@ -300,6 +339,13 @@ export class ThoriumPlayer extends ModPlayer {
         if (ThoriumPlayer.CrietzInvoke && ThoriumPlayer.IsCriticalDamage(item, damageDone)) {
             ThoriumPlayer.CrietzProjectile(player, npc)
         }
+
+        if (ThoriumPlayer.CoralSetBuff) {
+            if(!ModHealerItem.healerItemsName.has(item.type)) return
+            
+            ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(damageDone / 4));
+            if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+        }
     }
 
     OnHitNPCWithProj(player, npc, projectile) {
@@ -336,6 +382,13 @@ export class ThoriumPlayer extends ModPlayer {
             if (projectile.arrow) {
                 npc.AddBuff(153, Rand.Next(60, 120), false)
             }
+        }
+
+        if (ThoriumPlayer.CoralSetBuff) {
+            if(!ModHealerItem.healerItemsName.has(player.HeldItem.type)) return
+
+            ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(projectile.damage / 4));
+            if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
         }
     }
 
@@ -405,6 +458,11 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     OnRespawn(player) {
+        ThoriumPlayer.CoralSetCount = 0
+
+        ThoriumPlayer.CoralSlasherCharge = 0;
+        ThoriumPlayer.CoralSlasherReady = false;
+
         if (ThoriumPlayer.SpiritsGraceDieEffect) {
             player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
             ThoriumPlayer.SpiritsGraceDieEffect = false

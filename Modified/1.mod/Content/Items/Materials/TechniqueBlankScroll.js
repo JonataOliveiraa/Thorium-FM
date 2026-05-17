@@ -10,7 +10,6 @@ export class TechniqueBlankScroll extends ModItem {
     SetDefaults() {
         this.Item.maxStack = ModItem.CommonMaxStack;
         this.Item.value = Terraria.Item.buyPrice(0, 1, 20, 20);
-        
         this.Item.rare = Terraria.ID.ItemRarityID.Blue
     }
 

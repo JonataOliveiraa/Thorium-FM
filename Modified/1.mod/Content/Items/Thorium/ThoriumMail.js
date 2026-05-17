@@ -9,7 +9,7 @@ export class ThoriumMail extends ModItem {
     }
 
     SetDefaults() {
-        this.Item.defense = 2;
+        this.Item.defense = 6;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 80, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
     }

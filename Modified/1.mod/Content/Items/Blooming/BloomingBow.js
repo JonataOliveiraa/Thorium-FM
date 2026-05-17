@@ -9,7 +9,7 @@ const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawn
 export class BloomingBow extends ModItem {
   constructor() {
     super();
-    this.Texture = 'Items/ArcaneWeapon/' + this.constructor.name;
+    this.Texture = 'Items/Blooming/' + this.constructor.name;
   }
 
   SetDefaults() {

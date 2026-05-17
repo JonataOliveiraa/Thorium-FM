@@ -22,9 +22,9 @@ export class ThoriumMenu extends ModMenu {
                 layout.Multiplayer.Label.Color = Color.Gray;
             }
 
-            layout.Multiplayer.Color = Color.Gray;              // Tint padrão
-            layout.Multiplayer.HighlightColour = Color.Gray;    // Cor de realce (hover)
-            layout.Multiplayer.PressedLabelColour = Color.White; // Cor ao clicar
+            layout.Multiplayer.Color = Color.Gray;
+            layout.Multiplayer.HighlightColour = Color.Gray;
+            layout.Multiplayer.PressedLabelColour = Color.White;
             layout.Multiplayer.LabelHighlightTint = Color.Gray; 
         }
 

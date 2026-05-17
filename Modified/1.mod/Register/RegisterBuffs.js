@@ -14,6 +14,7 @@ import { BubbledBuff } from "../Content/Buffs/BubbledBuff.js";
 // Mounts
 import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
 import { SpiritsGraceBuff } from '../Content/Buffs/SpiritsGraceBuff.js';
+import { SeahorseWandBuff } from '../Content/Buffs/SeahorseWandBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
@@ -26,6 +27,7 @@ const List = [
     CharmedBuff,
     HatclingBuff,
     BubbledBuff,
+    SeahorseWandBuff,
     MagmaCharmBuff,
     SpiritsGraceBuff,
 ]
