@@ -26,6 +26,7 @@ export class CoralSlasher extends ModItem {
         this.SetWeaponValues(11, 5, 0);
         this.SetDefaultWeaponStyle(22, true);
         this.Item.value = Terraria.Item.sellPrice(0, 0, 22, 0);
+        this.Item.useTurn = true
         this.Item.rare = Terraria.ID.ItemRarityID.White;
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
     }
@@ -85,6 +86,13 @@ export class CoralSlasher extends ModItem {
         if (spawnIdx === 0) {
             ThoriumPlayer.CoralSlasherCharge = 0;
             ThoriumPlayer.CoralSlasherReady = false;
+        }
+    }
+
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
         }
     }
 

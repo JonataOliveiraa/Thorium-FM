@@ -1,9 +1,11 @@
-import { Terraria, Modules } from './../../TL/ModImports.js';
+import { Terraria, Microsoft, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
-import { ProjAI } from './../../TL/ProjAI.js';
+import { Effects } from './../../TL/Modules/Effects.js';
 
-const { Color, Vector2, Rectangle } = Modules;
+const { Color, Vector2 } = Modules;
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
+
+const DISSOLVE_COLOR = Color.new(90, 100, 242, 50);
 
 export class DissolvePro extends ModProjectile {
     constructor() {
@@ -13,6 +15,8 @@ export class DissolvePro extends ModProjectile {
 
     SetStaticDefaults() {
         Terraria.Main.projFrames[this.Type] = 1;
+        Terraria.ID.ProjectileID.Sets.TrailCacheLength[this.Type] = 5;
+        Terraria.ID.ProjectileID.Sets.TrailingMode[this.Type] = 0;
     }
 
     SetDefaults() {
@@ -32,51 +36,74 @@ export class DissolvePro extends ModProjectile {
     }
 
     GetAlpha(proj, color) {
-        return Color.new(255, 255, 255, 255 - proj.alpha);
+        return Color.Multiply(DISSOLVE_COLOR, 0.90);
     }
 
     AI(proj) {
-        const ai = new ProjAI(proj);
-        ai[0]++;
+        proj.rotation = Math.atan2(proj.velocity.Y, proj.velocity.X);
 
-        this.FadeInAndOut(proj, ai);
+        for (let i = 0; i < 3; i++) {
+            const offsetX = proj.velocity.X / 3 * i;
+            const offsetY = proj.velocity.Y / 3 * i;
 
-        if (++proj.frameCounter >= 2) {
-            proj.frameCounter = 0;
-            if (++proj.frame >= Terraria.Main.projFrames[this.Type]) {
-                proj.frame = 0;
-            }
-        }
-
-        proj.direction = proj.spriteDirection = (proj.velocity.X > 0) ? 1 : 1;
-
-        proj.rotation = Vector2.ToRotation(proj.velocity);
-
-        if (Math.random() < 1.4) {
-            let dust = Terraria.Dust.NewDustDirect(
-                proj.position,
-                proj.width,
-                proj.height,
-                6,
-                proj.velocity.X * 0.2, proj.velocity.Y * 0.2,
-                100,
-                Color.new(90, 100, 242, 50),
-                2.4
-            );
+            const dustIdx = NewDust(proj.position, proj.width, proj.height, 6, 0, 0, 100, DISSOLVE_COLOR, 0.75);
+            const dust = Terraria.Main.dust[dustIdx];
             if (dust) {
-                dust.noGravity = true; // ← ADICIONE
+                const pos = dust.position;
+                pos.X = proj.Center.X - offsetX;
+                pos.Y = proj.Center.Y - offsetY;
+                dust.position = pos;
+                const vel = dust.velocity;
+                vel.X = 0;
+                vel.Y = 0;
+                dust.velocity = vel;
+                dust.noGravity = true;
             }
-        }
-    }
-
-    FadeInAndOut(proj, ai) {
-        if (proj.timeLeft > 80) {
-            proj.alpha -= 25;
-            if (proj.alpha < 0) proj.alpha = 0;
         }
     }
 
     OnHitNPC(proj, npc) {
         npc.AddBuff(69, 120, false);
+    }
+
+    OnTileCollide(proj, oldVelocity) {
+        Effects.PlaySound(Terraria.ID.SoundID.Item10, proj.position.X, proj.position.Y);
+        return true;
+    }
+
+    OnKill(proj) {
+        for (let i = 0; i < 10; i++) {
+            const dustIdx = NewDust(
+                proj.position, proj.width, proj.height,
+                6,
+                proj.velocity.X * 0.25,
+                proj.velocity.Y * 0.25,
+                150, DISSOLVE_COLOR, 1.25
+            );
+            const dust = Terraria.Main.dust[dustIdx];
+            if (dust) dust.noGravity = true;
+        }
+    }
+
+    PreDraw(proj) {
+        const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
+        const origin = Vector2.new(texture.Width * 0.5, proj.height * 0.5);
+        const screenPos = Terraria.Main.screenPosition;
+
+        for (let k = 0; k < proj.oldPos.Length; k++) {
+            const pos = proj.oldPos.get_Item(k);
+            const drawPos = Vector2.Add(
+                Vector2.Add(Vector2.Subtract(pos, screenPos), origin),
+                Vector2.new(0, proj.gfxOffY)
+            );
+
+            Terraria.Main['void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)'](
+                texture, drawPos, null,
+                Color.Multiply(Color.new(90, 100, 242, 200), 0.2),
+                proj.rotation, origin, 1.0,
+                Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0
+            );
+        }
+        return true;
     }
 }

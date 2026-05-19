@@ -18,6 +18,7 @@ import { AquaiteOre } from "../Content/Items/Materials/AquaiteOre.js";
 import { AquamarineGem } from "../Content/Items/Materials/AquamarineGem.js";
 import { OpalGem } from "../Content/Items/Materials/OpalGem.js";
 import { SandstoneIngot } from "../Content/Items/Materials/SandstoneIngot.js";
+import { PurifiedShards } from "../Content/Items/Materials/PurifiedShards.js";
 
 const List = [
     IcyShard,
@@ -28,6 +29,7 @@ const List = [
     YewWood,
     Blood,
     UnholyShards,
+    PurifiedShards,
     Talon,
 
     ThoriumOre,

@@ -20,4 +20,11 @@ export class SoulStone extends ModItem {
         player.minionDamage += 0.10;
         player.statLifeMax2 -= 20;
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(ModItem.getTypeByName('ManaBauble'), 1)
+            .AddIngredient(ModItem.getTypeByName('Blood'), 5)
+            .AddTile(Terraria.ID.TileID.DemonAltar)
+    }
 }

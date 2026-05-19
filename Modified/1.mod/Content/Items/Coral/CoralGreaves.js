@@ -26,4 +26,11 @@ export class CoralGreaves extends ModItem {
       .AddTile(Terraria.ID.TileID.Anvils)
       .Register();
   }
+
+  ModifyTooltipLines() {
+    for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+      const line = this.TooltipLines[i];
+      this.TooltipLines[i] = line
+    }
+  }
 }

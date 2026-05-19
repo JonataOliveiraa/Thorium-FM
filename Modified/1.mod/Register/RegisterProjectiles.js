@@ -88,6 +88,8 @@ import { SeahorseWandPro } from '../Content/Projectiles/SeahorseWandPro.js';
 import { SeahorseWandPro2 } from '../Content/Projectiles/SeahorseWandPro2.js';
 import { CoralSlasherPro } from '../Content/Projectiles/CoralSlasherPro.js';
 import { BloomingWandPro } from '../Content/Projectiles/BloomingWandPro.js';
+import { PiercePro } from '../Content/Projectiles/PiercePro.js';
+import { PalmCrossPro } from '../Content/Projectiles/PalmCrossPro.js';
 
 const List = [
   IceCubePro,
@@ -119,9 +121,11 @@ const List = [
   SiphonPro,
   CharmPro,
   StunPro,
+  PiercePro,
   MagickStaffPro,
   AquamarineStaffPro,
   TheDigesterPro,
+  PalmCrossPro,
 
   BloomingBowPro,
   BloomingStaffPro,

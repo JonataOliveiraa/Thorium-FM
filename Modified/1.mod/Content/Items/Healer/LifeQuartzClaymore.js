@@ -1,21 +1,20 @@
+import { ModHealerItem } from "../../../Common/ModHealerItem.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from '../../../TL/ModItem.js';
 import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
+import { ThoriumPlayer } from "../../Global/ThoriumPlayer.js";
 
-export class LifeQuartzClaymore extends ModItem {
+export class LifeQuartzClaymore extends ModHealerItem {
     constructor() {
         super();
-        this.Texture = 'Items/Melee/' + this.constructor.name;
+        this.Texture = 'Items/Healer/' + this.constructor.name;
+        this.hitNPC = false
     }
 
     SetDefaults() {
-        this.Item.melee = true;
-
-        // (damage, knockback, crit);
         this.SetWeaponValues(12, 6, 4);
-        // (useTime, autoReuse);
         this.SetDefaultWeaponStyle(30, true);
 
         this.Item.value = Terraria.Item.sellPrice(0, 0, 31, 22);
@@ -23,11 +22,18 @@ export class LifeQuartzClaymore extends ModItem {
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
     }
 
-    OnHitNPC(item, player) {
-        player.Heal(1)
+    UseItem(item, player) {
+        if (player.itemAnimation === player.itemAnimationMax) this.hitNPC = false;
+        return true;
+    }
 
-        if(Rand.Next(1, 3) === 2) {
-            Effects.NewDust(player.Center, 2, 2, Terraria.ID.DustID.LifeCrystal, 1, 1, 155, Color.White, 1)
+    OnHitNPC(item, player) {
+        if (this.hitNPC) return;
+        this.hitNPC = true;
+        ThoriumPlayer.HealHPInHealerClass(player, 1);
+
+        if (Rand.Next(1, 3) === 2) {
+            Effects.NewDust(player.Center, 2, 2, Terraria.ID.DustID.LifeCrystal, 1, 1, 155, Color.White, 1);
         }
     }
 

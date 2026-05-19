@@ -23,7 +23,7 @@ export class PlayerHooks {
     // Here you can disable the hooks that won't be used in your mod to avoid unnecessary processing
     static HookList = {
         All: (info) => true,
-        Spawn: (info) => false,
+        Spawn: (info) => true,
         TileInteractionsCheck: (info) => info.hasGlobalTiles,
         TileInteractionsCheckLongDistance: (info) => info.hasGlobalTiles,
         TileInteractionsUse: (info) => info.hasGlobalTiles,

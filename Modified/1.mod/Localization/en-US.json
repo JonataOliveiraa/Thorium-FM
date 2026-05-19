@@ -144,7 +144,26 @@
     "SandstoneScimitar": "Sandstone Scimitar",
     "TheDigester": "The Digester",
     "ThumbRing": "Thumb Ring",
-    "ClericEmblem": "Cleric Emblem"
+    "ClericEmblem": "Cleric Emblem",
+    "CoralChestguard": "Protetor Peitoral de Coral",
+    "CoralCrossbow": "Balestra de Coral",
+    "CoralGreaves": "Coral Greaves",
+    "CoralHamaxe": "Coral Hamaxe",
+    "CoralHelmet": "Coral Helmet",
+    "CoralPickaxe": "Coral Pickaxe",
+    "CoralPurifier": "Coral Purifier",
+    "CoralSlasher": "Coral Slasher",
+    "SeahorseWand": "Seahorse Wand",
+    "BloomingCrown": "Blooming Crown",
+    "BloomingLeggings": "Blooming Leggings",
+    "BloomingShield": "Blooming Shield",
+    "BloomingTabard": "Blooming Tabard",
+    "BloomingWand": "Blooming Wand",
+    "PurifiedShards": "Purified Shards",
+    "EbonHood": "Ebon Hood",
+    "EbonCloak": "Ebon Cloak",
+    "EbonLeggings": "Ebon Leggings",
+    "PalmCross": "Palm Cross"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -222,7 +241,25 @@
     "ThumbRing": "Increases arrow damage by 5%\nArrow critical strikes briefly shadowflame enemies",
     "radiantDamage": "{0}% increased radiant damage",
     "symphonicDamage": "{0}% increased symphonic damage",
-    "throwingDamage": "{0}% increased throwing damage"
+    "throwingDamage": "{0}% increased throwing damage",
+    "CoralHelmet": "10% reduction in non-radiant damage\nIncreases your breath by 50%",
+    "CoralChestguard": "10% reduction in non-radiant damage\nIncreases your breath by 50%",
+    "CoralGreaves": "10% reduction in non-radiant damage\nIncreases your breath by 50%",
+    "CoralSlasher": "Releases a sharp coral after 3 successful hits",
+    "CoralCrossbow": "Turns wooden arrows into coral arrows that shatter downward",
+    "SeahorseWand": "Summons a seahorse that spits a burst of bubbles",
+    "BloomingBlade": "Damaging enemies grants a brief life recovery",
+    "BloomingBow": "Turns wooden arrows into flower arrows\nDamaging enemies grants a brief life recovery",
+    "BloomingStaff": "Fires a volley of petals\nDamaging enemies grants a brief life recovery",
+    "BloomingWand": "Releases a large wave of leaves",
+    "BloomingCrown": "10% reduction in non-radiant damage\n5% increase in radiant damage\nModerate increase in mana regeneration\nHealing spells will heal 1 additional life point",
+    "BloomingTabard": "10% reduction in non-radiant damage\n5% increase in radiant damage\nModerate increase in mana regeneration\nHealing spells will heal 1 additional life point",
+    "BloomingLeggings": "10% reduction in non-radiant damage\n5% increase in radiant damage\nModerate increase in mana regeneration\nHealing spells will heal 1 additional life point",
+    "PurifiedShards": "'Cleansed of all evil'",
+    "EbonHood": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 10",
+    "EbonCloak": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 5\nHealing spells will heal 1 additional life point",
+    "EbonLeggings": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 5",
+    "PalmCross": "Charges a burst of holy light in front of you\nCharging the burst increases its size and damage greatly\nBurns and deals double damage against most undead enemies"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -231,7 +268,10 @@
     "Steel": "Reduces all damage received by 8%",
     "Thorium": "10% increased damage from all sources",
     "YewWood": "Every 6th strikes, your next ranged attack will mini-crit for 150% damage",
-    "Sandstone": "Desert winds have granted you a sandy double jump"
+    "Sandstone": "Desert winds have granted you a sandy double jump",
+    "Coral": "Increases radiant damage by 1\nRadiant damage accumulates up to 20 life shield",
+    "Blooming": "Your healing spells increase life recovery",
+    "Ebon": "Corrupts your radiant powers, causing them to take on dark forms and deal additional effects"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Sprout Loyalty",
@@ -241,7 +281,9 @@
     "LavaHugBuff": "Lava's Embrace",
     "EnchantedCaneBuff": "Enchanted Barrier",
     "CharmedBuff": "Charmed",
-    "SpiritsGraceBuff": "Spirit's Grace"
+    "SpiritsGraceBuff": "Spirit's Grace",
+    "OvergrowthBuff": "Overgrowth",
+    "SingedBuff": "Singed"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
@@ -251,7 +293,9 @@
     "LavaHugBuff": "Increases life and mana regeneration every 2 seconds",
     "EnchantedCaneBuff": "You are protected by a magical barrier",
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
-    "SpiritsGraceBuff": "Increased invulnerability time and movement speed"
+    "SpiritsGraceBuff": "Increased invulnerability time and movement speed",
+    "OvergrowthBuff": "Your life recovery and life recovery rate have been increased",
+    "SingedBuff": "Just received a nasty burn"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
@@ -259,6 +303,7 @@
   "NPCName": {
     "Blacksmith": "Blacksmith",
     "DesertAcolyte": "Desert Acolyte",
+    "ConfusedZombie": "Confused Zombie",
     "ArmyAnt": "Army Ant",
     "FireAnt": "Fire Ant",
     "StrangeBulb": "Strange Bulb",
@@ -284,6 +329,7 @@
   "Bestiary": {
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey",
     "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady",
+    "ConfusedZombie": "The Confused Zombie is a chemist turned zombie. While he's managed to keep most of his right mind, he's still a little weird",
     "DesertAcolyte": "The Desert Acolyte is quite nervous, but will sell all manner of equipment to those interested in throwing stuff at monsters",
     "FireAnt": "It emerged straight from hell, like a burning ant seeking warmth",
     "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
@@ -312,7 +358,11 @@
     "DesertAcolyte_1": "We certainly have some strange people around this town, don't we...?",
     "DesertAcolyte_2": "You didn't see any giant bird shadows while you were out in the desert, did you?",
     "DesertAcolyte_3": "I had originally stopped just to refill my canteen, but you seem like someone who can deal with a real threat!",
-    "DesertAcolyte_4": "Have you ever heard tale of the Thunder Birds? Legend says they had long protected our world from cataclysmic threats, before a disagreement between them and three individuals led to their disappearance..."
+    "DesertAcolyte_4": "Have you ever heard tale of the Thunder Birds? Legend says they had long protected our world from cataclysmic threats, before a disagreement between them and three individuals led to their disappearance...",
+    "ConfusedZombie_1": "I can't remember much about my past life... Chemicals and the like were my passion I think; I only get fragments and pieces of the truth. It's saddening at times...",
+    "ConfusedZombie_2": "Most people don't have the stomach to handle the things I sell. The trick is to not have a stomach at all!",
+    "ConfusedZombie_3": "I gotta thank you for letting me stick around. Only coming out at night is pretty boring...",
+    "ConfusedZombie_4": "Why am I not like the others...? Oh, I'm sorry, did you need something?"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -348,6 +398,23 @@
       "NoHome": "I need a place where the winds may pass freely.",
       "FarFromHome": "Too far... I can no longer feel the desert's presence.",
       "SpecialMoodText": "The winds are restless tonight... something stirs beneath the sands."
+    },
+    "ConfusedZombie": {
+      "Content": "I'm nice and lively, thanks.",
+      "DislikeBiome": "{0} just... doesn't feel right. My joints ache here.",
+      "DislikeCrowded": "My neighbors are becoming quite rude to me simply because of what I am, this is so sad...",
+      "DislikeNPC": "{0} keeps giving me really weird looks.",
+      "HateBiome": "Do I like it here... Do I fear for my life... Do I lik- Nope. Nope. Out.",
+      "HateCrowded": "So many people here! A full buffet... O-oh, you didn't hear that, did you?",
+      "HateNPC": "I bet {0} has a big juicy brain... Not that I would wanna... uh... Did you need something?",
+      "LikeBiome": "{0}... at least it's bearable around here.",
+      "LikeNPC": "{0} always helps open doors for me, they're so considerate!",
+      "LoveBiome": "The forest just... makes me happy, like I belong here.",
+      "LoveNPC": "I feel an odd, but good connection with {0}. Dunno why, I just feel it.",
+      "LoveSpace": "Love me some empty space, it lets me not worry about others when I'm making my repellents.",
+      "NoHome": "Ah, I seemed to have forgotten where my home was. Could you help me out with that?",
+      "FarFromHome": "Walk ten paces, check around, if I ain't home, then... how did that one go...",
+      "SpecialMoodText": "Why am I not like the others? Oh, I'm sorry, did you need something?"
     }
   },
   "SinalizationChatMessage": {

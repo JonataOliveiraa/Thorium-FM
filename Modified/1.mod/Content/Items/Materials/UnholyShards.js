@@ -9,7 +9,7 @@ export class UnholyShards extends ModItem {
 
     SetDefaults() {
         this.Item.maxStack = ModItem.CommonMaxStack;
-        this.Item.value = Terraria.Item.buyPrice(0, 0, 2, 11);
+        this.Item.value = Terraria.Item.buyPrice(0, 0, 1, 10);
         this.Item.rare = Terraria.ID.ItemRarityID.Blue
     }
 

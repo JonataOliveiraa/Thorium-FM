@@ -52,7 +52,10 @@ export class ThoriumPlayer extends ModPlayer {
     static allowJump = true;
 
     // Armor, Accessories, etc.
-    static LifeRecoveryBuffDelayTime = 0;
+    static LifeRecoveryDelayTime = 0;
+    static LifeRecoveryDelayMaxTime = 100;
+    static LifeRecoveryExtraValue = 0;
+
     static LavaHugBuffDelayTime = 0;
     static LivingWoodAcornArmorBuff = false;
 
@@ -60,12 +63,22 @@ export class ThoriumPlayer extends ModPlayer {
     static IncubatedEggLimit = 4
     static InccubatedEggCount = 0
 
+    static RadiantCorruptionActive = false
+
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
     static YewWoodSetBonus = false
     static YewWoodAccumulated = 0
     static YewWoodHitsCount = 0
+
+    static NoviceClericSetBonus = false
+    static NoviceClericCrossCount = 0
+    static NoviceClericCrossDelay = 0
+    static NoviceClericCrossMaxDelay = 0
+    static NoviceCleric
+
+    static BloomingSetBonus = false
 
     static ThumbRingEquipped = false
 
@@ -126,6 +139,9 @@ export class ThoriumPlayer extends ModPlayer {
         // ThoriumPlayer.LifeShieldTimeDelay = 0;
         // ThoriumPlayer.LifeShieldMaxTimeDelay = 120;
 
+        ThoriumPlayer.LifeRecoveryDelayMaxTime = 100;
+        ThoriumPlayer.LifeRecoveryExtraValue = 0;
+
         ThoriumPlayer.SheatType = undefined;
         ThoriumPlayer.SheathMaxCooldown = undefined;
         ThoriumPlayer.SheatDamageMultiplier = 0;
@@ -140,15 +156,20 @@ export class ThoriumPlayer extends ModPlayer {
 
         ThoriumPlayer.CrietzEquipped = false
 
+        ThoriumPlayer.NoviceClericSetBonus= false
+
         ThoriumPlayer.class.Bard.symphonicDamage = 0
         ThoriumPlayer.class.Healer.radiantDamage = 0
         ThoriumPlayer.class.Thrower.throwingDamage = 0
 
         ThoriumPlayer.class.Bard.multiplier = 1.0
         ThoriumPlayer.class.Healer.multiplier = 1.0
+        ThoriumPlayer.class.Healer.healPowerMultiply = 1.0
         ThoriumPlayer.class.Thrower.multiplier = 1.0
 
         ThoriumPlayer.MoltenScaleEquipped = false
+
+        ThoriumPlayer.RadiantCorruptionActive = false
 
         ThoriumPlayer.SeaTurtlesBulwarkEquipped = false
 
@@ -352,8 +373,12 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.EnterCombat();
 
         const isRangedWeapon = player.HeldItem.ranged
-
         if (isRangedWeapon) ThoriumPlayer.YewWoodHitsCount++
+
+        const isHealerWeapon = ModHealerItem.healerItemsName.has(player.HeldItem.type)
+        if(isHealerWeapon) {
+            if(ThoriumPlayer.BloomingSetBonus) player.AddBuff(ModBuff.getTypeByName('OvergrowthBuff'), 120, false)
+        }
 
         if (ThoriumPlayer.IncubatedEggBuff) {
             if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
@@ -457,6 +482,12 @@ export class ThoriumPlayer extends ModPlayer {
         return 1.0;
     }
 
+    ModifyManaCost(player, item, mana) {
+        if(ThoriumPlayer.NoviceClericSetBonus) {
+
+        }
+    }
+
     OnRespawn(player) {
         ThoriumPlayer.CoralSetCount = 0
 
@@ -547,6 +578,11 @@ export class ThoriumPlayer extends ModPlayer {
 
         if (copper > 0)
             NewItem(x, y, w, h, COPPER, copper, false, 0, false);
+    }
+
+    static HealHPInHealerClass(player, value) {
+        if(value <= 0) return 0;
+        return player.Heal(Math.max(1, value * this.class.Healer.healPowerMultiply + this.class.Healer.healPowerExtraValue))
     }
 
     static EnterCombat() {

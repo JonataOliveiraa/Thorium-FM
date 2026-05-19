@@ -143,7 +143,7 @@ import { MoltenScale } from '../Content/Items/BasicAccessories/Shields/MoltenSca
 import { TheDigester } from '../Content/Items/Healer/TheDigester.js';
 import { ModHealerItem } from '../Common/ModHealerItem.js';
 import { ModBardItem } from '../Common/ModBardItem.js';
-import { LifeQuartzClaymore } from '../Content/Items/Melee/LifeQuartzClaymore.js';
+import { LifeQuartzClaymore } from '../Content/Items/Healer/LifeQuartzClaymore.js';
 import { BandofReplenishment } from '../Content/Items/BasicAccessories/BandofReplenishment.js';
 import { ShadowflameStaff } from '../Content/Items/YewWood/ShadowflameStaff.js';
 import { ShadowWand } from '../Content/Items/YewWood/ShadowWand.js';
@@ -174,6 +174,15 @@ import { CoralGreaves } from '../Content/Items/Coral/CoralGreaves.js';
 import { CoralSlasher } from '../Content/Items/Coral/CoralSlasher.js';
 import { CoralHamaxe } from '../Content/Items/Coral/CoralHamaxe.js';
 import { BloomingWand } from '../Content/Items/Blooming/BloomingWand.js';
+import { BloomingShield } from '../Content/Items/Blooming/BloomingShield.js';
+import { BloomingCrown } from '../Content/Items/Blooming/BloomingCrown.js';
+import { BloomingTabard } from '../Content/Items/Blooming/BloomingTabard.js';
+import { BloomingLeggings } from '../Content/Items/Blooming/BloomingLeggings.js';
+import { Pierce } from '../Content/Items/Mage/Pierce.js';
+import { EbonCloak } from '../Content/Items/Ebon/EbonCloak.js';
+import { EbonHood } from '../Content/Items/Ebon/EbonHood.js';
+import { EbonLeggings } from '../Content/Items/Ebon/EbonLeggings.js';
+import { PalmCross } from '../Content/Items/Healer/PalmCross.js';
 
 
 // Register all items
@@ -239,6 +248,7 @@ const List = [
 
     WebGun,
     BrambleShot,
+    PalmCross,
 
     PrehistoricAmberStaff,
 
@@ -260,11 +270,19 @@ const List = [
     Siphon,
     Charm,
     Stun,
+    Pierce,
 
+    BloomingCrown,
+    BloomingTabard,
+    BloomingLeggings,
     BloomingBlade,
     BloomingBow,
     BloomingStaff,
     BloomingWand,
+    BloomingShield,
+    EbonHood,
+    EbonCloak,
+    EbonLeggings,
 
     SteelBlade,
     SteelChestplate,

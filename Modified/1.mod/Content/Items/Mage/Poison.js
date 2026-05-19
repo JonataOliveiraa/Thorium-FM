@@ -23,4 +23,12 @@ export class Poison extends ModItem {
         this.Item.value = Terraria.Item.sellPrice(0, 0, 70, 3);
         this.Item.UseSound = Terraria.ID.SoundID.Item43;
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.Emerald, 1)
+            .AddIngredient(Terraria.ID.ItemID.FallenStar, 1)
+            .AddTile(Terraria.ID.TileID.WorkBenches)
+            .Register()
+    }
 }

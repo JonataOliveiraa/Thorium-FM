@@ -1,5 +1,6 @@
 import { Color } from '../../TL/Modules/Color.js';
 import { Rand } from '../../TL/Modules/Rand.js';
+import { ThoriumPlayer } from '../Global/ThoriumPlayer.js';
 import { Terraria, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 import { CoralCrossbowPro } from './CoralCrossbowPro.js';
@@ -36,7 +37,7 @@ export class CoralPurifierPro extends ModProjectile {
 
     OnHitNPC(proj, npc) {
         const player = Terraria.Main.player[proj.owner];
-        if (Math.random() > 0.9) player.Heal(1);
+        if (Math.random() > 0.9) ThoriumPlayer.HealHPInHealerClass(player, 1)
     }
 
     OnKill(proj, timeLeft) {

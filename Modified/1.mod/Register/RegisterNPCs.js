@@ -56,10 +56,12 @@ import { CoinBagSilver } from '../Content/NPCs/Cavern/CoinBagSilver.js';
 import { CoinBagGold } from '../Content/NPCs/Cavern/CoinBagGold.js';
 import { BatOutaHell } from '../Content/NPCs/Cavern/BatOutaHell.js';
 import { FlamekinCaster } from '../Content/NPCs/Cavern/FlamekinCaster.js';
+import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
 
 const List = [
     Blacksmith,
     DesertAcolyte,
+    ConfusedZombie,
 
     Biter,
 

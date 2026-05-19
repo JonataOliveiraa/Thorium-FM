@@ -28,7 +28,7 @@ export class BloomingStaff extends ModItem {
         
         this.Item.reuseDelay = 20;
         this.Item.knockBack = 4;
-        this.Item.rare = 2;
+        this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
         this.Item.UseSound = Terraria.ID.SoundID.Item20;
         this.Item.autoReuse = true;
@@ -43,6 +43,13 @@ export class BloomingStaff extends ModItem {
 
         velocity.X = speed * scale * Math.sin(angle);
         velocity.Y = speed * scale * Math.cos(angle);
+    }
+
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
     }
 
     AddRecipes() {

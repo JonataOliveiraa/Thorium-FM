@@ -6,6 +6,7 @@ import { Color } from "../../../TL/Modules/Color.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
 import { ThoriumPlayer } from "../ThoriumPlayer.js";
 import { ElementalDecayBuff } from "../../Buffs/ElementalDecayBuff.js";
+import { SingedBuff } from "../../Buffs/SingedBuff.js";
 
 const { NPCID } = Terraria.ID;
 const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
@@ -29,11 +30,13 @@ const BlackList = new Set([
 let StunnedBuffType = -1;
 let CharmedBuffType = -1;
 let ElementalDecayBuffType = -1;
+let SingedBuffType = -1
 
 function initBuffTypes() {
     StunnedBuffType = ModBuff.getTypeByName("StunnedBuff");
     CharmedBuffType = ModBuff.getTypeByName("CharmedBuff");
     ElementalDecayBuffType = ModBuff.getTypeByName("ElementalDecayBuff");
+    SingedBuffType = ModBuff.getTypeByName("SingedBuff")
 }
 
 export class UpdateNPCBuff extends GlobalNPC {
@@ -48,9 +51,10 @@ export class UpdateNPCBuff extends GlobalNPC {
 
         const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 200 && !npc.boss;
 
-        const stunnedIdx      = npc[FindBuffIndex](StunnedBuffType);
-        const charmedIdx      = npc[FindBuffIndex](CharmedBuffType);
-        const elementalIdx    = npc[FindBuffIndex](ElementalDecayBuffType);
+        const stunnedIdx = npc[FindBuffIndex](StunnedBuffType);
+        const charmedIdx = npc[FindBuffIndex](CharmedBuffType);
+        const elementalIdx = npc[FindBuffIndex](ElementalDecayBuffType);
+        const singedIdx = npc[FindBuffIndex](SingedBuffType)
 
         if (stunnedIdx > -1 && isSmallNonBoss) {
             npc.velocity = Vector2.Zero;
@@ -100,6 +104,35 @@ export class UpdateNPCBuff extends GlobalNPC {
                         dust.noGravity = true;
                         if (Rand.NextChance(0.25)) dust.scale *= 0.6;
                     }
+                }
+            }
+        }
+
+        if (singedIdx > -1) {
+            npc.localAI[1]++;
+
+            if (Rand.NextChance(0.25)) {
+                if (npc.localAI[1] >= 60) {
+                    npc.localAI[1] = 0;
+                    npc[StrikeNPCNoInteraction](
+                        SingedBuff.Damage,
+                        0,
+                        npc.direction ?? 0.7,
+                        false, false, false
+                    );
+                }
+                
+                const sparkIdx = NewDust(
+                    npc.position, npc.width, npc.height,
+                    66,
+                    (Math.random() - 0.5) * 2,
+                    (Math.random() - 0.5) * 2,
+                    150, Color.LightGoldenrodYellow, 0.4
+                );
+                const spark = Terraria.Main.dust[sparkIdx];
+                if (spark) {
+                    spark.noGravity = true;
+                    spark.fadeIn = 0.6;
                 }
             }
         }

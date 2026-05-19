@@ -1,24 +1,22 @@
 import { ModBuff } from '../../TL/ModBuff.js';
-import { Terraria, Modules, Microsoft } from './../../TL/ModImports.js';
+import { Terraria, Microsoft, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
-import { ProjAI } from './../../TL/ProjAI.js';
+import { Effects } from './../../TL/Modules/Effects.js';
 
 const { Color, Vector2 } = Modules;
+const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
+
+const STUN_COLOR = Color.LightCyan;
 
 export class StunPro extends ModProjectile {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
-
-            this.trailAlpha = 0.6;
-        this.trailScaleDecay = 0.15;
-        this.trailColorStart = Color.LightCyan
-        this.trailColorEnd = Color.new(65, 86, 29, 0);     
     }
 
     SetStaticDefaults() {
         Terraria.Main.projFrames[this.Type] = 1;
-        Terraria.ID.ProjectileID.Sets.TrailCacheLength[this.Type] = 15;
+        Terraria.ID.ProjectileID.Sets.TrailCacheLength[this.Type] = 5;
         Terraria.ID.ProjectileID.Sets.TrailingMode[this.Type] = 0;
     }
 
@@ -39,29 +37,29 @@ export class StunPro extends ModProjectile {
     }
 
     GetAlpha(proj, color) {
-        return Color.new(255, 255, 255, 255 - proj.alpha);
+        return Color.Multiply(STUN_COLOR, 0.75);
     }
 
     AI(proj) {
-        const ai = new ProjAI(proj);
-        ai[0]++;
-        this.FadeInAndOut(proj, ai);
+        proj.rotation = Math.atan2(proj.velocity.Y, proj.velocity.X) + Math.PI / 2;
 
-        if (++proj.frameCounter >= 2) {
-            proj.frameCounter = 0;
-            if (++proj.frame >= Terraria.Main.projFrames[this.Type]) {
-                proj.frame = 0;
+        for (let i = 0; i < 3; i++) {
+            const offsetX = proj.velocity.X / 3 * i;
+            const offsetY = proj.velocity.Y / 3 * i;
+
+            const dustIdx = NewDust(proj.position, proj.width, proj.height, 91, 0, 0, 100, STUN_COLOR, 0.75);
+            const dust = Terraria.Main.dust[dustIdx];
+            if (dust) {
+                const pos = dust.position;
+                pos.X = proj.Center.X - offsetX;
+                pos.Y = proj.Center.Y - offsetY;
+                dust.position = pos;
+                const vel = dust.velocity;
+                vel.X = 0;
+                vel.Y = 0;
+                dust.velocity = vel;
+                dust.noGravity = true;
             }
-        }
-
-        proj.direction = proj.spriteDirection = proj.velocity.X > 0 ? 1 : -1;
-        proj.rotation = Vector2.ToRotation(proj.velocity) + Math.PI / 2;;
-    }
-
-    FadeInAndOut(proj, ai) {
-        if (proj.timeLeft > 80) {
-            proj.alpha -= 25;
-            if (proj.alpha < 0) proj.alpha = 0;
         }
     }
 
@@ -71,29 +69,42 @@ export class StunPro extends ModProjectile {
         npc.AddBuff(ModBuff.getTypeByName('StunnedBuff'), 60, true);
     }
 
+    OnTileCollide(proj, oldVelocity) {
+        Effects.PlaySound(Terraria.ID.SoundID.Item10, proj.position.X, proj.position.Y);
+        return true;
+    }
+
+    OnKill(proj) {
+        for (let i = 0; i < 10; i++) {
+            const dustIdx = NewDust(
+                proj.position, proj.width, proj.height,
+                91,
+                proj.velocity.X * 0.25,
+                proj.velocity.Y * 0.25,
+                150, STUN_COLOR, 1.25
+            );
+            const dust = Terraria.Main.dust[dustIdx];
+            if (dust) dust.noGravity = true;
+        }
+    }
+
     PreDraw(proj) {
         const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
-        const origin = Vector2.new(texture.Width / 2, texture.Height / 2);
-        const effects = Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
+        const origin = Vector2.new(texture.Width * 0.5, proj.height * 0.5);
         const screenPos = Terraria.Main.screenPosition;
-        const halfSize = Vector2.Divide(Vector2.new(proj.width, proj.height), 2);
-        const gfxOffset = Vector2.Multiply(Vector2.UnitY, proj.gfxOffY);
 
-        for (let k = proj.oldPos.Length - 1; k > 0; k--) {
+        for (let k = 0; k < proj.oldPos.Length; k++) {
             const pos = proj.oldPos.get_Item(k);
-            if (pos.X === 0 && pos.Y === 0) continue;
-
-            const drawPos = Vector2.Subtract(
-                Vector2.Add(Vector2.Add(pos, halfSize), gfxOffset),
-                screenPos
+            const drawPos = Vector2.Add(
+                Vector2.Add(Vector2.Subtract(pos, screenPos), origin),
+                Vector2.new(0, proj.gfxOffY)
             );
 
-            const alpha = this.trailAlpha * (1 - k / proj.oldPos.Length);
-            const color = Color.Lerp(this.trailColorEnd, this.trailColorStart, alpha);
-            const scale = Math.max(0, proj.scale - k * this.trailScaleDecay);
-
-            Terraria.Main.spriteBatch['void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)'](
-                texture, drawPos, null, color, proj.rotation, origin, scale, effects, 0
+            Terraria.Main['void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)'](
+                texture, drawPos, null,
+                Color.Multiply(Color.new(224, 255, 255, 200), 0.2),
+                proj.rotation, origin, 1.0,
+                Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0
             );
         }
         return true;

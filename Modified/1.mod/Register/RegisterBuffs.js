@@ -15,12 +15,15 @@ import { BubbledBuff } from "../Content/Buffs/BubbledBuff.js";
 import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
 import { SpiritsGraceBuff } from '../Content/Buffs/SpiritsGraceBuff.js';
 import { SeahorseWandBuff } from '../Content/Buffs/SeahorseWandBuff.js';
+import { OvergrowthBuff } from '../Content/Buffs/Healer/OvergrowthBuff.js';
+import { SingedBuff } from '../Content/Buffs/SingedBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
     PrehistoricAmberStaffBuff,
     ElementalDecayBuff,
     LifeRecoveryBuff,
+    OvergrowthBuff,
     StunnedBuff,
     LavaHugBuff,
     EnchantedCaneBuff,
@@ -30,6 +33,7 @@ const List = [
     SeahorseWandBuff,
     MagmaCharmBuff,
     SpiritsGraceBuff,
+    SingedBuff
 ]
 
 export function RegisterBuffs() {

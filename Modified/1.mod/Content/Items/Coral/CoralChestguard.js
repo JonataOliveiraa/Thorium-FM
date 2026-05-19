@@ -20,6 +20,13 @@ export class CoralChestguard extends ModItem {
         ThoriumPlayer.LifeShieldHealValue += 1
     }
 
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
+    }
+
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(Terraria.ID.ItemID.Coral, 10)

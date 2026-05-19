@@ -12,7 +12,8 @@ export class Healer {
     constructor() {
         this.radiantDamage = 0;
         this.multiplier = 1.0;
-        this.healPower = 0;
+        this.healPowerMultiply = 1.0;
+        this.healPowerExtraValue = 0
         this.description = "Healer";
     }
 

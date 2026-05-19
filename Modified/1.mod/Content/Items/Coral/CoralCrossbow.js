@@ -89,6 +89,13 @@ export class CoralCrossbow extends ModItem {
         return projToShoot;
     }
 
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
+    }
+
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(Terraria.ID.ItemID.JungleSpores, 7)

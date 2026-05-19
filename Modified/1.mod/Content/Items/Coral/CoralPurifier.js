@@ -45,6 +45,13 @@ export class CoralPurifier extends ModHealerItem {
         velocity.Y = speed * scale * Math.cos(angle);
     }
 
+    ModifyTooltipLines() {
+        for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
+            const line = this.TooltipLines[i];
+            this.TooltipLines[i] = line
+        }
+    }
+
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(Terraria.ID.ItemID.Coral, 7)

@@ -9,6 +9,11 @@
     "BloomingBlade": "Lâmina Florescente",
     "BloomingBow": "Arco Florescente",
     "BloomingStaff": "Cajado Florescente",
+    "BloomingCrown": "Coroa Florescente",
+    "BloomingLeggings": "Grevas Florescentes",
+    "BloomingShield": "Escudo Florescente",
+    "BloomingTabard": "Tabardo Florescente",
+    "BloomingWand": "Varinha Florescente",
     "ThoriumOre": "Minério de Tório",
     "LifeQuartzOre": "Quartzo de Vida",
     "LeakyMarineBlock": "Bloco Marinho Permeável",
@@ -144,7 +149,21 @@
     "SandstoneGreaves": "Grevas de Arenito",
     "SandstoneScimitar": "Cimitarra de Arenito",
     "ThumbRing": "Anel de Polegar",
-    "ClericEmblem": "Emblema do Clérigo"
+    "ClericEmblem": "Emblema do Clérigo",
+    "CoralChestguard": "Protetor Peitoral de Coral",
+    "CoralCrossbow": "Balestra de Coral",
+    "CoralGreaves": "Grevas de Coral",
+    "CoralHamaxe": "Martelo-Machado de Coral",
+    "CoralHelmet": "Elmo de Coral",
+    "CoralPickaxe": "Picareta de Coral",
+    "CoralPurifier": "Purificador de Coral",
+    "CoralSlasher": "Retalhador de Coral",
+    "SeahorseWand": "Varinha de Cavalo-Marinho",
+    "PurifiedShards": "Fragmentos Purificados",
+    "EbonHood": "Capuz de Ébano",
+    "EbonCloak": "Manto de Ébano",
+    "EbonLeggings": "Perneiras de Ébano",
+    "PalmCross": "Cruz de Palma"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -168,7 +187,7 @@
     "IncubatedEgg": "Ataques de lacaios e sentinelas têm 10% de chance de gerar um enxame de aranhas\n'Uma macabra incubação aconteceu nesse ovo'",
     "LeatherSheath": "Golpes com espadas, machados e picaretas causam {0}% de dano e a chance de acerto crítico é aumentada em {1}%\nA arma deve estar na mão e sem uso por {2} segundos",
     "WebGun": "Dispara um glóbulo pegajoso de teia úmida",
-    "DepthScales": "A evolução alcançou isso para profundezas...",
+    "DepthScales": "'A evolução alcançou isso para as profundezas'",
     "RainStone": "'Dizem que esta pedra estranha foi arrancada de uma entidade que podia controlar os mares...'\nAtiva ou dissipa uma tempestade",
     "BubbleConch": "Cria uma barragem de bolhas que erguem inimigos",
     "JellyfishResonator": "Invoca a Rainha Água-viva\nSó pode ser usado na praia durante o dia",
@@ -219,11 +238,29 @@
     "SandstoneHelmet": "5% de aumento no dano à distância\n2% de aumento na velocidade de movimento",
     "SandstoneMail": "5% de aumento no dano à distância\n5% de aumento na velocidade de movimento",
     "SandstoneGreaves": "5% de aumento no dano à distância\n3% de aumento na velocidade de movimento",
+    "CoralHelmet": "10% de redução no dano não radiante\nAumenta seu fôlego em 50%",
+    "CoralChestguard": "10% de redução no dano não radiante\nAumenta seu fôlego em 50%",
+    "CoralGreaves": "10% de redução no dano não radiante\nAumenta seu fôlego em 50%",
     "TheDigester": "Dispara um glóbulo de gosma digestiva que gruda nos inimigos\nJogadores que causarem dano a inimigos afetados recuperam 10% do dano causado como vida\nInimigos afetados só podem conceder até 20 de vida por aplicação da gosma",
     "ThumbRing": "Aumenta o dano de flechas em 5%\nAcertos críticos com flechas aplicam chama sombria brevemente nos inimigos",
     "radiantDamage": "{0}% de aumento nos danos por ataques radiantes",
     "symphonicDamage": "{0}% de aumento nos danos por ataques sinfônicos",
-    "throwingDamage": "{0}% de aumento nos danos por ataques de arremesso"
+    "throwingDamage": "{0}% de aumento nos danos por ataques de arremesso",
+    "CoralSlasher": "Libera um coral afiado após 3 acertos bem-sucedidos",
+    "CoralCrossbow": "Transforma flechas de madeira em flechas de coral que se fragmentam para baixo",
+    "SeahorseWand": "Invoca um cavalo-marinho que cospe uma rajada de bolhas",
+    "BloomingBlade": "Causar dano aos inimigos concede uma breve recuperação de vida",
+    "BloomingBow": "Transforma flechas de madeira em flechas de flores\nCausar dano aos inimigos concede uma breve recuperação de vida",
+    "BloomingStaff": "Dispara uma saraivada de pétalas\nCausar dano aos inimigos concede uma breve recuperação de vida",
+    "BloomingWand": "Lança uma grande onda de folhas",
+    "BloomingCrown": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "BloomingTabard": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "BloomingLeggings": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "PurifiedShards": "'Purificado de todo o mal'",
+    "EbonHood": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 10",
+    "EbonCloak": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 5\nMagias de cura restauram 1 ponto de vida adicional",
+    "EbonLeggings": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 5",
+    "PalmCross": "Lança uma explosão de luz sagrada à sua frente\nCarregar a explosão aumenta o tamanho e o dano\nQueima e causa dano dobrado contra a maioria dos inimigos mortos-vivos"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -232,17 +269,22 @@
     "Steel": "Reduz todo o dano recebido em 8%",
     "Thorium": "10% de aumento de dano de todas as fontes",
     "YewWood": "A cada 6 golpes, seu próximo ataque à distância causará um mini-crítico de 150% de dano.",
-    "Sandstone": "Os ventos do deserto te concederam um duplo salto de areia"
+    "Sandstone": "Os ventos do deserto te concederam um duplo salto de areia",
+    "Coral": "Aumenta o dano radiante em 1\nO dano radiante acumula até 20 de escudo de vida",
+    "Blooming": "Seus feitiços de cura aumentam a recuperação de vida",
+    "Ebon": "Corrompe seus poderes radiantes, fazendo com que assumam formas sombrias e causem efeitos adicionais"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",
-    "LifeRecoveryBuff": "Recuperação de Vida",
+    "LifeRecoveryBuff": "Restauração Vital",
     "StunnedBuff": "Atordoado",
     "MagmaCharmBuff": "Talismã de Magma",
     "LavaHugBuff": "Abraço da Lava",
     "EnchantedCaneBuff": "Barreira Encantada",
     "CharmedBuff": "Apaixonado",
-    "SpiritsGraceBuff": "Graças do Espírito"
+    "SpiritsGraceBuff": "Graças do Espírito",
+    "OvergrowthBuff": "Crescimento",
+    "SingedBuff": "Chamuscado"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo",
@@ -252,7 +294,9 @@
     "LavaHugBuff": "Regenera a vida e a mana a cada 2 segundos",
     "EnchantedCaneBuff": "Você está protegido por uma barreira encantada",
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
-    "SpiritsGraceBuff": "Concede maior tempo de invulnerabilidade e velocidade de movimento"
+    "SpiritsGraceBuff": "Concede maior tempo de invulnerabilidade e velocidade de movimento",
+    "OvergrowthBuff": "A restauração vital cura mais e a chance foi aumentada",
+    "SingedBuff": "Acabei de sofrer uma queimadura feia."
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"
@@ -260,6 +304,7 @@
   "NPCName": {
     "Blacksmith": "Ferreiro",
     "DesertAcolyte": "Acólito do Deserto",
+    "ConfusedZombie": "Zumbi Confuso",
     "ArmyAnt": "Formiga Guerreira",
     "FireAnt": "Formiga de Fogo",
     "StrangeBulb": "Bulbo Estranho",
@@ -286,6 +331,7 @@
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
     "Blacksmith": "Um artesão experiente que molda metal em armas e ferramentas. Seu trabalho é tão confiável quanto seu temperamento é estável",
     "DesertAcolyte": "O Acólito do Deserto é bastante nervoso, mas vende todo tipo de equipamento para aqueles interessados em arremessar coisas em monstros",
+    "ConfusedZombie": "O Zumbi Confuso é um químico que se transformou em zumbi. Embora tenha conseguido manter a maior parte da sua sanidade, ele ainda é um pouco estranho",
     "FireAnt": "Ela emergiu diretamente do inferno, como uma formiga em chamas buscando calor",
     "StrangeBulb": "Uma espécie bizarra de planta que ainda não atingiu sua maturidade. Talvez seja melhor assim",
     "MahoganyEnt": "Uma massa senciente de mogno que busca proteger a flora da selva por meios letais",
@@ -313,7 +359,11 @@
     "DesertAcolyte_1": "Temos pessoas bem estranhas nesta cidade, não acha...?",
     "DesertAcolyte_2": "Você não viu sombras de pássaros gigantes enquanto estava no deserto, viu?",
     "DesertAcolyte_3": "Eu tinha parado apenas para encher meu cantil, mas você parece alguém capaz de lidar com uma ameaça de verdade!",
-    "DesertAcolyte_4": "Você já ouviu falar dos Pássaros do Trovão? Diz a lenda que eles protegiam nosso mundo de ameaças catastróficas, até que um conflito entre eles e três indivíduos levou ao desaparecimento deles..."
+    "DesertAcolyte_4": "Você já ouviu falar dos Pássaros do Trovão? Diz a lenda que eles protegiam nosso mundo de ameaças catastróficas, até que um conflito entre eles e três indivíduos levou ao desaparecimento deles...",
+    "ConfusedZombie_1": "Não consigo lembrar muito da minha vida passada... Acho que produtos químicos e coisas assim eram minha paixão; só recebo fragmentos da verdade. Às vezes é meio triste...",
+    "ConfusedZombie_2": "A maioria das pessoas não tem estômago pra lidar com as coisas que eu vendo. O truque é não ter estômago nenhum!",
+    "ConfusedZombie_3": "Preciso te agradecer por me deixar ficar por aqui. Sair só à noite é bem entediante...",
+    "ConfusedZombie_4": "Por que eu não sou como os outros...? Ah, desculpa, você precisava de algo?"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -349,7 +399,24 @@
       "NoHome": "Preciso de um lugar onde os ventos possam passar livremente.",
       "FarFromHome": "Longe demais... já não sinto mais a presença do deserto.",
       "SpecialMoodText": "Os ventos estão inquietos hoje... algo se move sob as areias."
-    }
+    },
+      "ConfusedZombie": {
+      "Content": "Tô bem e cheio de vida, obrigado.",
+      "DislikeBiome": "{0} só... não parece certo. Minhas juntas doem aqui.",
+      "DislikeCrowded": "Meus vizinhos andam meio grosseiros comigo só por causa do que eu sou, é tão triste...",
+      "DislikeNPC": "{0} fica me lançando uns olhares bem estranhos.",
+      "HateBiome": "Será que eu gosto daqui... Será que temo pela minha vida... Será que eu gos- Nope. Nope. Saindo fora.",
+      "HateCrowded": "Tanta gente aqui! um banquete completo... O-opa, você não ouviu isso, ouviu?",
+      "HateNPC": "Aposto que {0} tem um cérebro grande e suculento... Não que eu queira... ã... Você precisa de algo?",
+      "LikeBiome": "{0}... pelo menos é suportável por aqui.",
+      "LikeNPC": "{0} sempre abre as portas pra mim, é tão atencioso(a)!",
+      "LoveBiome": "A floresta simplesmente... me faz feliz, como se eu pertencesse aqui.",
+      "LoveNPC": "Eu sinto uma conexão estranha, mas boa, com {0}. Não sei por quê, só sinto.",
+      "LoveSpace": "Adoro um espaço vazio, me deixa em paz pra fazer meus repelentes sem me preocupar com os outros.",
+      "NoHome": "Ah, parece que esqueci onde era minha casa. Pode me ajudar com isso?",
+      "FarFromHome": "Caminhe dez passos, olhe ao redor, se eu não estiver em casa, então... como era mesmo aquela...",
+      "SpecialMoodText": "Por que não sou como os outros? Ah, desculpa, você precisava de alguma coisa?"
+  }
   },
   "SinalizationChatMessage": {
     "OnPatchWerkDie": "O temido Retalhoso desmorona...",
