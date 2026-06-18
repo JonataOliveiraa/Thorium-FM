@@ -1,6 +1,6 @@
-# Thorium Fan Made v1.1.0
+# Thorium Fan Made v1.0.1
 
-> **This is an unofficial, fan-made recreation of the Thorium Mod for Terraria Mobile.**
+> **Fan-made recreation of the Thorium Mod for Terraria Mobile.**
 
 ## Disclaimer
 
@@ -17,21 +17,20 @@ All credits for the original content go to the creators of the official Thorium 
 - **DivermanSam** — Original creator of the Thorium Mod
   - Forum thread: https://forums.terraria.org/index.php?threads/the-thorium-mod.40788/
   - Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2909886416
+- **EduaRRdo** - Portrait fanart 
+  - X: https://x.com/EduaRRdo_DAE
 
 Please support the original mod!
-
----
 
 ## Contributors
 
 ### Fan Made Team
 | Name | Role |
 |------|------|
-| Zayah | Creator |
-| Potato | Creator |
-| Sacola | Creator |
-| Chronomiasma | Creator |
-| Bryan TL | Creator |
+| Zayah | Owner |
+| Potato | Manager |
+| Sacola | Helper |
+| Chronomiasma | Helper |
 
 ### Special Thanks
 - **GST378** — Technical support & guidance
@@ -49,3 +48,5 @@ See the [LICENSE](./LICENSE.md) file for full details, or visit:
 https://creativecommons.org/licenses/by-nc-sa/3.0/
 
 ---
+
+Discord: https://discord.gg/B6AdMNAr4P
