@@ -25,7 +25,6 @@ export class LivingHemorrage extends ModNPC {
         this.NPC.aiStyle = 14;
         this.NPC.damage = 20;
         this.NPC.defense = 6;
-        this.NPC.color = Color.Red;
         this.NPC.lifeMax = 60;
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;

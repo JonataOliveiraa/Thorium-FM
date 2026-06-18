@@ -183,11 +183,36 @@ import { EbonCloak } from '../Content/Items/Ebon/EbonCloak.js';
 import { EbonHood } from '../Content/Items/Ebon/EbonHood.js';
 import { EbonLeggings } from '../Content/Items/Ebon/EbonLeggings.js';
 import { PalmCross } from '../Content/Items/Healer/PalmCross.js';
+import { NoviceClericCowl } from '../Content/Items/NoviceCleric/NoviceClericCowl.js';
+import { NoviceClericTabard } from '../Content/Items/NoviceCleric/NoviceClericTabard.js';
+import { NoviceClericPants } from '../Content/Items/NoviceCleric/NoviceClericPants.js';
+import { WoodenWhistle } from '../Content/Items/Bard/WoodenWhistle.js';
+import { Alphorn } from '../Content/Items/Bard/Alphorn.js';
+import { CriersCap } from '../Content/Items/Criers/CriersCap.js';
+import { CriersLeggings } from '../Content/Items/Criers/CriersLeggings.js';
+import { CriersSash } from '../Content/Items/Criers/CriersSash.js';
+import { IcyPiccolo } from '../Content/Items/Bard/IcyPiccolo.js';
+import { GoldBugleHorn } from '../Content/Items/Bard/GoldBugleHorn.js';
+import { PlatinumBugleHorn } from '../Content/Items/Bard/PlatinumBugleHorn.js';
+import { Didgeridoo } from '../Content/Items/ThunderBird/Didgeridoo.js';
+import { ViciousMockery } from '../Content/Items/Bard/ViciousMockery.js';
+import { Tambourine } from '../Content/Items/Bard/Tambourine.js';
+import { GrimPointer } from '../Content/Items/Viscount/GrimPointer.js';
 
 
 // Register all items
 
 const List = [
+    GrimPointer,
+    WoodenWhistle,
+    IcyPiccolo,
+    GoldBugleHorn,
+    PlatinumBugleHorn,
+    Didgeridoo,
+    Alphorn,
+    ViciousMockery,
+    Tambourine,
+    
     IceCube,
     FrostFury,
     IcyArrow,
@@ -248,7 +273,6 @@ const List = [
 
     WebGun,
     BrambleShot,
-    PalmCross,
 
     PrehistoricAmberStaff,
 
@@ -283,6 +307,10 @@ const List = [
     EbonHood,
     EbonCloak,
     EbonLeggings,
+    NoviceClericCowl,
+    NoviceClericTabard,
+    NoviceClericPants,
+    PalmCross,
 
     SteelBlade,
     SteelChestplate,
@@ -292,6 +320,10 @@ const List = [
     SteelHammer,
     SteelPickaxe,
     SteelBow,
+
+    CriersCap,
+    CriersSash,
+    CriersLeggings,
 
     YewWoodHelmet,
     YewWoodBreastguard,

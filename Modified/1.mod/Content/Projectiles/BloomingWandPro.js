@@ -75,7 +75,6 @@ export class BloomingWandPro extends ModProjectile {
             }
         };
 
-        // Trail grande — 6 dusts por frame em posições ao redor do centro
         spawnDust(1.1, 80);
         spawnDust(0.9, 100, -dirX * 6, -dirY * 6);
         spawnDust(0.9, 100, dirX * 6, dirY * 6);

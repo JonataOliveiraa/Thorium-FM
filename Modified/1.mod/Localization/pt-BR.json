@@ -163,7 +163,15 @@
     "EbonHood": "Capuz de Ébano",
     "EbonCloak": "Manto de Ébano",
     "EbonLeggings": "Perneiras de Ébano",
-    "PalmCross": "Cruz de Palma"
+    "PalmCross": "Cruz de Palma",
+    "NoviceClericCowl": "Capuz do Clérigo Novato",
+    "NoviceClericTabard": "Tabardo do Clérigo Novato",
+    "NoviceClericPants": "Calças do Clérigo Novato",
+    "WoodenWhistle": "Apito de Madeira",
+    "Cloth": "Tecido",
+    "CriersCap": "Chapéu do Arauto",
+    "CriersSash": "Cinto do Arauto",
+    "CriersLeggings": "Calças do Arauto"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -253,14 +261,18 @@
     "BloomingBow": "Transforma flechas de madeira em flechas de flores\nCausar dano aos inimigos concede uma breve recuperação de vida",
     "BloomingStaff": "Dispara uma saraivada de pétalas\nCausar dano aos inimigos concede uma breve recuperação de vida",
     "BloomingWand": "Lança uma grande onda de folhas",
-    "BloomingCrown": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
-    "BloomingTabard": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
-    "BloomingLeggings": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nAumento moderado na regeneração de mana\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "BloomingCrown": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "BloomingTabard": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nFeitiços de cura curarão 1 ponto de vida adicional",
+    "BloomingLeggings": "10% de redução em danos não radiante\n5% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nFeitiços de cura curarão 1 ponto de vida adicional",
     "PurifiedShards": "'Purificado de todo o mal'",
-    "EbonHood": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 10",
-    "EbonCloak": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 5\nMagias de cura restauram 1 ponto de vida adicional",
-    "EbonLeggings": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta o mana máximo em 5",
-    "PalmCross": "Lança uma explosão de luz sagrada à sua frente\nCarregar a explosão aumenta o tamanho e o dano\nQueima e causa dano dobrado contra a maioria dos inimigos mortos-vivos"
+    "EbonHood": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta a mana máxima em 10",
+    "EbonCloak": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta a mana máxima em 5\nMagias de cura restauram 1 ponto de vida adicional",
+    "EbonLeggings": "10% de redução em danos não radiante\nAumenta o dano radiante em 1\nAumenta a mana máxima em 5",
+    "PalmCross": "Lança uma explosão de luz sagrada à sua frente\nCarregar a explosão aumenta o tamanho e o dano\nQueima e causa dano dobrado contra a maioria dos inimigos mortos-vivos",
+    "NoviceClericCowl": "10% de redução em danos não radiante\n3% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nAumenta a mana máxima em 5\nFeitiços de cura curarão 1 pontos de vida adicionais",
+    "NoviceClericTabard": "10% de redução em danos não radiante\n4% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nAumenta a mana máxima em 10\nFeitiços de cura curarão 2 pontos de vida adicionais",
+    "NoviceClericPants": "10% de redução em danos não radiante\n3% de aumento no dano radiante\nRegeneração da mana levemente aumentada\nAumenta a mana máxima em 5\nFeitiços de cura curarão 1 pontos de vida adicionais",
+    "InpirationRegenBonus": "{0}% de aumento na taxa de regeneração da inspiração"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -272,7 +284,9 @@
     "Sandstone": "Os ventos do deserto te concederam um duplo salto de areia",
     "Coral": "Aumenta o dano radiante em 1\nO dano radiante acumula até 20 de escudo de vida",
     "Blooming": "Seus feitiços de cura aumentam a recuperação de vida",
-    "Ebon": "Corrompe seus poderes radiantes, fazendo com que assumam formas sombrias e causem efeitos adicionais"
+    "Ebon": "Corrompe seus poderes radiantes, fazendo com que assumam formas sombrias e causem efeitos adicionais",
+    "NoviceCleric": "A cada segundo, uma cruz é gerada. Ao atingir um inimigo com dano radiante, as cruzes seguirão o inimigo",
+    "Criers": "Seus empoderamentos sinfônicos durarão 3 segundos a mais"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",
@@ -284,7 +298,8 @@
     "CharmedBuff": "Apaixonado",
     "SpiritsGraceBuff": "Graças do Espírito",
     "OvergrowthBuff": "Crescimento",
-    "SingedBuff": "Chamuscado"
+    "SingedBuff": "Chamuscado",
+    "SheathBuff": "Bainha"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "Esse pequeno está dando tudo de si para proteger o mundo",
@@ -296,7 +311,8 @@
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
     "SpiritsGraceBuff": "Concede maior tempo de invulnerabilidade e velocidade de movimento",
     "OvergrowthBuff": "A restauração vital cura mais e a chance foi aumentada",
-    "SingedBuff": "Acabei de sofrer uma queimadura feia."
+    "SingedBuff": "Você sofrou uma queimadura feia",
+    "SheathBuff": "Sua bainha equipada está pronta para atacar"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada"
@@ -431,6 +447,25 @@
       "symphonicDamage": " de dano sinfônico",
       "throwingDamage": " de dano em arremesso"
     }
+  },
+  "Empowerments": {
+    "Defense": "+{0} de defesa",
+    "AttackSpeed": "+{0}% de vel. de ataque",
+    "CriticalStrikeChance": "+{0}% de chance crítica",
+    "Damage": "+{0}% de dano",
+    "DamageReduction": "+{0}% de redução de dano",
+    "EmpowermentProlongation": "+{0}% de duração nos empoderamentos",
+    "FlatDamage": "+{0} de dano",
+    "FlightTime": "+{0}% no tempo de voo",
+    "InvincibilityFrames": "+{0}% segundos de invencibilidade",
+    "JumpHeight": "+{0}% na altura do pulo",
+    "LifeRegeneration": "+{0} na regen. de vida",
+    "MovementSpeed": "+{0}% de vel. de movimento",
+    "ResourceConsumptionChance": "-{0}% de consumo",
+    "ResourceGrabRange": "+{0}% de alcance de coleta",
+    "ResourceMaximum": "+{0} de recurso máximo",
+    "ResourceRegen": "+{0}% de regen. de recurso",
+    "AquaticAbility": "+{0}% na respiração"
   },
   "Others": {
     "NoMultiplayer": "Modo multiplayer desabilitado por {0}"

@@ -11,12 +11,26 @@ import { Rand } from "../../TL/Modules/Rand.js";
 import { ModItem } from "../../TL/ModItem.js";
 import { Bard, Healer, Thrower } from "./ThoriumClasses.js";
 import { ModHealerItem } from "../../Common/ModHealerItem.js";
+import { ProjAI } from "../../TL/ProjAI.js";
+import { PlayerDB } from "../../TL/PlayerDB.js";
+import { Empowerments } from "./Empowerments.js";
+import { ModBardItem } from "../../Common/ModBardItem.js";
+import { BardTimer } from "./BardTimer.js";
+import { Profiler } from "../../Profiler.js";
+
+const Inventory_Layout = new NativeClass('', 'Inventory_Layout');
+const Hotbar_Layout = new NativeClass('', 'Hotbar_Layout');
+const Buffs_Layout = new NativeClass('', 'Buffs_Layout');
+const LayoutCalculator = new NativeClass('', 'LayoutCalculator');
+const GUIInstance = new NativeClass('', 'GUIInstance');
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 const StrikeNPCNoInteraction = 'double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)';
+const SpriteFrame = new NativeClass('Terraria.DataStructures', 'SpriteFrame');
 
-const { ItemID } = Terraria.ID
+const { ItemID } = Terraria.ID;
+const { Main } = Terraria;
 
 export class ThoriumPlayer extends ModPlayer {
     static class = {
@@ -26,25 +40,44 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     constructor() {
-        super()
+        super();
         this.previousItemType = -1;
     }
 
-    //Basic
+    static _cachedWheelPos = { X: 0, Y: 0 };
+    static _wheelPosCacheTimer = 0;
+
+    static _vec = Vector2.new(0, 0);
+    static _vec2 = Vector2.new(0, 0);
+    static _color = Color.new(255, 255, 255, 255);
+    static _whiteColor = Color.White; // referência estática
+
+    static _wheelSpriteFrame = null;
+
+    static _bardItemCache = new Map();
+
+    static _coralSlasherType = -1;
+    static _crietzProType = -1;
+    static _incubatedSpiderType = -1;
+    static _seaTurtlesBulwarkProType = -1;
+
+    // Basic
     static InCombat = false;
     static CombatTimer = 0;
     static CombatDelay = 320;
-    static CombatTimeAccumulated = 0
+    static CombatTimeAccumulated = 0;
 
-    //Cave Rare Mosnter
+    static InvincibilityFrameBonus = 0;
+
+    // Cave Rare Monster
     static SalamanterEyeEquipped = false;
-    static GiantShellSpineEquipped = false
-    static CrawdadClawEquipped = false
+    static GiantShellSpineEquipped = false;
+    static CrawdadClawEquipped = false;
 
-    static CrietzEquipped = false
-    static CrietzInvoke = false
-    static CrietzMaxTimeDelay = 60
-    static CrietzTimeDelay = 0
+    static CrietzEquipped = false;
+    static CrietzInvoke = false;
+    static CrietzMaxTimeDelay = 60;
+    static CrietzTimeDelay = 0;
 
     // Spring Steps
     static SpringStepsEquipped = false;
@@ -55,47 +88,52 @@ export class ThoriumPlayer extends ModPlayer {
     static LifeRecoveryDelayTime = 0;
     static LifeRecoveryDelayMaxTime = 100;
     static LifeRecoveryExtraValue = 0;
+    static LifeRecoveryBuffActive = false;
+    static LifeRecoveryBuffDelayTime = 0;
 
     static LavaHugBuffDelayTime = 0;
     static LivingWoodAcornArmorBuff = false;
 
     static IncubatedEggBuff = false;
-    static IncubatedEggLimit = 4
-    static InccubatedEggCount = 0
+    static IncubatedEggLimit = 4;
+    static InccubatedEggCount = 0;
 
-    static RadiantCorruptionActive = false
+    static RadiantCorruptionActive = false;
 
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
-    static YewWoodSetBonus = false
-    static YewWoodAccumulated = 0
-    static YewWoodHitsCount = 0
+    static IsHoldingGrimPointer = false;
 
-    static NoviceClericSetBonus = false
-    static NoviceClericCrossCount = 0
-    static NoviceClericCrossDelay = 0
-    static NoviceClericCrossMaxDelay = 0
-    static NoviceCleric
+    static YewWoodSetBonus = false;
+    static YewWoodAccumulated = 0;
+    static YewWoodHitsCount = 0;
 
-    static BloomingSetBonus = false
+    static NoviceClericSetBonus = false;
+    static NoviceClericCrossCount = 0;
+    static NoviceClericCrossDelay = 0;
+    static NoviceClericCrossMaxDelay = 0;
+    static NoviceClericAttackDelay = 0;
+    static NoviceClericCrossIds = new Set();
 
-    static ThumbRingEquipped = false
+    static BloomingSetBonus = false;
 
-    static SpiritsGraceEquipped = false
-    static SpiritsGraceDieEffect = false
+    static ThumbRingEquipped = false;
 
-    static MoltenScaleEquipped = false
-    static MoltenScaleMaxTimeDelay = 15
-    static MoltenScaleTimeDelay = 0
+    static SpiritsGraceEquipped = false;
+    static SpiritsGraceDieEffect = false;
 
-    static SeaTurtlesBulwarkEquipped = false
-    static SeaTurtlesBulwarkMaxTimeDelay = 60
-    static SeaTurtlesBulwarkTimeDelay = 0
+    static MoltenScaleEquipped = false;
+    static MoltenScaleMaxTimeDelay = 15;
+    static MoltenScaleTimeDelay = 0;
 
-    static CoralSetBuff = false
-    static CoralSetCount = 0
-    static CoralSetResetCount = 0
+    static SeaTurtlesBulwarkEquipped = false;
+    static SeaTurtlesBulwarkMaxTimeDelay = 60;
+    static SeaTurtlesBulwarkTimeDelay = 0;
+
+    static CoralSetBuff = false;
+    static CoralSetCount = 0;
+    static CoralSetResetCount = 0;
 
     static CoralSlasherCharge = 0;
     static CoralSlasherReady = false;
@@ -121,24 +159,38 @@ export class ThoriumPlayer extends ModPlayer {
     static LifeShieldTimeDelay = 0;
     static LifeShieldMaxTimeDelay = 120;
 
-    static LuckyRabbitsFootEquipped = false
-    static BandofReplenishmentEquipped = false
+    static LuckyRabbitsFootEquipped = false;
+    static BandofReplenishmentEquipped = false;
+
+    // Bard UI
+    static SpriteSheet = null;
+    static Timer = 0;
+    static DisplayInspiration = 0;
+    static PreviousInspiration = 0;
+    static RegenCooldown = 0;
+    static num1 = 0;
+
+    // ---- Lifecycle ----
 
     OnEnterWorld(player) {
+        if (!PlayerDB.has("Inspiration")) PlayerDB.set("Inspiration", 0);
+        PlayerDB.set("Inspiration", 0);
+        ThoriumPlayer.PreviousInspiration = 0;
+        ThoriumPlayer.RegenCooldown = 60;
     }
 
     ResetEffects(player) {
+        ThoriumPlayer.InvincibilityFrameBonus = 0;
         ThoriumPlayer.SpringStepsEquipped = false;
         ThoriumPlayer.IncubatedEggBuff = false;
         ThoriumPlayer.LivingWoodAcornArmorBuff = false;
         ThoriumPlayer.IcyArmorBuff = false;
 
         ThoriumPlayer.LifeShieldActive = false;
-        ThoriumPlayer.LifeShieldMaxExtraLife = null
+        ThoriumPlayer.LifeShieldMaxExtraLife = null;
         ThoriumPlayer.LifeShieldHealValue = 1;
-        // ThoriumPlayer.LifeShieldTimeDelay = 0;
-        // ThoriumPlayer.LifeShieldMaxTimeDelay = 120;
 
+        ThoriumPlayer.LifeRecoveryBuffActive = false;
         ThoriumPlayer.LifeRecoveryDelayMaxTime = 100;
         ThoriumPlayer.LifeRecoveryExtraValue = 0;
 
@@ -147,47 +199,62 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.SheatDamageMultiplier = 0;
         ThoriumPlayer.SheatCriticalChanceBonus = 0;
 
-        ThoriumPlayer.LuckyRabbitsFootEquipped = false
-        ThoriumPlayer.BandofReplenishmentEquipped = false
+        ThoriumPlayer.LuckyRabbitsFootEquipped = false;
+        ThoriumPlayer.BandofReplenishmentEquipped = false;
 
-        ThoriumPlayer.SalamanterEyeEquipped = false
-        ThoriumPlayer.CrawdadClawEquipped = false
-        ThoriumPlayer.GiantShellSpineEquipped = false
+        ThoriumPlayer.SalamanterEyeEquipped = false;
+        ThoriumPlayer.CrawdadClawEquipped = false;
+        ThoriumPlayer.GiantShellSpineEquipped = false;
 
-        ThoriumPlayer.CrietzEquipped = false
+        ThoriumPlayer.CrietzEquipped = false;
 
-        ThoriumPlayer.NoviceClericSetBonus= false
+        ThoriumPlayer.IsHoldingGrimPointer = false;
 
-        ThoriumPlayer.class.Bard.symphonicDamage = 0
-        ThoriumPlayer.class.Healer.radiantDamage = 0
-        ThoriumPlayer.class.Thrower.throwingDamage = 0
+        ThoriumPlayer.NoviceClericSetBonus = false;
 
-        ThoriumPlayer.class.Bard.multiplier = 1.0
-        ThoriumPlayer.class.Healer.multiplier = 1.0
-        ThoriumPlayer.class.Healer.healPowerMultiply = 1.0
-        ThoriumPlayer.class.Thrower.multiplier = 1.0
+        // Bard
+        const bard = ThoriumPlayer.class.Bard;
+        bard.symphonicDamage = 0;
+        bard.multiplier = 1.0;
+        bard.inspirationMax2 = 0;
+        bard.inspirationRegenBonus = 1.0;
+        bard.inspirationRegenBase = 1;
+        bard.bardBuffDurationX = 1.0;
+        bard.inspirationConsume = 1;
+        bard.bardBuffDurationFlat = 0;
 
-        ThoriumPlayer.MoltenScaleEquipped = false
+        // Healer
+        const healer = ThoriumPlayer.class.Healer;
+        healer.radiantDamage = 0;
+        healer.multiplier = 1.0;
+        healer.healPowerMultiply = 1.0;
+        healer.healPowerExtraValue = 0;
 
-        ThoriumPlayer.RadiantCorruptionActive = false
+        // Thrower
+        const thrower = ThoriumPlayer.class.Thrower;
+        thrower.throwingDamage = 0;
+        thrower.multiplier = 1.0;
 
-        ThoriumPlayer.SeaTurtlesBulwarkEquipped = false
-
-        ThoriumPlayer.YewWoodSetBonus = false
-        ThoriumPlayer.YewWoodAccumulated = 0
-
-        ThoriumPlayer.ThumbRingEquipped = false
-
-        ThoriumPlayer.SpiritsGraceEquipped = false
-
-        ThoriumPlayer.CoralSetBuff = false
-        ThoriumPlayer.CoralSetResetCount = 0
+        ThoriumPlayer.MoltenScaleEquipped = false;
+        ThoriumPlayer.RadiantCorruptionActive = false;
+        ThoriumPlayer.SeaTurtlesBulwarkEquipped = false;
+        ThoriumPlayer.YewWoodSetBonus = false;
+        ThoriumPlayer.YewWoodAccumulated = 0;
+        ThoriumPlayer.ThumbRingEquipped = false;
+        ThoriumPlayer.SpiritsGraceEquipped = false;
+        ThoriumPlayer.CoralSetBuff = false;
+        ThoriumPlayer.CoralSetResetCount = 0;
     }
 
     PreUpdate(player) {
+        Profiler.Tick();
+
         if (player.dead) {
             ThoriumPlayer.SheathCooldown = 0;
         }
+
+        ThoriumPlayer.UpdateInspiration();
+        ThoriumPlayer.UpdateTimer();
 
         if (player.HeldItem && player.HeldItem.type !== this.previousItemType) {
             ThoriumPlayer.SheathCooldown = 0;
@@ -231,33 +298,34 @@ export class ThoriumPlayer extends ModPlayer {
     PostUpdate(player) {
         if (ThoriumPlayer.InCombat) {
             ThoriumPlayer.CombatTimer++;
-            ThoriumPlayer.CombatTimeAccumulated++
+            ThoriumPlayer.CombatTimeAccumulated++;
 
             if (ThoriumPlayer.CombatTimer >= ThoriumPlayer.CombatDelay) {
                 ThoriumPlayer.InCombat = false;
                 ThoriumPlayer.CombatTimer = 0;
-                ThoriumPlayer.CombatTimeAccumulated = 0
+                ThoriumPlayer.CombatTimeAccumulated = 0;
             }
         }
 
         if (!ThoriumPlayer.CrietzInvoke && ThoriumPlayer.CrietzEquipped) {
-            ThoriumPlayer.CrietzTimeDelay++
-
+            ThoriumPlayer.CrietzTimeDelay++;
             if (ThoriumPlayer.CrietzTimeDelay >= ThoriumPlayer.CrietzMaxTimeDelay) {
-                ThoriumPlayer.CrietzInvoke = true
-                ThoriumPlayer.CrietzTimeDelay = 0
+                ThoriumPlayer.CrietzInvoke = true;
+                ThoriumPlayer.CrietzTimeDelay = 0;
             }
         }
 
         if (ThoriumPlayer.SeaTurtlesBulwarkEquipped && ThoriumPlayer.SeaTurtlesBulwarkTimeDelay > 0) {
-            ThoriumPlayer.SeaTurtlesBulwarkTimeDelay--
+            ThoriumPlayer.SeaTurtlesBulwarkTimeDelay--;
         }
 
-        const coralSlasherType = ModItem.getTypeByName('CoralSlasher');
-        if (player.HeldItem.type === coralSlasherType && ThoriumPlayer.CoralSlasherCharge >= 3) {
+        if (ThoriumPlayer._coralSlasherType === -1) {
+            ThoriumPlayer._coralSlasherType = ModItem.getTypeByName('CoralSlasher');
+        }
+        if (player.HeldItem && player.HeldItem.type === ThoriumPlayer._coralSlasherType && ThoriumPlayer.CoralSlasherCharge >= 3) {
             const dustIdx = Terraria.Dust.NewDust(
                 player.position, player.width, player.height,
-                33, 0, 0, 0, Color.White, 1.2
+                33, 0, 0, 0, ThoriumPlayer._whiteColor, 1.2
             );
             const dust = Terraria.Main.dust[dustIdx];
             if (dust) {
@@ -272,26 +340,39 @@ export class ThoriumPlayer extends ModPlayer {
             }
         }
 
-        if (!ThoriumPlayer.SpringStepsEquipped) return;
+        if (ThoriumPlayer.SpringStepsEquipped) {
+            if (player.velocity.Y < 0 && ThoriumPlayer.allowJump) {
+                ThoriumPlayer.allowJump = false;
+                ThoriumPlayer.jumps++;
+                for (let i = 0; i < 5; i++) {
+                    Terraria.Dust.NewDust(player.position, player.width, player.height, 6, 0, 0, 0, Color.OrangeRed, 1.2);
+                }
+            }
 
-        if (player.velocity.Y < 0 && ThoriumPlayer.allowJump) {
-            ThoriumPlayer.allowJump = false;
-            ThoriumPlayer.jumps++;
-            for (let i = 0; i < 5; i++) {
-                Terraria.Dust.NewDust(player.position, player.width, player.height, 6, 0, 0, 0, Color.OrangeRed, 1.2);
+            if (player.velocity.Y > 0 || player.sliding || player.justJumped) {
+                ThoriumPlayer.allowJump = true;
+            }
+
+            if (ThoriumPlayer.jumps >= 3) {
+                for (let i = 0; i < 20; i++) {
+                    Terraria.Dust.NewDust(player.position, player.width, player.height, 6, 0, 0, 0, Color.OrangeRed, 1.5);
+                }
+                Effects.PlaySound(Terraria.ID.SoundID.Item74, player.Center.x, player.Center.y);
+                ThoriumPlayer.jumps = 0;
             }
         }
 
-        if (player.velocity.Y > 0 || player.sliding || player.justJumped) {
-            ThoriumPlayer.allowJump = true;
-        }
+        if (ThoriumPlayer.LifeRecoveryBuffActive) {
+            ThoriumPlayer.LifeRecoveryDelayTime++;
 
-        if (ThoriumPlayer.jumps >= 3) {
-            for (let i = 0; i < 20; i++) {
-                Terraria.Dust.NewDust(player.position, player.width, player.height, 6, 0, 0, 0, Color.OrangeRed, 1.5);
+            if (ThoriumPlayer.LifeRecoveryDelayTime >= ThoriumPlayer.LifeRecoveryDelayMaxTime) {
+                const value = 1 + ThoriumPlayer.LifeRecoveryExtraValue
+
+                ThoriumPlayer.HealHPInHealerClass(player, value)
+                ThoriumPlayer.LifeRecoveryDelayTime = 0
             }
-            Effects.PlaySound(Terraria.ID.SoundID.Item74, player.Center.x, player.Center.y);
-            ThoriumPlayer.jumps = 0;
+        } else {
+            ThoriumPlayer.LifeRecoveryDelayTime = 0;
         }
     }
 
@@ -301,7 +382,7 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     ModifyWeaponDamage(player, item, damage) {
-        let finalDamage = damage
+        let finalDamage = damage;
 
         if (
             ThoriumPlayer.SheathMaxCooldown !== undefined &&
@@ -312,28 +393,31 @@ export class ThoriumPlayer extends ModPlayer {
         ) {
             switch (ThoriumPlayer.SheatType) {
                 case 0:
-                    finalDamage += this.MultiplyDamage(damage);
+                    finalDamage += item.damage * ThoriumPlayer.SheatDamageMultiplier;
+                    break;
             }
         }
 
         if (player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
-            finalDamage -= this.WeaponDamage * 0.2
+            finalDamage -= this.WeaponDamage * 0.2;
         }
 
         return this.WeaponDamage = finalDamage;
     }
 
     ModifyShootStats(player, stats) {
-        let finalDamageBonus = 0
+        let finalDamageBonus = 0;
 
-        if (player.HeldItem.useAmmo == Terraria.ID.AmmoID.Arrow && ThoriumPlayer.ThumbRingEquipped) {
-            finalDamageBonus += stats.damage * 0.05
+        if (player.HeldItem && player.HeldItem.useAmmo == Terraria.ID.AmmoID.Arrow && ThoriumPlayer.ThumbRingEquipped) {
+            finalDamageBonus += stats.damage * 0.05;
         }
 
-        stats.damage += finalDamageBonus
+        stats.damage += finalDamageBonus;
     }
 
     PostUpdateBuffs(player) {
+        Empowerments.Update(player);
+
         if (
             ThoriumPlayer.SheathMaxCooldown !== undefined &&
             ThoriumPlayer.SheatType !== undefined &&
@@ -353,17 +437,15 @@ export class ThoriumPlayer extends ModPlayer {
             item.melee &&
             item.useStyle === Terraria.ID.ItemUseStyleID.Swing
         ) {
-            ThoriumPlayer.SheathCooldown = 0;
             ThoriumPlayer._hitThisSwing = true;
         }
 
         if (ThoriumPlayer.CrietzInvoke && ThoriumPlayer.IsCriticalDamage(item, damageDone)) {
-            ThoriumPlayer.CrietzProjectile(player, npc)
+            ThoriumPlayer.CrietzProjectile(player, npc);
         }
 
         if (ThoriumPlayer.CoralSetBuff) {
-            if(!ModHealerItem.healerItemsName.has(item.type)) return
-            
+            if (!ModHealerItem.healerItemsName.has(item.type)) return;
             ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(damageDone / 4));
             if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
         }
@@ -372,83 +454,79 @@ export class ThoriumPlayer extends ModPlayer {
     OnHitNPCWithProj(player, npc, projectile) {
         ThoriumPlayer.EnterCombat();
 
-        const isRangedWeapon = player.HeldItem.ranged
-        if (isRangedWeapon) ThoriumPlayer.YewWoodHitsCount++
+        const isRangedWeapon = player.HeldItem && player.HeldItem.ranged;
+        if (isRangedWeapon) ThoriumPlayer.YewWoodHitsCount++;
 
-        const isHealerWeapon = ModHealerItem.healerItemsName.has(player.HeldItem.type)
-        if(isHealerWeapon) {
-            if(ThoriumPlayer.BloomingSetBonus) player.AddBuff(ModBuff.getTypeByName('OvergrowthBuff'), 120, false)
+        const isHealerWeapon = player.HeldItem && ModHealerItem.healerItemsName.has(player.HeldItem.type);
+        if (isHealerWeapon) {
+            if (ThoriumPlayer.BloomingSetBonus) player.AddBuff(ModBuff.getTypeByName('OvergrowthBuff'), 120, false);
         }
 
         if (ThoriumPlayer.IncubatedEggBuff) {
             if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
-                if (ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return
-                if (Math.random() < 0.9) return;
+                if (ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return;
+                if (Rand.NextFloat() < 0.9) return;
 
-                const eggType = ModProjectile.getTypeByName('IncubatedSpider');
+                if (ThoriumPlayer._incubatedSpiderType === -1) {
+                    ThoriumPlayer._incubatedSpiderType = ModProjectile.getTypeByName('IncubatedSpider');
+                }
                 const source = projectile.GetProjectileSource_FromThis();
-
-                NewProjectile(source, npc.Center, Vector2.new(0, -2), eggType, 2, 0, player.whoAmI, 0, 0, 0, null);
-                ThoriumPlayer.InccubatedEggCount++
+                NewProjectile(source, npc.Center, Vector2.new(0, -2), ThoriumPlayer._incubatedSpiderType, 2, 0, player.whoAmI, 0, 0, 0, null);
+                ThoriumPlayer.InccubatedEggCount++;
             }
         }
 
         if (ThoriumPlayer.CrietzInvoke) {
-            ThoriumPlayer.CrietzProjectile(player, npc)
+            ThoriumPlayer.CrietzProjectile(player, npc);
         }
 
         if (ThoriumPlayer.YewWoodHitsCount > 6 && ThoriumPlayer.YewWoodSetBonus && isRangedWeapon) {
-            let damage = player.HeldItem.damage
-            ThoriumPlayer.MiniCriticalDamage(npc, damage + Rand.Next(damage, damage + Math.round(damage * 0.1)))
-            ThoriumPlayer.YewWoodHitsCount = 0
+            let damage = player.HeldItem.damage;
+            ThoriumPlayer.MiniCriticalDamage(npc, damage + Rand.Next(damage, damage + Math.round(damage * 0.1)));
+            ThoriumPlayer.YewWoodHitsCount = 0;
         }
 
         if (ThoriumPlayer.ThumbRingEquipped) {
             if (projectile.arrow) {
-                npc.AddBuff(153, Rand.Next(60, 120), false)
+                npc.AddBuff(153, Rand.Next(60, 120), false);
             }
         }
 
         if (ThoriumPlayer.CoralSetBuff) {
-            if(!ModHealerItem.healerItemsName.has(player.HeldItem.type)) return
-
+            if (!ModHealerItem.healerItemsName.has(player.HeldItem.type)) return;
             ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(projectile.damage / 4));
             if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+        }
+
+        if (ThoriumPlayer.NoviceClericSetBonus && isHealerWeapon) {
+            ThoriumPlayer.TriggerNoviceClericCross(npc);
         }
     }
 
     OnHurt(player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
         ThoriumPlayer.EnterCombat();
+        player.immuneTime += ThoriumPlayer.InvincibilityFrameBonus;
 
         if (!pvp && ThoriumPlayer.BandofReplenishmentEquipped) {
             if (damage > 3 && Rand.Next(0, 3) === 0) {
-                player.Heal(1)
-
+                player.Heal(1);
                 player.statMana += 1;
-                player.ManaEffect(1)
+                player.ManaEffect(1);
             }
         }
 
         if (!pvp && ThoriumPlayer.SeaTurtlesBulwarkEquipped && ThoriumPlayer.SeaTurtlesBulwarkTimeDelay <= 0) {
-            const projType = ModProjectile.getTypeByName('SeaTurtlesBulwarkPro');
-            const speed = 2.0 + Math.random() * 1.5;
-            const angle = Math.random() * Math.PI * 2;
-            const vel = Vector2.new(Math.cos(angle) * speed, Math.sin(angle) * speed);
-            const source = Terraria.Projectile.GetNoneSource()
-            const healValue = Math.floor(damage * 0.25)
+            if (ThoriumPlayer._seaTurtlesBulwarkProType === -1) {
+                ThoriumPlayer._seaTurtlesBulwarkProType = ModProjectile.getTypeByName('SeaTurtlesBulwarkPro');
+            }
+            const speed = 2.0 + Rand.NextFloat() * 1.5;
+            const angle = Rand.NextFloat() * Math.PI * 2;
+            ThoriumPlayer._vec.X = Math.cos(angle) * speed;
+            ThoriumPlayer._vec.Y = Math.sin(angle) * speed;
+            const source = Terraria.Projectile.GetNoneSource();
+            const healValue = Math.floor(damage * 0.25);
 
-            NewProjectile(
-                source,
-                player.Center,
-                vel,
-                projType,
-                0,
-                0,
-                player.whoAmI,
-                0, 0, healValue,
-                null
-            );
-
+            NewProjectile(source, player.Center, ThoriumPlayer._vec, ThoriumPlayer._seaTurtlesBulwarkProType, 0, 0, player.whoAmI, 0, 0, healValue, null);
             ThoriumPlayer.SeaTurtlesBulwarkTimeDelay = ThoriumPlayer.SeaTurtlesBulwarkMaxTimeDelay;
         }
     }
@@ -456,62 +534,80 @@ export class ThoriumPlayer extends ModPlayer {
     PostItemCheck(player) {
         if (player.itemAnimation === 1 &&
             ThoriumPlayer.SheatType !== undefined &&
-            player.HeldItem.melee) {
+            player.HeldItem && player.HeldItem.melee) {
             ThoriumPlayer.SheathCooldown = 0;
             ThoriumPlayer._hitThisSwing = false;
         }
     }
+
+    ModifyManaCost(player, item, mana) {
+        if (ThoriumPlayer.NoviceClericSetBonus) {
+            // stub
+        }
+    }
+
+    OnRespawn(player) {
+        ThoriumPlayer.CoralSetCount = 0;
+        ThoriumPlayer.NoviceClericCrossIds.clear();
+        ThoriumPlayer.CoralSlasherCharge = 0;
+        ThoriumPlayer.CoralSlasherReady = false;
+
+        if (ThoriumPlayer.SpiritsGraceDieEffect) {
+            player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
+            ThoriumPlayer.SpiritsGraceDieEffect = false;
+        }
+    }
+
+    // ---- Static helpers ----
 
     MultiplyDamage(damage) {
         return damage * (1 + ThoriumPlayer.SheatDamageMultiplier);
     }
 
     UseTimeMultiplier(player, item) {
-        if (ThoriumPlayer.YewWoodAccumulated > 0) {
-            if (player.HeldItem.ranged)
-                return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
-        }
+        if (ThoriumPlayer.YewWoodAccumulated > 0 && player.HeldItem && player.HeldItem.ranged)
+            return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
         return 1.0;
     }
 
     UseAnimationMultiplier(player, item) {
-        if (ThoriumPlayer.YewWoodAccumulated > 0) {
-            if (player.HeldItem.ranged)
-                return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
-        }
+        if (ThoriumPlayer.YewWoodAccumulated > 0 && player.HeldItem && player.HeldItem.ranged)
+            return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
         return 1.0;
     }
 
-    ModifyManaCost(player, item, mana) {
-        if(ThoriumPlayer.NoviceClericSetBonus) {
-
-        }
-    }
-
-    OnRespawn(player) {
-        ThoriumPlayer.CoralSetCount = 0
-
-        ThoriumPlayer.CoralSlasherCharge = 0;
-        ThoriumPlayer.CoralSlasherReady = false;
-
-        if (ThoriumPlayer.SpiritsGraceDieEffect) {
-            player['void AddBuff(int type, int time, bool fromNetPvP)'](ModBuff.getTypeByName('SpiritsGraceBuff'), 60, false);
-            ThoriumPlayer.SpiritsGraceDieEffect = false
-        }
-    }
-
     static MiniCriticalDamage(npc, damage) {
-        npc[StrikeNPCNoInteraction](
-            Math.round(damage * 0.75),
-            0,
-            npc.direction ?? 1,
-            true, false, false
-        );
+        npc[StrikeNPCNoInteraction](Math.round(damage * 0.75), 0, npc.direction ?? 1, true, false, false);
     }
 
     static IsCriticalDamage(item, damageDone) {
-        const baseDamage = item.damage;
-        return damageDone >= baseDamage * 1.5;
+        return damageDone >= item.damage * 1.5;
+    }
+
+    static EnterCombat() {
+        ThoriumPlayer.InCombat = true;
+        ThoriumPlayer.CombatTimer = 0;
+    }
+
+    static HealHPInHealerClass(player, value) {
+        if (value <= 0) return 0;
+        const mult = this.class.Healer.healPowerMultiply;
+        const extra = this.class.Healer.healPowerExtraValue;
+
+        return player.Heal(Math.max(1, value * mult + extra));
+    }
+
+    static TriggerNoviceClericCross(npc) {
+        for (const id of ThoriumPlayer.NoviceClericCrossIds) {
+            const p = Terraria.Main.projectile[id];
+            if (!p || !p.active) { ThoriumPlayer.NoviceClericCrossIds.delete(id); continue; }
+            const pai = new ProjAI(p, false);
+            if (pai[0] === 0) {
+                pai[0] = 1;
+                pai[1] = npc.whoAmI;
+                break;
+            }
+        }
     }
 
     static ReadySeathEffect(player) {
@@ -520,26 +616,28 @@ export class ThoriumPlayer extends ModPlayer {
 
         for (let i = 0; i < numDusts; i++) {
             const angle = (i / numDusts) * Math.PI * 2;
-            const speedVariation = baseSpeed + (Math.random() * 2.0 - 1.0);
-            const speedX = Math.cos(angle) * speedVariation;
-            const speedY = Math.sin(angle) * speedVariation;
-
-            let dustIndex = Terraria.Dust.NewDust(player.Center, 0, 0, 228, 0, 0, 50, Color.White, 2.0 + (Math.random() * 0.6));
+            const speedVariation = baseSpeed + (Rand.NextFloat() * 2.0 - 1.0);
+            let dustIndex = Terraria.Dust.NewDust(player.Center, 0, 0, 228, 0, 0, 50, ThoriumPlayer._whiteColor, 2.0 + (Rand.NextFloat() * 0.6));
             let d = Terraria.Main.dust[dustIndex];
-            d.noGravity = true;
-            d.rotation = angle;
-            d.velocity = Vector2.new(speedX, speedY);
+            if (d) {
+                d.noGravity = true;
+                d.rotation = angle;
+                ThoriumPlayer._vec.X = Math.cos(angle) * speedVariation;
+                ThoriumPlayer._vec.Y = Math.sin(angle) * speedVariation;
+                d.velocity = ThoriumPlayer._vec;
+            }
         }
 
         for (let i = 0; i < 15; i++) {
             const angle = (i / 15) * Math.PI * 2;
-            const speedX = Math.cos(angle) * (baseSpeed * 0.35);
-            const speedY = Math.sin(angle) * (baseSpeed * 0.35);
-
-            let dustIndex = Terraria.Dust.NewDust(player.Center, 0, 0, 228, 0, 0, 100, Color.White, 1.3 + (Math.random() * 0.4));
+            let dustIndex = Terraria.Dust.NewDust(player.Center, 0, 0, 228, 0, 0, 100, ThoriumPlayer._whiteColor, 1.3 + (Rand.NextFloat() * 0.4));
             let d = Terraria.Main.dust[dustIndex];
-            d.noGravity = true;
-            d.velocity = Vector2.new(speedX, speedY);
+            if (d) {
+                d.noGravity = true;
+                ThoriumPlayer._vec.X = Math.cos(angle) * (baseSpeed * 0.35);
+                ThoriumPlayer._vec.Y = Math.sin(angle) * (baseSpeed * 0.35);
+                d.velocity = ThoriumPlayer._vec;
+            }
         }
     }
 
@@ -550,61 +648,213 @@ export class ThoriumPlayer extends ModPlayer {
         const PLAT = ItemID.PlatinumCoin;
 
         let value = npc.value;
+        const plat = Math.floor(value / 1000000); value %= 1000000;
+        const gold = Math.floor(value / 10000); value %= 10000;
+        const silver = Math.floor(value / 100); value %= 100;
+        const copper = value;
 
-        let plat = Math.floor(value / 1000000);
-        value %= 1000000;
-
-        let gold = Math.floor(value / 10000);
-        value %= 10000;
-
-        let silver = Math.floor(value / 100);
-        value %= 100;
-
-        let copper = value;
-
-        const x = npc.position.X;
-        const y = npc.position.Y;
-        const w = npc.width;
-        const h = npc.height;
-
-        if (plat > 0)
-            NewItem(x, y, w, h, PLAT, plat, false, 0, false);
-
-        if (gold > 0)
-            NewItem(x, y, w, h, GOLD, gold, false, 0, false);
-
-        if (silver > 0)
-            NewItem(x, y, w, h, SILVER, silver, false, 0, false);
-
-        if (copper > 0)
-            NewItem(x, y, w, h, COPPER, copper, false, 0, false);
-    }
-
-    static HealHPInHealerClass(player, value) {
-        if(value <= 0) return 0;
-        return player.Heal(Math.max(1, value * this.class.Healer.healPowerMultiply + this.class.Healer.healPowerExtraValue))
-    }
-
-    static EnterCombat() {
-        ThoriumPlayer.InCombat = true;
-        ThoriumPlayer.CombatTimer = 0;
+        const x = npc.position.X, y = npc.position.Y, w = npc.width, h = npc.height;
+        if (plat > 0) NewItem(x, y, w, h, PLAT, plat, false, 0, false);
+        if (gold > 0) NewItem(x, y, w, h, GOLD, gold, false, 0, false);
+        if (silver > 0) NewItem(x, y, w, h, SILVER, silver, false, 0, false);
+        if (copper > 0) NewItem(x, y, w, h, COPPER, copper, false, 0, false);
     }
 
     static CrietzProjectile(player, npc) {
-        const projType = ModProjectile.getTypeByName('CrietzPro');
+        if (ThoriumPlayer._crietzProType === -1) {
+            ThoriumPlayer._crietzProType = ModProjectile.getTypeByName('CrietzPro');
+        }
         const speed = 2;
         const count = Rand.Next(2, 4);
-        const baseDir = Vector2.new(0, -1);
+        const baseDirX = 0, baseDirY = -1; // em vez de Vector2.new
         for (let i = 0; i < count; i++) {
             const angle = (Rand.NextFloat() < 0.5 ? -1 : 1) * (0.3 + Rand.NextFloat() * 0.3);
-            const dir = Vector2.RotatedBy(baseDir, angle);
-            const vel = Vector2.Multiply(dir, speed);
+            const cos = Math.cos(angle), sin = Math.sin(angle);
+            // Rotaciona (0,-1) pelo ângulo
+            const dirX = baseDirX * cos - baseDirY * sin;
+            const dirY = baseDirX * sin + baseDirY * cos;
+            ThoriumPlayer._vec.X = dirX * speed;
+            ThoriumPlayer._vec.Y = dirY * speed;
             const damage = player.HeldItem != null ? player.HeldItem.damage : 10;
             const source = player.GetProjectileSource_Item(player.HeldItem);
-            Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'](
-                source, npc.Center, vel, projType, damage, 4, player.whoAmI, 0, 0, 0, null
-            );
+            NewProjectile(source, npc.Center, ThoriumPlayer._vec, ThoriumPlayer._crietzProType, damage, 4, player.whoAmI, 0, 0, 0, null);
         }
         ThoriumPlayer.CrietzInvoke = false;
+    }
+
+    // ---- Bard UI & Inspiration ----
+
+    static UpdateInspiration() {
+        const player = Main.player[Main.myPlayer];
+        if (!player) return;
+        const held = player.HeldItem;
+        const isBardItem = held && ModBardItem.bardItemsName.has(held.type);
+
+        const baseMax = isBardItem
+            ? ThoriumPlayer._getCachedBardItem(held.type)?.inspirationMax ?? 10
+            : 10;
+
+        const CurrentInspiration = PlayerDB.get("Inspiration") || 0;
+        const PreviousInspiration = ThoriumPlayer.PreviousInspiration;
+        const InspirationMax = baseMax + ThoriumPlayer.class.Bard.inspirationMax2;
+
+        if (CurrentInspiration > InspirationMax) {
+            PlayerDB.set("Inspiration", InspirationMax);
+        }
+
+        if (CurrentInspiration < PreviousInspiration) {
+            ThoriumPlayer.RegenCooldown = 60;
+            ThoriumPlayer.class.Bard.inspirationRegenTimer = 0;
+            ThoriumPlayer.class.Bard.inspirationRegenBase = 1;
+            ThoriumPlayer.num1 = 0;
+        }
+
+        ThoriumPlayer.PreviousInspiration = CurrentInspiration;
+
+        if (ThoriumPlayer.RegenCooldown > 0) {
+            ThoriumPlayer.RegenCooldown--;
+            return;
+        }
+
+        if (CurrentInspiration < InspirationMax) {
+            const timer = ThoriumPlayer.class.Bard.inspirationRegenTimer;
+            const regenBase = ThoriumPlayer.class.Bard.inspirationRegenBase;
+            const regenBonus = ThoriumPlayer.class.Bard.inspirationRegenBonus;
+
+            if (timer < 10) {
+                ThoriumPlayer.class.Bard.inspirationRegenTimer += (regenBase + ThoriumPlayer.num1) * regenBonus;
+            } else {
+                ThoriumPlayer.class.Bard.inspirationRegenTimer = 0;
+                PlayerDB.set("Inspiration", CurrentInspiration + 1);
+                if (ThoriumPlayer.num1 < 5.0) ThoriumPlayer.num1 += 0.15;
+            }
+        }
+    }
+
+    static _getCachedBardItem(type) {
+        if (!ThoriumPlayer._bardItemCache.has(type)) {
+            ThoriumPlayer._bardItemCache.set(type, ModBardItem.getModItem(type));
+        }
+        return ThoriumPlayer._bardItemCache.get(type);
+    }
+
+    static UpdateTimer() {
+        const player = Main.player[Main.myPlayer];
+        if (!player) return;
+        const held = player.HeldItem;
+        const isBardItem = held && ModBardItem.bardItemsName.has(held.type);
+
+        if (isBardItem) {
+            const modItem = ThoriumPlayer._getCachedBardItem(held.type);
+            if (modItem?.useTimer && modItem.timerStyle) {
+                if (!BardTimer.Active || BardTimer.Style !== modItem.timerStyle) {
+                    BardTimer.Start(modItem.timerStyle);
+                }
+            } else {
+                if (BardTimer.Active) BardTimer.Stop();
+            }
+        } else {
+            if (BardTimer.Active) BardTimer.Stop();
+        }
+
+        BardTimer.Update();
+    }
+
+    static DrawFrame(column, row, x, y, color = ThoriumPlayer._whiteColor, scale = 1) {
+        if (!ThoriumPlayer._wheelSpriteFrame) {
+            ThoriumPlayer._wheelSpriteFrame = SpriteFrame.new();
+            ThoriumPlayer._wheelSpriteFrame['void .ctor(byte columns, byte rows)'](7, 10);
+        }
+        const sprite = ThoriumPlayer._wheelSpriteFrame;
+        sprite.CurrentColumn = column;
+        sprite.CurrentRow = row;
+        const frame = sprite.GetSourceRectangle(ThoriumPlayer.SpriteSheet);
+
+        ThoriumPlayer._vec.X = x;
+        ThoriumPlayer._vec.Y = y;
+
+        Main.spriteBatch[
+            "void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)"
+        ](ThoriumPlayer.SpriteSheet, ThoriumPlayer._vec, frame, color, 0, Vector2.Zero, scale, null, 0.0);
+    }
+
+    static DrawBaseFrames(scale = 1.5) {
+        const { X: PosX, Y: PosY } = ThoriumPlayer.GetWheelPosition();
+        for (let row = 0; row < 8; row++) {
+            ThoriumPlayer.DrawFrame(0, row, PosX, PosY, ThoriumPlayer._whiteColor, scale);
+        }
+    }
+
+    static DrawInspirationFrames(scale = 1.5) {
+        const { X: PosX, Y: PosY } = ThoriumPlayer.GetWheelPosition();
+        const RealInspiration = PlayerDB.get("Inspiration") || 0;
+
+        const speed = 0.25;
+        if (RealInspiration < ThoriumPlayer.DisplayInspiration) {
+            ThoriumPlayer.DisplayInspiration = RealInspiration;
+        } else {
+            ThoriumPlayer.DisplayInspiration += (RealInspiration - ThoriumPlayer.DisplayInspiration) * speed;
+        }
+
+        const inspiration = ThoriumPlayer.DisplayInspiration;
+        const totalFrames = inspiration / 2;
+        let fullFrames = Math.floor(totalFrames);
+        const fraction = totalFrames - fullFrames;
+        let col = 2;
+
+        while (fullFrames >= 10 && col <= 6) {
+            for (let i = 0; i < 10; i++) ThoriumPlayer.DrawFrame(col, i, PosX, PosY, ThoriumPlayer._whiteColor, scale);
+            fullFrames -= 10;
+            col++;
+        }
+
+        for (let i = 0; i < fullFrames; i++) {
+            ThoriumPlayer.DrawFrame(col, i, PosX, PosY, ThoriumPlayer._whiteColor, scale);
+        }
+
+        if (fraction > 0 && fullFrames < 10) {
+            const multi = Math.round(255 * fraction);
+            ThoriumPlayer._color.R = multi; ThoriumPlayer._color.G = multi; ThoriumPlayer._color.B = multi; ThoriumPlayer._color.A = 255;
+            ThoriumPlayer.DrawFrame(col, fullFrames, PosX, PosY, ThoriumPlayer._color, scale);
+        }
+    }
+
+    static GetWheelPosition() {
+        if (ThoriumPlayer._wheelPosCacheTimer++ < 60) {
+            return ThoriumPlayer._cachedWheelPos;
+        }
+        ThoriumPlayer._wheelPosCacheTimer = 0;
+
+        const uiScale = Main.UIScale;
+        const slotSize = 40 * uiScale;
+
+        const hotbar = Hotbar_Layout.InstanceNormal;
+        const hotbarGrid = hotbar.HotbarGrid;
+
+        const hotbarPos = LayoutCalculator.GetAnchoredPosition(
+            hotbarGrid.FirstAnchorControl,
+            hotbarGrid.FirstItemAnchor,
+            hotbarGrid.FirstItemLocation
+        );
+
+        const columns = hotbarGrid.ItemLineCount;
+        const hotbarWidth = columns * slotSize;
+
+        const posX = (hotbarPos.X * uiScale) + hotbarWidth + 40;
+        const posY = hotbarPos.Y * uiScale + 80 * uiScale;
+
+        ThoriumPlayer._cachedWheelPos = { X: posX, Y: posY };
+        return ThoriumPlayer._cachedWheelPos;
+    }
+
+    static BardWheel() {
+        if (Main.gameMenu) return;
+        if (!ThoriumPlayer.SpriteSheet) {
+            ThoriumPlayer.SpriteSheet = tl.texture.load('Textures/UI/Bard/BardWheel_Sheet.png');
+        }
+
+        const scale = 1 / Main.UIScale;
+        ThoriumPlayer.DrawBaseFrames(scale);
+        ThoriumPlayer.DrawInspirationFrames(scale);
     }
 }

@@ -19,7 +19,7 @@ const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int 
 export class PlayerHooks {
     static initialized = false;
     static worldLoaded = false;
-    
+
     // Here you can disable the hooks that won't be used in your mod to avoid unnecessary processing
     static HookList = {
         All: (info) => true,
@@ -71,37 +71,37 @@ export class PlayerHooks {
         GUIBuffs: (info) => info.hasBuffs,
         DrawPlayerLayers: (info) => info.hasPlayers || info.hasMounts
     };
-    
+
     static Initialize(info) {
         if (!this.HookList.All(info) || this.initialized) return;
-        
+
         Terraria.Player.Hooks.EnterWorld.hook((original, playerIndex) => {
             const player = Terraria.Main.player[playerIndex];
-            
+
             // Resize arrays
             player.buffImmune = player.buffImmune.cloneResized(BuffLoader.BuffCount);
             player.ownedProjectileCounts = player.ownedProjectileCounts.cloneResized(ProjectileLoader.ProjectileCount);
             player.npcTypeNoAggro = player.npcTypeNoAggro.cloneResized(NPCLoader.NPCCount);
-            
+
             // Fix double-click crash on buffs
             player.AddBuff(185, 2, false);
-            
+
             BiomeLoader.SetupPlayer(player);
-            
+
             if (!this.worldLoaded) {
                 this.worldLoaded = true;
                 SystemLoader.OnWorldLoad();
             }
-            
+
             original(playerIndex);
             AchievementLoader.OnEnterWorld(player);
             PlayerLoader.OnEnterWorld(player);
-            
+
             if (SubworldLoader.AnySubworldActive) {
                 SubworldLoader.ActiveSubworld.OnEnter(player);
             }
         });
-        
+
         if (this.HookList.Spawn(info)) {
             Terraria.Player['void Spawn(PlayerSpawnContext context)'
             ].hook((original, self, context) => {
@@ -112,7 +112,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.TileInteractionsCheck(info)) {
             Terraria.Player['void TileInteractionsCheck(int myX, int myY)'
             ].hook((original, self, mX, mY) => {
@@ -121,7 +121,7 @@ export class PlayerHooks {
                 TileLoader.MouseOver(self, mX, mY, type);
             });
         }
-        
+
         if (this.HookList.TileInteractionsCheckLongDistance(info)) {
             Terraria.Player['void TileInteractionsCheckLongDistance(int myX, int myY)'
             ].hook((original, self, mX, mY) => {
@@ -130,17 +130,17 @@ export class PlayerHooks {
                 TileLoader.MouseOverFar(self, mX, mY, type);
             });
         }
-        
+
         if (this.HookList.TileInteractionsUse(info)) {
             Terraria.Player['void TileInteractionsUse(int myX, int myY)'
             ].hook((original, self, mX, mY) => {
                 if (Terraria.GameContent.UI.WiresUI.Open || self.ownedProjectileCounts[651] > 0) return;
-                
+
                 const releaseUseTile = self.releaseUseTile;
                 if (!self.tileInteractAttempted) return;
-                
+
                 const type = new TileData(mX, mY).type;
-                
+
                 if (releaseUseTile) {
                     let flag1 = TileLoader.RightClick(self, mX, mY, type);
                     if (flag1 !== false) {
@@ -152,7 +152,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.GetPickaxeDamage(info)) {
             Terraria.Player['int GetPickaxeDamage(int x, int y, int pickPower, int hitBufferIndex, Tile tileTarget)'
             ].hook((original, self, x, y, pickPower, hitBufferIndex, tile) => {
@@ -160,7 +160,7 @@ export class PlayerHooks {
                 return TileLoader.PickPowerCheck(self, pickPower, x, y, tile, damage);
             });
         }
-        
+
         if (this.HookList.ItemCheck(info)) {
             Terraria.Player['void ItemCheck()'
             ].hook((original, self) => {
@@ -174,7 +174,7 @@ export class PlayerHooks {
                 PlayerLoader.PostItemCheck(self);
             });
         }
-        
+
         if (this.HookList.ItemCheck_CheckCanUse(info)) {
             Terraria.Player['bool ItemCheck_CheckCanUse_Inner(Item sItem, bool ignoreCursed)'
             ].hook((original, self, item, ignoreCursed) => {
@@ -185,7 +185,7 @@ export class PlayerHooks {
                 return original(self, item, ignoreCursed);
             });
         }
-        
+
         if (this.HookList.ItemCheck_ApplyUseStyle(info)) {
             Terraria.Player['void ItemCheck_ApplyUseStyle(float mountOffset, Item sItem, Rectangle heldItemFrame)'
             ].hook((original, self, mountOffset, item, heldItemFrame) => {
@@ -193,7 +193,7 @@ export class PlayerHooks {
                 CombinedLoader.UseStyle(item, self, mountOffset, heldItemFrame);
             });
         }
-        
+
         if (this.HookList.ItemCheck_ApplyHoldStyle(info)) {
             Terraria.Player['void ItemCheck_ApplyHoldStyle(float mountOffset, Item sItem, Rectangle heldItemFrame)'
             ].hook((original, self, mountOffset, item, heldItemFrame) => {
@@ -201,14 +201,14 @@ export class PlayerHooks {
                 CombinedLoader.HoldStyle(item, self, mountOffset, heldItemFrame);
             });
         }
-        
+
         if (this.HookList.ApplyItemTime(info)) {
             Terraria.Player['void ApplyItemTime(Item sItem)'
             ].hook((original, self, item) => {
                 self.SetItemTime(item.useTime * CombinedLoader.UseSpeedMultiplier(item, self));
             });
         }
-        
+
         if (this.HookList.ApplyItemAnimation(info)) {
             Terraria.Player['void ApplyItemAnimation(Item sItem)'
             ].hook((original, self, item) => {
@@ -230,7 +230,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.ItemCheck_StartActualUse(info)) {
             Terraria.Player['void ItemCheck_StartActualUse(Item sItem)'
             ].hook((original, self, item) => {
@@ -243,7 +243,7 @@ export class PlayerHooks {
                 else {
                     flag = CombinedLoader.UseItem(item, self);
                 }
-                
+
                 if (!flag) {
                     let flag1 = item.type === 4711;
                     if (((item.pick > 0 || item.axe > 0 ? 1 : (item.hammer > 0 ? 1 : 0)) | (flag1 ? 1 : 0)) != 0)
@@ -265,7 +265,7 @@ export class PlayerHooks {
                         let flag3 = item.useStyle === 5 || item.useStyle === 13 || item.shoot > 0;
                         let nullable = Terraria.ID.ItemID.Sets.NetUseSoundSync[item.type];
                         if (nullable?.HasValue) flag3 = nullable.Value;
-                            if (((self.whoAmI !== Terraria.Main.myPlayer ? 0 : (Terraria.Main.netMode === 1 ? 1 : 0)) & (flag3 ? 1 : 0)) !== 0) {
+                        if (((self.whoAmI !== Terraria.Main.myPlayer ? 0 : (Terraria.Main.netMode === 1 ? 1 : 0)) & (flag3 ? 1 : 0)) !== 0) {
                             Terraria.NetMessage.SendData(152, -1, -1, null, self.whoAmI, 0, 0, 0, 0, 0, 0);
                         }
                         if (self.whoAmI === Terraria.Main.myPlayer || flag3) {
@@ -276,9 +276,9 @@ export class PlayerHooks {
                 } else {
                     original(self, item);
                 }
-                
+
                 if (ItemLoader.isModType(item.type)) {
-                    if (item.maxStack === 1 
+                    if (item.maxStack === 1
                         || item.createTile !== -1
                         || item.createWall !== -1
                         || item.buffType !== 0
@@ -293,7 +293,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.ApplyLifeAndOrMana(info)) {
             Terraria.Player['void ApplyLifeAndOrMana(Item item)'
             ].hook((original, self, item) => {
@@ -325,7 +325,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.CheckMana(info)) {
             Terraria.Player['bool ItemCheck_CheckCanUse_CanPayMana(Item sItem, bool canUse)'
             ].hook((original, self, item, canUse) => {
@@ -343,7 +343,7 @@ export class PlayerHooks {
                 }
                 return canUse;
             });
-            
+
             Terraria.Player['bool CheckMana(int amount, bool pay, bool blockQuickMana)'
             ].hook((original, self, amount, pay, blockQuickMana) => {
                 let item = self.inventory[self.selectedItem];
@@ -386,21 +386,21 @@ export class PlayerHooks {
                 return true;
             });
         }
-        
+
         if (this.HookList.GetWeaponDamage(info)) {
             Terraria.Player['int GetWeaponDamage(Item sItem)'
             ].hook((original, self, item) => {
                 return CombinedLoader.ModifyWeaponDamage(item, self, original(self, item));
             });
         }
-        
+
         if (this.HookList.GetWeaponKnockback(info)) {
             Terraria.Player['float GetWeaponKnockback(Item sItem, float KnockBack)'
             ].hook((original, self, item, KnockBack) => {
                 return CombinedLoader.ModifyWeaponKnockback(item, self, original(self, item, KnockBack));
             });
         }
-        
+
         if (this.HookList.ItemCheck_Shoot(info)) {
             Terraria.Player['void ItemCheck_Shoot(int i, Item sItem, int weaponDamage, bool withAudioVisualFeedback)'
             ].hook((original, self, i, item, damage, withAudioVisualFeedback) => {
@@ -408,24 +408,24 @@ export class PlayerHooks {
                     self['void ApplyItemTime(Item sItem)'](item);
                     return;
                 }
-                
+
                 let type = item.shoot;
                 let knockBack = self.GetWeaponKnockback(item, item.knockBack);
                 let position = self.RotatedRelativePoint(self.MountedCenter, true, true);
-                
+
                 let velocity = Vector2.new(
                     Terraria.Main.mouseX + Terraria.Main.screenPosition.X - position.X,
                     Terraria.Main.mouseY + Terraria.Main.screenPosition.Y - position.Y
                 );
                 velocity = Vector2.Multiply(Vector2.Normalize(velocity), item.shootSpeed);
-                
+
                 const stats = CombinedLoader.ModifyShootStats(item, self, position, velocity, type, damage, knockBack);
                 position = stats.position;
                 velocity = stats.velocity;
                 type = stats.type;
                 damage = stats.damage;
                 knockBack = stats.knockBack;
-                
+
                 if (CombinedLoader.Shoot(item, self, position, velocity, type, damage, knockBack)) {
                     const oldType = item.shoot;
                     const oldAmmo = item.useAmmo;
@@ -438,19 +438,36 @@ export class PlayerHooks {
                     item.useAmmo = oldAmmo;
                 } else {
                     self['void ApplyItemTime(Item sItem)'](item);
+
+                    const origin = self.RotatedRelativePoint(self.MountedCenter, true, true);
+                    const dx = Terraria.Main.mouseX + Terraria.Main.screenPosition.X - origin.X;
+                    const dy = Terraria.Main.mouseY + Terraria.Main.screenPosition.Y - origin.Y;
+                    const len = Math.sqrt(dx * dx + dy * dy);
+
+                    if (len > 0) {
+                        const nx = dx / len;
+                        const ny = dy / len;
+                        const dot = Math.cos(self.fullRotation) * nx + Math.sin(self.fullRotation) * ny;
+                        self['void ChangeDir(int dir)'](dot > 0 ? 1 : -1);
+                    }
+
                     if (item.useStyle === 5) {
-                        const c = self.RotatedRelativePoint(self.MountedCenter, true, true);
-                        let x = Terraria.Main.mouseX + Terraria.Main.screenPosition.X - c.X;
-                        let y = Terraria.Main.mouseY + Terraria.Main.screenPosition.Y - c.Y;
-                        let rot = item.shootSpeed / Math.sqrt(x * x + y * y);
-                        let rotX = x * rot;
-                        let rotY = y * rot;
-                        self.itemRotation = Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
+                        const rotX = dx / len * item.shootSpeed;
+                        const rotY = dy / len * item.shootSpeed;
+                        self.itemRotation =
+                            Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
+                    }
+
+                    if (item.useStyle === 13) {
+                        const rotX = dx / len * item.shootSpeed;
+                        const rotY = dy / len * item.shootSpeed;
+                        self.itemRotation =
+                            Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
                     }
                 }
             });
         }
-        
+
         if (this.HookList.ApplyNPCOnHitEffects(info)) {
             Terraria.Player['void ApplyNPCOnHitEffects(Item sItem, Rectangle itemRectangle, int damage, float knockBack, int npcIndex, int dmgRandomized, int dmgDone)'
             ].hook((original, self, item, itemRect, damage, knockBack, npcIndex, dmgRandomized, dmgDone) => {
@@ -458,7 +475,7 @@ export class PlayerHooks {
                 CombinedLoader.OnHitNPC(item, self, Terraria.Main.npc[npcIndex], dmgDone, knockBack);
             });
         }
-        
+
         if (this.HookList.UpdateEquips(info)) {
             const updateInventory = this.HookList.UpdateInventory(info) ?? false;
             Terraria.Player['void UpdateEquips(int i)'
@@ -469,7 +486,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.ApplyEquipFunctional(info)) {
             Terraria.Player['void ApplyEquipFunctional(int itemSlot, Item currentItem)'
             ].hook((original, self, itemSlot, item) => {
@@ -477,7 +494,7 @@ export class PlayerHooks {
                 CombinedLoader.UpdateAccessory(item, self, false, self.hideVisibleAccessory[itemSlot]);
             });
         }
-        
+
         if (this.HookList.ApplyEquipVanity(info)) {
             Terraria.Player['void ApplyEquipVanity(int itemSlot, Item currentItem)'
             ].hook((original, self, itemSlot, item) => {
@@ -485,7 +502,7 @@ export class PlayerHooks {
                 CombinedLoader.UpdateAccessory(item, self, true);
             });
         }
-        
+
         if (this.HookList.UpdateDyes(info)) {
             Terraria.Player['void UpdateDyes()'
             ].hook((original, self) => {
@@ -493,7 +510,7 @@ export class PlayerHooks {
                 PlayerLoader.UpdateDyes(self);
             });
         }
-        
+
         if (this.HookList.UpdateArmorSets(info)) {
             if (info.hasItems) {
                 Terraria.DataStructures.ArmorSetBonuses.Benefits['void Pumpkin(Player player)'
@@ -501,7 +518,7 @@ export class PlayerHooks {
                     let head = player.armor[0].type ?? -1;
                     let body = player.armor[1].type ?? -1;
                     let legs = player.armor[2].type ?? -1;
-                    
+
                     if (ItemLoader.isModType(head) || ItemLoader.isModType(body) || ItemLoader.isModType(legs)) {
                         for (let i = 0; i < 3; i++) {
                             const item = player.armor[i];
@@ -513,14 +530,14 @@ export class PlayerHooks {
                     }
                 });
             }
-            
+
             Terraria.Player['void UpdateArmorSets(int i)'
             ].hook((original, self, i) => {
                 original(self, i);
                 CombinedLoader.UpdateArmorSets(self);
             });
         }
-        
+
         if (this.HookList.WingMovement(info)) {
             Terraria.Player['void WingMovement()'
             ].hook((original, self) => {
@@ -528,7 +545,7 @@ export class PlayerHooks {
                 CombinedLoader.WingMovement(self);
             });
         }
-        
+
         if (this.HookList.CanAcceptItemIntoInventory(info)) {
             Terraria.Player['bool CanAcceptItemIntoInventory(Item item)'
             ].hook((original, self, item) => {
@@ -538,7 +555,7 @@ export class PlayerHooks {
                 return false;
             });
         }
-        
+
         if (this.HookList.GetItem(info)) {
             Terraria.Player['Item GetItem(Item newItem, GetItemSettings settings, bool disableMerge)'
             ].hook((original, self, newItem, settings, disableMerge) => {
@@ -549,7 +566,7 @@ export class PlayerHooks {
                 return result;
             });
         }
-        
+
         if (this.HookList.ExtractinatorUse(info)) {
             Terraria.Player['void ExtractinatorUse(int extractType, int extractinatorBlockType)'
             ].hook((original, self, extractType, extractinatorBlockType) => {
@@ -559,7 +576,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.RecalculateLuck(info)) {
             Terraria.Player['void RecalculateLuck()'
             ].hook((original, self) => {
@@ -569,7 +586,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.Update(info)) {
             Terraria.Player['void Update(int i)'
             ].hook((original, self, i) => {
@@ -578,7 +595,7 @@ export class PlayerHooks {
                 PlayerLoader.PostUpdate(self, i);
             });
         }
-        
+
         if (this.HookList.UpdateLifeRegen(info)) {
             Terraria.Player['void UpdateLifeRegen()'
             ].hook((original, self) => {
@@ -587,7 +604,7 @@ export class PlayerHooks {
                 PlayerLoader.UpdateLifeRegen(self);
             });
         }
-        
+
         if (this.HookList.UpdateManaRegen(info)) {
             Terraria.Player['void UpdateManaRegen()'
             ].hook((original, self) => {
@@ -595,7 +612,7 @@ export class PlayerHooks {
                 PlayerLoader.UpdateManaRegen(self);
             });
         }
-        
+
         if (this.HookList.UpdateBuffs(info)) {
             Terraria.Player['void UpdateBuffs(int i)'
             ].hook((original, self, i) => {
@@ -603,7 +620,7 @@ export class PlayerHooks {
                 original(self, i);
                 PlayerLoader.PostUpdateBuffs(self);
             });
-            
+
             if (info.hasBuffs) {
                 Terraria.Player['void UpdateHungerBuffs()'
                 ].hook((original, self) => {
@@ -616,7 +633,7 @@ export class PlayerHooks {
                 });
             }
         }
-        
+
         if (this.HookList.UpdateDead(info)) {
             Terraria.Player['void UpdateDead()'
             ].hook((original, self) => {
@@ -624,7 +641,7 @@ export class PlayerHooks {
                 PlayerLoader.UpdateDead(self);
             });
         }
-        
+
         if (this.HookList.UpdateBiomes(info)) {
             Terraria.Player['void UpdateBiomes()'
             ].hook((original, self) => {
@@ -632,14 +649,14 @@ export class PlayerHooks {
                 BiomeLoader.UpdateBiomes(self);
             });
         }
-        
+
         if (this.HookList.BordersMovement(info)) {
             Terraria.Player['void BordersMovement()'].hook((original, self) => {
                 PlayerLoader.UpdateMovement(self);
                 original(self);
             });
         }
-        
+
         if (this.HookList.ResetEffects(info)) {
             Terraria.Player['void ResetEffects()'
             ].hook((original, self) => {
@@ -653,18 +670,18 @@ export class PlayerHooks {
                 PlayerLoader.ResetEffects(self);
             });
         }
-        
+
         if (this.HookList.Hurt(info)) {
             Terraria.Player['double Hurt(PlayerDeathReason damageSource, int Damage, int hitDirection, bool pvp, bool quiet, bool Crit, int cooldownCounter, bool dodgeable)'
             ].hook((original, self, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) => {
                 if (PlayerLoader.ImmuneTo(self, damageSource, cooldownCounter, dodgeable)) {
                     return 0.0;
                 }
-                
+
                 if (PlayerLoader.FreeDodge(self, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable)) {
                     return 0.0;
                 }
-                
+
                 const modifiers = CombinedLoader.ModifyPlayerHurt(self, damageSource, damage, hitDirection, quiet, crit, dodgeable);
                 damageSource = modifiers.damageSource;
                 damage = modifiers.damage;
@@ -672,23 +689,23 @@ export class PlayerHooks {
                 quiet = modifiers.quiet;
                 crit = modifiers.crit;
                 dodgeable = modifiers.dodgeable;
-                
+
                 const result = original(self, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable);
-                
+
                 if (damageSource._sourceNPCIndex > -1) {
                     const npc = Terraria.Main.npc[damageSource._sourceNPCIndex];
                     if (npc && npc.active) NPCLoader.OnHitPlayer(npc, self, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable);
                 }
                 PlayerLoader.OnHurt(self, damageSource, result, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable);
-                
+
                 if (!self.dead && self.statLife > 0) {
                     PlayerLoader.PostHurt(self, damageSource, result, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable);
                 }
-                
+
                 return result;
             });
         }
-        
+
         if (this.HookList.KillMe(info)) {
             Terraria.Player['void KillMe(PlayerDeathReason damageSource, double dmg, int hitDirection, bool pvp)'
             ].hook((original, self, damageSource, damage, hitDirection, pvp) => {
@@ -698,7 +715,7 @@ export class PlayerHooks {
                 if (flag) PlayerLoader.Kill(self, damageSource, damage, hitDirection, pvp);
             });
         }
-        
+
         if (this.HookList.GetDyeTraderReward(info)) {
             Terraria.Player['void GetDyeTraderReward(NPC dyeTrader)'
             ].hook((original, self, dyeTrader) => {
@@ -750,17 +767,17 @@ export class PlayerHooks {
                 PlayerLoader.GetDyeTraderReward(self, dyeTrader, intList);
                 if (intList.length <= 0) return;
                 intList = [...new Set(intList)];
-                let Type = intList[Math.floor(Math.random()*intList.length)];
+                let Type = intList[Math.floor(Math.random() * intList.length)];
                 let newItem = Terraria.Item.new();
                 newItem['void SetDefaults(int Type, ItemVariant variant)'](Type, null);
                 newItem.stack = 6;
-                
+
                 const source = Terraria.DataStructures.EntitySource_Gift.new();
                 source['void .ctor(Entity entity)'](dyeTrader);
                 self['void QuickSpawnItem(IEntitySource source, Item item, GetItemSettings settings)'](source, newItem, Terraria.GetItemSettings.GiftRecieved);
             });
         }
-        
+
         if (this.HookList.GetAnglerQuestReward(info)) {
             Terraria.Player['void GetAnglerReward(NPC angler, int questItemType)'
             ].hook((original, self, angler, questItemType) => {
@@ -769,7 +786,7 @@ export class PlayerHooks {
                 }
             });
         }
-        
+
         if (this.HookList.SellItem(info)) {
             Terraria.Player['bool SellItem(Item item, int stack)'
             ].hook((original, self, item, stack) => {
@@ -785,7 +802,7 @@ export class PlayerHooks {
                 return result;
             });
         }
-        
+
         if (this.HookList.SetupStartingItems(info)) {
             const GUIPlayerCreateMenu = new NativeClass('', 'GUIPlayerCreateMenu');
             GUIPlayerCreateMenu['void SetupStartingItems()'
@@ -794,7 +811,7 @@ export class PlayerHooks {
                 PlayerLoader.SetupStartingItems(Terraria.Main.PendingPlayer);
             });
         }
-        
+
         if (this.HookList.AddBuff_ActuallyTryToAddTheBuff(info)) {
             Terraria.Player['bool AddBuff_ActuallyTryToAddTheBuff(int type, int time)'
             ].hook((original, self, buffType, buffTime) => {
@@ -805,7 +822,7 @@ export class PlayerHooks {
                 return result;
             });
         }
-        
+
         if (this.HookList.AddBuff_TryUpdatingExistingBuffTime(info)) {
             Terraria.Player['bool AddBuff_TryUpdatingExistingBuffTime(int type, int time)'
             ].hook((original, self, buffType, buffTime) => {
@@ -816,10 +833,10 @@ export class PlayerHooks {
                 return result;
             });
         }
-        
+
         if (this.HookList.GUIBuffs(info)) {
             const GUIBuffs = new NativeClass('', 'GUIBuffs');
-            
+
             let buffs = new Map();
             GUIBuffs['void Draw()'
             ].hook((original, self) => {
@@ -844,11 +861,11 @@ export class PlayerHooks {
                     buffs = new Map();
                 }
             });
-            
+
             GUIBuffs['void ItemDraw(ItemGrid_Layout gridLayout, int index, Vector2 position, float scale)'
             ].hook((original, self, layout, index, position, scale) => {
                 let slot = index;//self.activeBuffCount <= self.buffController.selectedIndex ? index : (self.activeBuffs !== null && self.activeBuffs.length > 1) ? self.activeBuffs[index] : index;//(self. || (self.activeBuffs !== null && self.activeBuffs.length > 1)) ? self.activeBuffs[index] : index;
-                
+
                 if (buffs.has(slot)) {
                     const player = Terraria.Main.player[Terraria.Main.myPlayer];
                     player.buffType[slot] = buffs.get(slot);
@@ -856,28 +873,28 @@ export class PlayerHooks {
                 }
                 original(self, layout, index, position, scale);
             });
-            
+
             GUIBuffs['void RemoveBuff(int buff)'
             ].hook((original, self, buffIndex) => {
                 const player = Terraria.Main.player[Terraria.Main.myPlayer];
                 if (player === null || player.buffType === null) return;
-                
+
                 if (buffs.has(buffIndex)) {
                     player.buffType[buffIndex] = buffs.get(buffIndex);
                     buffs.delete(buffIndex);
                 }
-                
+
                 const buffType = player.buffType[buffIndex];
                 const buffTime = player.buffTime[buffIndex];
-                
+
                 if (buffType === 60 || buffType === 151) {
                     return;
                 }
-                
+
                 if (!BuffLoader.CanRemove(player, buffType, buffTime, buffIndex)) {
                     return;
                 }
-                
+
                 let isMount = false;
                 if (player.mount !== null && player.mount.Active) {
                     if (player.mount.CheckBuff(buffType)) {
@@ -886,7 +903,7 @@ export class PlayerHooks {
                         isMount = true;
                     }
                 }
-                
+
                 if (player.miscEquips !== null) {
                     if (player.miscEquips[0]?.buffType === buffType) {
                         let v = player.hideMisc;
@@ -899,21 +916,21 @@ export class PlayerHooks {
                         player.hideMisc = v;
                     }
                 }
-                
+
                 PlaySound(12, -1, -1, 1, 1, 0);
                 if (isMount) return;
                 player.DelBuff(buffIndex);
                 BuffLoader.OnRemove(player, buffType, buffTime, buffIndex);
             });
         }
-        
+
         if (this.HookList.DrawPlayerLayers(info)) {
             Terraria.DataStructures.PlayerDrawSet['void CreateCompositeData()'
             ].hook((original, self) => {
                 const player = self.drawPlayer;
-                
+
                 let hideEntirePlayer = false;
-                
+
                 if (player) {
                     if (player.mount.Active) {
                         const type = player.mount.Type;
@@ -923,7 +940,7 @@ export class PlayerHooks {
                             }
                         }
                     }
-                    
+
                     const parts = {
                         head: true,
                         body: true,
@@ -933,11 +950,11 @@ export class PlayerHooks {
                         hidesBottomSkin: false
                     };
                     PlayerLoader.ShouldDrawParts(player, parts);
-                    
+
                     if (!parts.head && !parts.body && !parts.legs) {
                         hideEntirePlayer = true;
                     }
-                    
+
                     if (hideEntirePlayer) {
                         self.stealth = 1;
                         const transparent = Color.Transparent;
@@ -988,7 +1005,7 @@ export class PlayerHooks {
                             self.legsGlowColor = transparent;
                         }
                     }
-                    
+
                     if (parts.hidesTopSkin) {
                         self.hidesTopSkin = true;
                     }
@@ -996,14 +1013,14 @@ export class PlayerHooks {
                         self.hidesBottomSkin = true;
                     }
                 }
-                
+
                 original(self);
             });
         }
-        
+
         this.initialized = true;
     }
-    
+
     static OnWorldUnload() {
         this.worldLoaded = false;
     }

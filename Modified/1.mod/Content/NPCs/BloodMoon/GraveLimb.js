@@ -58,7 +58,7 @@ export class GraveLimb extends ModNPC {
 
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 20, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 2, 4));
     }
 
 

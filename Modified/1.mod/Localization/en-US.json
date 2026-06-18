@@ -163,7 +163,15 @@
     "EbonHood": "Ebon Hood",
     "EbonCloak": "Ebon Cloak",
     "EbonLeggings": "Ebon Leggings",
-    "PalmCross": "Palm Cross"
+    "PalmCross": "Palm Cross",
+    "NoviceClericCowl": "Novice Cleric Cowl",
+    "NoviceClericTabard": "Novice Cleric Tabard",
+    "NoviceClericPants": "Novice Cleric Pants",
+    "WoodenWhistle": "Wooden Whistle",
+    "Cloth": "Cloth",
+    "CriersCap": "Criers Cap",
+    "CriersSash": "Criers Sash",
+    "CriersLeggings": "Criers Leggings"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -259,7 +267,11 @@
     "EbonHood": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 10",
     "EbonCloak": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 5\nHealing spells will heal 1 additional life point",
     "EbonLeggings": "10% reduction in non-radiant damage\nIncreases radiant damage by 1\nMaximum mana is increased by 5",
-    "PalmCross": "Charges a burst of holy light in front of you\nCharging the burst increases its size and damage greatly\nBurns and deals double damage against most undead enemies"
+    "PalmCross": "Charges a burst of holy light in front of you\nCharging the burst increases its size and damage greatly\nBurns and deals double damage against most undead enemies",
+    "NoviceClericCowl": "10% reduced non-radiant damage\n3% increased radiant damage\nSlightly increased mana regeneration\nIncreases maximum mana by 5\nHealing spells restore 1 additional life",
+    "NoviceClericTabard": "10% reduced non-radiant damage\n4% increased radiant damage\nSlightly increased mana regeneration\nIncreases maximum mana by 10\nHealing spells restore 2 additional life",
+    "NoviceClericPants": "10% reduced non-radiant damage\n3% increased radiant damage\nSlightly increased mana regeneration\nIncreases maximum mana by 5\nHealing spells restore 1 additional life",
+    "InpirationRegenBonus": "{0}% increased inspiration regeneration rate"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's auto attack will home in on enemies",
@@ -271,7 +283,9 @@
     "Sandstone": "Desert winds have granted you a sandy double jump",
     "Coral": "Increases radiant damage by 1\nRadiant damage accumulates up to 20 life shield",
     "Blooming": "Your healing spells increase life recovery",
-    "Ebon": "Corrupts your radiant powers, causing them to take on dark forms and deal additional effects"
+    "Ebon": "Corrupts your radiant powers, causing them to take on dark forms and deal additional effects",
+    "NoviceCleric": "Every second, a cross is generated. When hitting an enemy with radiant damage, the crosses will follow the enemy",
+    "Criers": "Your symphonic empowerments will last an additional 3 seconds"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Sprout Loyalty",
@@ -283,7 +297,8 @@
     "CharmedBuff": "Charmed",
     "SpiritsGraceBuff": "Spirit's Grace",
     "OvergrowthBuff": "Overgrowth",
-    "SingedBuff": "Singed"
+    "SingedBuff": "Singed",
+    "SheathBuff": "Sheath"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
@@ -295,7 +310,8 @@
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
     "SpiritsGraceBuff": "Increased invulnerability time and movement speed",
     "OvergrowthBuff": "Your life recovery and life recovery rate have been increased",
-    "SingedBuff": "Just received a nasty burn"
+    "SingedBuff": "Just received a nasty burn",
+    "SheathBuff": "Your equipped sheath is ready to strike"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"
@@ -430,6 +446,25 @@
       "symphonicDamage": " test 2 symphonic",
       "throwingDamage": " test 3 throwing"
     }
+  },
+  "Empowerments": {
+    "Defense": "+{0} defense",
+    "AttackSpeed": "+{0}% attack speed",
+    "CriticalStrikeChance": "+{0}% critical strike chance",
+    "Damage": "+{0}% damage",
+    "DamageReduction": "+{0}% damage reduction",
+    "EmpowermentProlongation": "+{0}% empowerment duration",
+    "FlatDamage": "+{0} flat damage",
+    "FlightTime": "+{0}% flight time",
+    "InvincibilityFrames": "+{0}% invincibility frames",
+    "JumpHeight": "+{0}% jump height",
+    "LifeRegeneration": "+{0} life regeneration",
+    "MovementSpeed": "+{0}% movement speed",
+    "ResourceConsumptionChance": "-{0}% resource consumption",
+    "ResourceGrabRange": "+{0}% resource grab range",
+    "ResourceMaximum": "+{0} maximum resource",
+    "ResourceRegen": "+{0}% resource regeneration",
+    "AquaticAbility": "+{0}% aquatic ability"
   },
   "Others": {
     "NoMultiplayer": "Multiplayer disabled by {0}"

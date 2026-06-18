@@ -1,10 +1,15 @@
 import { Terraria } from '../../TL/ModImports.js';
 import { Rand } from '../../TL/Modules/Rand.js';
+import { WorldDB } from '../../TL/WorldDB.js';
 
 const { Main, WorldGen } = Terraria;
 const { TileID, WallID } = Terraria.ID;
 
+let dbX;
+let dbY;
 export class BloodChamberStructure {
+    static PendingPosition = null;
+
     Generate() {
         const width = 90;       
         const height = 30;
@@ -37,6 +42,9 @@ export class BloodChamberStructure {
                 this.BuildChamber(left, top, width, height, thickness);
             }
         }
+
+        tl.log(`ActiveWorldFileData.Path: ${Terraria.Main.ActiveWorldFileData?.Path}`);
+        BloodChamberStructure.PendingPosition = { X: dbX, Y: dbY };
     }
 
     ClearArea(left, top, width, height) {
@@ -143,6 +151,9 @@ export class BloodChamberStructure {
         }
 
         this.AddDecorations(innerLeft, innerTop, innerRight, innerBottom, centerX);
+
+        dbX = dispenserX
+        dbY = dispenserY
     }
 
     AddDecorations(innerLeft, innerTop, innerRight, innerBottom, centerX) {

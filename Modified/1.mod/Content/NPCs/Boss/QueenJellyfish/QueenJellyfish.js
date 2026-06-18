@@ -349,7 +349,6 @@ export class QueenJellyfish extends ModNPC {
         this._logTimer++;
         if (this._logTimer >= 300) {
             this._logTimer = 0;
-            tl.log(`[QJ Effect] base=${EFFECT_Y_OFFSET} nudge=${nudge} bossFrame=${bossFrameIdx} effectFrame=${this._effectFrame}`);
         }
 
         const originH = srcRect ? effectFrameH : this._effectTex.Height;

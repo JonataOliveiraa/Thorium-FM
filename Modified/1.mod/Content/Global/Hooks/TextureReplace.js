@@ -34,37 +34,66 @@ export class TextureReplace extends ModSystem {
   }
 
   static _CustomTextures = new Map()
-  
+
   SetupContent() {
-      Containers2.InjectTexture()
+    // const SystemArray = new NativeClass('System', 'Array');
+    // const ObjectType = new NativeClass('System', 'Type')['Type GetType(string typeName)']('System.Object');
+    // const CreateInstance = SystemArray['Array CreateInstance(Type elementType, int length)'];
+    // const SetValue = SystemArray['void SetValue(object value, int index)'];
+    // const AndroidJavaObject = new NativeClass('UnityEngine', 'AndroidJavaObject');
 
-      ThoriumOreTile.InjectTexture()
-      LifeQuartzTile.InjectTexture()
-      ThoriumAnvil.InjectTexture()
+    // function tocarAudioNativo(caminhoAbsoluto) {
+    //   try {
+    //     const mediaPlayer = AndroidJavaObject.new();
+    //     const construtorJavaObj = AndroidJavaObject['void .ctor(string className, object[] args)'];
+    //     const argsConstrutorJava = CreateInstance(ObjectType, 0);
+    //     construtorJavaObj(mediaPlayer, 'android.media.MediaPlayer', argsConstrutorJava);
+    //     const CallVoid = AndroidJavaObject['void Call(string methodName, object[] args)'];
+    //     const argsSetDataSource = CreateInstance(ObjectType, 1);
+    //     SetValue(argsSetDataSource, NativeObject.wrap(caminhoAbsoluto, 'string'), 0);
+    //     CallVoid(mediaPlayer, 'setDataSource', argsSetDataSource);
+    //     const argsVazios = CreateInstance(ObjectType, 0);
+    //     CallVoid(mediaPlayer, 'prepare', argsVazios);
+    //     CallVoid(mediaPlayer, 'start', argsVazios);
+    //   } catch (e) {
+    //   }
+    // }
 
-      LeakyMarineBlock.InjectTexture()
-      LeakyMossyMarineBlock.InjectTexture()
-      LeakyMarineWall.InjectTexture()
-      MossyGoldOreTile.InjectTexture()
-      MossyPlatinumOreTile.InjectTexture()
-      AquaiteTile.InjectTexture()
-      AquamarineTile.InjectTexture()
-      DepthsAquamarineTile.InjectTexture()
-      OpalTile.InjectTexture()
-      DepthSatagmites.InjectTexture()
-      MarineBolders.InjectTexture()
+    // const pathMod = tl.mod.path;
+    // const meuCaminho = pathMod + '/test.wav';
 
-      ArcaneArmorFabricator.InjectTexture()
-      BloodAltar.InjectTexture()
-      AncientPhylactery.InjectTexture()
-      MarkedGrave.InjectTexture()
+    // tl.log("Tentando reproduzir arquivo em: " + meuCaminho);
+    // tocarAudioNativo(meuCaminho);
 
-      ScarletTile.InjectTexture()
-      Containers2.InjectTexture()
+    Containers2.InjectTexture()
 
-      BardEmblem.InjectTexture()
-      ClericEmblem.InjectTexture()
-      GrimAstroturf.InjectTexture()
+    ThoriumOreTile.InjectTexture()
+    LifeQuartzTile.InjectTexture()
+    ThoriumAnvil.InjectTexture()
+
+    LeakyMarineBlock.InjectTexture()
+    LeakyMossyMarineBlock.InjectTexture()
+    LeakyMarineWall.InjectTexture()
+    MossyGoldOreTile.InjectTexture()
+    MossyPlatinumOreTile.InjectTexture()
+    AquaiteTile.InjectTexture()
+    AquamarineTile.InjectTexture()
+    DepthsAquamarineTile.InjectTexture()
+    OpalTile.InjectTexture()
+    DepthSatagmites.InjectTexture()
+    MarineBolders.InjectTexture()
+
+    ArcaneArmorFabricator.InjectTexture()
+    BloodAltar.InjectTexture()
+    AncientPhylactery.InjectTexture()
+    MarkedGrave.InjectTexture()
+
+    ScarletTile.InjectTexture()
+    Containers2.InjectTexture()
+
+    BardEmblem.InjectTexture()
+    ClericEmblem.InjectTexture()
+    GrimAstroturf.InjectTexture()
   }
 
   PostSetupContent() {

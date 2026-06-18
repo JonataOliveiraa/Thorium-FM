@@ -50,33 +50,6 @@ export class BloomingBow extends ModItem {
       .Register();
   }
 
-
-  HoldItem(item, player) {
-    if (player.itemAnimation <= 0) return;
-
-    const mouseX = Terraria.Main.mouseX + Terraria.Main.screenPosition.X;
-    const mouseY = Terraria.Main.mouseY + Terraria.Main.screenPosition.Y;
-
-    player['void ChangeDir(int dir)'](mouseX > player.Center.X ? 1 : -1);
-
-    if (player.ItemAnimationJustStarted || player.direction !== this.lockedDir) {
-      this.lockedDir = player.direction;
-      const c = player.RotatedRelativePoint(player.MountedCenter, true, true);
-      const dx = mouseX - c.X;
-      const dy = mouseY - c.Y;
-      const len = Math.sqrt(dx * dx + dy * dy);
-      if (len > 0) {
-        this.lockedAngle = Math.atan2(dy / len, dx / len);
-      }
-    }
-
-    const dir = player.direction;
-    player.itemRotation = Math.atan2(
-      Math.sin(this.lockedAngle) * dir,
-      Math.cos(this.lockedAngle) * dir
-    ) - player.fullRotation;
-  }
-
   ModifyTooltipLines() {
     for (let i = this.TooltipLines.length - 1; i >= 0; i--) {
       const line = this.TooltipLines[i];

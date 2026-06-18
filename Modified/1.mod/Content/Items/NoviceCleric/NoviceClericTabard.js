@@ -18,14 +18,16 @@ export class NoviceClericTabard extends ModItem {
     UpdateEquip(item, player) {
         NoviceClericCowl.ReduceDamage10Perc(player)
         ThoriumPlayer.class.Healer.multiplier += 0.04
-        ThoriumPlayer.LifeRecoveryExtraValue += 2
+        ThoriumPlayer.class.Healer.healPowerExtraValue += 2;
+
         player.statManaMax2 += 10
+        player.manaRegen += 3
     }
 
     AddRecipes() {
         this.CreateRecipe(1)
-            .AddIngredient(Terraria.ID.ItemID.Silk, 3)
-            .AddIngredient(ModItem.getTypeByName("UnholyShards"), 12)
+            .AddIngredient(Terraria.ID.ItemID.Silk, 5)
+            .AddIngredient(ModItem.getTypeByName("PurifiedShards"), 6)
             .AddTile(Terraria.ID.TileID.WorkBenches)
             .Register();
     }

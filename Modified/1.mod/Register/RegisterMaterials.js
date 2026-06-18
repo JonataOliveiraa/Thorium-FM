@@ -19,6 +19,7 @@ import { AquamarineGem } from "../Content/Items/Materials/AquamarineGem.js";
 import { OpalGem } from "../Content/Items/Materials/OpalGem.js";
 import { SandstoneIngot } from "../Content/Items/Materials/SandstoneIngot.js";
 import { PurifiedShards } from "../Content/Items/Materials/PurifiedShards.js";
+import { Cloth } from "../Content/Items/Materials/Cloth.js";
 
 const List = [
     IcyShard,
@@ -31,6 +32,7 @@ const List = [
     UnholyShards,
     PurifiedShards,
     Talon,
+    Cloth,
 
     ThoriumOre,
     LifeQuartzOre,

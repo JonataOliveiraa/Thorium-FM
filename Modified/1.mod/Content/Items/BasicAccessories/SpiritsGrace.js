@@ -18,7 +18,7 @@ export class SpiritsGrace extends ModItem {
 
     UpdateAccessory(item, player, vanity, hideVisual) {
         if(vanity) return;
-        const bonus = player.statLifeMax2 * 0.15
+        const bonus = player.statLifeMax * 0.15
         player.statLifeMax2 += bonus
         ThoriumPlayer.SpiritsGraceEquipped = true
         ThoriumPlayer.SpiritsGraceDieEffect = true

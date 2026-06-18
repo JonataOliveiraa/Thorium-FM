@@ -8,7 +8,6 @@ const { Color, Vector2 } = Modules;
 export class EnchantedStaffPro extends ModProjectile {
     constructor() {
         super();
-        // O projétil original usa uma textura vazia, podemos simular isso com alpha = 255
         this.Texture = 'Projectiles/' + this.constructor.name;
     }
 

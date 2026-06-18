@@ -1,11 +1,18 @@
 export class Bard {
-    constructor() {
-        this.symphonicDamage = 10;
-        this.multiplier = 1.0;
-        this.description = "Bard";
-    }
+  constructor() {
+    this.symphonicDamage = 10;
+    this.multiplier = 1.0;
+    this.inspirationMax2 = 0;
+    this.inspirationRegenTimer = 0
+    this.inspirationRegenBonus = 1.0
+    this.inspirationRegenBase = 1
+    this.bardBuffDurationX = 1.0
+    this.bardBuffDurationFlat = 0
+    this.inspirationConsume = 1
+    this.description = "Bard";
+  }
 
-    itemNamePrefix = '[i:3943]'
+  itemNamePrefix = '[i:3943]'
 }
 
 export class Healer {

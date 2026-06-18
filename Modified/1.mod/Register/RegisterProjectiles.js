@@ -90,6 +90,14 @@ import { CoralSlasherPro } from '../Content/Projectiles/CoralSlasherPro.js';
 import { BloomingWandPro } from '../Content/Projectiles/BloomingWandPro.js';
 import { PiercePro } from '../Content/Projectiles/PiercePro.js';
 import { PalmCrossPro } from '../Content/Projectiles/PalmCrossPro.js';
+import { NoviceClericCrossPro } from '../Content/Projectiles/NoviceClericCrossPro.js';
+import { WoodenWhistlePro } from '../Content/Projectiles/WoodenWhistlePro.js';
+import { IcyPiccoloPro } from '../Content/Projectiles/IcyPiccoloPro.js';
+import { PlatinumBugleHornPro } from '../Content/Projectiles/PlatinumBugleHornPro.js';
+import { GoldBugleHornPro } from '../Content/Projectiles/GoldBugleHornPro.js';
+import { DidgeridooPro } from '../Content/Projectiles/DidgeridooPro.js';
+import { ViciousMockeryPro } from '../Content/Projectiles/ViciousMockeryPro.js';
+import { TambourinePro } from '../Content/Projectiles/TambourinePro.js';
 
 const List = [
   IceCubePro,
@@ -126,6 +134,7 @@ const List = [
   AquamarineStaffPro,
   TheDigesterPro,
   PalmCrossPro,
+  NoviceClericCrossPro,
 
   BloomingBowPro,
   BloomingStaffPro,
@@ -133,6 +142,14 @@ const List = [
 
   ColdFrontPro,
   LootRangPro,
+  IcyPiccoloPro,
+
+  GoldBugleHornPro,
+  PlatinumBugleHornPro,
+  WoodenWhistlePro,
+  DidgeridooPro,
+  ViciousMockeryPro,
+  TambourinePro,
 
   CoralPurifierPro,
   CoralCrossbowPro,

@@ -1,3 +1,4 @@
+import { ModBuff } from '../../../../TL/ModBuff.js';
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModPlayer } from '../../../../TL/ModPlayer.js';
@@ -34,8 +35,8 @@ export class LeatherSheath extends ModItem {
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {
-        if(vanity) return;
-        ThoriumPlayer.SheathMaxCooldown = this.SheathMaxCooldown
+        if (vanity) return;
+        ThoriumPlayer.SheathMaxCooldown = this.SheathMaxCooldown;
         ThoriumPlayer.SheatType = 0;
         ThoriumPlayer.SheatDamageMultiplier = this.DamageMultiplier;
         ThoriumPlayer.SheatCriticalChanceBonus = this.CriticalChanceBonus;
@@ -48,11 +49,10 @@ export class LeatherSheath extends ModItem {
             }
         }
 
-        if (
-            ThoriumPlayer.SheathMaxCooldown !== undefined &&
-            ThoriumPlayer.SheatType !== undefined &&
-            ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown
-        ) {
+        if (ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown) {
+            player['void AddBuff(int type, int time, bool fromNetPvP)'](
+                ModBuff.getTypeByName('SheathBuff'), 2, false
+            );
             player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
         }
     }

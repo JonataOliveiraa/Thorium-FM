@@ -11,14 +11,6 @@ export class LifeRecoveryBuff extends ModBuff {
     }
 
     UpdatePlayer(player, buffIndex) {
-        ThoriumPlayer.LifeRecoveryDelayTime++;
-        
-        if (ThoriumPlayer.LifeRecoveryDelayTime >= ThoriumPlayer.LifeRecoveryDelayMaxTime) {
-            const value = 1 + ThoriumPlayer.LifeRecoveryExtraValue
-            console.log(value)
-            
-            ThoriumPlayer.HealHPInHealerClass(player, value)
-            ThoriumPlayer.LifeRecoveryDelayTime = 0 
-        }
+        ThoriumPlayer.LifeRecoveryBuffActive = true;
     }
 }

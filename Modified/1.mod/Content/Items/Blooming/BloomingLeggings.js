@@ -16,6 +16,7 @@ export class BloomingLeggings extends ModItem {
 
     UpdateEquip(item, player) {
         BloomingCrown.ReduceDamage10Perc(player)
+        ThoriumPlayer.class.Healer.healPowerExtraValue += 1
         ThoriumPlayer.class.Healer.multiplier += 0.05
     }
 

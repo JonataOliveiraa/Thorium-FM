@@ -19,7 +19,6 @@ export class BloomingBlade extends ModItem {
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
-        this.Item.useTurn = true
     }
 
     ModifyTooltipLines() {

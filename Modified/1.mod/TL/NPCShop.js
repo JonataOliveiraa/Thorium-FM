@@ -16,7 +16,7 @@ export class NPCShop {
         }
     }
     
-    Add(type, stack = 1) {
+    Add(type, stack = 1, price = 0) {
         if (!type || !stack) return -1;
         for (let i = 0; i < 40; i++) {
             if (this.item[i] == null || this.item[i].type == 0) {
@@ -28,6 +28,10 @@ export class NPCShop {
                 this.item[i].buyOnce = false;
                 this.item[i].stack = Math.max(1, Math.min(stack, this.item[i].maxStack));
                 this.item[i].material = Terraria.ID.ItemID.Sets.IsAMaterial[type];
+
+                if(!price) {
+                    this.item[i].value = price
+                }
                 return i;
             }
         }

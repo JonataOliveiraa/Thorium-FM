@@ -21,12 +21,16 @@ export class ThoriumBoomerang extends ModItem {
 
     this.SetWeaponValues(15, 8, 4);
     this.SetDefaultWeaponStyle(25, false);
+
+    this.Item.useAnimation = 10;
+    this.Item.useTime = 10;
+    this.Item.autoReuse = true;
     this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
     this.Item.noUseGraphic = true;
 
     // Shoot
     this.Item.shoot = ModProjectile.getTypeByName("ThoriumBoomerangPro");
-    this.Item.shootSpeed = 15;
+    this.Item.shootSpeed = 9;
   }
 
   CanUseItem(item, player) {

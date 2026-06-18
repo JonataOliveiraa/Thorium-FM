@@ -5,6 +5,7 @@ import { PrefixUtils } from "../TL/Modules/Utils/Prefix.js";
 
 export class ModHealerItem extends ModItem {
     static healerItemsName = new Set()
+    static healerItemsByType = new Map();
 
     constructor() {
         super()
@@ -18,5 +19,10 @@ export class ModHealerItem extends ModItem {
         item.damage = item.OriginalDamage * cls.multiplier + cls.radiantDamage
 
         return damage
+    }
+
+    PostSetupContent() {
+        ModHealerItem.healerItemsName.add(this.Type);
+        ModHealerItem.healerItemsByType.set(this.Type, this);
     }
 }

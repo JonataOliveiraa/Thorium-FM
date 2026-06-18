@@ -18,8 +18,9 @@ export class NoviceClericPants extends ModItem {
     UpdateEquip(item, player) {
         NoviceClericCowl.ReduceDamage10Perc(player)
         ThoriumPlayer.class.Healer.multiplier += 0.03
-        ThoriumPlayer.LifeRecoveryExtraValue += 1
+        ThoriumPlayer.class.Healer.healPowerExtraValue += 1;
         player.statManaMax2 += 5
+        player.manaRegen += 1
     }
 
     static ReduceDamage10Perc(player) {
@@ -32,7 +33,7 @@ export class NoviceClericPants extends ModItem {
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(Terraria.ID.ItemID.Silk, 4)
-            .AddIngredient(ModItem.getTypeByName("UnholyShards"), 8)
+            .AddIngredient(ModItem.getTypeByName("PurifiedShards"), 4)
             .AddTile(Terraria.ID.TileID.WorkBenches)
             .Register();
     }

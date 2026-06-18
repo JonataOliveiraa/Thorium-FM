@@ -33,13 +33,13 @@ export class BloomingCrown extends ModItem {
 
     UpdateArmorSet(item, player) {
         player.manaRegen += 2
-        ThoriumPlayer.class.Healer.healPowerMultiply += 0.2
         ThoriumPlayer.BloomingSetBonus = true
     }
 
     
     UpdateEquip(item, player) {
         BloomingCrown.ReduceDamage10Perc(player)
+        ThoriumPlayer.class.Healer.healPowerExtraValue += 1
         ThoriumPlayer.class.Healer.multiplier += 0.05
     }
     
