@@ -46,7 +46,6 @@ export class UpdateNPCBuff extends GlobalNPC {
 
     PreAI(npc) {
         if (StunnedBuffType === -1) initBuffTypes();
-
         if (npc.buffType[0] === 0) return true;
 
         const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 200 && !npc.boss;
@@ -151,6 +150,11 @@ export class UpdateNPCBuff extends GlobalNPC {
     OnKill(npc) {
         if (ThoriumPlayer.LuckyRabbitsFootEquipped && Rand.Next(0, 5) === 0) {
             ThoriumPlayer.LuckyRabbitsFootSpawnCoins(npc);
+        }
+
+        if(ThoriumPlayer.FabergeEggEquipped) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer]
+            ThoriumPlayer.SpawnFabergeEgg(player, npc);
         }
     }
 }

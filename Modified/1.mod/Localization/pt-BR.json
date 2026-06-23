@@ -321,6 +321,7 @@
     "Blacksmith": "Ferreiro",
     "DesertAcolyte": "Acólito do Deserto",
     "ConfusedZombie": "Zumbi Confuso",
+    "Cobbler": "Sapateiro",
     "ArmyAnt": "Formiga Guerreira",
     "FireAnt": "Formiga de Fogo",
     "StrangeBulb": "Bulbo Estranho",
@@ -347,6 +348,7 @@
     "ArmyAnt": "Uma formiga agressiva que patrulha as profundezas da selva em busca de presas",
     "Blacksmith": "Um artesão experiente que molda metal em armas e ferramentas. Seu trabalho é tão confiável quanto seu temperamento é estável",
     "DesertAcolyte": "O Acólito do Deserto é bastante nervoso, mas vende todo tipo de equipamento para aqueles interessados em arremessar coisas em monstros",
+    "Cobbler": "O Sapateiro já se aposentou há muito tempo de seus dias como herói, mas continua fornecendo calçados de qualidade para a próxima geração.",
     "ConfusedZombie": "O Zumbi Confuso é um químico que se transformou em zumbi. Embora tenha conseguido manter a maior parte da sua sanidade, ele ainda é um pouco estranho",
     "FireAnt": "Ela emergiu diretamente do inferno, como uma formiga em chamas buscando calor",
     "StrangeBulb": "Uma espécie bizarra de planta que ainda não atingiu sua maturidade. Talvez seja melhor assim",
@@ -379,7 +381,15 @@
     "ConfusedZombie_1": "Não consigo lembrar muito da minha vida passada... Acho que produtos químicos e coisas assim eram minha paixão; só recebo fragmentos da verdade. Às vezes é meio triste...",
     "ConfusedZombie_2": "A maioria das pessoas não tem estômago pra lidar com as coisas que eu vendo. O truque é não ter estômago nenhum!",
     "ConfusedZombie_3": "Preciso te agradecer por me deixar ficar por aqui. Sair só à noite é bem entediante...",
-    "ConfusedZombie_4": "Por que eu não sou como os outros...? Ah, desculpa, você precisava de algo?"
+    "ConfusedZombie_4": "Por que eu não sou como os outros...? Ah, desculpa, você precisava de algo?",
+    "Cobbler_1": "Nos meus tempos de juventude, eu também fui um herói. Mas depois de uma queda feia, me aposentei. Talvez, se eu tivesse botas melhores naquela época, ainda estaria por aí salvando o mundo...",
+    "Cobbler_2": "Não se preocupe, jovem aventureiro. A jornada pode ser difícil, mas tenho total confiança em você!",
+    "Cobbler_3": "Ter um calçado adequado não é brincadeira, {0}. Sempre mantenha seus sapatos limpos e prontos para a aventura!",
+    "Cobbler_4": "Você aprende muito ao caminhar uma milha com os sapatos de outra pessoa. Pena que alguns moradores daqui nunca fizeram isso...",
+    "Cobbler_5": "Como você está, {0}? Tem tomado cuidado lá fora nas terras selvagens?",
+    "Cobbler_Guide": "Então foi {0} quem esteve lhe dando conselhos esse tempo todo? É sempre bom ver um jovem valorizando os estudos.",
+    "Cobbler_PartyGirl": "Você acredita que {0} queria me dar uma festa de aniversário? Faz tanto tempo que não tenho uma!",
+    "Cobbler_Wizard": "Minha nossa... Acho que {0} pode ser ainda mais velho do que eu!"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -432,6 +442,23 @@
       "NoHome": "Ah, parece que esqueci onde era minha casa. Pode me ajudar com isso?",
       "FarFromHome": "Caminhe dez passos, olhe ao redor, se eu não estiver em casa, então... como era mesmo aquela...",
       "SpecialMoodText": "Por que não sou como os outros? Ah, desculpa, você precisava de alguma coisa?"
+    },
+    "Cobbler": {
+    "Content": "Ainda tenho energia de sobra, não se preocupe!",
+    "DislikeBiome": "Já estou velho demais para ficar andando por {0}.",
+    "DislikeCrowded": "Tem gente demais por aqui, não acha?",
+    "DislikeNPC": "{0} poderia aprender uma coisa ou duas sobre calçados adequados.",
+    "HateBiome": "Se eu fosse mais jovem até encararia {0}, mas agora estou velho demais para isso!",
+    "HateCrowded": "Não consigo acompanhar tantos pedidos de sapatos. Está lotado demais por aqui.",
+    "HateNPC": "{0} está só esperando um acidente acontecer com esses sapatos.",
+    "LikeBiome": "{0} não é um lugar ruim para uma caminhada.",
+    "LikeNPC": "{0} entende a importância de um bom calçado.",
+    "LoveBiome": "A floresta realmente é o melhor lugar para caminhar.",
+    "LoveNPC": "{0} tem um excelente gosto para calçados.",
+    "LoveSpace": "É muito mais fácil me concentrar no trabalho quando tenho um pouco de espaço. Assim fico bem mais animado!",
+    "NoHome": "É difícil trabalhar sem uma oficina. Acha que pode me ajudar com isso?",
+    "FarFromHome": "Vou precisar dar um trato nos meus sapatos quando voltar para casa...",
+    "SpecialMoodText": "Meus joelhos não são mais os mesmos, mas ainda consigo reconhecer um bom par de botas aventureiras."
   }
   },
   "SinalizationChatMessage": {

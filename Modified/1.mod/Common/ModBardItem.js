@@ -37,11 +37,15 @@ export class ModBardItem extends ModItem {
     UseItem(item, player) {
         if (this.useWheel && player.itemAnimation === player.itemAnimationMax) {
             const cls = ThoriumPlayer.class.Bard;
+            ThoriumPlayer.resLastInspirationSpent = this.inspirationCost;
+
             if (Rand.NextFloat() < cls.inspirationConsume) {
                 const current = PlayerDB.get("Inspiration") ?? 0;
                 PlayerDB.set("Inspiration", Math.max(0, current - this.inspirationCost));
+                ThoriumPlayer.resLastInspirationSpent = this.inspirationCost;
             }
         }
+        
         return true;
     }
 }

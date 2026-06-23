@@ -320,6 +320,7 @@
     "Blacksmith": "Blacksmith",
     "DesertAcolyte": "Desert Acolyte",
     "ConfusedZombie": "Confused Zombie",
+    "Cobbler": "Cobbler",
     "ArmyAnt": "Army Ant",
     "FireAnt": "Fire Ant",
     "StrangeBulb": "Strange Bulb",
@@ -347,6 +348,7 @@
     "Blacksmith": "A seasoned craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady",
     "ConfusedZombie": "The Confused Zombie is a chemist turned zombie. While he's managed to keep most of his right mind, he's still a little weird",
     "DesertAcolyte": "The Desert Acolyte is quite nervous, but will sell all manner of equipment to those interested in throwing stuff at monsters",
+    "Cobbler": "The Cobbler has long since retired from his heroing days, but he provides quality footwear to the next generation",
     "FireAnt": "It emerged straight from hell, like a burning ant seeking warmth",
     "StrangeBulb": "A bizarre species of plant that hasn't reached its maturity yet. Maybe that's for the best",
     "MahoganyEnt": "A sentient mass of mahogany that seeks to protect the jungle's flora through deadly means",
@@ -378,7 +380,12 @@
     "ConfusedZombie_1": "I can't remember much about my past life... Chemicals and the like were my passion I think; I only get fragments and pieces of the truth. It's saddening at times...",
     "ConfusedZombie_2": "Most people don't have the stomach to handle the things I sell. The trick is to not have a stomach at all!",
     "ConfusedZombie_3": "I gotta thank you for letting me stick around. Only coming out at night is pretty boring...",
-    "ConfusedZombie_4": "Why am I not like the others...? Oh, I'm sorry, did you need something?"
+    "ConfusedZombie_4": "Why am I not like the others...? Oh, I'm sorry, did you need something?",
+    "Cobbler_1": "In my younger years, I myself was a hero. But after a bad fall, I've since retired. Perhaps if I had better boots back then I would still be a hero today...",
+    "Cobbler_2": "Worry not young {0}. While the journey may be tough, I have full confidence in your ability!",
+    "Cobbler_3": "Having proper footwear is no joke, {0}. Always make sure your shoes are polished and ready for adventure!",
+    "Cobbler_4": "You can learn a lot by walking a mile in someone else's boots. If only some of these townsfolk would walk a mile in yours, then they could understand...",
+    "Cobbler_5": "How are you doing, {0}? Are you staying safe out there in the wilds?"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -431,6 +438,23 @@
       "NoHome": "Ah, I seemed to have forgotten where my home was. Could you help me out with that?",
       "FarFromHome": "Walk ten paces, check around, if I ain't home, then... how did that one go...",
       "SpecialMoodText": "Why am I not like the others? Oh, I'm sorry, did you need something?"
+    },
+    "Cobbler": {
+      "Content": "I've got a pep in my step, don't you worry!",
+      "DislikeBiome": "I'm too old to be walking around {0}.",
+      "DislikeCrowded": "Quite a few too many people around here, don't you think?",
+      "DislikeNPC": "{0} could learn a thing or two about proper footwear.",
+      "HateBiome": "If I were younger I could handle {0}, but now I'm too old!",
+      "HateCrowded": "I can't keep up with all these shoe orders. It's far too crowded over here.",
+      "HateNPC": "{0} is just asking for an accident with those shoes.",
+      "LikeBiome": "{0} isn't a bad place for a walk.",
+      "LikeNPC": "{0} understands the importance of good footwear.",
+      "LoveBiome": "The forest really is the best place to walk around in.",
+      "LoveNPC": "{0} has excellent taste in footwear.",
+      "LoveSpace": "It's easiest to focus on my work when I have some space to myself, so I'm quite chipper!",
+      "NoHome": "It's hard to work when I don't have a workstation. Think you could help me out?",
+      "FarFromHome": "I'll need to touch up my shoes again when I get back home...",
+      "SpecialMoodText": "My knees aren't what they used to be, but I can still tell when a good pair of boots has seen adventure."
     }
   },
   "SinalizationChatMessage": {

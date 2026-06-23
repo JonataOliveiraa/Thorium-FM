@@ -17,13 +17,13 @@ let _typesInit = false;
 function initTypes() {
     if (_typesInit) return;
     _typesInit = true;
-    _zealousType     = ModNPC.getTypeByName('ZealousJellyfish');
-    _spittingType    = ModNPC.getTypeByName('SpittingJellyfish');
+    _zealousType = ModNPC.getTypeByName('ZealousJellyfish');
+    _spittingType = ModNPC.getTypeByName('SpittingJellyfish');
     _distractingType = ModNPC.getTypeByName('DistractingJellyfish');
     _bubblePulseType = ModProjectile.getTypeByName('BubblePulse');
-    _bubbleBombType  = ModProjectile.getTypeByName('BubbleBomb');
-    _torrentType     = ModProjectile.getTypeByName('QueenTorrent');
-    _armType         = ModProjectile.getTypeByName('QueenJellyfishArm');
+    _bubbleBombType = ModProjectile.getTypeByName('BubbleBomb');
+    _torrentType = ModProjectile.getTypeByName('QueenTorrent');
+    _armType = ModProjectile.getTypeByName('QueenJellyfishArm');
 }
 
 // =============================================================================
@@ -42,11 +42,20 @@ const DIVER_Y_OFFSET = -32;
 // Per-frame Y nudge for the EFFECT (crown) — index = boss frame (0..7).
 // Positive values pull the crown DOWN to follow the body contraction.
 // Frames 0-3: idle. Frames 4,7: half-contracted. Frames 5,6: most contracted.
-const EFFECT_FRAME_NUDGE = [0, 0, 0, 0, 8, 20, 20, 8];
+const EFFECT_FRAME_NUDGE = [0, 0, 0, 27, 36, 38, 38, 17];
 
 // Per-frame Y nudge for the DIVER — same indexing.
 // Positive values pull the diver DOWN with the contracting body.
-const DIVER_FRAME_NUDGE  = [0, 0, 0, 0, 5, 10, 10, 5];
+const DIVER_FRAME_NUDGE  = [0, 0, 0, 5, 10, 12, 12, 5];
+
+// Torrent (whirlpool) attack tuning — tudo em ticks (60 = 1s)
+const TORRENT_SPAWN_START = 60;   // telegraph antes da cadeia começar
+const TORRENT_SPAWN_GAP = 6;    // ticks entre cada torrent da cadeia
+const TORRENT_SPAWN_COUNT = 7;
+const TORRENT_SPAWN_END = TORRENT_SPAWN_START + TORRENT_SPAWN_COUNT * TORRENT_SPAWN_GAP; // 102
+const TORRENT_FREEZE_END = TORRENT_SPAWN_END + 350;  // segue ancorada um tempo depois da cadeia
+const TORRENT_CYCLE_END = TORRENT_FREEZE_END + 20;
+const TORRENT_COOLDOWN = 600;  // ticks de combate normal antes do próximo ciclo
 
 export class QueenJellyfish extends ModNPC {
     constructor() {
@@ -55,9 +64,9 @@ export class QueenJellyfish extends ModNPC {
         this.counter = 0;
         this.diverOffset = 0;
         this._effectTex = null;
-        this._diverTex  = null;
+        this._diverTex = null;
         this._texLoaded = false;
-        this._logTimer  = 0;
+        this._logTimer = 0;
         // Effect animation
         this._effectFrame = 0;
         this._effectFrameTimer = 0;
@@ -66,8 +75,8 @@ export class QueenJellyfish extends ModNPC {
     _loadTextures() {
         if (this._texLoaded) return;
         this._texLoaded = true;
-        try { this._effectTex = tl.texture.load('Textures/NPCs/Boss/QueenJellyfish/QueenJellyfish_Effect.png'); } catch (_) {}
-        try { this._diverTex  = tl.texture.load('Textures/NPCs/Boss/QueenJellyfish/QueenJellyfish_Diver.png');  } catch (_) {}
+        try { this._effectTex = tl.texture.load('Textures/NPCs/Boss/QueenJellyfish/QueenJellyfish_Effect.png'); } catch (_) { }
+        try { this._diverTex = tl.texture.load('Textures/NPCs/Boss/QueenJellyfish/QueenJellyfish_Diver.png'); } catch (_) { }
     }
 
     SetStaticDefaults() {
@@ -105,14 +114,12 @@ export class QueenJellyfish extends ModNPC {
     AI(npc) {
         initTypes();
 
-        // Target
         let player = Terraria.Main.player[npc.target];
         if (npc.target < 0 || npc.target === 255 || player.dead || !player.active) {
             npc.TargetClosest(true);
             player = Terraria.Main.player[npc.target];
         }
 
-        // Despawn when player is dead
         if (player.dead) {
             let vel = npc.velocity;
             vel.Y -= 0.4;
@@ -122,14 +129,28 @@ export class QueenJellyfish extends ModNPC {
         }
 
         const lifeRatio = npc.life / npc.lifeMax;
-        const isServer  = Terraria.Main.netMode !== 1;
-
-        // Speed scales with damage taken
+        const isServer = Terraria.Main.netMode !== 1;
         const moveSpeed = lifeRatio > 0.6 ? 3 : lifeRatio > 0.3 ? 4 : 5;
 
-        // --- Minion Spawning (server only) ---
-        if (isServer) {
-            // ai[0] = zealous timer
+        // --- Fase Torrent (< 30% HP) ---
+        // Mesmo conceito do whirlPoolTimer original: conta pra cima enquanto ativo,
+        // vai negativo no cooldown. torrentActive trava movimento, sobe defesa
+        // e pausa os outros ataques abaixo — igual ao original, com números mais leves.
+        let torrentActive = false;
+        if (isServer && _torrentType >= 0 && lifeRatio < 0.3) {
+            npc.localAI[3]++;
+            const t = npc.localAI[3];
+
+            if (t >= TORRENT_SPAWN_START && t < TORRENT_FREEZE_END) {
+                torrentActive = true;
+            }
+            if (t >= TORRENT_CYCLE_END) {
+                npc.localAI[3] = -TORRENT_COOLDOWN;
+            }
+        }
+
+        // --- Minion Spawning (server only, pausa durante o freeze do torrent) ---
+        if (isServer && !torrentActive) {
             npc.ai[0]++;
             if (npc.ai[0] >= 120) {
                 if (CountNPCS(_zealousType) < 3) {
@@ -140,7 +161,6 @@ export class QueenJellyfish extends ModNPC {
                 }
             }
 
-            // ai[1] = spitting timer (phase 2: < 70% HP)
             if (lifeRatio < 0.7) {
                 npc.ai[1]++;
                 if (npc.ai[1] >= 180) {
@@ -153,7 +173,6 @@ export class QueenJellyfish extends ModNPC {
                 }
             }
 
-            // ai[2] = distracting timer (phase 3: < 40% HP)
             if (lifeRatio < 0.4) {
                 npc.ai[2]++;
                 if (npc.ai[2] >= 240) {
@@ -167,8 +186,7 @@ export class QueenJellyfish extends ModNPC {
             }
         }
 
-        // --- Spawn 4 tentacle arms once when HP drops below 50% ---
-        // Use post-spawn assignment for ai params (more reliable than passing through NewProjectile).
+        // --- Spawn de 4 braços, uma vez, abaixo de 50% HP (não muda) ---
         if (isServer && lifeRatio < 0.5 && npc.localAI[0] < 1 && _armType >= 0) {
             npc.localAI[0] = 1;
             for (let i = 0; i < 4; i++) {
@@ -182,32 +200,30 @@ export class QueenJellyfish extends ModNPC {
                 if (idx >= 0 && idx < Terraria.Main.maxProjectiles) {
                     const armProj = Terraria.Main.projectile[idx];
                     const armAI = new ProjAI(armProj, false);
-                    armAI[0] = npc.whoAmI;  // boss whoAmI
-                    armAI[1] = i;            // arm index 0..3
+                    armAI[0] = npc.whoAmI;
+                    armAI[1] = i;
                 }
             }
         }
 
-        // --- Attack 1: single BubblePulse aimed at player (every 120 ticks) ---
-        // localAI[1] = attack timer 1
-        if (isServer && _bubblePulseType >= 0) {
+        // --- Attack 1: BubblePulse simples (pausa durante o torrent) ---
+        if (isServer && !torrentActive && _bubblePulseType >= 0) {
             npc.localAI[1]++;
             if (npc.localAI[1] >= 120) {
                 npc.localAI[1] = 0;
                 const dx1 = player.Center.X - npc.Center.X;
                 const dy1 = player.Center.Y - npc.Center.Y;
-                const d1  = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
+                const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
                 NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, npc.damage, 3, 255, 0, 0, 0, null);
             }
 
-            // --- Attack 2: 3-way spread (only below 50% HP, every 180 ticks) ---
             if (lifeRatio < 0.5) {
                 npc.localAI[2]++;
                 if (npc.localAI[2] >= 180) {
                     npc.localAI[2] = 0;
-                    const dx2  = player.Center.X - npc.Center.X;
-                    const dy2  = player.Center.Y - npc.Center.Y;
-                    const d2   = Math.sqrt(dx2 * dx2 + dy2 * dy2) || 1;
+                    const dx2 = player.Center.X - npc.Center.X;
+                    const dy2 = player.Center.Y - npc.Center.Y;
+                    const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2) || 1;
                     const baseAngle = Math.atan2(dy2, dx2);
                     for (let i = -1; i <= 1; i++) {
                         const a = baseAngle + i * 0.35;
@@ -217,11 +233,10 @@ export class QueenJellyfish extends ModNPC {
             }
         }
 
-        // --- Attack 3: BubbleBomb dropped above the player (random 7-10s, < 70% HP) ---
-        // npc.ai[3] used as a countdown timer.
-        if (isServer && _bubbleBombType >= 0 && lifeRatio < 0.7) {
+        // --- Attack 3: BubbleBomb (pausa durante o torrent) ---
+        if (isServer && !torrentActive && _bubbleBombType >= 0 && lifeRatio < 0.7) {
             if (npc.ai[3] <= 0) {
-                npc.ai[3] = 420 + Math.floor(Math.random() * 180); // 420..600 ticks (7-10s)
+                npc.ai[3] = 420 + Math.floor(Math.random() * 180);
                 const spawnX = player.Center.X + (Math.random() * 100 - 50);
                 const spawnY = player.Center.Y - 320;
                 NewProjectile(
@@ -236,31 +251,34 @@ export class QueenJellyfish extends ModNPC {
             }
         }
 
-        // --- Attack 4: QueenTorrent column on the player's ground (< 30% HP, every ~25s) ---
-        // 7 torrents stacked vertically from the ground up. Each lasts 7 seconds, deals 150 damage,
-        // and pulls nearby players. localAI[3] = countdown timer.
+        // --- Attack 4: cadeia QueenTorrent, ancorada na própria boss ---
+        // Telegraph leve e escalonado durante a janela de aviso, depois a cadeia
+        // nasce espalhada ao longo de vários frames em vez de tudo num só.
         if (isServer && _torrentType >= 0 && lifeRatio < 0.3) {
-            if (npc.localAI[3] <= 0) {
-                npc.localAI[3] = 1500;
-                const groundY = player.Bottom.Y;
-                const spawnX  = player.Center.X;
-                for (let i = 0; i < 7; i++) {
-                    NewProjectile(
-                        npc.GetSpawnSource_ForProjectile(),
-                        spawnX, groundY - i * 35,
-                        0, 0,
-                        _torrentType, 150, 0, 255,
-                        0, 0, 0, null
-                    );
+            const t = npc.localAI[3]; // já incrementado acima, só lendo aqui
+
+            if (t > 0 && t < TORRENT_SPAWN_START) {
+                if (t % 4 === 0) {
+                    const dustIdx = Terraria.Dust.NewDust(npc.position, npc.width, npc.height + 200, 29, 0, -6, 100, Color.White, 1.6);
+                    const dust = Terraria.Main.dust[dustIdx];
+                    if (dust) dust.noGravity = true;
                 }
-            } else {
-                npc.localAI[3]--;
+            } else if (t >= TORRENT_SPAWN_START && t < TORRENT_SPAWN_END && (t - TORRENT_SPAWN_START) % TORRENT_SPAWN_GAP === 0) {
+                const i = (t - TORRENT_SPAWN_START) / TORRENT_SPAWN_GAP;
+                const spawnY = npc.Center.Y + 100 + i * 35;
+                NewProjectile(
+                    npc.GetSpawnSource_ForProjectile(),
+                    npc.Center.X, spawnY,
+                    0, 0,
+                    _torrentType, 150, 0, 255,
+                    i, 0, 0, null // ai0 = índice na cadeia, pra um futuro fade por profundidade
+                );
             }
         }
 
-        // --- Movement: hover 225px above player ---
-        const dx  = player.Center.X - npc.Center.X;
-        const dy  = (player.Center.Y - 225) - npc.Center.Y;
+        // --- Movimento: hover 225px acima do player ---
+        const dx = player.Center.X - npc.Center.X;
+        const dy = (player.Center.Y - 225) - npc.Center.Y;
         const distSq = dx * dx + dy * dy;
 
         if (distSq > 400) {
@@ -279,6 +297,14 @@ export class QueenJellyfish extends ModNPC {
         }
 
         npc.spriteDirection = dx > 0 ? 1 : -1;
+
+        // Override do freeze: precisa vir DEPOIS do hover acima, senão o hover sobrescreve.
+        if (torrentActive) {
+            npc.velocity = Vector2.Zero;
+            npc.defense = npc.defDefense * 5;
+        } else {
+            npc.defense = npc.defDefense;
+        }
     }
 
     FindFrame(npc, frameHeight) {
@@ -343,7 +369,7 @@ export class QueenJellyfish extends ModNPC {
                 0, this._effectFrame * effectFrameH,
                 this._effectTex.Width, effectFrameH
             );
-        } catch (_) {}
+        } catch (_) { }
 
         // Log draw position every 5 seconds to help tune EFFECT_Y_OFFSET
         this._logTimer++;

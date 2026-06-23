@@ -52,6 +52,8 @@ export class Empowerments {
         player.meleeCrit += bonus;
         player.rangedCrit += bonus;
         player.magicCrit += bonus;
+        ThoriumPlayer.class.Bard.symphonicCrit += bonus
+        ThoriumPlayer.class.Healer.radiantCrit += bonus
       },
       GetDisplayValue(level) { return (level * 5).toString(); }
     },

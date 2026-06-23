@@ -47,6 +47,7 @@ import { MarkedGrave } from "../Content/Global/Tiles/MarkedGrave.js"
 import { TileDustReplace } from "../Content/Global/Hooks/TileDustReplace.js"
 import { ArcaneArmorFabricator } from "../Content/Global/Tiles/ArcaneArmorFabricator.js"
 import { DrawWorldCursor } from "../Content/Global/Hooks/DrawWorldCursor.js"
+import { ThoriumClassCrit } from "../Content/Global/Hooks/ThoriumClassCrit.js"
 
 const List = [
   // GlobalHooks
@@ -60,6 +61,7 @@ const List = [
   BigTilesNoDrop,
   TileDustReplace,
   DrawWorldCursor,
+  ThoriumClassCrit,
   
   // ModPlayer
   LifeShieldPlayer,

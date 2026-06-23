@@ -57,11 +57,13 @@ import { CoinBagGold } from '../Content/NPCs/Cavern/CoinBagGold.js';
 import { BatOutaHell } from '../Content/NPCs/Cavern/BatOutaHell.js';
 import { FlamekinCaster } from '../Content/NPCs/Cavern/FlamekinCaster.js';
 import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
+import { Cobbler } from '../Content/NPCs/Town/Cobbler.js';
 
 const List = [
     Blacksmith,
     DesertAcolyte,
     ConfusedZombie,
+    Cobbler,
 
     Biter,
 
@@ -99,10 +101,10 @@ const List = [
     StormHatchling,
     TheGrandThunderBird,
 
-    // ZealousJellyfish,
-    // SpittingJellyfish,
-    // DistractingJellyfish,
-    // QueenJellyfish,
+    ZealousJellyfish,
+    SpittingJellyfish,
+    DistractingJellyfish,
+    QueenJellyfish,
 
     CoinBagCopper,
     CoinBagSilver,

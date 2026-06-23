@@ -147,8 +147,8 @@ export class ConfusedZombie extends ModNPC {
     }
     npcShop.ModifyPrices(10.0);
 
-    npcShop.Add(ModItem.getTypeByName('ViciousMockery'), 1, Terraria.Item.buyPrice(0, 10, 0, 0));
-    npcShop.Add(ModItem.getTypeByName('GrimPointer'), 1, Terraria.Item.buyPrice(0, 10, 0, 0));
+    npcShop.Add(ModItem.getTypeByName('ViciousMockery'), 1, Terraria.Item.buyPrice(0, 15, 0, 0));
+    npcShop.Add(ModItem.getTypeByName('GrimPointer'), 1, Terraria.Item.buyPrice(0, 1, 0, 0));
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

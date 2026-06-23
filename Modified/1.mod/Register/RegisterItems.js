@@ -198,11 +198,32 @@ import { Didgeridoo } from '../Content/Items/ThunderBird/Didgeridoo.js';
 import { ViciousMockery } from '../Content/Items/Bard/ViciousMockery.js';
 import { Tambourine } from '../Content/Items/Bard/Tambourine.js';
 import { GrimPointer } from '../Content/Items/Viscount/GrimPointer.js';
+import { AntlionMaraca } from '../Content/Items/Bard/AntlionMaraca.js';
+import { SeashellCastanets } from '../Content/Items/Coral/SeashellCastanets.js';
+import { ConchShell } from '../Content/Items/QueenJellyfish/ConchShell.js';
+import { DriftBoots } from '../Content/Items/BasicAccessories/Boots/DriftBoots.js';
+import { HealthyBoots } from '../Content/Items/BasicAccessories/Boots/HealthyBoots.js';
+import { HoverBoots } from '../Content/Items/BasicAccessories/Boots/HoverBoots.js';
+import { MarchingBoots } from '../Content/Items/BasicAccessories/Boots/MarchingBoots.js';
+import { SteelToedBoots } from '../Content/Items/BasicAccessories/Boots/SteelToedBoots.js';
+import { TravelersBoots } from '../Content/Items/BasicAccessories/Boots/TravelersBoots.js';
+import { TurboBoots } from '../Content/Items/BasicAccessories/Boots/TurboBoots.js';
+import { WizardShoes } from '../Content/Items/BasicAccessories/Boots/WizardShoes.js';
+import { PadOPaper } from '../Content/Items/BasicAccessories/Bard/PadOPaper.js';
+import { PlungerMute } from '../Content/Items/BasicAccessories/Bard/PlungerMute.js';
+import { FabergeEgg } from '../Content/Items/BasicAccessories/Bard/FabergeEgg.js';
 
 
 // Register all items
 
 const List = [
+    PadOPaper,
+    PlungerMute,
+    FabergeEgg,
+
+    ConchShell,
+    SeashellCastanets,
+    AntlionMaraca,
     GrimPointer,
     WoodenWhistle,
     IcyPiccolo,
@@ -357,8 +378,17 @@ const List = [
     LootRang,
     MagmaCharmItem,
     MagmaLocket,
-    SpringSteps,
     DeepStaff,
+
+    SpringSteps,
+    DriftBoots,
+    HealthyBoots,
+    HoverBoots,
+    MarchingBoots,
+    SteelToedBoots,
+    TravelersBoots,
+    TurboBoots,
+    WizardShoes,
 
     AquamarineRobe,
     OpalRobe,

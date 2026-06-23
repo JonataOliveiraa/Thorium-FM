@@ -1,8 +1,8 @@
-import { ModHealerItem } from '../../../Common/ModHealerItem.js';
-import { Terraria } from '../../../TL/ModImports.js';
-import { ModItem } from '../../../TL/ModItem.js';
-import { ModLocalization } from '../../../TL/ModLocalization.js';
-import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
+import { ModHealerItem } from '../../../../Common/ModHealerItem.js';
+import { Terraria } from '../../../../TL/ModImports.js';
+import { ModItem } from '../../../../TL/ModItem.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
+import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class PadOPaper extends ModItem {
   constructor() {
@@ -25,5 +25,12 @@ export class PadOPaper extends ModItem {
 
   ModifyTooltipLines() {
     // this.TooltipLines[0] = ModLocalization.Translate('ItemTooltip.symphonicDamage').replace('{0}', this.percetageDamage * 100)
+  }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(Terraria.ID.ItemID.Leather)
+      .AddIngredient(ModItem.getTypeByName('Cloth'))
+      .AddTile(Terraria.ID.TileID.Anvils)
   }
 }

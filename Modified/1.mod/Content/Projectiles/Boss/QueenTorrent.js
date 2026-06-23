@@ -1,11 +1,16 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
+import { ProjAI } from '../../../TL/ProjAI.js';
 
-const { Color, Vector2 } = Modules;
+const { Color } = Modules;
+const { Main } = Terraria;
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
+const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
 
 export class QueenTorrent extends ModProjectile {
+    static _bossType = -1;
+
     constructor() {
         super();
         this.Texture = 'Projectiles/Boss/' + this.constructor.name;
@@ -21,61 +26,61 @@ export class QueenTorrent extends ModProjectile {
         this.Projectile.aiStyle = -1;
         this.Projectile.alpha = 75;
         this.Projectile.hostile = true;
-        this.Projectile.friendly = false;
         this.Projectile.tileCollide = false;
         this.Projectile.penetrate = -1;
-        this.Projectile.timeLeft = 420; 
-        this.Projectile.netImportant = true;
+        this.Projectile.timeLeft = 420;
+    }
+
+    GetAlpha(proj, lightColor) {
+        const ai = new ProjAI(proj, false);
+        const fade = 0.5 - Math.min(ai[0], 6) * 0.05;
+        return Color.Multiply(Color.White, fade);
     }
 
     AI(proj) {
-        const QueenType = ModNPC.getTypeByName('QueenJellyfish');
-        if (!Terraria.NPC['bool AnyNPCs(int Type)'](QueenType)) {
+        if (QueenTorrent._bossType === -1) {
+            QueenTorrent._bossType = ModNPC.getTypeByName('QueenJellyfish');
+        }
+        if (CountNPCS(QueenTorrent._bossType) === 0) {
             proj.Kill();
             return;
         }
 
-        const center = proj.Center;
-        const dustType = 176;
-        const players = Terraria.Main.player;
-        const maxPlayers = players.length;
-
-        for (let i = 0; i < maxPlayers; i++) {
-            const player = players[i];
-            if (!player.active || player.dead) continue;
-
-            const dx = center.X - player.Center.X;
-            const dy = center.Y - player.Center.Y;
+        const player = Main.player[Main.myPlayer];
+        if (player && player.active && !player.dead) {
+            const dx = player.Center.X - proj.Center.X;
+            const dy = player.Center.Y - proj.Center.Y;
             const distSq = dx * dx + dy * dy;
 
-            if (distSq >= 250000) continue;
+            if (distSq < 250000) {
+                if (distSq > 2500) {
+                    const dustSpeedX = dx > 0 ? -6 : 6;
+                    const dustIdx = NewDust(player.position, player.width, player.height, 176, dustSpeedX, 0, 100, Color.new(0, 0, 0, 0), 1);
+                    const dust = Main.dust[dustIdx];
+                    if (dust) dust.noGravity = true;
+                }
 
-            if (distSq > 2500) {
-                const dustIdx = NewDust(
-                    player.position, player.width, player.height,
-                    dustType,
-                    (player.Center.X > center.X ? -1 : 1) * 6, 0,
-                    100, Color.Transparent, 1.0
-                );
-                if (dustIdx >= 0) Terraria.Main.dust[dustIdx].noGravity = true;
+                let pull = 0.02;
+                if (distSq < 40000) pull = 0.03;
+                if (distSq < 2500) pull = 0.04;
+
+                let vel = player.velocity;
+                if (dx > 0) {
+                    if (vel.X > -3) vel.X -= pull;
+                } else {
+                    if (vel.X < 3) vel.X += pull;
+                }
+                player.velocity = vel;
             }
-
-            let pull = 0.02;
-            if (distSq < 40000) pull = 0.03;
-            if (distSq < 2500) pull = 0.04;
-
-            let vel = player.velocity;
-            if (player.Center.X > center.X) {
-                vel.X = Math.max(vel.X - pull, -3);
-            } else {
-                vel.X = Math.min(vel.X + pull, 3);
-            }
-            player.velocity = vel;
         }
 
-        if (++proj.frameCounter > 2) {
+        proj.frameCounter++;
+        if (proj.frameCounter > 2) {
             proj.frameCounter = 0;
-            proj.frame = (proj.frame + 1) % 12;
+            proj.frame++;
+        }
+        if (proj.frame >= 12) {
+            proj.frame = 0;
         }
     }
 }

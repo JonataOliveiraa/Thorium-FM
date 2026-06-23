@@ -10,7 +10,7 @@ import { Empowerments } from "../../Global/Empowerments.js";
 import { ThoriumPlayer } from "../../Global/ThoriumPlayer.js";
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
-const BikeHornSound = BardItemSound.Lute;
+const BikeHornSound = BardItemSound.Saxophone;
 
 export class ViciousMockery extends ModBardItem {
     constructor() {
@@ -34,7 +34,7 @@ export class ViciousMockery extends ModBardItem {
     UseItem(item, player) {
         super.UseItem(item, player);
         if (player.itemAnimation === player.itemAnimationMax) {
-            Effects.PlaySound(BikeHornSound, player.Center.X, player.Center.Y, 1, 0.5, 0.7);
+            Effects.PlaySound(BikeHornSound, player.Center.X, player.Center.Y, 1, 0.5, 0.5);
             Empowerments.Apply(player, "FlatDamage", 1);
         }
         return true;

@@ -17,6 +17,8 @@ import { Empowerments } from "./Empowerments.js";
 import { ModBardItem } from "../../Common/ModBardItem.js";
 import { BardTimer } from "./BardTimer.js";
 import { Profiler } from "../../Profiler.js";
+import { WorldDB } from "../../TL/WorldDB.js";
+import { MiscHelper } from "./Utils/MiscHelper.js";
 
 const Inventory_Layout = new NativeClass('', 'Inventory_Layout');
 const Hotbar_Layout = new NativeClass('', 'Hotbar_Layout');
@@ -43,6 +45,35 @@ export class ThoriumPlayer extends ModPlayer {
         super();
         this.previousItemType = -1;
     }
+    static COBBLER_ITEMS = new Set([
+        ItemID.Aglet,
+        ItemID.ShoeSpikes,
+        ItemID.HermesBoots,
+        ItemID.FlurryBoots,
+        ItemID.SailfishBoots,
+        ItemID.FrogLeg,
+        ItemID.IceSkates,
+        ItemID.WaterWalkingBoots,
+        ItemID.Flipper,
+        ItemID.RocketBoots,
+        ItemID.FlowerBoots,
+        212,
+        ItemID.FlameWakerBoots,
+        ItemID.TigerClimbingGear,
+        ItemID.AmphibianBoots,
+        ItemID.FrogFlipper,
+        ItemID.FrogGear,
+        ItemID.FairyBoots,
+        ItemID.HellfireTreads,
+        ItemID.SpectreBoots,
+        ItemID.LightningBoots,
+        ItemID.ObsidianWaterWalkingBoots,
+        ItemID.LavaWaders,
+        ItemID.FrostsparkBoots,
+        ItemID.TerrasparkBoots,
+        ItemID.Tabi,
+        ItemID.MasterNinjaGear
+    ]);
 
     static _cachedWheelPos = { X: 0, Y: 0 };
     static _wheelPosCacheTimer = 0;
@@ -60,6 +91,13 @@ export class ThoriumPlayer extends ModPlayer {
     static _crietzProType = -1;
     static _incubatedSpiderType = -1;
     static _seaTurtlesBulwarkProType = -1;
+
+    static _bardHealColor = Color.new(65, 217, 131)
+
+    static resTimeCount = 0
+    static resTimeMax = 320
+    static resLastManaSpent = 0;
+    static resLastInspirationSpent = 0;
 
     // Basic
     static InCombat = false;
@@ -103,6 +141,13 @@ export class ThoriumPlayer extends ModPlayer {
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
 
+    static FabergeEggEquipped = false;
+    static FabergeEggMaxDelay = 90;
+    static FabergeEggDelay = 0;
+    static _fabergeEggProType = -1;
+
+    static PlungerMuteActive = false
+
     static IsHoldingGrimPointer = false;
 
     static YewWoodSetBonus = false;
@@ -130,6 +175,12 @@ export class ThoriumPlayer extends ModPlayer {
     static SeaTurtlesBulwarkEquipped = false;
     static SeaTurtlesBulwarkMaxTimeDelay = 60;
     static SeaTurtlesBulwarkTimeDelay = 0;
+
+    static HoverBootsEquipped = false;
+    static HoverBootsCanHover = false;
+    static HoverBootsJumped = false;
+    static HoverBootsHoverTimer = 0;
+    static HoverBootsJumpTimer = 0;
 
     static CoralSetBuff = false;
     static CoralSetCount = 0;
@@ -199,6 +250,8 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.SheatDamageMultiplier = 0;
         ThoriumPlayer.SheatCriticalChanceBonus = 0;
 
+        ThoriumPlayer.HoverBootsEquipped = false;
+
         ThoriumPlayer.LuckyRabbitsFootEquipped = false;
         ThoriumPlayer.BandofReplenishmentEquipped = false;
 
@@ -208,13 +261,18 @@ export class ThoriumPlayer extends ModPlayer {
 
         ThoriumPlayer.CrietzEquipped = false;
 
+        ThoriumPlayer.PlungerMuteActive = false;
+
         ThoriumPlayer.IsHoldingGrimPointer = false;
 
         ThoriumPlayer.NoviceClericSetBonus = false;
 
+        ThoriumPlayer.FabergeEggEquipped = false;
+
         // Bard
         const bard = ThoriumPlayer.class.Bard;
         bard.symphonicDamage = 0;
+        bard.symphonicCrit = 0;
         bard.multiplier = 1.0;
         bard.inspirationMax2 = 0;
         bard.inspirationRegenBonus = 1.0;
@@ -226,6 +284,7 @@ export class ThoriumPlayer extends ModPlayer {
         // Healer
         const healer = ThoriumPlayer.class.Healer;
         healer.radiantDamage = 0;
+        healer.radiantCrit = 0;
         healer.multiplier = 1.0;
         healer.healPowerMultiply = 1.0;
         healer.healPowerExtraValue = 0;
@@ -247,8 +306,6 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     PreUpdate(player) {
-        Profiler.Tick();
-
         if (player.dead) {
             ThoriumPlayer.SheathCooldown = 0;
         }
@@ -296,6 +353,11 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     PostUpdate(player) {
+        ThoriumPlayer.UpdateClassItemsCrit(player);
+
+        ThoriumPlayer.resTimeCount++
+        if (ThoriumPlayer.resTimeMax <= ThoriumPlayer.resTimeCount) ThoriumPlayer.ResetResources()
+
         if (ThoriumPlayer.InCombat) {
             ThoriumPlayer.CombatTimer++;
             ThoriumPlayer.CombatTimeAccumulated++;
@@ -374,6 +436,8 @@ export class ThoriumPlayer extends ModPlayer {
         } else {
             ThoriumPlayer.LifeRecoveryDelayTime = 0;
         }
+
+        if (ThoriumPlayer.FabergeEggDelay > 0) ThoriumPlayer.FabergeEggDelay--;
     }
 
     ModifyMaxStats(player) {
@@ -445,13 +509,21 @@ export class ThoriumPlayer extends ModPlayer {
         }
 
         if (ThoriumPlayer.CoralSetBuff) {
-            if (!ModHealerItem.healerItemsName.has(item.type)) return;
-            ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(damageDone / 4));
-            if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+            if (ModHealerItem.healerItemsName.has(item.type)) {
+                ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(damageDone / 4));
+                if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+            }
+        }
+
+        if (ThoriumPlayer.FabergeEggEquipped && ModBardItem.bardItemsName.has(item.type)) {
+            if (npc.boss && ThoriumPlayer.FabergeEggDelay <= 0) {
+                ThoriumPlayer.SpawnFabergeEgg(player, npc);
+            }
         }
     }
 
     OnHitNPCWithProj(player, npc, projectile) {
+        const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
         ThoriumPlayer.EnterCombat();
 
         const isRangedWeapon = player.HeldItem && player.HeldItem.ranged;
@@ -493,13 +565,20 @@ export class ThoriumPlayer extends ModPlayer {
         }
 
         if (ThoriumPlayer.CoralSetBuff) {
-            if (!ModHealerItem.healerItemsName.has(player.HeldItem.type)) return;
-            ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(projectile.damage / 4));
-            if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+            if (ModHealerItem.healerItemsName.has(player.HeldItem.type)) {
+                ThoriumPlayer.CoralSetCount += Math.max(1, Math.floor(projectile.damage / 4));
+                if (ThoriumPlayer.CoralSetCount > 20) ThoriumPlayer.CoralSetCount = 20;
+            }
         }
 
         if (ThoriumPlayer.NoviceClericSetBonus && isHealerWeapon) {
             ThoriumPlayer.TriggerNoviceClericCross(npc);
+        }
+
+        if (ThoriumPlayer.FabergeEggEquipped && isBardWeapon) {
+            if (npc.boss && ThoriumPlayer.FabergeEggDelay <= 0) {
+                ThoriumPlayer.SpawnFabergeEgg(player, npc);
+            }
         }
     }
 
@@ -576,6 +655,81 @@ export class ThoriumPlayer extends ModPlayer {
         return 1.0;
     }
 
+    UpdateMovement(player) {
+        if (!ThoriumPlayer.HoverBootsEquipped || player.mount.Active) {
+            ThoriumPlayer.HoverBootsHoverTimer = 0;
+            return;
+        }
+
+        if (player.controlDown) {
+            ThoriumPlayer.HoverBootsJumped = true;
+        }
+        if (player.velocity.Y < 0) {
+            ThoriumPlayer.HoverBootsJumped = true;
+            ThoriumPlayer.HoverBootsJumpTimer = 0;
+        }
+
+        if (ThoriumPlayer.HoverBootsJumped) {
+            if (player.velocity.Y === 0) {
+                ThoriumPlayer.HoverBootsJumpTimer++;
+            }
+            if (ThoriumPlayer.HoverBootsJumpTimer >= 10) {
+                ThoriumPlayer.HoverBootsJumped = false;
+            }
+        } else {
+            ThoriumPlayer.HoverBootsJumpTimer = 0;
+        }
+
+        const isAirborne = !MiscHelper.IsOnStandableGround(
+            player.BottomLeft.X,   // startX
+            player.BottomLeft.Y,   // y
+            player.width            // width
+        );
+
+        if (isAirborne) {
+            if (ThoriumPlayer.HoverBootsHoverTimer === 0 && player.velocity.Y >= player.gravity) {
+                let pos = player.position;
+                pos.Y -= player.gravity;
+                player.position = pos;
+            }
+            ThoriumPlayer.HoverBootsHoverTimer++;
+        } else {
+            ThoriumPlayer.HoverBootsHoverTimer = 0;
+        }
+
+        ThoriumPlayer.HoverBootsCanHover = ThoriumPlayer.HoverBootsHoverTimer < 80;
+
+        if (ThoriumPlayer.HoverBootsCanHover && !ThoriumPlayer.HoverBootsJumped && isAirborne) {
+            player.maxFallSpeed = 0;
+            let vel = player.velocity;
+            vel.Y = 0;
+            player.velocity = vel;
+
+            const bl = player.BottomLeft;
+            const dustPos = Vector2.new(bl.X - 2, bl.Y - 2);
+            const dustIdx = Terraria.Dust.NewDust(dustPos, player.width + 4, 4, 222, 0, 0, 100, ThoriumPlayer._whiteColor, 1);
+            const dust = Main.dust[dustIdx];
+            if (dust) {
+                dust.noGravity = true;
+                dust.noLight = true;
+                let dv = dust.velocity;
+                dv.X = 0;
+                dv.Y = 0;
+                dust.velocity = dv;
+            }
+        }
+    }
+
+    OnPickup(player, item) {
+        if (!WorldDB.has('Thorium:CanSpawnTownNPC_Cobbler') && ThoriumPlayer.COBBLER_ITEMS.has(item.type)) {
+            WorldDB.set('Thorium:CanSpawnTownNPC_Cobbler', true);
+        }
+    }
+
+    OnConsumeMana(player, item, manaConsumed) {
+        ThoriumPlayer.resLastManaSpent = manaConsumed
+    }
+
     static MiniCriticalDamage(npc, damage) {
         npc[StrikeNPCNoInteraction](Math.round(damage * 0.75), 0, npc.direction ?? 1, true, false, false);
     }
@@ -595,6 +749,23 @@ export class ThoriumPlayer extends ModPlayer {
         const extra = this.class.Healer.healPowerExtraValue;
 
         return player.Heal(Math.max(1, value * mult + extra));
+    }
+
+    static AddInspirationToPlayer(player, value = 1, hide = false) {
+        if (player && player.active && !player.dead) {
+            if (!hide) {
+                Terraria.CombatText['int NewText(Rectangle location, Color color, int amount, bool dramatic, bool dot)'](
+                    Rectangle.new(player.position.X, player.position.Y, player.width, player.height),
+                    ThoriumPlayer._bardHealColor,
+                    value,
+                    false,
+                    false
+                );
+
+                const curr = PlayerDB.get("Inspiration")
+                PlayerDB.set("Inspiration", curr + value)
+            }
+        }
     }
 
     static TriggerNoviceClericCross(npc) {
@@ -682,6 +853,20 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.CrietzInvoke = false;
     }
 
+    static SpawnFabergeEgg(player, npc) {
+        if (ThoriumPlayer._fabergeEggProType === -1) {
+            ThoriumPlayer._fabergeEggProType = ModProjectile.getTypeByName('FabergeEggPro');
+        }
+
+        const speed = 1.5 + Rand.NextFloat() * 1.0;
+        const angle = Rand.NextFloat() * Math.PI * 2;
+        ThoriumPlayer._vec2.X = Math.cos(angle) * speed;
+        ThoriumPlayer._vec2.Y = Math.sin(angle) * speed;
+        const source = Terraria.Projectile.GetNoneSource();
+        NewProjectile(source, npc.Center, ThoriumPlayer._vec2, ThoriumPlayer._fabergeEggProType, 0, 0, player.whoAmI, 0, 0, 0, null);
+        ThoriumPlayer.FabergeEggDelay = ThoriumPlayer.FabergeEggMaxDelay;
+    }
+
     // ---- Bard UI & Inspiration ----
 
     static UpdateInspiration() {
@@ -729,6 +914,21 @@ export class ThoriumPlayer extends ModPlayer {
                 if (ThoriumPlayer.num1 < 5.0) ThoriumPlayer.num1 += 0.15;
             }
         }
+    }
+
+    static ResetResources() {
+        ThoriumPlayer.resLastManaSpent = 0;
+        ThoriumPlayer.resLastInspirationSpent = 0;
+        ThoriumPlayer.resTimeCount = 0;
+    }
+
+    static RegenFabergeEggRes(player) {
+        if (ThoriumPlayer.resLastManaSpent) player.ManaEffect(Math.min(1, ThoriumPlayer.resLastManaSpent * 0.15))
+        if (ThoriumPlayer.resLastInspirationSpent) ThoriumPlayer.AddInspirationToPlayer(player, Math.min(1, ThoriumPlayer.resLastInspirationSpent * 0.15))
+
+        ThoriumPlayer.resTimeCount = ThoriumPlayer.resTimeMax;
+        ThoriumPlayer.resLastManaSpent = 0
+        ThoriumPlayer.resLastInspirationSpent = 0
     }
 
     static _getCachedBardItem(type) {
@@ -856,5 +1056,19 @@ export class ThoriumPlayer extends ModPlayer {
         const scale = 1 / Main.UIScale;
         ThoriumPlayer.DrawBaseFrames(scale);
         ThoriumPlayer.DrawInspirationFrames(scale);
+    }
+
+    static UpdateClassItemsCrit(player) {
+        const item = player.HeldItem;
+        const type = item.type;
+        const crit = item.crit;
+
+        if (ModBardItem.bardItemsName.has(type)) {
+            ThoriumPlayer.class.Bard.symphonicCrit += crit
+        }
+
+        if (ModHealerItem.healerItemsName.has(type)) {
+            ThoriumPlayer.class.Healer.radiantCrit += crit
+        }
     }
 }

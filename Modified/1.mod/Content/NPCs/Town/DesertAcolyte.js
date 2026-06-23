@@ -107,12 +107,6 @@ export class DesertAcolyte extends ModNPC {
     let headGore = ModGore.getTypeByName(`${this.constructor.name}Gore1`);
     let armGore = ModGore.getTypeByName(`${this.constructor.name}Gore2`);
     let legGore = ModGore.getTypeByName(`${this.constructor.name}Gore3`);
-
-    Effects.NewGoreFromNPC(npc, headGore);
-    Effects.NewGoreFromNPC(npc, armGore, true);
-    Effects.NewGoreFromNPC(npc, armGore, true);
-    Effects.NewGoreFromNPC(npc, legGore, true);
-    Effects.NewGoreFromNPC(npc, legGore, true);
   }
 
   CanTownNPCSpawn() {

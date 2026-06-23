@@ -4,9 +4,7 @@ import { ThoriumPlayer } from "../ThoriumPlayer.js";
 import { Empowerments } from "../Empowerments.js";
 import { ModBardItem } from "../../../Common/ModBardItem.js";
 import { BardTimer } from "../BardTimer.js";
-import { Profiler } from "../../../Profiler.js";
 import { ModItem } from "../../../TL/ModItem.js";
-import { WorldDB } from "../../../TL/WorldDB.js";
 import { Color } from "../../../TL/Modules/Color.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
 
@@ -28,6 +26,8 @@ function getCachedBardItem(player) {
 }
 
 export class DrawWorldCursor extends GlobalHooks {
+  // static _grimPointerItem = null;
+
   Initialize() {
     Main["void DrawInterface_14_EntityHealthBars()"].hook((original, self) => {
       original(self);
@@ -64,9 +64,6 @@ export class DrawWorldCursor extends GlobalHooks {
           if (pointerTexture && pos) {
             const targetX = pos.X;
             const targetY = pos.Y;
-
-            tl.log(targetX)
-            tl.log(targetY)
 
             const playerPos = player.Center;
             const deltaX = targetX - playerPos.X;

@@ -98,6 +98,13 @@ import { GoldBugleHornPro } from '../Content/Projectiles/GoldBugleHornPro.js';
 import { DidgeridooPro } from '../Content/Projectiles/DidgeridooPro.js';
 import { ViciousMockeryPro } from '../Content/Projectiles/ViciousMockeryPro.js';
 import { TambourinePro } from '../Content/Projectiles/TambourinePro.js';
+import { AntlionMaracaPro } from '../Content/Projectiles/AntlionMaracaPro.js';
+import { SeashellCastanetsEffect } from '../Content/Projectiles/SeashellCastanetsEffect.js';
+import { SeashellCastanetsHoldPro } from '../Content/Projectiles/SeashellCastanetsHoldPro.js';
+import { SeashellCastanetsProj } from '../Content/Projectiles/SeashellCastanetsProj.js';
+import { ConchShellPro } from '../Content/Projectiles/ConchShellPro.js';
+import { MuteBurst1 } from '../Content/Projectiles/MuteBurst1.js';
+import { FabergeEggPro } from '../Content/Projectiles/FabergeEggPro.js';
 
 const List = [
   IceCubePro,
@@ -150,6 +157,13 @@ const List = [
   DidgeridooPro,
   ViciousMockeryPro,
   TambourinePro,
+  AntlionMaracaPro,
+  SeashellCastanetsEffect,
+  SeashellCastanetsHoldPro,
+  SeashellCastanetsProj,
+  ConchShellPro,
+  MuteBurst1,
+  FabergeEggPro,
 
   CoralPurifierPro,
   CoralCrossbowPro,

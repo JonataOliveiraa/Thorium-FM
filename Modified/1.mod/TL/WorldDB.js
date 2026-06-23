@@ -1,43 +1,50 @@
 import { DatabaseManager } from './Core/DatabaseManager.js';
-/**
- * Allows you to save data in the current world.
- * The saved data persists between sessions.
- * It only accepts primitive values: number, string, boolean
- * Example:
- * 
- * WorldDB.set('key', 10);
- * WorldDB.get('key'); // 10
- * 
- * WorldDB.has('key'); // true
- * WorldDB.delete('key');
- * WorldDB.has('key'); // false
- */
+import { Terraria } from './ModImports.js';
+import { FileManager } from './Core/FileManager.js';
+
 export class WorldDB extends DatabaseManager {
     constructor(path) {
         super();
         this.path = path;
         this.data = {};
     }
-    
-    static set(key, value) {
-        if (this.Instance) this.Instance.set(key, value);
+
+    static EnsureLoaded() {
+        if (this.Instance) return this.Instance;
+        const path = Terraria.Main.ActiveWorldFileData?.Path;
+        if (!path || !FileManager.IsSafe(path + '.bin')) return null;
+        this.Instance = new WorldDB(path + '.bin');
+        this.Instance.Load();
+        return this.Instance;
     }
+
+    static set(key, value) {
+        const instance = this.Instance ?? this.EnsureLoaded();
+        if (instance) instance.set(key, value);
+
+        tl.log('nao setado')
+        tl.log(`${this.Instance}`)
+        tl.log(`${this.Instance?.path}`)
+    }
+
     static get(key) {
-        if (this.Instance) return this.Instance.get(key);
-        return null;
+        const instance = this.Instance ?? this.EnsureLoaded();
+        return instance ? instance.get(key) : null;
     }
     static getAllKeys() {
-        if (this.Instance) return this.Instance.getAllKeys();
-        return [];
+        const instance = this.Instance ?? this.EnsureLoaded();
+        return instance ? instance.getAllKeys() : [];
     }
     static has(key) {
-        if (this.Instance) return this.Instance.has(key);
-        return false;
+        const instance = this.Instance ?? this.EnsureLoaded();
+        return instance ? instance.has(key) : false;
     }
     static delete(key) {
-        if (this.Instance) this.Instance.delete(key);
+        const instance = this.Instance ?? this.EnsureLoaded();
+        if (instance) instance.delete(key);
     }
     static deleteAllKeys() {
-        if (this.Instance) this.Instance.deleteAllKeys();
+        const instance = this.Instance ?? this.EnsureLoaded();
+        if (instance) instance.deleteAllKeys();
     }
 }
