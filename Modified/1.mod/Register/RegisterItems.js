@@ -212,14 +212,30 @@ import { WizardShoes } from '../Content/Items/BasicAccessories/Boots/WizardShoes
 import { PadOPaper } from '../Content/Items/BasicAccessories/Bard/PadOPaper.js';
 import { PlungerMute } from '../Content/Items/BasicAccessories/Bard/PlungerMute.js';
 import { FabergeEgg } from '../Content/Items/BasicAccessories/Bard/FabergeEgg.js';
+import { VibrationTuner } from '../Content/Items/BasicAccessories/Bard/VibrationTuner.js';
+import { HeadMirror } from '../Content/Items/BasicAccessories/HeadMirror.js';
+import { JellyPondWand } from '../Content/Items/QueenJellyfish/JellyPondWand.js';
+import { GiantGlowstick } from '../Content/Items/QueenJellyfish/GiantGlowstick.js';
+import { BuccaneerBlunderBuss } from '../Content/Items/QueenJellyfish/BuccaneerBlunderBuss.js';
+import { SparkingJellyBall } from '../Content/Items/QueenJellyfish/SparkingJellyBall.js';
+import { QueensGlowstick } from '../Content/Items/QueenJellyfish/QueensGlowstick.js';
+import { QueenJellyfishBag } from '../Content/Items/Consumable/QueenJellyfishBag.js';
 
 
 // Register all items
 
 const List = [
+    QueenJellyfishBag,
+    SparkingJellyBall,
+    JellyPondWand,
+    GiantGlowstick,
+    QueensGlowstick,
+    VibrationTuner,
+    BuccaneerBlunderBuss,
     PadOPaper,
     PlungerMute,
     FabergeEgg,
+    HeadMirror,
 
     ConchShell,
     SeashellCastanets,

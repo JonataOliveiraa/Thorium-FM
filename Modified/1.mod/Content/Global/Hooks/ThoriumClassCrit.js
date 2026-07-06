@@ -50,6 +50,10 @@ export class ThoriumClassCrit extends GlobalHooks {
                 return original(self, damage, knockback, hitDirection, true, noEffect, fromNet, owner);
             }
 
+            if (ModBardItem.bardItemsName.has(type) && Rand.Next(100) < ThoriumPlayer.class.Bard.symphonicCrit) {
+                return original(self, damage, knockback, hitDirection, true, noEffect, fromNet, owner);
+            }
+
             return original(self, damage, knockback, hitDirection, crit, noEffect, fromNet, owner);
         });
     }

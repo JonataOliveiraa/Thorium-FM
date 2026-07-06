@@ -5,8 +5,6 @@ import { Effects } from "../../../TL/Modules/Effects.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
 import { Empowerments } from "../../Global/Empowerments.js";
 
-import { AndroidSound, AndroidSoundManager } from "../../../Common/Snippets/AndroidSound.js";
-
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const Item139 = Terraria.ID.SoundID.Item139;
 
@@ -16,8 +14,6 @@ export class Alphorn extends ModBardItem {
         this.Texture = 'Items/Bard/' + this.constructor.name;
         this.useTimer = true;
         this.timerStyle = 'Brass';
-
-        this._testSound = new AndroidSound('test.wav')
     }
 
     SetDefaults() {

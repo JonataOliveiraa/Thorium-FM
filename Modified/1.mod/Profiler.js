@@ -73,7 +73,6 @@ export class Profiler {
     const { entries, worstAvg, worstName, mostCnt, mostName, totalCalls } = Profiler._collect();
     const fps = Main.frameRate;
 
-    // Novo cálculo de saúde: custo total dos timers na janela vs. orçamento por frame
     const totalCostMs = entries.reduce((sum, e) => sum + e.totalMs, 0);
     const framesInWindow = (REPORT_S * fps) || 1; // evita divisão por zero
     const costPerFrame = totalCostMs / framesInWindow;

@@ -17,13 +17,11 @@ export class FabergeEggPro extends ModProjectile {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
-        this.blue = Color.Blue;
+        this.lightBlue = Color.new(135, 206, 235, 255);;
         this.eggEffect = null;
     }
 
     SetDefaults() {
-        this.Projectile.width = 10;
-        this.Projectile.height = 12;
         this.Projectile.aiStyle = -1;
         this.Projectile.friendly = true;
         this.Projectile.tileCollide = false;
@@ -39,7 +37,7 @@ export class FabergeEggPro extends ModProjectile {
             const angle = (i / count) * Math.PI * 2;
             const speed = 2.5 + Math.random() * 3;
 
-            const d1 = NewDust(proj.position, proj.width, proj.height, 29, 0, 0, 0, this.blue, 1.0);
+            const d1 = NewDust(proj.position, proj.width, proj.height, 29, 0, 0, 0, this.lightBlue , 1.0);
             if (d1 >= 0 && d1 < Main.dust.length) {
                 const dust = Main.dust[d1];
                 dust.velocity = Vector2.new(Math.cos(angle) * speed, Math.sin(angle) * speed);
@@ -67,7 +65,7 @@ export class FabergeEggPro extends ModProjectile {
         if (ai[0] >= 30) {
             const dist = Vector2.Distance(proj.Center, player.Center);
 
-            if (dist < 400) {
+            if (dist < 100) {
                 const speed = 4;
                 const inertia = 30;
                 let targetDiff = Vector2.Subtract(player.Center, proj.Center);
@@ -94,10 +92,9 @@ export class FabergeEggPro extends ModProjectile {
         if (this.eggEffect === null) {
             this.eggEffect = tl.texture.load('Textures/Projectiles/FabergeEggPro_Effect.png');
         }
-
         const ai = new ProjAI(proj, false);
         const pulse = (Math.sin(ai[0] * 0.12) + 1) * 0.5;
-        const scale = 0.8 + pulse * 0.4;
+        const scale = 1.1 + pulse * 0.4;
         const alpha = 90 + Math.floor(pulse * 120);
 
         _drawPos.X = proj.Center.X - Main.screenPosition.X;
@@ -117,7 +114,7 @@ export class FabergeEggPro extends ModProjectile {
         for (let i = 0; i < 5; i++) {
             const d = NewDust(proj.position, proj.width, proj.height, 6,
                 (Math.random() - 0.5) * 5, (Math.random() - 0.5) * 5,
-                0, this.blue, 1.0
+                0, this.lightBlue, 1.0
             );
             if (d >= 0 && d < Main.dust.length) {
                 Main.dust[d].noGravity = true;

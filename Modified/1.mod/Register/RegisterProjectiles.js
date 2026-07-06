@@ -105,6 +105,11 @@ import { SeashellCastanetsProj } from '../Content/Projectiles/SeashellCastanetsP
 import { ConchShellPro } from '../Content/Projectiles/ConchShellPro.js';
 import { MuteBurst1 } from '../Content/Projectiles/MuteBurst1.js';
 import { FabergeEggPro } from '../Content/Projectiles/FabergeEggPro.js';
+import { JellyPro } from '../Content/Projectiles/JellyPro.js';
+import { JellySpawnPro } from '../Content/Projectiles/JellySpawnPro.js';
+import { GiantGlowstickPro } from '../Content/Projectiles/GiantGlowstickPro.js';
+import { SparkingJellyBallPro } from '../Content/Projectiles/SparkingJellyBallPro.js';
+import { QueensGlowstickPro } from '../Content/Projectiles/QueensGlowstickPro.js';
 
 const List = [
   IceCubePro,
@@ -150,6 +155,12 @@ const List = [
   ColdFrontPro,
   LootRangPro,
   IcyPiccoloPro,
+
+  JellySpawnPro,
+  JellyPro,
+  GiantGlowstickPro,
+  SparkingJellyBallPro,
+  QueensGlowstickPro,
 
   GoldBugleHornPro,
   PlatinumBugleHornPro,

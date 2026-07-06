@@ -3,14 +3,17 @@ import { ModNPC } from '../../../../TL/ModNPC.js';
 import { ModProjectile } from '../../../../TL/ModProjectile.js';
 import { WorldDB } from '../../../../TL/WorldDB.js';
 import { ProjAI } from '../../../../TL/ProjAI.js';
+import { ModItem } from '../../../../TL/ModItem.js';
 
 const { Color, Vector2 } = Modules;
+const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
 const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
+const IItemDropRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'IItemDropRule');
+const OneFromRulesRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'OneFromRulesRule');
 
-// Cached type IDs — initialized once after mod registration
 let _zealousType = -1, _spittingType = -1, _distractingType = -1;
 let _bubblePulseType = -1, _armType = -1, _bubbleBombType = -1, _torrentType = -1;
 let _typesInit = false;
@@ -46,7 +49,7 @@ const EFFECT_FRAME_NUDGE = [0, 0, 0, 27, 36, 38, 38, 17];
 
 // Per-frame Y nudge for the DIVER — same indexing.
 // Positive values pull the diver DOWN with the contracting body.
-const DIVER_FRAME_NUDGE  = [0, 0, 0, 5, 10, 12, 12, 5];
+const DIVER_FRAME_NUDGE = [0, 0, 0, 5, 10, 12, 12, 5];
 
 // Torrent (whirlpool) attack tuning — tudo em ticks (60 = 1s)
 const TORRENT_SPAWN_START = 60;   // telegraph antes da cadeia começar
@@ -109,7 +112,31 @@ export class QueenJellyfish extends ModNPC {
         return true;
     }
 
-    // ModifyNPCLoot(npcLoot) { /* uncomment when items are ready */ }
+    ModifyNPCLoot(npcLoot) {
+        // Every Mode
+        npcLoot.Add(ItemDropRule.Common(28, 1, 5, 15))
+
+        // Classic Mode
+        const notExpert = Conditions.NotExpert.new();
+        ItemDropRule.ByCondition(notExpert, Terraria.ID.ItemID.LesserHealingPotion, 1, 5, 15, 1)
+        ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('QueensGlowstick'), 6, 1, 1, 1)
+        ItemDropRule.ByCondition(notExpert, Terraria.ID.ItemID.PinkGel, 1, 5, 10, 1)
+        ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('MarineKelp'), 1, 3, 6, 1)
+        
+        const options = [
+            ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('BuccaneerBlunderBuss'), 1, 1, 1, 1),
+            ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('ConchShell'), 1, 1, 1, 1),
+            ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('GiantGlowstick'), 1, 1, 1, 1),
+            ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('JellyPondWand'), 1, 1, 1, 1),
+            ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('SparkingJellyBall'), 1, 1, 1, 1),
+        ].makeGeneric(IItemDropRule)
+
+        const oneDropRule = OneFromRulesRule.new();
+        oneDropRule['void .ctor(int chanceDenominator, IItemDropRule[] options)'](1, options);
+        npcLoot.Add(oneDropRule);
+
+        npcLoot.Add(ItemDropRule.BossBag(ModItem.getTypeByName('QueenJellyfishBag')))
+    }
 
     AI(npc) {
         initTypes();

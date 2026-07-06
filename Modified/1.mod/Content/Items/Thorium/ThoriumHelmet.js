@@ -4,8 +4,6 @@ import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 
-const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
-
 export class ThoriumHelmet extends ModItem {
     color = Color.Yellow;
 

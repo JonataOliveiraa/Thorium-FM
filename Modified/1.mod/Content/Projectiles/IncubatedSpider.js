@@ -40,8 +40,8 @@ export class IncubatedSpider extends ModProjectile {
     }
 
     OnKill() {
-        if(ThoriumPlayer.InccubatedEggCount <= 0) return ThoriumPlayer.InccubatedEggCount = 0
-        ThoriumPlayer.InccubatedEggCount--
+        if(ThoriumPlayer.IncubatedEggCount <= 0) return ThoriumPlayer.IncubatedEggCount = 0
+        ThoriumPlayer.IncubatedEggCount--
     }
 
     PreAI(proj) {

@@ -94,6 +94,9 @@ export class ThoriumPlayer extends ModPlayer {
 
     static _bardHealColor = Color.new(65, 217, 131)
 
+    static _cachedHeldType = null;
+    static _cachedBardItem = null
+
     static resTimeCount = 0
     static resTimeMax = 320
     static resLastManaSpent = 0;
@@ -134,12 +137,14 @@ export class ThoriumPlayer extends ModPlayer {
 
     static IncubatedEggBuff = false;
     static IncubatedEggLimit = 4;
-    static InccubatedEggCount = 0;
+    static IncubatedEggCount = 0;
 
     static RadiantCorruptionActive = false;
 
     static IcyArmorBuff = false;
     static IcyArmorPro = false;
+
+    static accVibrationTuner = false
 
     static FabergeEggEquipped = false;
     static FabergeEggMaxDelay = 90;
@@ -153,6 +158,8 @@ export class ThoriumPlayer extends ModPlayer {
     static YewWoodSetBonus = false;
     static YewWoodAccumulated = 0;
     static YewWoodHitsCount = 0;
+
+    static accMouthPiece = false;
 
     static NoviceClericSetBonus = false;
     static NoviceClericCrossCount = 0;
@@ -250,6 +257,8 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.SheatDamageMultiplier = 0;
         ThoriumPlayer.SheatCriticalChanceBonus = 0;
 
+        ThoriumPlayer.accMouthPiece = false;
+
         ThoriumPlayer.HoverBootsEquipped = false;
 
         ThoriumPlayer.LuckyRabbitsFootEquipped = false;
@@ -258,6 +267,8 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.SalamanterEyeEquipped = false;
         ThoriumPlayer.CrawdadClawEquipped = false;
         ThoriumPlayer.GiantShellSpineEquipped = false;
+
+        ThoriumPlayer.accVibrationTuner = false
 
         ThoriumPlayer.CrietzEquipped = false;
 
@@ -536,7 +547,7 @@ export class ThoriumPlayer extends ModPlayer {
 
         if (ThoriumPlayer.IncubatedEggBuff) {
             if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
-                if (ThoriumPlayer.InccubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return;
+                if (ThoriumPlayer.IncubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return;
                 if (Rand.NextFloat() < 0.9) return;
 
                 if (ThoriumPlayer._incubatedSpiderType === -1) {
@@ -544,7 +555,7 @@ export class ThoriumPlayer extends ModPlayer {
                 }
                 const source = projectile.GetProjectileSource_FromThis();
                 NewProjectile(source, npc.Center, Vector2.new(0, -2), ThoriumPlayer._incubatedSpiderType, 2, 0, player.whoAmI, 0, 0, 0, null);
-                ThoriumPlayer.InccubatedEggCount++;
+                ThoriumPlayer.IncubatedEggCount++;
             }
         }
 
@@ -579,6 +590,14 @@ export class ThoriumPlayer extends ModPlayer {
             if (npc.boss && ThoriumPlayer.FabergeEggDelay <= 0) {
                 ThoriumPlayer.SpawnFabergeEgg(player, npc);
             }
+        }
+
+        if(
+            ThoriumPlayer.accVibrationTuner
+            && Rand.Next(0, 5) === 0
+            && ThoriumPlayer.getCachedBardItem(player)?.instrumentStyle === 'Percussion'
+        ) {
+            npc.AddBuff(ModBuff.getTypeByName('StunnedBuff'), Rand.Next(20, 90))
         }
     }
 
@@ -735,7 +754,7 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     static IsCriticalDamage(item, damageDone) {
-        return damageDone >= item.damage * 1.5;
+        return damageDone >= item.damage * 1.60;
     }
 
     static EnterCombat() {
@@ -812,6 +831,17 @@ export class ThoriumPlayer extends ModPlayer {
         }
     }
 
+    static getCachedBardItem(player) {
+      const type = player.HeldItem?.type ?? -1;
+      if (type !== ThoriumPlayer._cachedHeldType) {
+        ThoriumPlayer._cachedHeldType = type;
+        ThoriumPlayer._cachedBardItem = ModBardItem.bardItemsName.has(type)
+          ? ModBardItem.getModItem(type)
+          : null;
+      }
+      return ThoriumPlayer._cachedBardItem;
+    }
+
     static LuckyRabbitsFootSpawnCoins(npc) {
         const COPPER = ItemID.CopperCoin;
         const SILVER = ItemID.SilverCoin;
@@ -829,7 +859,7 @@ export class ThoriumPlayer extends ModPlayer {
         if (gold > 0) NewItem(x, y, w, h, GOLD, gold, false, 0, false);
         if (silver > 0) NewItem(x, y, w, h, SILVER, silver, false, 0, false);
         if (copper > 0) NewItem(x, y, w, h, COPPER, copper, false, 0, false);
-    }
+    }a
 
     static CrietzProjectile(player, npc) {
         if (ThoriumPlayer._crietzProType === -1) {
@@ -837,7 +867,7 @@ export class ThoriumPlayer extends ModPlayer {
         }
         const speed = 2;
         const count = Rand.Next(2, 4);
-        const baseDirX = 0, baseDirY = -1; // em vez de Vector2.new
+        const baseDirX = 0, baseDirY = -1;
         for (let i = 0; i < count; i++) {
             const angle = (Rand.NextFloat() < 0.5 ? -1 : 1) * (0.3 + Rand.NextFloat() * 0.3);
             const cos = Math.cos(angle), sin = Math.sin(angle);
@@ -923,8 +953,13 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     static RegenFabergeEggRes(player) {
-        if (ThoriumPlayer.resLastManaSpent) player.ManaEffect(Math.min(1, ThoriumPlayer.resLastManaSpent * 0.15))
-        if (ThoriumPlayer.resLastInspirationSpent) ThoriumPlayer.AddInspirationToPlayer(player, Math.min(1, ThoriumPlayer.resLastInspirationSpent * 0.15))
+        const Mana15Perc = Math.round(ThoriumPlayer.resLastManaSpent * 0.15)
+        const Insp15Perc = Math.round(ThoriumPlayer.resLastInspirationSpent * 0.15)
+
+        if (ThoriumPlayer.resLastManaSpent) player.ManaEffect(Math.max(1, Mana15Perc))
+        player.statMana += Mana15Perc 
+
+        if (ThoriumPlayer.resLastInspirationSpent) ThoriumPlayer.AddInspirationToPlayer(player, Math.max(1, Insp15Perc))
 
         ThoriumPlayer.resTimeCount = ThoriumPlayer.resTimeMax;
         ThoriumPlayer.resLastManaSpent = 0
