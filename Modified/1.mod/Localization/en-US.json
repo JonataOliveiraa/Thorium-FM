@@ -190,7 +190,8 @@
     "GiantGlowstick": "Giant Glowstick",
     "JellyPondWand": "Jelly Pond Wand",
     "SparkingJellyBall": "Sparking Jelly Ball",
-    "QueensGlowstick": "Queen's Glowstick"
+    "QueensGlowstick": "Queen's Glowstick",
+    "QueenJellyfishBag": "Treasure Bag (Queen Jellyfish)"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
