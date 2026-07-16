@@ -29,7 +29,7 @@ export class NPCShop {
                 this.item[i].stack = Math.max(1, Math.min(stack, this.item[i].maxStack));
                 this.item[i].material = Terraria.ID.ItemID.Sets.IsAMaterial[type];
 
-                if(!price) {
+                if(price) {
                     this.item[i].value = price
                 }
                 return i;

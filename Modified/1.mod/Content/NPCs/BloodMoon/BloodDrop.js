@@ -43,17 +43,16 @@ export class BloodDrop extends ModNPC {
     }
 
     SetBestiary(database, bestiaryEntry) {
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle);
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground);
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon);
 
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.ArmyAnt');
+        FlavorText._key = ModLocalization.Translate('Bestiary.BloodDrop');
         bestiaryEntry.Info.Add(FlavorText);
     }
 
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 2));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 1, 1, 1));
     }
 
     HitEffect(npc, hitDirection, damage) {
@@ -69,7 +68,7 @@ export class BloodDrop extends ModNPC {
 
             NewDust(
                 npc.position, npc.width, npc.height,
-                5, speedX, speedY, 0, Color.new(0, 0, 0, 0), scale
+                5, speedX, speedY, 0, Color.Red, scale
             );
         }
     }

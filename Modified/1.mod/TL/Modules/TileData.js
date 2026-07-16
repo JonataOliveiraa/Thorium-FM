@@ -27,6 +27,10 @@ export class TileData {
     set type(value) {
         Terraria.TileData['void SetType(int tileIndex, ushort newType)'](this.offset, value);
     }
+
+    get hasTile() {
+        return (this.sHeader & 32) === 32;
+    }
     
     // Wall
     get wall() {

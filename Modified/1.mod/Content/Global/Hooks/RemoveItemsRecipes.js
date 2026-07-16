@@ -28,7 +28,8 @@ export class RemoveItemsRecipes extends GlobalHooks {
         ItemID.EasterTable,
         ItemID.EasterToilet,
         ItemID.EasterWorkbench,
-        ItemID.ChlorophyteExtractinator
+        ItemID.ChlorophyteExtractinator,
+        ItemID.ReefBlock
     ]
 
     static ApplyRecipeRemoval() {

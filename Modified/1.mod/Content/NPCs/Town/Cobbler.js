@@ -123,7 +123,8 @@ export class Cobbler extends ModNPC {
     ];
     
     let key = keys[Math.floor(Math.random() * keys.length)];
-    if(key.includes('{0}')) key = key.replace('{0}', player.name)
+    let message = ModLocalization.Translate(`NPCChat.${key}`);
+    if(message.includes('{0}')) message = message.replace('{0}', player.name)
     return ModLocalization.Translate(`NPCChat.${key}`);
   }
 
@@ -150,7 +151,6 @@ export class Cobbler extends ModNPC {
       ModItem.getTypeByName('SteelToedBoots'),
       ModItem.getTypeByName('HoverBoots'),
     ]);
-    npcShop.ModifyPrices(12.5);
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

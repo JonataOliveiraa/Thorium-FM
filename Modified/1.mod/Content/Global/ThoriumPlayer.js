@@ -153,6 +153,12 @@ export class ThoriumPlayer extends ModPlayer {
 
     static PlungerMuteActive = false
 
+    static soulEssenceStackMax = 5;
+    static soulEssenceCD = 0;
+    static soulEssenceCDMax = 30;
+    static soulEssenceReady = true;
+    static soulEssenceActive = false;
+
     static IsHoldingGrimPointer = false;
 
     static YewWoodSetBonus = false;
@@ -171,6 +177,9 @@ export class ThoriumPlayer extends ModPlayer {
     static BloomingSetBonus = false;
 
     static ThumbRingEquipped = false;
+
+    static setDepthDiverHelmet = false;
+    static setTideHunter = false;
 
     static SpiritsGraceEquipped = false;
     static SpiritsGraceDieEffect = false;
@@ -259,10 +268,15 @@ export class ThoriumPlayer extends ModPlayer {
 
         ThoriumPlayer.accMouthPiece = false;
 
+        ThoriumPlayer.soulEssenceActive = false;
+
         ThoriumPlayer.HoverBootsEquipped = false;
 
         ThoriumPlayer.LuckyRabbitsFootEquipped = false;
         ThoriumPlayer.BandofReplenishmentEquipped = false;
+
+        ThoriumPlayer.setDepthDiverHelmet = false;
+        ThoriumPlayer.setTideHunter = false;
 
         ThoriumPlayer.SalamanterEyeEquipped = false;
         ThoriumPlayer.CrawdadClawEquipped = false;
@@ -367,6 +381,13 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.UpdateClassItemsCrit(player);
 
         ThoriumPlayer.resTimeCount++
+
+        if (!ThoriumPlayer.soulEssenceReady) ThoriumPlayer.soulEssenceCD++
+        if (ThoriumPlayer.soulEssenceCD >= ThoriumPlayer.soulEssenceCDMax) {
+            ThoriumPlayer.soulEssenceCD = 0
+            ThoriumPlayer.soulEssenceReady = true
+        }
+
         if (ThoriumPlayer.resTimeMax <= ThoriumPlayer.resTimeCount) ThoriumPlayer.ResetResources()
 
         if (ThoriumPlayer.InCombat) {
@@ -475,6 +496,10 @@ export class ThoriumPlayer extends ModPlayer {
 
         if (player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
             finalDamage -= this.WeaponDamage * 0.2;
+        }
+
+        if (ThoriumPlayer.setDepthDiverHelmet) {
+            finalDamage += this.WeaponDamage * 0.1
         }
 
         return this.WeaponDamage = finalDamage;
@@ -592,12 +617,36 @@ export class ThoriumPlayer extends ModPlayer {
             }
         }
 
-        if(
+        if (
             ThoriumPlayer.accVibrationTuner
             && Rand.Next(0, 5) === 0
             && ThoriumPlayer.getCachedBardItem(player)?.instrumentStyle === 'Percussion'
         ) {
             npc.AddBuff(ModBuff.getTypeByName('StunnedBuff'), Rand.Next(20, 90))
+        }
+
+        if (ThoriumPlayer.setTideHunter && Rand.Next(1, 5) == 1) {
+            for (let i = 0; i < 20; i++) {
+                const dustIndex = Effects.NewDust(
+                    npc.position, npc.width, npc.height,
+                    217,
+                    Rand.Next(-5, 5),
+                    Rand.Next(-5, 5),
+                    100, Color.White, 1
+                );
+                const dust = Main.dust[dustIndex];
+                if (dust) {
+                    dust.noGravity = true;
+                    dust.noLight = true;
+                }
+            }
+            for (let i = 0; i < Main.maxNPCs; i++) {
+                const npc = Main.npc[i];
+                if (npc.CanBeChasedBy(null, false) && npc['int FindBuffIndex(int type)'](197) > 0 &&
+                    Vector2.DistanceSquared(npc.Center, npc.Center) < 6400) {
+                    npc.AddBuff(197, 90, false);
+                }
+            }
         }
     }
 
@@ -762,12 +811,23 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer.CombatTimer = 0;
     }
 
+    static ApplySoulEssenceEffect(player) {
+        const healV = ThoriumPlayer.HealHPInHealerClass(player, 1) 
+        const manaV = healV * 3
+
+        player.statMana += manaV;
+        player.ManaEffect(manaV)
+        ThoriumPlayer.soulEssenceReady = false;
+    }
+
     static HealHPInHealerClass(player, value) {
         if (value <= 0) return 0;
         const mult = this.class.Healer.healPowerMultiply;
         const extra = this.class.Healer.healPowerExtraValue;
+        const v = Math.max(1, value * mult + extra)
+        player.Heal(v);
 
-        return player.Heal(Math.max(1, value * mult + extra));
+        return v
     }
 
     static AddInspirationToPlayer(player, value = 1, hide = false) {
@@ -832,14 +892,14 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     static getCachedBardItem(player) {
-      const type = player.HeldItem?.type ?? -1;
-      if (type !== ThoriumPlayer._cachedHeldType) {
-        ThoriumPlayer._cachedHeldType = type;
-        ThoriumPlayer._cachedBardItem = ModBardItem.bardItemsName.has(type)
-          ? ModBardItem.getModItem(type)
-          : null;
-      }
-      return ThoriumPlayer._cachedBardItem;
+        const type = player.HeldItem?.type ?? -1;
+        if (type !== ThoriumPlayer._cachedHeldType) {
+            ThoriumPlayer._cachedHeldType = type;
+            ThoriumPlayer._cachedBardItem = ModBardItem.bardItemsName.has(type)
+                ? ModBardItem.getModItem(type)
+                : null;
+        }
+        return ThoriumPlayer._cachedBardItem;
     }
 
     static LuckyRabbitsFootSpawnCoins(npc) {
@@ -859,7 +919,7 @@ export class ThoriumPlayer extends ModPlayer {
         if (gold > 0) NewItem(x, y, w, h, GOLD, gold, false, 0, false);
         if (silver > 0) NewItem(x, y, w, h, SILVER, silver, false, 0, false);
         if (copper > 0) NewItem(x, y, w, h, COPPER, copper, false, 0, false);
-    }a
+    } a
 
     static CrietzProjectile(player, npc) {
         if (ThoriumPlayer._crietzProType === -1) {
@@ -957,7 +1017,7 @@ export class ThoriumPlayer extends ModPlayer {
         const Insp15Perc = Math.round(ThoriumPlayer.resLastInspirationSpent * 0.15)
 
         if (ThoriumPlayer.resLastManaSpent) player.ManaEffect(Math.max(1, Mana15Perc))
-        player.statMana += Mana15Perc 
+        player.statMana += Mana15Perc
 
         if (ThoriumPlayer.resLastInspirationSpent) ThoriumPlayer.AddInspirationToPlayer(player, Math.max(1, Insp15Perc))
 

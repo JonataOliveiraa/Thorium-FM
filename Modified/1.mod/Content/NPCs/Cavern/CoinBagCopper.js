@@ -34,7 +34,7 @@ export class CoinBagCopper extends ModNPC {
     SetBestiary(database, bestiaryEntry) {
         bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns);
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.CopperCoinBag');
+        FlavorText._key = ModLocalization.Translate('Bestiary.CoinBagCopper');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

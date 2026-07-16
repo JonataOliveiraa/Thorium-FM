@@ -110,8 +110,28 @@ import { JellySpawnPro } from '../Content/Projectiles/JellySpawnPro.js';
 import { GiantGlowstickPro } from '../Content/Projectiles/GiantGlowstickPro.js';
 import { SparkingJellyBallPro } from '../Content/Projectiles/SparkingJellyBallPro.js';
 import { QueensGlowstickPro } from '../Content/Projectiles/QueensGlowstickPro.js';
+import { DrenchedPro } from '../Content/Projectiles/DrenchedPro.js';
+import { GeyserPro } from '../Content/Projectiles/GeyserPro.js';
+import { GeyserPro2 } from '../Content/Projectiles/GeyserPro2.js';
+import { AquamarineWineGlassPro2 } from '../Content/Projectiles/AquamarineWineGlassPro2.js';
+import { AquamarineWineGlassPro } from '../Content/Projectiles/AquamarineWineGlassPro.js';
+import { ScubaCurva } from '../Content/Items/Aquaite/ScubaCurva.js';
+import { ScubaCurvaPro } from '../Content/Projectiles/ScubaCurvaPro.js';
+import { AquaPelterPro } from '../Content/Projectiles/AquaPelterPro.js';
+import { HarmonicaPro } from '../Content/Projectiles/HarmonicaPro.js';
+import { AquaiteScythePro } from '../Content/Projectiles/AquaiteScythePro..js';
+import { SkywarePro } from '../Content/Projectiles/SkywarePro.js';
+import { SkywarePro2 } from '../Content/Projectiles/SkywarePro2.js';
+import { WoodenBatonPro } from '../Content/Projectiles/WoodenBatonPro.js';
+import { IceShaverPro } from '../Content/Projectiles/IceShaverPro.js';
+import { DownwardSpiralPro } from '../Content/Projectiles/DownwardSpiralPro.js';
+import { TheBlenderPro } from '../Content/Projectiles/TheBlenderPro.js';
+import { BountifulHarvestPro } from '../Content/Projectiles/BountifulHarvestPro.js';
+import { HoneyRecorderPro } from '../Content/Projectiles/HoneyRecorderPro.js';
+import { BobberMarine } from '../Content/Projectiles/BobberMarine.js';
 
 const List = [
+  BobberMarine,
   IceCubePro,
   IcyArrowPro,
   TheSnowballPro,
@@ -155,6 +175,25 @@ const List = [
   ColdFrontPro,
   LootRangPro,
   IcyPiccoloPro,
+
+  DrenchedPro,
+  GeyserPro,
+  GeyserPro2,
+  AquamarineWineGlassPro,
+  AquamarineWineGlassPro2,
+  ScubaCurvaPro,
+  AquaPelterPro,
+  HarmonicaPro,
+  SkywarePro,
+  SkywarePro2,
+  WoodenBatonPro,
+  IceShaverPro,
+  DownwardSpiralPro,
+  TheBlenderPro,
+  BountifulHarvestPro,
+  HoneyRecorderPro,
+
+  AquaiteScythePro,
 
   JellySpawnPro,
   JellyPro,

@@ -1,39 +1,13 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
-import { ModProjectile } from '../../../TL/ModProjectile.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
-import { ModGore } from '../../../TL/ModGore.js';
 import { ModSystem } from '../../../TL/ModSystem.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
+import { Effects } from '../../../TL/Modules/Effects.js';
+import { Rand } from '../../../TL/Modules/Rand.js';
 
-const { Camera, Color, Vector2, Utils } = Modules;
-const Main = new NativeClass('Terraria', 'Main');
-const Player = new NativeClass('Terraria', 'Player');
-const Vector2Native = new NativeClass('Microsoft.Xna.Framework', 'Vector2');
-const NPC = new NativeClass('Terraria', 'NPC');
-const SoundEngine = new NativeClass('Terraria.Audio', 'SoundEngine');
-const Dust = new NativeClass('Terraria', 'Dust');
-const Projectile = new NativeClass('Terraria', 'Projectile');
-const UnifiedRandom = new NativeClass('Terraria.Utilities', 'UnifiedRandom');
-
-const PlaySound = SoundEngine['void PlaySound(int type, Vector2 position, int style, float pitchOffset)'];
-const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
-const NextVector2Square = Utils['Vector2 NextVector2Square(UnifiedRandom r, float min, float max)'];
-const RotatedByRandom = Utils['Vector2 RotatedByRandom(Vector2 spinninpoint, double maxRadians)'];
-const Normalize = Vector2['void Normalize()'];
-const NewProjectile2 = Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
-const Distance = Vector2['float Distance(Vector2 value1, Vector2 value2)'];
-
-const Next = UnifiedRandom['int Next(int minValue, int maxValue)'];
-
-const vector = (x, y) => { let v = Vector2Native.new(); v.X = x; v.Y = y; return v; };
-const AnyPlayerAlive = () => {
-    for (let i = 0; i < Main.maxPlayers; i++) {
-        if (Main.player[i].active && !Main.player[i].dead) return true;
-    }
-    return false;
-};
+const { Color, Vector2 } = Modules;
 
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
 const {
@@ -42,9 +16,14 @@ const {
     MoonLordPortraitBackgroundProviderBestiaryInfoElement
 } = Terraria.GameContent.Bestiary;
 
-const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
-
 export class PatchWerk extends ModNPC {
+    static SPEED_SCALE = 0.85;
+    static MAX_JUMP_SPEED = 4;
+    static MAX_SUMMONS = 5;
+    static SUMMONS_MIN_PER_CAST = 1;
+    static SUMMONS_MAX_PER_CAST = 2;
+    static SUMMON_TRIGGER_TICKS = 480;
+
     constructor() {
         super();
         this.Texture = 'NPCs/BloodMoon/' + this.constructor.name;
@@ -82,8 +61,8 @@ export class PatchWerk extends ModNPC {
     }
 
     SetDefaults() {
-        this.NPC.width = 110;
-        this.NPC.height = 110;
+        this.NPC.width = 60;
+        this.NPC.height = 60;
         this.NPC.aiStyle = 3;
         this.NPC.damage = 8;
         this.NPC.defense = 10;
@@ -96,11 +75,11 @@ export class PatchWerk extends ModNPC {
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
         this.NPC.value = ModNPC.NPCValue(0, 3, 0, 0);
-        this.SpawnWithHigherTime = 30;
     }
 
     SetBestiary(database, bestiaryEntry) {
         bestiaryEntry.Info.Add(MoonLordPortraitBackgroundProviderBestiaryInfoElement.new());
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon);
 
         const FlavorText = FlavorTextBestiaryInfoElement.new();
         FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
@@ -109,13 +88,13 @@ export class PatchWerk extends ModNPC {
 
     SpawnChance(info) {
         if (info.CommonEnemy && info.BloodMoon && WorldDB.get('Thorium:HasBeenDefeated_PatchWerk') !== true) {
-            return 0.07;
+            return 0.05;
         }
         return 0;
     }
 
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 20, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 1));
     }
 
     OnKill(npc) {
@@ -131,8 +110,13 @@ export class PatchWerk extends ModNPC {
         }
     }
 
+    HitEffect(npc, hitDirection, damage) {
+        Effects.PlaySound(Terraria.ID.SoundID.NPCHit10, npc.Center.X, npc.Center.Y);
+    }
+
     PreAI(npc) {
-        const player = Main.player[npc.target];
+        npc.TargetClosest(true);
+
         if (npc.localAI[1] === 1) {
             let vel = npc.velocity;
             vel.X = 0;
@@ -143,7 +127,11 @@ export class PatchWerk extends ModNPC {
             if (npc.localAI[2] === 45) {
                 const player = Terraria.Main.player[npc.target];
                 if (player && player.active && !player.dead) {
-                    for (let i = 0; i < 3; i++) {
+                    const remaining = PatchWerk.MAX_SUMMONS - npc.localAI[3];
+                    const wanted = Rand.Next(PatchWerk.SUMMONS_MIN_PER_CAST, PatchWerk.SUMMONS_MAX_PER_CAST + 1);
+                    const toSummon = Math.min(wanted, Math.max(0, remaining));
+
+                    for (let i = 0; i < toSummon; i++) {
                         Terraria.NPC.NewNPC(
                             Terraria.Projectile.GetNoneSource(),
                             npc.Center.X + (Math.random() * 80 - 40),
@@ -152,6 +140,8 @@ export class PatchWerk extends ModNPC {
                             0, 0, 0, 0, 0, player.whoAmI
                         );
                     }
+
+                    npc.localAI[3] += toSummon;
                 }
             }
 
@@ -163,10 +153,9 @@ export class PatchWerk extends ModNPC {
             return false;
         }
 
-        npc.TargetClosest(true);
         npc.localAI[0]++;
 
-        if (npc.localAI[0] >= 480) {
+        if (npc.localAI[0] >= PatchWerk.SUMMON_TRIGGER_TICKS && npc.localAI[3] < PatchWerk.MAX_SUMMONS) {
             const player = Terraria.Main.player[npc.target];
 
             if (player && player.active && !player.dead) {
@@ -180,17 +169,18 @@ export class PatchWerk extends ModNPC {
             }
         }
 
-        // Movimento mais lento
+        return true;
+    }
+
+    AI(npc) {
+        if (npc.localAI[1] === 1) return;
+
         let vel = npc.velocity;
-        if (vel.Y === 0) {
-            vel.X += npc.direction * 0.3;
-            if (Math.abs(vel.X) > 3.5) {
-                vel.X = 3.5 * npc.direction;
-            }
+        vel.X *= PatchWerk.SPEED_SCALE;
+        if (vel.Y < -PatchWerk.MAX_JUMP_SPEED) {
+            vel.Y = -PatchWerk.MAX_JUMP_SPEED;
         }
         npc.velocity = vel;
-
-        return true;
     }
 
     FindFrame(npc, frameHeight) {

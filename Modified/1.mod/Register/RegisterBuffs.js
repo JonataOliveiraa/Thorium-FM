@@ -18,6 +18,7 @@ import { SeahorseWandBuff } from '../Content/Buffs/SeahorseWandBuff.js';
 import { OvergrowthBuff } from '../Content/Buffs/Healer/OvergrowthBuff.js';
 import { SingedBuff } from '../Content/Buffs/SingedBuff.js';
 import { SheathBuff } from '../Content/Buffs/SheathBuff.js';
+import { SoulEssenceBuff } from '../Content/Buffs/SoulEssenceBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
@@ -36,6 +37,7 @@ const List = [
     SpiritsGraceBuff,
     SingedBuff,
     SheathBuff,
+    SoulEssenceBuff
 ]
 
 export function RegisterBuffs() {

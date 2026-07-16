@@ -15,21 +15,11 @@ const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Heig
 
 const { Color, Vector2, Rand } = Modules;
 const Main = new NativeClass('Terraria', 'Main');
-const Player = new NativeClass('Terraria', 'Player');
 const Vector2Native = new NativeClass('Microsoft.Xna.Framework', 'Vector2');
 const NPC = new NativeClass('Terraria', 'NPC');
 const SoundEngine = new NativeClass('Terraria.Audio', 'SoundEngine');
-const Dust = new NativeClass('Terraria', 'Dust');
 const Projectile = new NativeClass('Terraria', 'Projectile');
 const UnifiedRandom = new NativeClass('Terraria.Utilities', 'UnifiedRandom');
-const SpriteEffects = new NativeClass('Microsoft.Xna.Framework.Graphics', 'SpriteEffects');
-const TextureAssets = new NativeClass('Terraria.GameContent', 'TextureAssets');
-
-const PlaySound = SoundEngine['void PlaySound(int type, Vector2 position, int style, float pitchOffset)'];
-const NewProjectile2 = Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
-const Next = UnifiedRandom['int Next(int minValue, int maxValue)'];
-const vector = (x, y) => { let v = Vector2Native.new(); v.X = x; v.Y = y; return v; };
-const NewNPC = NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
 
 export class Abomination extends ModNPC {
     constructor() {
@@ -45,6 +35,7 @@ export class Abomination extends ModNPC {
         this.NPC.width = 35;
         this.NPC.height = 17;
         this.NPC.aiStyle = Terraria.ID.NPCAIStyleID.Fighter;
+        this.NPC.knockBackResist = 0.3;
         this.NPC.damage = 10;
         this.NPC.defense = 10;
         this.NPC.lifeMax = 120;
@@ -93,10 +84,10 @@ export class Abomination extends ModNPC {
         let vel = npc.velocity;
 
         if (vel.Y === 0) {
-            vel.X += npc.direction * 0.4;
+            vel.X += npc.direction * 0.05;
 
-            if (Math.abs(vel.X) > 4.5) {
-                vel.X = 4.5 * npc.direction;
+            if (Math.abs(vel.X) > 1.8) {
+                vel.X = 1.8 * npc.direction;
             }
         }
 
@@ -116,7 +107,7 @@ export class Abomination extends ModNPC {
 
             NewDust(
                 npc.position, npc.width, npc.height,
-                5, speedX, speedY, 0, Color.new(0, 0, 0, 0), scale
+                5, speedX, speedY, 0, Color.new(180, 20, 20, 255), scale
             );
         }
     }
@@ -150,34 +141,28 @@ export class Abomination extends ModNPC {
         const centerX = npc.Center.X;
         const centerY = npc.Center.Y;
 
-        ModSystem.SetTimeout(() => {
-            Terraria.NPC.NewNPC(
-                Terraria.Projectile.GetNoneSource(),
-                centerX + (Math.random() * 80 - 40),
-                centerY + (Math.random() * 80 - 40),
-                ModNPC.getTypeByName('BloodDrop'),
-                0, 0, 0, 0, 0, player.whoAmI
-            );
-        }, 15);
+        Terraria.NPC.NewNPC(
+            Terraria.Projectile.GetNoneSource(),
+            centerX + (Math.random() * 80 - 40),
+            centerY - Math.random() * 30,
+            ModNPC.getTypeByName('BloodDrop'),
+            0, 0, 0, 0, 0, player.whoAmI
+        );
 
-        ModSystem.SetTimeout(() => {
-            Terraria.NPC.NewNPC(
-                Terraria.Projectile.GetNoneSource(),
-                centerX + (Math.random() * 80 - 40),
-                centerY + (Math.random() * 80 - 40),
-                ModNPC.getTypeByName('SeveredLegs'),
-                0, 0, 0, 0, 0, player.whoAmI
-            );
-        }, 30);
+        Terraria.NPC.NewNPC(
+            Terraria.Projectile.GetNoneSource(),
+            centerX + (Math.random() * 80 - 40),
+            centerY - Math.random() * 30,
+            ModNPC.getTypeByName('SeveredLegs'),
+            0, 0, 0, 0, 0, player.whoAmI
+        );
 
-        ModSystem.SetTimeout(() => {
-            Terraria.NPC.NewNPC(
-                Terraria.Projectile.GetNoneSource(),
-                centerX + (Math.random() * 80 - 40),
-                centerY + (Math.random() * 80 - 40),
-                ModNPC.getTypeByName('GraveLimb'),
-                0, 0, 0, 0, 0, player.whoAmI
-            );
-        }, 45);
+        Terraria.NPC.NewNPC(
+            Terraria.Projectile.GetNoneSource(),
+            centerX + (Math.random() * 80 - 40),
+            centerY - Math.random() * 30,
+            ModNPC.getTypeByName('GraveLimb'),
+            0, 0, 0, 0, 0, player.whoAmI
+        );
     }
 }

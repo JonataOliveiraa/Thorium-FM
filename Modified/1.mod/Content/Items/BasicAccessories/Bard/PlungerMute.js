@@ -3,7 +3,9 @@ import { ModHealerItem } from '../../../../Common/ModHealerItem.js';
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
+import { gRecipes } from '../../../Global/gRecipes.js';
 import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
+import { ThoriumAnvil } from '../../../Global/Tiles/ThoriumAnvil.js';
 
 export class PlungerMute extends ModItem {
   constructor() {
@@ -24,15 +26,17 @@ export class PlungerMute extends ModItem {
     const type = player.HeldItem.type
     ThoriumPlayer.class.Bard.symphonicCrit += 6;
 
-    if(ModBardItem.bardItemsName.has(type)) {
+    if (ModBardItem.bardItemsName.has(type)) {
       ThoriumPlayer.PlungerMuteActive = true;
     }
   }
 
   AddRecipes() {
     this.CreateRecipe(1)
-      .AddIngredient(Terraria.ID.ItemID.Leather)
-      .AddIngredient(ModItem.getTypeByName('Cloth'))
-      .AddTile(Terraria.ID.TileID.Anvils)
+      .AddIngredient(ModItem.getTypeByName('SmoothCoal'), 10)
+      .AddRecipeGroup(gRecipes.CustomGroups.get('SilverBar'))
+      .AddIngredient(Terraria.ID.ItemID.SilverBar, 6)
+      .AddTile(ThoriumAnvil.Type)
+      .Register()
   }
 }

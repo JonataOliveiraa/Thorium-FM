@@ -32,8 +32,7 @@ export class LivingHemorrage extends ModNPC {
     }
 
     SetBestiary(database, bestiaryEntry) {
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground);
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns);
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson);
 
         const FlavorText = FlavorTextBestiaryInfoElement.new();
         FlavorText._key = ModLocalization.Translate('Bestiary.LivingHemorrage');

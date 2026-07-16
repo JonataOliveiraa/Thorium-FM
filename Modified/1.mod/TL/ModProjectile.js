@@ -25,7 +25,7 @@ export class ModProjectile extends ModTexturedType {
     SetDefaults(proj) { }
     
     PostStaticDefaults() { }
-    
+    f
     // Used to ensure that all projectiles have been initialized
     PostSetupContent() {
         

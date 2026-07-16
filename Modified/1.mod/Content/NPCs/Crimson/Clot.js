@@ -28,7 +28,14 @@ export class Clot extends ModNPC {
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath1;
         this.NPC.value = ModNPC.NPCValue(0, 1, 0, 0);
-        this.NPC.color = Color.Red;
         this.AnimationType = Terraria.ID.NPCID.BlueSlime;
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson);
+
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate('Bestiary.Clot');
+        bestiaryEntry.Info.Add(FlavorText);
     }
 }

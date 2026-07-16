@@ -29,13 +29,12 @@ export class NaturalGraveyard extends ModBiome {
         const dungeonOnRight = dungeonX > spawnX;
         const scanStep = dungeonOnRight ? 1 : -1;
 
-        // Scan starts below floating island altitude, same principle as Thorium's worldSurfaceLow
         const surfaceScanStartY = Math.floor(Main.worldSurface * 0.7);
 
-        const scanStart = spawnX + scanStep * 30;
+        const safeZone = Math.floor(Main.maxTilesX * 0.05);
+        const scanStart = spawnX + scanStep * Math.max(500, safeZone);
         const scanEnd = dungeonX - scanStep * 80;
 
-        // ---- Scan ALL forest columns between spawn and dungeon ----
         const allRuns = [];
         let currentRun = [];
 
@@ -90,9 +89,16 @@ export class NaturalGraveyard extends ModBiome {
         for (const run of allRuns) {
             const runMidX = run[Math.floor(run.length / 2)].x;
             const distFromDungeon = Math.abs(runMidX - dungeonX);
+            const distFromSpawn = Math.abs(runMidX - spawnX);
+
             const proximityScore = 1 - (distFromDungeon / totalScanLen);
             const lengthScore = Math.min(1, run.length / 120);
-            const score = lengthScore * 0.6 + proximityScore * 0.4;
+
+            let score = lengthScore * 0.5 + proximityScore * 0.5;
+
+            if (distFromSpawn < 400) {
+                score -= 0.5;
+            }
 
             if (score > bestScore) {
                 bestScore = score;
@@ -100,7 +106,6 @@ export class NaturalGraveyard extends ModBiome {
             }
         }
 
-        // ---- Determine biome bounds ----
         const minBiomeWidth = Math.floor(70 * scale);
         const maxBiomeWidth = Math.floor(130 * scale);
         const transitionWidth = Math.floor(12 * scale);
@@ -128,7 +133,6 @@ export class NaturalGraveyard extends ModBiome {
         const biomeHalfWidth = Math.max(1, (endX - startX) / 2);
         const maxDepth = Math.floor(14 * Math.sqrt(scale));
 
-        // ---- Surface scan (starts below floating islands) ----
         const surfaces = {};
         for (let cx = startX - transitionWidth - 2; cx <= endX + transitionWidth + 2; cx++) {
             if (cx < 0 || cx >= Main.maxTilesX) continue;
@@ -142,7 +146,6 @@ export class NaturalGraveyard extends ModBiome {
             }
         }
 
-        // ---- 1) Remove vegetation and liquids ----
         const vegTypes = new Set([
             TileID.Trees, TileID.PalmTree, TileID.Plants, TileID.Plants2,
             TileID.Vines, TileID.Saplings, TileID.Sunflower, TileID.CorruptPlants,
@@ -167,7 +170,6 @@ export class NaturalGraveyard extends ModBiome {
             }
         }
 
-        // ---- 2) Convert blocks + gradient transition ----
         for (let cx = startX - transitionWidth; cx <= endX + transitionWidth; cx++) {
             const surfY = surfaces[cx];
             if (!surfY) continue;
@@ -214,7 +216,6 @@ export class NaturalGraveyard extends ModBiome {
             }
         }
 
-        // ---- 3) Altar: 5x5 rounded-corner platform embedded in terrain ----
         let altarX = -1;
         let altarSurfY = -1;
         const altarHalfW = 2;
@@ -223,9 +224,9 @@ export class NaturalGraveyard extends ModBiome {
 
         const cornerSlopes = new Map([
             ['-2,0', 2],
-            ['2,0',  1],
+            ['2,0', 1],
             ['-2,4', 4],
-            ['2,4',  3],
+            ['2,4', 3],
         ]);
 
         for (let attempt = 0; attempt < 120; attempt++) {
@@ -299,7 +300,6 @@ export class NaturalGraveyard extends ModBiome {
             );
         }
 
-        // ---- 4) LihzahrdFurnace far from altar ----
         const minFurnaceDist = Math.floor(biomeHalfWidth * 0.5);
         for (let attempt = 0; attempt < 80; attempt++) {
             const fx = Rand.Next(startX + 6, endX - 6);
@@ -331,7 +331,6 @@ export class NaturalGraveyard extends ModBiome {
             break;
         }
 
-        // ---- 5) Tombstones (minimum 8) ----
         const tombstoneTarget = Math.max(8, Math.floor((endX - startX) / 5));
         const placedTombstones = [];
 

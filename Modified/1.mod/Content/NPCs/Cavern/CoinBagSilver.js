@@ -34,7 +34,7 @@ export class CoinBagSilver extends ModNPC {
     SetBestiary(database, bestiaryEntry) {
         bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns);
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.ddSilverCoinBag');
+        FlavorText._key = ModLocalization.Translate('Bestiary.CoinBagSilver');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

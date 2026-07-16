@@ -133,7 +133,7 @@ export class Empowerments {
       Update(player, level) {
         player.treasureMagnet = true;
       },
-      GetDisplayValue(level) { return `×${level * 3}`; }
+      GetDisplayValue(level) { return level * 3; }
     },
     EmpowermentProlongation: {
       Icon: null,

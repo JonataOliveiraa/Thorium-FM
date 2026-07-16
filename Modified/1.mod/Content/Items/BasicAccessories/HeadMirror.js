@@ -1,5 +1,6 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
+import { gRecipes } from '../../Global/gRecipes.js';
 import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
 export class HeadMirror extends ModItem {
@@ -26,5 +27,15 @@ export class HeadMirror extends ModItem {
             const line = this.TooltipLines[i];
             this.TooltipLines[i] = line
         }
+    }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(ModItem.getTypeByName('SmoothCoal'), 4)
+            .AddRecipeGroup(gRecipes.CustomGroups.get('SilverBar'))
+            .AddIngredient(Terraria.ID.ItemID.SilverBar, 6)
+            .AddIngredient(ModItem.getTypeByName('LifeQuartzOre'), 4)
+            .AddTile(Terraria.ID.TileID.Anvils)
+            .Register()
     }
 }

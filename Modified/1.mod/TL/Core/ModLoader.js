@@ -39,7 +39,6 @@ import { WorldDB } from './../WorldDB.js';
 import { PlayerDB } from './../PlayerDB.js';
 
 export class ModLoader extends ModSystem {
-    /** @deprecated */
     static ModData = {
         TileCount: 0,
         BuffCount: 0,
@@ -57,7 +56,6 @@ export class ModLoader extends ModSystem {
         this.NPC_NAMES_COUNT = Terraria.ID.NPCID.Search.Names.Count;
     }
     
-    /** @deprecated */
     UpdateModData() {
         ModLoader.ModData.TileCount = Terraria.ID.TileID.Search.Names.Count - this.TILE_NAMES_COUNT;
         ModLoader.ModData.BuffCount = Terraria.ID.BuffID.Search.Names.Count - this.BUFF_NAMES_COUNT;
@@ -122,6 +120,8 @@ export class ModLoader extends ModSystem {
     
     PostSetupContent() {
         this.UpdateModData();
+        
+        ModHooks.PostSetupContentInitialize();
         
         // Loaders
         MountLoader.PostSetupContent();

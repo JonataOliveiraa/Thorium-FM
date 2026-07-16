@@ -1,9 +1,12 @@
 import { ModBiome } from "../../../TL/ModBiome.js";
-import { Terraria } from "../../../TL/ModImports.js";
+import { Microsoft, Modules, Terraria } from "../../../TL/ModImports.js";
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
+
 export class ManofWar extends ModNPC {
     constructor() {
         super();
@@ -25,7 +28,7 @@ export class ManofWar extends ModNPC {
         this.NPC.value = ModNPC.NPCValue(0, 0, 2, 11);
         this.NPC.noGravity = true;
 
-        this.AnimationType = Terraria.ID.NPCID.BlueJellyfish; 
+        this.AnimationType = Terraria.ID.NPCID.BlueJellyfish;
     }
 
     PostAI(npc) {
@@ -33,10 +36,17 @@ export class ManofWar extends ModNPC {
     }
 
     SpawnChance(info) {
-        if(ModBiome.getByName('AquaticDepths').IsActive && Terraria.Main.player[Terraria.Main.myPlayer].wet) {
+        if (ModBiome.getByName('AquaticDepths').IsActive && Terraria.Main.player[Terraria.Main.myPlayer].wet) {
             return 0.2
         }
         return 0
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean);
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate('Bestiary.ManofWar');
+        bestiaryEntry.Info.Add(FlavorText);
     }
 
     ModifyNPCLoot(npcLoot) {

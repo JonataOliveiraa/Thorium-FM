@@ -63,7 +63,7 @@ export class AquaiteTile extends GlobalTile {
     CanKillTile(i, j, type, blockDamaged) {
         if (type === AquaiteTile.Type) {
             const player = Terraria.Main.player[Terraria.Main.myPlayer];
-            if (!(player.HeldItem.pick >= 65)) return false
+            if (!(player.HeldItem.pick >= 65)) return true
         }
         return null
     }

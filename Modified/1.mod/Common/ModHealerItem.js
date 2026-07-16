@@ -12,6 +12,9 @@ export class ModHealerItem extends ModItem {
         this.RollablePrefixes = [
             ...PrefixUtils.MagicPrefixes
         ]
+
+        this.isScytheSoul = false;
+        this.soulEssenceStack = 0
     }
 
     ModifyWeaponDamage(item, player, damage) {
@@ -24,5 +27,24 @@ export class ModHealerItem extends ModItem {
     PostSetupContent() {
         ModHealerItem.healerItemsName.add(this.Type);
         ModHealerItem.healerItemsByType.set(this.Type, this);
+    }
+
+    SetDefaultsToScythe() {
+        this.Item.noMelee = true;
+        this.Item.noUseGraphic = true;
+        this.Item.autoReuse = true;
+        this.Item.useTime = 22;
+        this.Item.useAnimation = 22;
+        this.Item.maxStack = 1;
+        this.Item.knockBack = 6.5;
+        this.Item.useStyle = 1;
+        this.Item.UseSound =  Terraria.ID.SoundID.Item1;
+        this.Item.shootSpeed = 0.1;
+    }
+
+    HoldItem(item) {
+        if(this.isScytheSoul) {
+            ThoriumPlayer.soulEssenceActive = true;
+        }
     }
 }

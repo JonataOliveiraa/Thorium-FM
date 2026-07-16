@@ -1,6 +1,8 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
+import { gRecipes } from '../../../Global/gRecipes.js';
 import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
+import { ThoriumAnvil } from '../../../Global/Tiles/ThoriumAnvil.js';
 
 export class MouthPiece extends ModItem {
   constructor() {
@@ -25,8 +27,10 @@ export class MouthPiece extends ModItem {
 
   AddRecipes() {
     this.CreateRecipe(1)
-      .AddIngredient(Terraria.ID.ItemID.Leather)
-      .AddIngredient(ModItem.getTypeByName('Cloth'))
-      .AddTile(Terraria.ID.TileID.Anvils)
-  }7
+      .AddIngredient(ModItem.getTypeByName('SmoothCoal'), 10)
+      .AddRecipeGroup(gRecipes.CustomGroups.get('SilverBar'))
+      .AddIngredient(Terraria.ID.ItemID.SilverBar, 6)
+      .AddTile(ThoriumAnvil.Type)
+      .Register()
+  }
 }

@@ -1,9 +1,9 @@
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { Terraria, Modules } from "./../../../TL/ModImports.js";
 import { ModNPC } from "./../../../TL/ModNPC.js";
 
-const { ItemDropRule } = Terraria.GameContent.ItemDropRules
 const { Color, Vector2 } = Modules;
-const { BestiaryDatabaseNPCsPopulator } = Terraria.GameContent.Bestiary;
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement, MoonLordPortraitBackgroundProviderBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 
 export class StormHatchling extends ModNPC {
   constructor() {
@@ -51,8 +51,12 @@ export class StormHatchling extends ModNPC {
 
   SetBestiary(database, bestiaryEntry) {
     bestiaryEntry.Info.Add(
-      BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky
+      BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert
     );
+
+    const FlavorText = FlavorTextBestiaryInfoElement.new();
+    FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
+    bestiaryEntry.Info.Add(FlavorText);
   }
 
   SpawnChance(info) {

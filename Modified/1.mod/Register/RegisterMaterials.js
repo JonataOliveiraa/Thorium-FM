@@ -20,6 +20,7 @@ import { OpalGem } from "../Content/Items/Materials/OpalGem.js";
 import { SandstoneIngot } from "../Content/Items/Materials/SandstoneIngot.js";
 import { PurifiedShards } from "../Content/Items/Materials/PurifiedShards.js";
 import { Cloth } from "../Content/Items/Materials/Cloth.js";
+import { SmoothCoal } from "../Content/Items/Materials/SmoothCoal.js";
 
 const List = [
     IcyShard,
@@ -34,6 +35,7 @@ const List = [
     Talon,
     Cloth,
 
+    SmoothCoal,
     ThoriumOre,
     LifeQuartzOre,
     AquaiteOre,

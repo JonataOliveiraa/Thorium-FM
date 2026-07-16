@@ -69,7 +69,70 @@ export class gNPCsLoot extends GlobalLoot {
             rules: [
                 () => ItemDropRule.Common(ModItem.getTypeByName('Talon'), 4, 1, 2)
             ]
-        }
+        },
+        {
+            npcType: NPCID.GoblinPeon,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinArcher,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinScout,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinShark,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinSorcerer,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinSummoner,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinThief,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinTinkerer,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
+        {
+            npcType: NPCID.GoblinWarrior,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('YewWood'), 4, 1, 1)
+
+            ]
+        },
     ];
 
     ModifyGlobalLoot() {

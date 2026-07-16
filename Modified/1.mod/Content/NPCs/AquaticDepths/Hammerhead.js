@@ -1,10 +1,13 @@
 import { ModBiome } from "../../../TL/ModBiome.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
+
 export class Hammerhead extends ModNPC {
     constructor() {
         super();
@@ -27,6 +30,13 @@ export class Hammerhead extends ModNPC {
         this.NPC.noGravity = true;
 
         this.AnimationType = Terraria.ID.NPCID.Shark;
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean);
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate('Bestiary.Hammerhead');
+        bestiaryEntry.Info.Add(FlavorText);
     }
 
     PostAI(npc) {

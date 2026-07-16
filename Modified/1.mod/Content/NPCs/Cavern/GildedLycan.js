@@ -38,7 +38,7 @@ export class GildedLycan extends ModNPC {
     SetBestiary(database, bestiaryEntry) {
         bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns);
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.Lycan');
+        FlavorText._key = ModLocalization.Translate('Bestiary.GildedLycan');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

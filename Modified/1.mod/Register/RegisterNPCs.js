@@ -58,12 +58,14 @@ import { BatOutaHell } from '../Content/NPCs/Cavern/BatOutaHell.js';
 import { FlamekinCaster } from '../Content/NPCs/Cavern/FlamekinCaster.js';
 import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
 import { Cobbler } from '../Content/NPCs/Town/Cobbler.js';
+import { Diverman } from '../Content/NPCs/Town/Diverman.js';
 
 const List = [
     Blacksmith,
     DesertAcolyte,
     ConfusedZombie,
     Cobbler,
+    Diverman,
 
     Biter,
 

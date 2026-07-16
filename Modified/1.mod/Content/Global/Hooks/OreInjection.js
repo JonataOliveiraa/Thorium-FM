@@ -66,6 +66,14 @@ export class OreInjection extends GlobalHooks {
                     strength: { min: 2, max: 4 },
                     steps: { min: 4, max: 6 },
                 },
+                {
+                    name: "SmoothCoal",
+                    tile: Terraria.ID.TileID.ReefBlock,
+                    amount: worldArea * 0.0000125,
+                    depth: { min: D.surface, max: D.safeBottom },
+                    strength: { min: 5, max: 8 },
+                    steps: { min: 5, max: 10 },
+                }
             ];
 
             for (const ore of ores) {

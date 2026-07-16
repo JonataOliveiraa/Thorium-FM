@@ -1,12 +1,13 @@
 import { ModBiome } from "../../../TL/ModBiome.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
+import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
-import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
-import { TileData } from "../../../TL/Modules/TileData.js";
 
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
+
 export class Sharptooth extends ModNPC {
     constructor() {
         super();
@@ -40,6 +41,13 @@ export class Sharptooth extends ModNPC {
             return 0.3
         }
         return 0
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean);
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate('Bestiary.Sharptooth');
+        bestiaryEntry.Info.Add(FlavorText);
     }
 
     //DepthScales

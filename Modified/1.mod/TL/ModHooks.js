@@ -26,7 +26,7 @@ export class ModHooks {
         }
         
         MainHooks.Initialize(info);
-        LangHooks.Initialize(info);
+        //LangHooks.Initialize(info);
         NPCHooks.Initialize(info);
         ProjectileHooks.Initialize(info);
         ItemHooks.Initialize(info);
@@ -47,7 +47,16 @@ export class ModHooks {
             }
         }
         
+        this.info = info;
         this.initialized = true;
+    }
+    
+    static PostSetupContentInitialize() {
+        const info = ModHooks.info;
+        if (!info) return;
+        ModHooks.info = null;
+        
+        LangHooks.Initialize(info);
     }
     
     // Initialize temp data

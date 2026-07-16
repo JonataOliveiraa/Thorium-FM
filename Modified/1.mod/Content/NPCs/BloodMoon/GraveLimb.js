@@ -48,11 +48,9 @@ export class GraveLimb extends ModNPC {
     }
 
     SetBestiary(database, bestiaryEntry) {
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle);
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground);
-
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon);
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.ArmyAnt');
+        FlavorText._key = ModLocalization.Translate('Bestiary.GraveLimb');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

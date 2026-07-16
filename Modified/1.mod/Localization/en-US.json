@@ -191,7 +191,8 @@
     "JellyPondWand": "Jelly Pond Wand",
     "SparkingJellyBall": "Sparking Jelly Ball",
     "QueensGlowstick": "Queen's Glowstick",
-    "QueenJellyfishBag": "Treasure Bag (Queen Jellyfish)"
+    "QueenJellyfishBag": "Treasure Bag (Queen Jellyfish)",
+    "SmoothCoal": "Smooth Coal"
   },
   "ItemTooltip": {
     "IceCube": "Sends out a tile-sliding cube of ice\nIce cubes frostburn the target briefly",
@@ -328,7 +329,8 @@
     "SpiritsGraceBuff": "Spirit's Grace",
     "OvergrowthBuff": "Overgrowth",
     "SingedBuff": "Singed",
-    "SheathBuff": "Sheath"
+    "SheathBuff": "Sheath",
+    "SoulEssenceBuff": "Soul Essence"
   },
   "BuffDescription": {
     "LivingWoodAcornBuff": "This little guy is giving his all to protect the world",
@@ -341,7 +343,8 @@
     "SpiritsGraceBuff": "Increased invulnerability time and movement speed",
     "OvergrowthBuff": "Your life recovery and life recovery rate have been increased",
     "SingedBuff": "Just received a nasty burn",
-    "SheathBuff": "Your equipped sheath is ready to strike"
+    "SheathBuff": "Your equipped sheath is ready to strike",
+    "SoulEssenceBuff": "Upon reaching 5 stacks of soul essence, you recover 5 health and 20 mana"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile"

@@ -1,8 +1,10 @@
 import { Terraria, Modules } from '../../../../TL/ModImports.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { ModNPC } from '../../../../TL/ModNPC.js';
 
 const { Color, Vector2, Rand } = Modules;
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement, MoonLordPortraitBackgroundProviderBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 
 export class DistractingJellyfish extends ModNPC {
     constructor() {
@@ -31,6 +33,16 @@ export class DistractingJellyfish extends ModNPC {
 
     CanHitPlayer(npc, target, cooldownSlot) {
         return false;
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean
+        );
+
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
+        bestiaryEntry.Info.Add(FlavorText);
     }
 
     AI(npc) {

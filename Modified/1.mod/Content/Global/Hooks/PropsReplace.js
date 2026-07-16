@@ -134,6 +134,12 @@ export class PropsReplace extends GlobalHooks {
                 self._nameOverride = ModLocalization.Translate('ItemName.GrimAstroturf');
                 self.value = Terraria.Item.sellPrice(0, 0, 0, 0);
             }
+
+            //Reef Block 
+            if(Type === Terraria.ID.ItemID.ReefBlock) {
+                self._nameOverride = ModLocalization.Translate('ItemName.SmoothCoal');
+                self.value = Terraria.Item.sellPrice(0, 0, 0, 0);
+            }
         });
     }
 }

@@ -98,9 +98,8 @@ export class CoralCrossbow extends ModItem {
 
     AddRecipes() {
         this.CreateRecipe(1)
-            .AddIngredient(Terraria.ID.ItemID.JungleSpores, 7)
-            .AddIngredient(Terraria.ID.ItemID.FallenStar, 1)
-            .AddTile(Terraria.ID.TileID.WorkBenches)
+            .AddIngredient(Terraria.ID.ItemID.Coral, 8)
+            .AddTile(Terraria.ID.TileID.Anvils)
             .Register();
     }
 

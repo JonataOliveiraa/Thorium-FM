@@ -48,6 +48,7 @@ import { TileDustReplace } from "../Content/Global/Hooks/TileDustReplace.js"
 import { ArcaneArmorFabricator } from "../Content/Global/Tiles/ArcaneArmorFabricator.js"
 import { DrawWorldCursor } from "../Content/Global/Hooks/DrawWorldCursor.js"
 import { ThoriumClassCrit } from "../Content/Global/Hooks/ThoriumClassCrit.js"
+import { SmoothCoal } from "../Content/Global/Tiles/SmoothCoal.js"
 
 const List = [
   // GlobalHooks
@@ -88,6 +89,7 @@ const List = [
   ScarletTile,
   LeakyMarineWall,
   GrimAstroturf,
+  SmoothCoal,
   
   // GlobalNPC
   UpdateNPCBuff,

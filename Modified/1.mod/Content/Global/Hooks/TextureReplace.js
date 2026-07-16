@@ -27,6 +27,7 @@ import { ModItem } from "../../../TL/ModItem.js";
 import { GrimAstroturf } from "../Tiles/GrimAstroturf.js";
 import { AncientPhylactery } from "../Tiles/AncientPhylactery.js";
 import { MarkedGrave } from "../Tiles/MarkedGrave.js";
+import { SmoothCoal } from "../Tiles/SmoothCoal.js";
 
 export class TextureReplace extends ModSystem {
   constructor() {
@@ -94,6 +95,7 @@ export class TextureReplace extends ModSystem {
     BardEmblem.InjectTexture()
     ClericEmblem.InjectTexture()
     GrimAstroturf.InjectTexture()
+    SmoothCoal.InjectTexture()
   }
 
   PostSetupContent() {

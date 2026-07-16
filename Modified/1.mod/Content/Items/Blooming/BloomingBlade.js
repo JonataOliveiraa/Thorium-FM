@@ -11,9 +11,7 @@ export class BloomingBlade extends ModItem {
     SetDefaults() {
         this.Item.melee = true;
 
-        // (damage, knockback, crit);
         this.SetWeaponValues(22, 6, 4);
-        // (useTime, autoReuse);
         this.SetDefaultWeaponStyle(22, true);
 
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);

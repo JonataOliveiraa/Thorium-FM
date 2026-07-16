@@ -1,10 +1,12 @@
 import { Terraria, Modules } from '../../../../TL/ModImports.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { ModNPC } from '../../../../TL/ModNPC.js';
 import { ModProjectile } from '../../../../TL/ModProjectile.js';
 
 const { Color, Vector2, Rand } = Modules;
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement, MoonLordPortraitBackgroundProviderBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 
 let _bubblePulseType = -1;
 
@@ -78,6 +80,16 @@ export class SpittingJellyfish extends ModNPC {
                 );
             }
         }
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean
+        );
+
+        const FlavorText = FlavorTextBestiaryInfoElement.new();
+        FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
+        bestiaryEntry.Info.Add(FlavorText);
     }
 
     FindFrame(npc, frameHeight) {

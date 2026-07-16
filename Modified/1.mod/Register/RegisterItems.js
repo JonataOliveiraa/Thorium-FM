@@ -220,11 +220,69 @@ import { BuccaneerBlunderBuss } from '../Content/Items/QueenJellyfish/BuccaneerB
 import { SparkingJellyBall } from '../Content/Items/QueenJellyfish/SparkingJellyBall.js';
 import { QueensGlowstick } from '../Content/Items/QueenJellyfish/QueensGlowstick.js';
 import { QueenJellyfishBag } from '../Content/Items/Consumable/QueenJellyfishBag.js';
+import { DepthDiverHelmet } from '../Content/Items/Aquaite/DepthDiverHelmet.js';
+import { DepthDiverChestplate } from '../Content/Items/Aquaite/DepthDiverChestplate.js';
+import { DepthDiverGreaves } from '../Content/Items/Aquaite/DepthDiverGreaves.js';
+import { DrenchedDirk } from '../Content/Items/Aquaite/DrenchedDirk.js';
+import { AquaiteBar } from '../Content/Items/Materials/AquaiteBar.js';
+import { GeyserStaff } from '../Content/Items/Aquaite/GeyserStaff.js';
+import { HydroAxe } from '../Content/Items/Aquaite/HydroAxe.js';
+import { HydroPickaxe } from '../Content/Items/Aquaite/HydroPickaxe.js';
+import { HydroMallet } from '../Content/Items/Aquaite/HydroMallet.js';
+import { MarineWineGlass } from '../Content/Items/Aquaite/MarineWineGlass.js';
+import { ScubaCurva } from '../Content/Items/Aquaite/ScubaCurva.js';
+import { SharkStorm } from '../Content/Items/Aquaite/SharkStorm.js';
+import { AquaPelter } from '../Content/Items/Aquaite/AquaPelter.js';
+import { TideHunterCap } from '../Content/Items/Aquaite/TideHunterCap.js';
+import { TideHunterChestpiece } from '../Content/Items/Aquaite/TideHunterChestpiece.js';
+import { TideHunterLeggings } from '../Content/Items/Aquaite/TideHunterLeggings.js';
+import { Harmonica } from '../Content/Items/Bard/Harmonica.js';
+import { AquaiteScythe } from '../Content/Items/Aquaite/AquaiteScythe.js';
+import { SkywareLute } from '../Content/Items/Bard/SkywareLute.js';
+import { WoodenBaton } from '../Content/Items/Healer/WoodenBaton.js';
+import { IceShaver } from '../Content/Items/Icy/IceShaver.js';
+import { DownwardSpiral } from '../Content/Items/Healer/DownwardSpiral.js';
+import { TheBlender } from '../Content/Items/Healer/TheBlender.js';
+import { BountifulHarvest } from '../Content/Items/Healer/BountifulHarvest.js';
+import { HoneyRecorder } from '../Content/Items/Bard/HoneyRecorder.js';
+import { MarineCatcher } from '../Content/Items/Fishing/MarineCatcher.js';
+import { DiverHelmet } from '../Content/Items/Vanity/DiverHelmet.js';
+import { DiverSuit } from '../Content/Items/Vanity/DiverSuit.js';
+import { DiverLeggings } from '../Content/Items/Vanity/DiverLeggings.js';
 
 
 // Register all items
 
 const List = [
+    DiverHelmet,
+    DiverSuit,
+    DiverLeggings,
+    MarineCatcher,
+    HoneyRecorder,
+    TheBlender,
+    BountifulHarvest,
+    DownwardSpiral,
+    IceShaver,
+    WoodenBaton,
+    SkywareLute,
+    DepthDiverHelmet,
+    DepthDiverChestplate,
+    DepthDiverGreaves,
+    TideHunterCap,
+    TideHunterChestpiece,
+    TideHunterLeggings,
+
+    DrenchedDirk,
+    GeyserStaff,
+    HydroAxe,
+    HydroPickaxe,
+    HydroMallet,
+    MarineWineGlass,
+    ScubaCurva,
+    AquaiteScythe,
+    SharkStorm,
+    AquaPelter,
+
     QueenJellyfishBag,
     SparkingJellyBall,
     JellyPondWand,
@@ -242,6 +300,7 @@ const List = [
     AntlionMaraca,
     GrimPointer,
     WoodenWhistle,
+    Harmonica,
     IcyPiccolo,
     GoldBugleHorn,
     PlatinumBugleHorn,
@@ -408,6 +467,7 @@ const List = [
 
     AquamarineRobe,
     OpalRobe,
+    AquaiteBar,
 
     CyanPhaseblade,
     LightPinkPhaseblade,
@@ -428,7 +488,7 @@ const List = [
 
     ClericEmblem
 ]
-
+54
 export function RegisterItems() {
     for(const Item of List) {
         ModItem.register(Item)

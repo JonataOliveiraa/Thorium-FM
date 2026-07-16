@@ -34,7 +34,7 @@ export class CoinBagGold extends ModNPC {
     SetBestiary(database, bestiaryEntry) {
         bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns);
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.GoldCoinBag');
+        FlavorText._key = ModLocalization.Translate('Bestiary.CoinBagGold');
         bestiaryEntry.Info.Add(FlavorText);
     }
 
