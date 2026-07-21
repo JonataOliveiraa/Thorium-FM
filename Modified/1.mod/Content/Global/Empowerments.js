@@ -1,6 +1,7 @@
 import { Terraria, Modules, Microsoft } from "../../TL/ModImports.js";
 import { ModLocalization } from "../../TL/ModLocalization.js";
 import { ThoriumPlayer } from "./ThoriumPlayer.js";
+import { PlayerDB } from "../../TL/PlayerDB.js";
 
 const { Main } = Terraria
 const { Color, Vector2 } = Modules
@@ -190,7 +191,8 @@ export class Empowerments {
     if (!empowerment) return;
 
     level = Math.min(level, Empowerments.MaxLevel);
-    let duration = Math.floor(300 * ThoriumPlayer.class.Bard.bardBuffDurationX) + ThoriumPlayer.class.Bard.bardBuffDurationFlat;
+    const durationMultiplier = PlayerDB.get("BardBuffDurationX")
+    let duration = Math.floor((300 * ThoriumPlayer.class.Bard.bardBuffDurationX) + ThoriumPlayer.class.Bard.bardBuffDurationFlat) * durationMultiplier
 
     if (empowerment.ModifyApplication) {
       const modified = empowerment.ModifyApplication(player, level, duration);

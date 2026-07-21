@@ -48,6 +48,14 @@ export class gRecipes extends ModSystem {
                 ItemID.SilverBar,
                 ItemID.TungstenBar
             ]
+        },
+        {
+            name: 'JellyfishesBait',
+            items: () => [
+                2436,
+                2437,
+                2438
+            ]
         }
     ];
 

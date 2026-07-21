@@ -31,13 +31,16 @@ let StunnedBuffType = -1;
 let CharmedBuffType = -1;
 let ElementalDecayBuffType = -1;
 let SingedBuffType = -1
-
+let DistortedTimeEnemy = -1
 function initBuffTypes() {
     StunnedBuffType = ModBuff.getTypeByName("StunnedBuff");
     CharmedBuffType = ModBuff.getTypeByName("CharmedBuff");
     ElementalDecayBuffType = ModBuff.getTypeByName("ElementalDecayBuff");
     SingedBuffType = ModBuff.getTypeByName("SingedBuff")
+    DistortedTimeEnemy = ModBuff.getTypeByName("DistortedTimeEnemy")
 }
+
+const dtVec2 = Vector2.new(0.60, 0.60)
 
 export class UpdateNPCBuff extends GlobalNPC {
     constructor() {
@@ -48,12 +51,13 @@ export class UpdateNPCBuff extends GlobalNPC {
         if (StunnedBuffType === -1) initBuffTypes();
         if (npc.buffType[0] === 0) return true;
 
-        const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 200 && !npc.boss;
+        const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 900 && !npc.boss;
 
         const stunnedIdx = npc[FindBuffIndex](StunnedBuffType);
         const charmedIdx = npc[FindBuffIndex](CharmedBuffType);
         const elementalIdx = npc[FindBuffIndex](ElementalDecayBuffType);
         const singedIdx = npc[FindBuffIndex](SingedBuffType)
+        const distortedTimeIdx = npc[FindBuffIndex](DistortedTimeEnemy)
 
         if (stunnedIdx > -1 && isSmallNonBoss) {
             npc.velocity = Vector2.Zero;
@@ -134,6 +138,10 @@ export class UpdateNPCBuff extends GlobalNPC {
                     spark.fadeIn = 0.6;
                 }
             }
+        }
+
+        if(distortedTimeIdx > -1 && isSmallNonBoss) {
+            npc.velocity = Vector2.Multiply(npc.velocity, dtVec2);
         }
 
         return true;

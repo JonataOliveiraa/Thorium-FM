@@ -52,5 +52,7 @@ export class WoodenWhistle extends ModBardItem {
         this.CreateRecipe(1)
             .AddRecipeGroup('Wood')
             .AddIngredient(Terraria.ID.ItemID.Wood, 8)
+            .AddTile(Terraria.ID.TileID.WorkBenches)
+            .Register()
     }
 }

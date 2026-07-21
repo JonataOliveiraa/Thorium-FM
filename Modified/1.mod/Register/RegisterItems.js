@@ -249,11 +249,33 @@ import { MarineCatcher } from '../Content/Items/Fishing/MarineCatcher.js';
 import { DiverHelmet } from '../Content/Items/Vanity/DiverHelmet.js';
 import { DiverSuit } from '../Content/Items/Vanity/DiverSuit.js';
 import { DiverLeggings } from '../Content/Items/Vanity/DiverLeggings.js';
+import { InspirationFragment } from '../Content/Items/Consumable/InspirationFragment.js';
+import { InspirationShard } from '../Content/Items/Consumable/InspirationShard.js';
+import { InspirationCrystal } from '../Content/Items/Consumable/InspirationCrystal.js';
+import { JesterMask } from '../Content/Items/Jester/JesterMask.js';
+import { JesterMask2 } from '../Content/Items/Jester/JesterMask2.js';
+import { JesterShirt } from '../Content/Items/Jester/JesterShirt.js';
+import { JesterShirt2 } from '../Content/Items/Jester/JesterShirt2.js';
+import { JesterLeggings2 } from '../Content/Items/Jester/JesterLeggings2.js';
+import { JesterLeggings } from '../Content/Items/Jester/JesterLeggings.js';
+import { Panflute } from '../Content/Items/Bard/Panflute.js';
+import { ShadeWoodTambourine } from '../Content/Items/Bard/ShadewoodTambourine.js';
 
 
 // Register all items
 
 const List = [
+    ShadeWoodTambourine,
+    Panflute,
+    JesterMask,
+    JesterShirt,
+    JesterLeggings,
+    JesterMask2,
+    JesterShirt2,
+    JesterLeggings2,
+    InspirationCrystal,
+    InspirationShard,
+    InspirationFragment,
     DiverHelmet,
     DiverSuit,
     DiverLeggings,

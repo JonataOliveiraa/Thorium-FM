@@ -232,7 +232,16 @@
     "MarineCatcher": "Capturador Marinho",
     "DiverHelmet": "Capacete do Mergulhador",
     "DiverSuit": "Roupão do Mergulhador",
-    "DiverLeggings": "Calça do Mergulhador"
+    "DiverLeggings": "Calça do Mergulhador",
+    "InspirationFragment": "Fragmento de Inspiração",
+    "InspirationShard": "Pedaço de Inspiração",
+    "InspirationCrystal": "Cristal de Inspiração",
+    "JesterMask": "Máscara do Bobo da Corte Carmesim",
+    "JesterShirt": "Camisa do Bobo da Corte Carmesim",
+    "JesterLeggings": "Calças do Bobo da Corte Carmesim",
+    "JesterMask2": "Máscara do Bobo da Corte Corrompido",
+    "JesterShirt2": "Camisa do Bobo da Corte Corrompido",
+    "JesterLeggings2": "Calças do Bobo da Corte Corrompido"
   },
   "ItemTooltip": {
     "IceCube": "Lança um cubo de gelo que desliza pelos blocos\nCubos de gelo causam queimadura de gelo no alvo por um breve período",
@@ -383,7 +392,16 @@
     "SteelToedBoots": "+5% de aumento na velocidade de movimentos\nAumenta moderadamente a velocidade de queda",
     "TravelersBoots": "+5% de aumento na velocidade de movimentos\nSua investida atinge a velocidade máxima mais rapidamente",
     "TurboBoots": "+5% de aumento na velocidade de movimentos\nAumenta a altura do salto",
-    "WizardShoes": "+5% de aumento na velocidade de movimentos\nEnquanto corre, sua regeneração de mana é aumentada"
+    "WizardShoes": "+5% de aumento na velocidade de movimentos\nEnquanto corre, sua regeneração de mana é aumentada",
+    "InspirationFragment": "Aumenta permanentemente a inspiração máxima em 1, até o limite de 20\nAumenta permanente em 1,5% a duração máxima dos aprimoramentos.",
+    "InspirationShard": "Aumenta permanentemente a inspiração máxima em 1, até o limite de 40\nAumenta permanente em 1,5% a duração máxima dos aprimoramentos.",
+    "InspirationCrystal": "Aumenta permanentemente a inspiração máxima em 1, até o limite de 60\nAumenta permanente em 1,5% a duração máxima dos aprimoramentos.",
+    "JesterMask": "11% de aumento na chance de acerto crítico de dano sinfônico",
+    "JesterShirt": "20% de chance de dano sinfônico conceder regeneração de vida",
+    "JesterLeggings": "Aumenta a taxa de regeneração de inspiração em 5%",
+    "JesterMask2": "11% de aumento na chance de acerto crítico de dano sinfônico",
+    "JesterShirt2": "20% de chance de dano sinfônico conceder regeneração de vida",
+    "JesterLeggings2": "Aumenta a taxa de regeneração de inspiração em 5%"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -399,7 +417,9 @@
     "NoviceCleric": "A cada segundo, uma cruz é gerada. Ao atingir um inimigo com dano radiante, as cruzes seguirão o inimigo",
     "Criers": "Seus empoderamentos sinfônicos durarão 3 segundos a mais",
     "TideHunter": "Ataques à distância tem chance de liberar uma rajada de espuma",
-    "DepthDiver": "10% de aumento nos danos e na velocidade de movimento"
+    "DepthDiver": "10% de aumento nos danos e na velocidade de movimento",
+    "Jester": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos",
+    "Jester2": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos"
   },
   "BuffName": {
     "LivingWoodAcornBuff": "Lealdade do Broto",

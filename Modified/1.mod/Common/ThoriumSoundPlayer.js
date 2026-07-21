@@ -5,6 +5,7 @@ export class ThoriumSoundPlayer {
 
     static Initialize() {
         ThoriumSoundPlayer.sounds.set('fluteSound', new AndroidSound('Common/Sounds/Flute_Sound.ogg'))
+        ThoriumSoundPlayer.sounds.set('panfluteSound', new AndroidSound('Common/Sounds/Panflute_Sound.ogg'))
     }
 
     static Play(sound) {

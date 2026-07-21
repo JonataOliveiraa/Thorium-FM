@@ -1,4 +1,3 @@
-// MarineWineGlass.js
 import { ModBardItem } from "../../../Common/ModBardItem.js";
 import { System, Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
@@ -8,7 +7,6 @@ import { Vector2 } from "../../../TL/Modules/Vector2.js";
 import { PlayerDB } from "../../../TL/PlayerDB.js";
 import { Empowerments } from "../../Global/Empowerments.js";
 
-const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const { Main } = Terraria;
 
 export class MarineWineGlass extends ModBardItem {
@@ -39,30 +37,32 @@ export class MarineWineGlass extends ModBardItem {
         this.Item.shootSpeed = 10;
     }
 
-    // Velocidade de uso reduzida no alt fire
     UseTimeMultiplier(item, player) {
         return player.altFunctionUse === 2 ? 0.5 : 1.0;
     }
+
     UseAnimationMultiplier(item, player) {
         return player.altFunctionUse === 2 ? 0.5 : 1.0;
     }
 
     CanUseItem(item, player) {
-        const type = this.Item.shoot;
+        // Chama a verificação base corretamente
+        if (!super.CanUseItem(item, player)) {
+            return false;
+        }
+
+        const type = ModProjectile.getTypeByName('AquamarineWineGlassPro');
+        let count = 0;
+        for (let i = 0; i < Main.maxProjectiles; i++) {
+            const p = Main.projectile[i];
+            if (p.active && p.owner === player.whoAmI && p.type === type) {
+                count++;
+            }
+        }
 
         if (player.altFunctionUse === 2) {
-            let count = 0;
-            for (let i = 0; i < Main.maxProjectiles; i++) {
-                const p = Main.projectile[i];
-                if (p.active && p.owner === player.whoAmI && p.type === type) count++;
-            }
             return count >= 1 && (PlayerDB.get("Inspiration") ?? 0) >= 5;
         } else {
-            let count = 0;
-            for (let i = 0; i < Main.maxProjectiles; i++) {
-                const p = Main.projectile[i];
-                if (p.active && p.owner === player.whoAmI && p.type === type) count++;
-            }
             return count < 6;
         }
     }
@@ -80,7 +80,7 @@ export class MarineWineGlass extends ModBardItem {
         if (player.altFunctionUse === 2) {
             for (let i = 0; i < Main.maxProjectiles; i++) {
                 const p = Main.projectile[i];
-                if (p.active && p.owner === player.whoAmI && p.type === type) {
+                if (p.active && p.owner === player.whoAmI && p.type === ModProjectile.getTypeByName('AquamarineWineGlassPro')) {
                     p.Kill();
                 }
             }

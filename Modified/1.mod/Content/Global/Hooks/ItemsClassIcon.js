@@ -4,12 +4,11 @@ import { ModThrowerItem } from "../../../Common/ModThrowerItem.js";
 import { GlobalHooks } from "../../../TL/GlobalHooks.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModLocalization } from "../../../TL/ModLocalization.js";
-import { ItemLoader } from "../../../TL/Loaders/ItemLoader.js";
 
 const GUIPageIcons = new NativeClass('', 'GUIPageIcons');
+const GUICrafting = new NativeClass('', 'GUICrafting');
 const GUICraftGuidePopup = new NativeClass('', 'GUICraftGuidePopup');
 
-// Mapa: type → classe customizada
 const CLASS_ICON = {
     healer: 6033,
     bard: 3943,
@@ -20,6 +19,7 @@ export class ItemsClassIcon extends GlobalHooks {
     constructor() {
         super();
         this._tip55Original = null;
+        this._originalTips = {};
     }
 
     getCustomClass(typeOrItem) {
@@ -78,5 +78,59 @@ export class ItemsClassIcon extends GlobalHooks {
 
             this.setCustomTranslation()
         })
+
+        // GUICrafting.DrawCraftButton.hook((original, self) => {
+        //     original(self)
+
+        //     if (!Terraria.Lang.tip?.[55]) return;
+        //     if (this._tip55Original === null) this._tip55Original = Terraria.Lang.tip[55].Value;
+        //     if (!this._originalTips[7]) {
+        //         for (let i = 7; i < 14; i++) {
+        //             this._originalTips[i] = Terraria.Lang.tip[i].Value;
+        //         }
+        //     }
+
+        //     const hoverItem = Terraria.Main.HoverItem;
+        //     const cls = this.getCustomClass(hoverItem);
+
+        //     if (!cls) {
+        //         Terraria.Lang.tip[55]['void SetValue(string text)'](this._tip55Original);
+
+        //         for (let i = 7; i < 14; i++) {
+        //             Terraria.Lang.tip[i]['void SetValue(string text)'](this._originalTips[i]);
+        //         }
+
+        //         return;
+        //     }
+
+        //     let newValueForDamage = this._tip55Original;
+        //     let newValueForCrit;
+
+        //     if (cls === 'healer') newValueForDamage = ModLocalization.Translate('ThoriumClasses.Tooltips.radiantDamage');
+        //     if (cls === 'bard') newValueForDamage = ModLocalization.Translate('ThoriumClasses.Tooltips.symphonicDamage');
+        //     if (cls === 'thrower') newValueForDamage = ModLocalization.Translate('ThoriumClasses.Tooltips.throwingDamage');
+
+        //     if (cls && hoverItem.crit > 0) {
+        //         const player = Terraria.Main.LocalPlayer;
+        //         const crit = player.meleeCrit - player.inventory[player.selectedItem].crit + hoverItem.crit;
+        //         newValueForCrit = `${crit}${Terraria.Lang.tip[5].Value}`
+        //     }
+
+        //     Terraria.Lang.tip[55]['void SetValue(string text)'](newValueForDamage);
+
+        //     if (newValueForCrit) {
+        //         for (let index = 7; index < 14; index++) {
+        //             const original = this._originalTips[index];
+        //             const aligned = original.padStart(
+        //                 Math.max(original.length, newValueForCrit.length + 1),
+        //                 " "
+        //             );
+
+        //             Terraria.Lang.tip[index]['void SetValue(string text)'](
+        //                 `${newValueForCrit}\n${aligned}`
+        //             );
+        //         }
+        //     }
+        // })
     }
 }

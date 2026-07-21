@@ -59,6 +59,7 @@ import { FlamekinCaster } from '../Content/NPCs/Cavern/FlamekinCaster.js';
 import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
 import { Cobbler } from '../Content/NPCs/Town/Cobbler.js';
 import { Diverman } from '../Content/NPCs/Town/Diverman.js';
+import { GoblinTrapper } from '../Content/NPCs/GoblinArmy/GoblinTrapper.js';
 
 const List = [
     Blacksmith,
@@ -111,6 +112,8 @@ const List = [
     CoinBagCopper,
     CoinBagSilver,
     CoinBagGold,
+
+    // GoblinTrapper
 ]
 
 export function RegisterNPCs() {

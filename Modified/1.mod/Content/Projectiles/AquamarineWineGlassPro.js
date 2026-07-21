@@ -1,4 +1,3 @@
-// AquamarineWineGlassPro.js
 import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
 import { Effects } from '../../TL/Modules/Effects.js';

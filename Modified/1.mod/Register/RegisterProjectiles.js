@@ -129,8 +129,13 @@ import { TheBlenderPro } from '../Content/Projectiles/TheBlenderPro.js';
 import { BountifulHarvestPro } from '../Content/Projectiles/BountifulHarvestPro.js';
 import { HoneyRecorderPro } from '../Content/Projectiles/HoneyRecorderPro.js';
 import { BobberMarine } from '../Content/Projectiles/BobberMarine.js';
+import { HostileSpikeBall } from '../Content/Projectiles/HostileSpikeBall.js';
+import { JesterBellPro } from '../Content/Projectiles/JesterBellPro.js';
+import { PanflutePro } from '../Content/Projectiles/PanflutePro.js';
+import { ShadeWoodTambourinePro } from '../Content/Projectiles/ShadeWoodTambourinePro.js';
 
 const List = [
+  HostileSpikeBall,
   BobberMarine,
   IceCubePro,
   IcyArrowPro,
@@ -175,6 +180,8 @@ const List = [
   ColdFrontPro,
   LootRangPro,
   IcyPiccoloPro,
+  PanflutePro,
+  ShadeWoodTambourinePro,
 
   DrenchedPro,
   GeyserPro,
@@ -221,6 +228,8 @@ const List = [
   SeahorseWandPro,
   SeahorseWandPro2,
   CoralSlasherPro,
+  
+  JesterBellPro,
 
   ThoriumBoomerangPro,
   ThoriumBolt,

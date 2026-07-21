@@ -31,7 +31,7 @@ export class ThoriumMenu extends ModMenu {
         }
 
         const instance = layout;
-        instance.CopyrightText = 'Thorium FanMade Unofficial v1.0.0';
+        instance.CopyrightText = 'Thorium FanMade Unofficial v1.2.0';
         ['AnchorControl', 'Anchor', 'Alignment', 'Scale', 'MultiLineUseAlignment'].forEach(key => { instance.Copyright[key] = instance.VersionNumber[key]; });
         const basePos = instance.VersionNumber.Location;
         instance.Copyright.Location = Vector2.new(basePos.X, basePos.Y + 28);

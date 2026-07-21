@@ -41,7 +41,6 @@ export class LivingWoodAcornShotPro extends ModProjectile {
     }
 
     AI(proj) {
-        // 1. Partícula Dust (DustID 3 = Grass/Grama)
         if (Rand.NextBool(2)) {
             let dustIdx = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'](
                 proj.position, proj.width, proj.height, 3, proj.velocity.X * 0.2, proj.velocity.Y * 0.2, 100, Color.new(255, 255, 255, 255), 1.0

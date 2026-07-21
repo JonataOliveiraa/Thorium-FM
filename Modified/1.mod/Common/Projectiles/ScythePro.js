@@ -36,11 +36,12 @@ export class ScythePro extends ModProjectile {
         this.Projectile.light = 0.2;
         this.Projectile.friendly = true;
         this.Projectile.tileCollide = false;
+        this.Projectile.ownerHitCheck = true;
         this.Projectile.ignoreWater = true;
         this.Projectile.penetrate = -1;
         this.Projectile.timeLeft = 26;
-        this.Projectile.usesIDStaticNPCImmunity = true;
         this.Projectile.idStaticNPCHitCooldown = 10;
+        this.Projectile.localNPCHitCooldown = 10;
     }
 
     AI(proj) {
