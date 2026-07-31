@@ -1,4 +1,4 @@
-# Thorium Fan Made v1.0.1
+# Thorium Fan Made v1.2.1
 
 > **Fan-made recreation of the Thorium Mod for Terraria Mobile.**
 
