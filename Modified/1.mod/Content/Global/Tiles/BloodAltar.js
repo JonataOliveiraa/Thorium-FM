@@ -1,11 +1,21 @@
 import { GlobalTile } from "../../../TL/GlobalTile.js";
 import { Terraria } from '../../../TL/ModImports.js';
+import { ModItem } from "../../../TL/ModItem.js";
+import { ModLocalization } from "../../../TL/ModLocalization.js";
+import { ModNPC } from "../../../TL/ModNPC.js";
 import { Color } from "../../../TL/Modules/Color.js";
+import { Effects } from "../../../TL/Modules/Effects.js";
 import { TileData } from "../../../TL/Modules/TileData.js";
 import { WorldDB } from "../../../TL/WorldDB.js";
 
-const { Main } = Terraria
+const { Main, NPC } = Terraria
 const { TileObjectData } = Terraria.ObjectData
+
+const NewNPC = NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
+const AnyNPCs = NPC['bool AnyNPCs(int Type)'];
+
+const SHARD_COST = 5;
+const SPAWN_DISTANCE = 700;
 
 export class BloodAltar extends GlobalTile {
     Type = Terraria.ID.TileID.HoneyDispenser;
@@ -20,10 +30,65 @@ export class BloodAltar extends GlobalTile {
         TileObjectData.readOnlyData = true;
     }
 
+    /**
+     * Clicar no altar troca 5 Fragmentos Profanos pela invocacao do Visconde.
+     * Ele nasce longe pra ter que se aproximar em vez de aparecer em cima.
+     */
     RightClick(player, i, j, type) {
-        if(this.Type === type) return false
+        if (this.Type !== type) return null;
 
-        return null
+        const viscountType = ModNPC.getTypeByName('Viscount');
+        if (!(viscountType > 0)) return false;
+
+        if (AnyNPCs(viscountType)) return false;
+
+        const shardType = ModItem.getTypeByName('UnholyShards');
+        if (!(shardType > 0)) return false;
+
+        if (this._countShards(player, shardType) < SHARD_COST) {
+            Main.NewText(ModLocalization.Translate('SinalizationChatMessage.BloodAltarMissingShards'), 200, 40, 40);
+            return false;
+        }
+
+        this._takeShards(player, shardType, SHARD_COST);
+
+        const side = Math.random() < 0.5 ? -1 : 1;
+        const spawnX = (player.Center.X + side * SPAWN_DISTANCE) | 0;
+        const spawnY = (player.Center.Y - 240) | 0;
+
+        NewNPC(Terraria.Projectile.GetNoneSource(), spawnX, spawnY, viscountType, 0, 0, 0, 0, 0, player.whoAmI);
+
+        Effects.PlaySound(Terraria.ID.SoundID.Roar, player.Center.X, player.Center.Y, 0, 0, 1);
+
+        return false;
+    }
+
+    _countShards(player, shardType) {
+        const inv = player.inventory;
+        let total = 0;
+
+        for (let s = 0; s < 58; s++) {
+            const slot = inv[s];
+            if (slot && slot.type === shardType) total += slot.stack;
+        }
+
+        return total;
+    }
+
+    _takeShards(player, shardType, amount) {
+        const inv = player.inventory;
+        let left = amount;
+
+        for (let s = 0; s < 58 && left > 0; s++) {
+            const slot = inv[s];
+            if (!slot || slot.type !== shardType) continue;
+
+            const taken = Math.min(left, slot.stack);
+            slot.stack -= taken;
+            left -= taken;
+
+            if (slot.stack <= 0) slot['void TurnToAir(bool fullReset)'](true);
+        }
     }
 
     CanKillTile(i, j, type, blockDamaged) {
@@ -50,7 +115,8 @@ export class BloodAltar extends GlobalTile {
                 const breakingAltar = (j >= top && j <= top + 2) && (i >= left && i <= left + 2);
 
                 if (supportBroken || breakingSupport || breakingAltar) {
-                    if (!WorldDB.has('Thorium:HasBeenDefeated_Visconde')) {
+                    // Mesma chave que o Viscount.OnKill grava
+                    if (WorldDB.get('Thorium:HasBeenDefeated_Viscount') !== true) {
                         return false;
                     }
                 }

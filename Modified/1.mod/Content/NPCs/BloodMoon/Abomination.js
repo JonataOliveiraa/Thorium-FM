@@ -13,13 +13,15 @@ const {
 
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
-const { Color, Vector2, Rand } = Modules;
-const Main = new NativeClass('Terraria', 'Main');
-const Vector2Native = new NativeClass('Microsoft.Xna.Framework', 'Vector2');
-const NPC = new NativeClass('Terraria', 'NPC');
-const SoundEngine = new NativeClass('Terraria.Audio', 'SoundEngine');
-const Projectile = new NativeClass('Terraria', 'Projectile');
-const UnifiedRandom = new NativeClass('Terraria.Utilities', 'UnifiedRandom');
+const { Color } = Modules;
+const { Main } = Terraria;
+
+const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
+
+const GORE_COLOR = Color.new(180, 20, 20, 255);
+
+// Pedacos que ele solta ao morrer
+const DEATH_SPAWNS = ['BloodDrop', 'SeveredLegs', 'GraveLimb'];
 
 export class Abomination extends ModNPC {
     constructor() {
@@ -48,10 +50,11 @@ export class Abomination extends ModNPC {
         npc.buffImmune[20] = true;
     }
 
-    OnHitPlayer(npc, player, target, damage, crit) {
-        const buffType = 24;
-        const duration = 240;
-        player['void AddBuff(int type, int time, bool fromNetPvP)'](buffType, duration, false);
+    // A assinatura estava curta demais (npc, player, target, damage, crit).
+    // A do TL e essa aqui; so o player era usado, entao nao quebrava, mas
+    // qualquer parametro alem do 2o vinha errado.
+    OnHitPlayer(npc, player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
+        player['void AddBuff(int type, int time, bool fromNetPvP)'](Terraria.ID.BuffID.Bleeding, 240, false);
     }
 
     SetBestiary(database, bestiaryEntry) {
@@ -62,15 +65,20 @@ export class Abomination extends ModNPC {
         bestiaryEntry.Info.Add(FlavorText);
     }
 
+    // info.BloodMoon e uma flag global do mundo, vale ate no subterraneo.
+    // A checagem de altura e o que prende ele na superficie.
     SpawnChance(info) {
-        if (info.CommonEnemy && info.BloodMoon && WorldDB.get('Thorium:CanSpawnAbomination') === true) {
-            return 0.15;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.BloodMoon) return 0;
+        if (!info.AboveSurface || info.SpawnTileY > Terraria.Main.worldSurface) return 0;
+        if (info.Water || info.PlayerSafe) return 0;
+        if (WorldDB.get('Thorium:CanSpawnAbomination') !== true) return 0;
+
+        return 0.15;
     }
 
+    // Estava Common(Blood, 5, 20, 4): minimo 20 e maximo 4, invertido
     ModifyNPCLoot(npcLoot) {
-        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 20, 4));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 2, 4));
     }
 
     PostAI(npc) {
@@ -81,15 +89,11 @@ export class Abomination extends ModNPC {
             npc.direction = (player.Center.X < npc.Center.X) ? -1 : 1;
         }
 
-        let vel = npc.velocity;
+        const vel = npc.velocity;
+        if (vel.Y !== 0) return; // no ar a vanilla cuida, nao precisa reescrever
 
-        if (vel.Y === 0) {
-            vel.X += npc.direction * 0.05;
-
-            if (Math.abs(vel.X) > 1.8) {
-                vel.X = 1.8 * npc.direction;
-            }
-        }
+        vel.X += npc.direction * 0.05;
+        if (Math.abs(vel.X) > 1.8) vel.X = 1.8 * npc.direction;
 
         npc.velocity = vel;
     }
@@ -105,9 +109,10 @@ export class Abomination extends ModNPC {
 
             if (flag) speedX = (Math.random() - 0.5) * 2 * hitDirection;
 
+            // A cor era criada dentro do laco: 30 objetos nativos por morte
             NewDust(
                 npc.position, npc.width, npc.height,
-                5, speedX, speedY, 0, Color.new(180, 20, 20, 255), scale
+                5, speedX, speedY, 0, GORE_COLOR, scale
             );
         }
     }
@@ -136,33 +141,27 @@ export class Abomination extends ModNPC {
         npc.frame = frame;
     }
 
+    /**
+     * NewNPC quer X e Y inteiros: antes ia float e o alvo saia de
+     * Main.player[npc.target] sem checar, o que estoura quando npc.target e
+     * 255 (sem alvo). 255 e justamente o valor de "nenhum alvo".
+     */
     OnKill(npc) {
-        const player = Main.player[npc.target];
-        const centerX = npc.Center.X;
-        const centerY = npc.Center.Y;
+        const target = npc.target >= 0 && npc.target < 255 ? npc.target : 255;
+        const center = npc.Center;
+        const source = Terraria.Projectile.GetNoneSource();
 
-        Terraria.NPC.NewNPC(
-            Terraria.Projectile.GetNoneSource(),
-            centerX + (Math.random() * 80 - 40),
-            centerY - Math.random() * 30,
-            ModNPC.getTypeByName('BloodDrop'),
-            0, 0, 0, 0, 0, player.whoAmI
-        );
+        for (const name of DEATH_SPAWNS) {
+            const type = ModNPC.getTypeByName(name);
+            if (!(type > 0)) continue;
 
-        Terraria.NPC.NewNPC(
-            Terraria.Projectile.GetNoneSource(),
-            centerX + (Math.random() * 80 - 40),
-            centerY - Math.random() * 30,
-            ModNPC.getTypeByName('SeveredLegs'),
-            0, 0, 0, 0, 0, player.whoAmI
-        );
-
-        Terraria.NPC.NewNPC(
-            Terraria.Projectile.GetNoneSource(),
-            centerX + (Math.random() * 80 - 40),
-            centerY - Math.random() * 30,
-            ModNPC.getTypeByName('GraveLimb'),
-            0, 0, 0, 0, 0, player.whoAmI
-        );
+            NewNPC(
+                source,
+                (center.X + (Math.random() * 80 - 40)) | 0,
+                (center.Y - Math.random() * 30) | 0,
+                type,
+                0, 0, 0, 0, 0, target
+            );
+        }
     }
 }

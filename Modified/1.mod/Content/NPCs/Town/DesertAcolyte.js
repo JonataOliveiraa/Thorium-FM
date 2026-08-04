@@ -143,6 +143,8 @@ export class DesertAcolyte extends ModNPC {
         ModItem.getTypeByName("TechniqueBlankScroll")
       ])
     }
+
+    npcShop.Add(ModItem.getTypeByName('EighthPlagueStaff'), 1, Terraria.Item.buyPrice(0, 54, 0, 0));
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

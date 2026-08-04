@@ -20,6 +20,18 @@ const Main = Terraria.Main;
 let _zealousType = -1, _spittingType = -1, _distractingType = -1;
 let _bubblePulseType = -1, _armType = -1, _bubbleBombType = -1, _torrentType = -1;
 let _typesInit = false;
+/**
+ * Projetil hostil causa o DOBRO do damage no jogador. Entao pra um ataque
+ * bater X, ele precisa nascer com X/2. Os alvos sao os da wiki (classico):
+ * contato 30, redemoinho 50, bomba 40, tentaculo 40, bolha 30.
+ *
+ * As contas saem de npc.damage (que ja vem multiplicado no Expert/Master),
+ * pra que os ataques continuem escalando junto com o modo de jogo.
+ */
+function hostileDamage(npcDamage, ratioToContact) {
+    return Math.max(1, Math.round(npcDamage * ratioToContact * 0.5));
+}
+
 function initTypes() {
     if (_typesInit) return;
     _typesInit = true;
@@ -82,7 +94,7 @@ export class QueenJellyfish extends ModNPC {
     }
 
     OnSpawn() {
-        if(WorldDB.get('QueenJellyfish:Downed') === true) {
+        if(WorldDB.get('Thorium:HasBeenDefeated_QueenJellyfish') === true) {
             this.drawDiverman = false
         }
     }
@@ -99,7 +111,7 @@ export class QueenJellyfish extends ModNPC {
         this.NPC.width = 80;
         this.NPC.height = 80;
         this.NPC.aiStyle = -1;
-        this.NPC.damage = 22;
+        this.NPC.damage = 30; // contato, valor classico da wiki
         this.NPC.defense = 6;
         this.NPC.lifeMax = 4000;
         this.NPC.knockBackResist = 0.0;
@@ -251,7 +263,7 @@ export class QueenJellyfish extends ModNPC {
                 npc.GetSpawnSource_ForProjectile(),
                 npc.Center.X, npc.Center.Y,
                 0, 0,
-                _armType, Math.max(20, npc.damage), 0, 255,
+                _armType, hostileDamage(npc.damage, 40 / 30), 0, 255,
                 0, 0, 0, null
             );
             if (idx >= 0 && idx < Main.maxProjectiles) {
@@ -271,7 +283,7 @@ export class QueenJellyfish extends ModNPC {
             const dx1 = player.Center.X - npc.Center.X;
             const dy1 = player.Center.Y - npc.Center.Y;
             const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
-            NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, npc.damage, 3, 255, 0, 0, 0, null);
+            NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, hostileDamage(npc.damage, 1), 3, 255, 0, 0, 0, null);
         }
 
         if (lifeRatio < 0.5) {
@@ -284,7 +296,7 @@ export class QueenJellyfish extends ModNPC {
                 const baseAngle = Math.atan2(dy2, dx2);
                 for (let i = -1; i <= 1; i++) {
                     const a = baseAngle + i * 0.35;
-                    NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, npc.damage, 2, 255, 0, 0, 0, null);
+                    NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, hostileDamage(npc.damage, 1), 2, 255, 0, 0, 0, null);
                 }
             }
         }
@@ -300,7 +312,7 @@ export class QueenJellyfish extends ModNPC {
                 npc.GetSpawnSource_ForProjectile(),
                 spawnX, spawnY,
                 (player.Center.X - spawnX) * 0.01, 2,
-                _bubbleBombType, Math.max(18, (npc.damage * 0.8) | 0), 3, 255,
+                _bubbleBombType, hostileDamage(npc.damage, 40 / 30), 3, 255,
                 0, 0, 0, null
             );
         } else {
@@ -330,7 +342,7 @@ export class QueenJellyfish extends ModNPC {
                     npc.GetSpawnSource_ForProjectile(),
                     spawnX, spawnY,
                     0, 0,
-                    _torrentType, 150, 0, 255,
+                    _torrentType, hostileDamage(npc.damage, 50 / 30), 0, 255,
                     num11, 0, 0, null
                 );
             }
@@ -398,11 +410,12 @@ export class QueenJellyfish extends ModNPC {
 
     PreDraw(npc, spriteBatch, screenPos) {
         this._loadTextures();
+        
         if (!this._diverTex && this.drawDiverman) return true;
+        if(WorldDB.get('Thorium:HasBeenDefeated_QueenJellyfish') === true) return true;
 
         this.diverOffset = Math.sin(Date.now() / 600) * 4;
 
-        // Frame-based Y nudge so the diver follows the body contraction
         const fh = npc.frame.Height || 1;
         const bossFrameIdx = Math.min((npc.frame.Y / fh) | 0, 7);
         const diverNudge = DIVER_FRAME_NUDGE[bossFrameIdx] ?? 0;
@@ -467,12 +480,18 @@ export class QueenJellyfish extends ModNPC {
     }
 
     OnKill(npc) {
-        WorldDB.set('QueenJellyfish:Downed', true);
+        if(WorldDB.get('Thorium:HasBeenDefeated_QueenJellyfish') === true) return;
+        WorldDB.set('Thorium:HasBeenDefeated_QueenJellyfish', true);
+
+        const divermanType = ModNPC.getTypeByName('Diverman');
+        if (divermanType < 0) return;
+
         NewNPC(
             npc[GetSource_ForNPC](),
-            npc.Center.X,
-            npc.Center.Y,
-            ModNPC.getTypeByName('Diverman')),
-            0, 0, 0, 0, 0, 0
+            npc.Center.X | 0,
+            npc.Center.Y | 0,
+            divermanType,
+            0, 0, 0, 0, 0, 255
+        );
     }
 }

@@ -49,11 +49,16 @@ export class Warg extends ModNPC {
         bestiaryEntry.Info.Add(FlavorText);
     }
 
+    // Era info.hardMode (minusculo), que nao existe: dava undefined e ele
+    // nunca nascia. O getter certo e HardMode.
+    // info.BloodMoon e uma flag global do mundo, vale ate no subterraneo, por
+    // isso a checagem de altura.
     SpawnChance(info) {
-        if (info.hardMode && info.BloodMoon) {
-            return 0.80;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.BloodMoon || !info.HardMode) return 0;
+        if (!info.AboveSurface || info.SpawnTileY > Terraria.Main.worldSurface) return 0;
+        if (info.Water || info.PlayerSafe) return 0;
+
+        return 0.12;
     }
 
     ModifyNPCLoot(npcLoot) {

@@ -19,7 +19,7 @@ export class StormHatchlingStaff extends ModItem {
     }
     
     SetDefaults() {
-        this.Item.damage = 30;
+        this.Item.damage = 12;
         
         this.Item.knockBack = 3;
         this.Item.mana = 10;

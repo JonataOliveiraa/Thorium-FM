@@ -52,11 +52,14 @@ export class GorgedEye extends ModNPC {
         bestiaryEntry.Info.Add(FlavorText);
     }
 
+    // info.BloodMoon e uma flag global do mundo, vale ate no subterraneo.
+    // A checagem de altura e o que prende ele na superficie.
     SpawnChance(info) {
-        if (info.CommonEnemy && info.BloodMoon) {
-            return 0.15;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.BloodMoon) return 0;
+        if (!info.AboveSurface || info.SpawnTileY > Terraria.Main.worldSurface) return 0;
+        if (info.Water || info.PlayerSafe) return 0;
+
+        return 0.15;
     }
 
     ModifyNPCLoot(npcLoot) {

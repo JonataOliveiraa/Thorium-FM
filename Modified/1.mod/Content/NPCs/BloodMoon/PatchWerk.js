@@ -2,7 +2,6 @@ import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
-import { ModSystem } from '../../../TL/ModSystem.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
 import { Effects } from '../../../TL/Modules/Effects.js';
 import { Rand } from '../../../TL/Modules/Rand.js';
@@ -86,28 +85,37 @@ export class PatchWerk extends ModNPC {
         bestiaryEntry.Info.Add(FlavorText);
     }
 
+    // info.BloodMoon e so o Main.bloodMoon, que vale no mundo inteiro. Sem
+    // checar altura ele nascia em caverna tambem, entao aqui exigimos que
+    // tanto o jogador quanto o ponto de spawn estejam na superficie.
     SpawnChance(info) {
-        if (info.CommonEnemy && info.BloodMoon && WorldDB.get('Thorium:HasBeenDefeated_PatchWerk') !== true) {
-            return 0.05;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.BloodMoon) return 0;
+        if (!info.AboveSurface || info.SpawnTileY > Terraria.Main.worldSurface) return 0;
+        if (info.Water || info.PlayerSafe) return 0;
+        if (WorldDB.get('Thorium:HasBeenDefeated_PatchWerk') === true) return 0;
+
+        return 0.05;
     }
 
     ModifyNPCLoot(npcLoot) {
         npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('Blood'), 5, 1, 1));
     }
 
+    /**
+     * As duas chaves sao gravadas na hora. Antes o CanSpawnAbomination era
+     * agendado com ModSystem.SetTimeout pro amanhecer, mas a fila de tarefas
+     * vive so em memoria e o SystemLoader.OnWorldUnload a esvazia: quem saisse
+     * do mundo antes de amanhecer nunca liberava o Abomination, e como o
+     * PatchWerk ja constava derrotado nao dava pra tentar de novo.
+     */
     OnKill(npc) {
-        const hasBeenDefeteated = WorldDB.get('Thorium:HasBeenDefeated_PatchWerk')
-        if(hasBeenDefeteated === true) return Terraria.Main['void NewText(string newText, Color color)'](`${ModLocalization.Translate('SinalizationChatMessage.OnPatchWerkDie'), Color.Orange}`);
+        Terraria.Main['void NewText(string newText, Color color)'](
+            ModLocalization.Translate('SinalizationChatMessage.OnPatchWerkDie'),
+            Color.Orange
+        );
 
         WorldDB.set('Thorium:HasBeenDefeated_PatchWerk', true);
-        if (!Terraria.Main.dayTime) {
-            const ticksUntilDaybreak = Math.floor(54000 - Terraria.Main.time);
-            ModSystem.SetTimeout(() => {
-                WorldDB.set('Thorium:CanSpawnAbomination', true);
-            }, ticksUntilDaybreak);
-        }
+        WorldDB.set('Thorium:CanSpawnAbomination', true);
     }
 
     HitEffect(npc, hitDirection, damage) {

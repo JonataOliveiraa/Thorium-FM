@@ -19,7 +19,7 @@ export class GiantGlowstick extends ModItem {
     this.Item.UseSound = Terraria.ID.SoundID.Item1;
     this.Item.maxStack = 1
 
-    this.SetWeaponValues(30, 4, 25);
+    this.SetWeaponValues(30, 4, 15);
     this.SetDefaultWeaponStyle(12, false);
 
     this.Item.autoReuse = true;

@@ -9,7 +9,21 @@ const { Color, Vector2 } = Modules
 const _pos = Vector2.new(0, 0);
 const _color = Color.new(255, 255, 255, 255);
 const _activeIcons = [];
+const _iconW = [];
+const _iconH = [];
+
+// Pool fixo: DrawIcons roda 2x por frame, criar objeto novo a cada icone
+// enchia o coletor de lixo a toa
 const _drawData = [];
+let _drawCount = 0;
+function drawSlot(i) {
+  let slot = _drawData[i];
+  if (!slot) {
+    slot = { texture: null, x: 0, y: 0, scale: 1, brightness: 1, depth: 0 };
+    _drawData[i] = slot;
+  }
+  return slot;
+}
 
 export class Empowerments {
   static MaxLevel = 5;
@@ -285,6 +299,10 @@ export class Empowerments {
   static OrbitRotation = 0;
 
   static DrawIcons(frontLayer = true) {
+    // Sem empoderamento ativo nao ha nada a desenhar: sai antes de tocar
+    // em qualquer coisa nativa
+    if (Empowerments.Active.size === 0) return;
+
     if (!Empowerments.LoadTextures) {
       for (const name in Empowerments.Registry) {
         Empowerments.Registry[name].Icon =
@@ -293,23 +311,36 @@ export class Empowerments {
       Empowerments.LoadTextures = true;
     }
 
-    const player = Main.player[Main.myPlayer];
-
     _activeIcons.length = 0;
-    _drawData.length = 0;
+    _iconW.length = 0;
+    _iconH.length = 0;
 
     for (const [name] of Empowerments.Active.entries()) {
-      const icon = Empowerments.Registry[name]?.Icon;
-      if (icon) _activeIcons.push(icon);
+      const entry = Empowerments.Registry[name];
+      const icon = entry?.Icon;
+      if (!icon) continue;
+      // Width/Height sao leituras nativas: guarda no registro na primeira vez
+      if (entry._w === undefined) {
+        entry._w = icon.Width;
+        entry._h = icon.Height;
+      }
+      _activeIcons.push(icon);
+      _iconW.push(entry._w);
+      _iconH.push(entry._h);
     }
 
     const total = _activeIcons.length;
     if (total <= 0) return;
 
-    const cx = player.Center.X - Main.screenPosition.X;
-    const cy = player.Center.Y - Main.screenPosition.Y;
+    const player = Main.player[Main.myPlayer];
+    const center = player.Center;
+    const screen = Main.screenPosition;
+    const cx = center.X - screen.X;
+    const cy = center.Y - screen.Y;
     const radiusX = 42, radiusY = 12, baseScale = 0.65;
     const angleStep = (Math.PI * 2) / total;
+
+    _drawCount = 0;
 
     for (let i = 0; i < total; i++) {
       const angle = Empowerments.OrbitRotation + angleStep * i;
@@ -320,21 +351,31 @@ export class Empowerments {
       const orbitX = Math.cos(angle);
       const depth = (orbitY + 1) / 2;
       const scale = baseScale + depth * 0.18;
-      const texture = _activeIcons[i];
 
-      _drawData.push({
-        texture,
-        x: cx + orbitX * radiusX - (texture.Width * scale / 2),
-        y: cy + orbitY * radiusY - (texture.Height * scale / 2),
-        scale,
-        brightness: 0.45 + depth * 0.55,
-        depth: orbitY
-      });
+      const slot = drawSlot(_drawCount++);
+      slot.texture = _activeIcons[i];
+      slot.x = cx + orbitX * radiusX - (_iconW[i] * scale / 2);
+      slot.y = cy + orbitY * radiusY - (_iconH[i] * scale / 2);
+      slot.scale = scale;
+      slot.brightness = 0.45 + depth * 0.55;
+      slot.depth = orbitY;
     }
 
-    _drawData.sort((a, b) => a.depth - b.depth);
+    if (_drawCount === 0) return;
 
-    for (const d of _drawData) {
+    // Insertion sort no proprio pool: sao poucos icones e evita realocar array
+    for (let i = 1; i < _drawCount; i++) {
+      const cur = _drawData[i];
+      let j = i - 1;
+      while (j >= 0 && _drawData[j].depth > cur.depth) {
+        _drawData[j + 1] = _drawData[j];
+        j--;
+      }
+      _drawData[j + 1] = cur;
+    }
+
+    for (let i = 0; i < _drawCount; i++) {
+      const d = _drawData[i];
       Empowerments.Draw(d.texture, d.x, d.y, d.brightness, d.scale);
     }
   }

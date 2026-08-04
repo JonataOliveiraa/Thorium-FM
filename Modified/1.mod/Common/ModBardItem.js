@@ -37,12 +37,14 @@ export class ModBardItem extends ModItem {
     UseItem(item, player) {
         if (this.useWheel && player.itemAnimation === player.itemAnimationMax) {
             const cls = ThoriumPlayer.class.Bard;
-            ThoriumPlayer.resLastInspirationSpent = this.inspirationCost;
 
+            // O recurso so e registrado quando a inspiracao e REALMENTE
+            // descontada. Antes era gravado sempre, mesmo no uso gratuito
+            // (quando a rolagem de inspirationConsume falhava).
             if (Rand.NextFloat() < cls.inspirationConsume) {
                 const current = PlayerDB.get("Inspiration") ?? 0;
                 PlayerDB.set("Inspiration", Math.max(0, current - this.inspirationCost));
-                ThoriumPlayer.resLastInspirationSpent = this.inspirationCost;
+                ThoriumPlayer.RegisterResourceSpent(0, this.inspirationCost);
             }
         }
         

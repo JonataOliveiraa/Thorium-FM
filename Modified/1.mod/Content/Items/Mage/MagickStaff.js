@@ -45,6 +45,7 @@ export class MagickStaff extends ModItem {
             .AddIngredient(ModItem.getTypeByName('Poison'), 1)
             .AddIngredient(ModItem.getTypeByName('Siphon'), 1)
             .AddIngredient(ModItem.getTypeByName('Stun'), 1)
+            .AddIngredient(ModItem.getTypeByName('Pierce'), 1)
             .AddTile(Terraria.ID.TileID.WorkBenches)
             .Register();
     }

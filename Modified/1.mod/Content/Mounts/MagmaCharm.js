@@ -18,7 +18,6 @@ export class MagmaCharm extends ModMount {
         this.Data.blockExtraJumps = false; 
         this.Data.constantJump = true;
         
-        // CORREÇÃO: Remover o boost de altura para ele não flutuar
         this.Data.heightBoost = 0; 
         this.Data.fallDamage = 0.0;
         this.Data.runSpeed = 6;
@@ -30,10 +29,8 @@ export class MagmaCharm extends ModMount {
         
         this.Data.spawnDust = 35;
         
-        // Total de frames reais da spritesheet
         this.Data.totalFrames = 8;
         
-        // CORREÇÃO: yOffset positivo joga a montaria para BAIXO (chão)
         const yOffset = 8; 
         this.Data.playerYOffsets = new Array(20).fill(yOffset).makeGeneric('int'); 
         
@@ -41,40 +38,29 @@ export class MagmaCharm extends ModMount {
         this.Data.yOffset = yOffset; 
         this.Data.playerHeadOffset = 22;
         
-        // Este valor define em qual frame da spritesheet o "corpo" do jogador seria ancorado (irrelevante se ele for invisível)
         this.Data.bodyFrame = 3;
         
-        // ==========================================
-        // ANIMAÇÕES (8 Frames totais)
-        // ==========================================
-        
-        // Idle (Parado no chão) - Trava no primeiro frame (0)
         this.Data.standingFrameCount = 1;
         this.Data.standingFrameDelay = 12;
         this.Data.standingFrameStart = 0;
         
-        // Running (Correndo no chão) - Toca os 8 frames
         this.Data.runningFrameCount = 8;
-        this.Data.runningFrameDelay = 12; // Diminua se quiser patas/minhoca movendo mais rápido
+        this.Data.runningFrameDelay = 12;
         this.Data.runningFrameStart = 0;
         
-        // Voar (N/A)
         this.Data.flyingFrameCount = 0;
         this.Data.flyingFrameDelay = 0;
         this.Data.flyingFrameStart = 0;
         
-        // In-air (Pulando/Caindo) - Congela no primeiro frame
         this.Data.inAirFrameCount = 1;
         this.Data.inAirFrameDelay = 12;
         this.Data.inAirFrameStart = 0;
         
-        // Idle Extra (loop)
         this.Data.idleFrameCount = 0;
         this.Data.idleFrameDelay = 0;
         this.Data.idleFrameStart = 0;
         this.Data.idleFrameLoop = false;
         
-        // Swim (Na água, mantém animação estática ou de ar)
         this.Data.swimFrameCount = this.Data.inAirFrameCount;
         this.Data.swimFrameDelay = this.Data.inAirFrameDelay;
         this.Data.swimFrameStart = this.Data.inAirFrameStart;

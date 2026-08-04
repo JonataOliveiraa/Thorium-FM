@@ -1,16 +1,15 @@
 import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
-import { Effects } from '../../TL/Modules/Effects.js';
-import { Rand } from '../../TL/Modules/Rand.js';
+import { ProjAI } from '../../TL/ProjAI.js';
+import { FxHelper } from '../Global/Utils/FxHelper.js';
 
-const { Color, Vector2 } = Modules;
+const { Color, Vector2, Effects } = Modules;
 const { Main } = Terraria;
 
 export class ShadeWoodTambourinePro2 extends ModProjectile {
     constructor() {
         super();
-        this.Texture = 'Projectiles/Bard/' + this.constructor.name;
-        this.fadeOutTime = 30;
+        this.Texture = 'Projectiles/' + this.constructor.name;
     }
 
     SetDefaults() {
@@ -20,30 +19,27 @@ export class ShadeWoodTambourinePro2 extends ModProjectile {
         this.Projectile.friendly = true;
         this.Projectile.penetrate = -1;
         this.Projectile.timeLeft = 30;
+        this.Projectile.tileCollide = false;
         this.Projectile.usesLocalNPCImmunity = true;
         this.Projectile.localNPCHitCooldown = 5;
     }
 
     AI(proj) {
-        if (proj.localAI[0] === 0) {
-            proj.localAI[0] = 1;
-            Effects.PlaySound(Terraria.ID.SoundID.Item35, proj.Center.X, proj.Center.Y, 1, 0.92, 1.09);
-            for (let i = 0; i < 15; i++) {
-                const dust = Terraria.Dust.NewDustDirect(
-                    proj.Center, 20, 20, 90,
-                    Rand.NextFloat(-3, 3),
-                    Rand.NextFloat(-3, 3),
-                    75, Color.White, 1.15
-                );
-                if (dust) dust.noGravity = true;
-            }
+        const local = new ProjAI(proj, true);
+
+        if (local[0] === 0) {
+            local[0] = 1;
+
+            const center = proj.Center;
+            Effects.PlaySound(Terraria.ID.SoundID.Item35, center.X, center.Y, 1, 0.92, 1.09);
+            FxHelper.burst(proj.position, proj.width, proj.height, 15, 90, 3, 1.15, 75);
+            FxHelper.ring(center.X, center.Y, 12, 20, 20, 90, 3, 1, 0, 75);
         }
 
-        if (proj.timeLeft > 18) {
-            proj.scale += 0.04;
-        } else {
-            proj.scale -= 0.025;
-        }
+        proj.scale += proj.timeLeft > 18 ? 0.04 : -0.025;
+
+        // Ja nasce sumindo: some por igual ao longo dos 30 ticks de vida
+        proj.alpha = Math.min(255, Math.round(255 * (1 - proj.timeLeft / 30)));
     }
 
     ModifyDamageHitbox(proj, hitbox) {
@@ -53,11 +49,8 @@ export class ShadeWoodTambourinePro2 extends ModProjectile {
         hitbox.Height += 16;
     }
 
-    OnHitNPC(proj, npc) {
+    ModifyHitNPC(proj, npc, hit, modifiers) {
         const player = Main.player[proj.owner];
-        if (player && player.active) {
-            const direction = npc.Center.X < player.Center.X ? -1 : 1;
-            npc.velocity = Vector2.new(direction * 6, -4);
-        }
+        if (player) modifiers.HitDirectionOverride = npc.Center.X < player.Center.X ? -1 : 1;
     }
 }

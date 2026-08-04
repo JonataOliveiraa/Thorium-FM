@@ -16,7 +16,7 @@ export class ShadeWoodTambourinePro extends ModProjectile {
 
     this.Projectile.friendly = true;
     this.Projectile.hostile = false;
-    this.Projectile.melee = true;
+    // Sem flag de classe: o dano vem do proprio item de bardo, nao do corpo a corpo
 
     this.Projectile.penetrate = -1;
     this.Projectile.timeLeft = 300;

@@ -63,7 +63,7 @@ export class Diverman extends ModNPC {
       .SetNPCAffection(NPCID.PartyGirl, AffectionLevel.Love)
       .SetBiomeAffection(Terraria.ID.BiomeID.Ocean, AffectionLevel.Like)
       .SetNPCAffection(NPCID.Pirate, AffectionLevel.Like)
-      .SetNPCAffection(Terraria.ID.BiomeID.Desert, AffectionLevel.Dislike)
+      .SetBiomeAffection(Terraria.ID.BiomeID.Desert, AffectionLevel.Dislike)
       .SetNPCAffection(NPCID.Princess, AffectionLevel.Like)
       .SetNPCAffection(NPCID.Angler, AffectionLevel.Dislike);
   }
@@ -126,7 +126,7 @@ export class Diverman extends ModNPC {
   }
 
   CanTownNPCSpawn() {
-    return WorldDB.get('QueenJellyfish:Downed') === true
+    return WorldDB.get('Thorium:HasBeenDefeated_QueenJellyfish') === true
   }
 
   GetChat(npc) {
@@ -146,10 +146,9 @@ export class Diverman extends ModNPC {
       'Diverman_12',
     ];
     
-    let key = keys[Math.floor(Math.random() * keys.length)];
-    let message = ModLocalization.Translate(`NPCChat.${key}`);
-    if(message.includes('{0}')) message = message.replace('{0}', player.name)
-    return ModLocalization.Translate(`NPCChat.${key}`);
+    const key = keys[Math.floor(Math.random() * keys.length)];
+    const message = ModLocalization.Translate(`NPCChat.${key}`);
+    return message.includes('{0}') ? message.replace('{0}', player.name) : message;
   }
 
   SetChatButtons(npc, player, button1, button2) {

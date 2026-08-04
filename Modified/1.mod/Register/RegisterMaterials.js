@@ -21,8 +21,12 @@ import { SandstoneIngot } from "../Content/Items/Materials/SandstoneIngot.js";
 import { PurifiedShards } from "../Content/Items/Materials/PurifiedShards.js";
 import { Cloth } from "../Content/Items/Materials/Cloth.js";
 import { SmoothCoal } from "../Content/Items/Materials/SmoothCoal.js";
+import { GraniteEnergyCore } from "../Content/Items/Materials/GraniteEnergyCore.js";
+import { BronzeAlloyFragments } from "../Content/Items/Materials/BronzeAlloyFragments.js";
 
 const List = [
+    BronzeAlloyFragments,
+    GraniteEnergyCore,
     IcyShard,
     ThoriumBar,
     LivingLeaf,

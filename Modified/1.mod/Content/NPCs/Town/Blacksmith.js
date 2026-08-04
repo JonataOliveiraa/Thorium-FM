@@ -1,19 +1,14 @@
 import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModNPC } from './../../../TL/ModNPC.js';
-import { ModGore } from './../../../TL/ModGore.js';
 import { ModItem } from './../../../TL/ModItem.js';
-import { ModProjectile } from './../../../TL/ModProjectile.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 import { NPCHappiness, AffectionLevel } from './../../../TL/NPCHappiness.js';
 
-const { Color, Effects, Vector2 } = Modules;
-const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
+const { Effects } = Modules;
 const {
   BestiaryDatabaseNPCsPopulator,
   FlavorTextBestiaryInfoElement
 } = Terraria.GameContent.Bestiary;
-
-const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class Blacksmith extends ModNPC {
   constructor() {
@@ -65,47 +60,24 @@ export class Blacksmith extends ModNPC {
     bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface);
 
     const FlavorText = FlavorTextBestiaryInfoElement.new();
-    FlavorText._key = ModLocalization.Translate("Bestiary.Blacksmith");
+    FlavorText._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
     bestiaryEntry.Info.Add(FlavorText);
   }
 
   SetNPCNameList() {
-    const names = [
+    return [
       "Albert",
       "Clay",
       "Kendall",
       "Ornn"
     ];
-    return names;
   }
 
   HitEffect(npc, hitDirection, damage) {
-    if (Terraria.Main.netMode > 0) {
-      return;
-    }
-
-    let numDust = npc.life > 0 ? 5 : 15;
+    const numDust = npc.life > 0 ? 5 : 15;
     for (let k = 0; k < numDust; k++) {
       Effects.NewDustFromNPC(npc, Terraria.ID.DustID.Blood);
     }
-
-    if (npc.life > 0) return;
-
-    let variant = '';
-    if (npc.IsShimmerVariant)
-      variant += '_Shimmer';
-    if (npc.altTexture == 1)
-      variant += '_Party';
-
-    let headGore = ModGore.getTypeByName(`${this.constructor.name}_Gore${variant}_Head`);
-    let armGore = ModGore.getTypeByName(`${this.constructor.name}_Gore${variant}_Arm`);
-    let legGore = ModGore.getTypeByName(`${this.constructor.name}_Gore${variant}_Leg`);
-
-    Effects.NewGoreFromNPC(npc, headGore);
-    Effects.NewGoreFromNPC(npc, armGore, true);
-    Effects.NewGoreFromNPC(npc, armGore, true);
-    Effects.NewGoreFromNPC(npc, legGore, true);
-    Effects.NewGoreFromNPC(npc, legGore, true);
   }
 
   CanTownNPCSpawn() {
@@ -126,7 +98,13 @@ export class Blacksmith extends ModNPC {
 
   SetChatButtons(npc, player, button1, button2) {
     button1.text = Terraria.Localization.Language.GetText('LegacyInterface.28').Value;
-    button1.texture = Terraria.GameContent.TextureAssets.NpcHead[this.NPCHeadSlot()].Value;
+
+    // NPCHeadSlot() retorna -1 se o _Head nao existir, e NpcHead[-1] quebra
+    const headSlot = this.NPCHeadSlot();
+    button1.texture = headSlot >= 0
+      ? Terraria.GameContent.TextureAssets.NpcHead[headSlot].Value
+      : null;
+
     button1.cost = 0;
   }
 
@@ -147,8 +125,8 @@ export class Blacksmith extends ModNPC {
         ModItem.getTypeByName("SteelPickaxe"),
         ModItem.getTypeByName("SteelHammer"),
         ModItem.getTypeByName("SteelBow"),
-        Terraria.ID.ItemID.DyeVat,
-      ])
+        Terraria.ID.ItemID.DyeVat
+      ]);
     }
   }
 

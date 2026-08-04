@@ -142,11 +142,10 @@ export class MiscHelper {
         desiredPosition.Y = checkPos.Y + size.Y / 2;
     }
 
-    static ThoriumChatMessage(key, color, ...substitutions) {
-        const fullKey = `Mods.ThoriumMod.Announcements.${key}`;
-        const text = substitutions.length > 0
-            ? ModLocalization.Translate(fullKey).replace(/\{(\d+)\}/g, (_, i) => substitutions[i] || "")
-            : ModLocalization.Translate(fullKey);
-        Main.NewText(text, color.R, color.G, color.B);
+    static ThoriumChatMessage(key, color) {
+        const fullKey = `SinalizationChatMessage.${key}`
+        Main['void NewText(string newText, Color color)'](
+            ModLocalization.Translate(fullKey,)
+        )
     }
 }

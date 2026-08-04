@@ -10,9 +10,10 @@ export class SparkingJellyBall extends ModItem {
         this.Texture = 'Items/QueenJellyfish/' + this.constructor.name;
     }
     
-    SetStaticDefaults() {
-        Terraria.ID.ItemID.Sets.ToolTipDamageMultiplier[this.Type] = 2;
-    }
+    // O ToolTipDamageMultiplier = 2 daqui dobrava so o NUMERO mostrado na
+    // tooltip (30 de base + bonus de melee viravam ~88), sem dobrar o dano
+    // real. Removido pra tooltip bater com o que a arma faz.
+    SetStaticDefaults() { }
     
     SetDefaults() {
         this.Item.width = 30;
@@ -27,7 +28,7 @@ export class SparkingJellyBall extends ModItem {
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
         
         // (damage, knockback, crit);
-        this.SetWeaponValues(42, 5, 10);
+        this.SetWeaponValues(30, 5, 10);
         // (useTime, autoReuse);
         this.SetDefaultWeaponStyle(45, false);
         this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;

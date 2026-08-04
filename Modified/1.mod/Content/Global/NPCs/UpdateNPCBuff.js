@@ -41,6 +41,15 @@ function initBuffTypes() {
 }
 
 const dtVec2 = Vector2.new(0.60, 0.60)
+const charmVec2 = Vector2.new(0.85, 0.85)
+
+// Color.Pink / Color.Transparent sao getters nativos: guardamos uma copia
+const PINK = Color.Pink;
+const TRANSPARENT = Color.Transparent;
+
+// Lembra quais slots de NPC estao tingidos de rosa, pra so escrever npc.color
+// quando a cor realmente muda em vez de reescrever toda hora
+const tinted = new Uint8Array(Terraria.Main.maxNPCs);
 
 export class UpdateNPCBuff extends GlobalNPC {
     constructor() {
@@ -51,21 +60,41 @@ export class UpdateNPCBuff extends GlobalNPC {
         if (StunnedBuffType === -1) initBuffTypes();
         if (npc.buffType[0] === 0) return true;
 
+        // Um passo unico pela lista de buffs em vez de 5 FindBuffIndex nativos
+        // por NPC por tick. Sai fora no primeiro slot vazio.
+        let stunned = false, charmed = false, elemental = false, singed = false, distorted = false;
+        const slots = npc.buffType.length;
+        for (let i = 0; i < slots; i++) {
+            const t = npc.buffType[i];
+            if (t === 0) break;
+            if (t === StunnedBuffType) stunned = true;
+            else if (t === CharmedBuffType) charmed = true;
+            else if (t === ElementalDecayBuffType) elemental = true;
+            else if (t === SingedBuffType) singed = true;
+            else if (t === DistortedTimeEnemy) distorted = true;
+        }
+
+        if (!stunned && !charmed && !elemental && !singed && !distorted) {
+            const slot = npc.whoAmI;
+            if (tinted[slot]) {
+                tinted[slot] = 0;
+                npc.color = TRANSPARENT;
+            }
+            return true;
+        }
+
         const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 900 && !npc.boss;
 
-        const stunnedIdx = npc[FindBuffIndex](StunnedBuffType);
-        const charmedIdx = npc[FindBuffIndex](CharmedBuffType);
-        const elementalIdx = npc[FindBuffIndex](ElementalDecayBuffType);
-        const singedIdx = npc[FindBuffIndex](SingedBuffType)
-        const distortedTimeIdx = npc[FindBuffIndex](DistortedTimeEnemy)
-
-        if (stunnedIdx > -1 && isSmallNonBoss) {
+        if (stunned && isSmallNonBoss) {
             npc.velocity = Vector2.Zero;
         }
 
-        if (charmedIdx > -1 && isSmallNonBoss) {
-            npc.velocity = Vector2.Multiply(npc.velocity, Vector2.new(0.85, 0.85));
-            npc.color = Color.Pink;
+        if (charmed && isSmallNonBoss) {
+            npc.velocity = Vector2.Multiply(npc.velocity, charmVec2);
+            if (!tinted[npc.whoAmI]) {
+                tinted[npc.whoAmI] = 1;
+                npc.color = PINK;
+            }
 
             if (Math.random() >= 0.85) {
                 let vec2 = Vector2.new(Rand.Next(-10, 11), Rand.Next(-10, 11));
@@ -79,11 +108,12 @@ export class UpdateNPCBuff extends GlobalNPC {
                 );
                 Terraria.Main.gore[index].sticky = false;
             }
-        } else {
-            npc.color = Color.Transparent;
+        } else if (tinted[npc.whoAmI]) {
+            tinted[npc.whoAmI] = 0;
+            npc.color = TRANSPARENT;
         }
 
-        if (elementalIdx > -1) {
+        if (elemental) {
             npc.localAI[0]++;
 
             if (Rand.NextChance(0.25)) {
@@ -100,7 +130,7 @@ export class UpdateNPCBuff extends GlobalNPC {
                     const dustIndex = NewDust(
                         npc.position, npc.width, npc.height,
                         type, 0, -1, 100,
-                        Color.Transparent, 0.75
+                        TRANSPARENT, 0.75
                     );
                     if (dustIndex >= 0 && dustIndex < Terraria.Main.dust.length) {
                         const dust = Terraria.Main.dust[dustIndex];
@@ -111,7 +141,7 @@ export class UpdateNPCBuff extends GlobalNPC {
             }
         }
 
-        if (singedIdx > -1) {
+        if (singed) {
             npc.localAI[1]++;
 
             if (Rand.NextChance(0.25)) {
@@ -140,7 +170,7 @@ export class UpdateNPCBuff extends GlobalNPC {
             }
         }
 
-        if(distortedTimeIdx > -1 && isSmallNonBoss) {
+        if (distorted && isSmallNonBoss) {
             npc.velocity = Vector2.Multiply(npc.velocity, dtVec2);
         }
 
@@ -160,9 +190,10 @@ export class UpdateNPCBuff extends GlobalNPC {
             ThoriumPlayer.LuckyRabbitsFootSpawnCoins(npc);
         }
 
-        if(ThoriumPlayer.FabergeEggEquipped) {
-            const player = Terraria.Main.player[Terraria.Main.myPlayer]
-            ThoriumPlayer.SpawnFabergeEgg(player, npc);
+        // 60% de chance, e so se o jogador tiver recurso guardado (>0).
+        if (ThoriumPlayer.FabergeEggEquipped) {
+            const player = Terraria.Main.player[Terraria.Main.myPlayer];
+            ThoriumPlayer.TrySpawnFabergeEgg(player, npc, ThoriumPlayer.FabergeEggKillChance);
         }
     }
 }

@@ -1,5 +1,19 @@
 import { ModItem } from '../TL/ModItem.js';
 
+// ==== ITENS NOVOS (ficam no topo da lista pra achar rapido) ====
+import { FrostPelter } from '../Content/Items/Ranged/FrostPelter.js';
+import { HarpyPelter } from '../Content/Items/Ranged/HarpyPelter.js';
+import { Slugger } from '../Content/Items/Ranged/Slugger.js';
+import { TheZapper } from '../Content/Items/Ranged/TheZapper.js';
+import { WindGust } from '../Content/Items/Sandstone/WindGust.js';
+import { Flurry } from '../Content/Items/Icy/Flurry.js';
+import { GraveBuster } from '../Content/Items/Mage/GraveBuster.js';
+import { DarkWave } from '../Content/Items/Mage/DarkWave.js';
+import { VesselBuster } from '../Content/Items/Mage/VesselBuster.js';
+import { JunglesWrath } from '../Content/Items/Mage/JunglesWrath.js';
+import { SinisterHonk } from '../Content/Items/Bard/SinisterHonk.js';
+import { BloomingBell } from '../Content/Items/Bard/BloomingBell.js';
+
 // Icy Items
 import { IceCube } from '../Content/Items/Icy/IceCube.js';
 import { FrostFury } from '../Content/Items/Icy/FrostFury.js';
@@ -198,6 +212,17 @@ import { Didgeridoo } from '../Content/Items/ThunderBird/Didgeridoo.js';
 import { ViciousMockery } from '../Content/Items/Bard/ViciousMockery.js';
 import { Tambourine } from '../Content/Items/Bard/Tambourine.js';
 import { GrimPointer } from '../Content/Items/Viscount/GrimPointer.js';
+import { VampireScepter } from '../Content/Items/Viscount/VampireScepter.js';
+import { GuanoGunner } from '../Content/Items/Viscount/GuanoGunner.js';
+import { ViscountCane } from '../Content/Items/Viscount/ViscountCane.js';
+import { BatWing } from '../Content/Items/Viscount/BatWing.js';
+import { BatScythe } from '../Content/Items/Viscount/BatScythe.js';
+import { SonarCannon } from '../Content/Items/Viscount/SonarCannon.js';
+import { LeechBolt } from '../Content/Items/Healer/LeechBolt.js';
+import { LifeDisperser } from '../Content/Items/Healer/LifeDisperser.js';
+import { FeatherBarrierRod } from '../Content/Items/Healer/FeatherBarrierRod.js';
+import { ViscountMask } from '../Content/Items/Viscount/ViscountMask.js';
+import { ViscountTreasureBag } from '../Content/Items/Viscount/ViscountTreasureBag.js';
 import { AntlionMaraca } from '../Content/Items/Bard/AntlionMaraca.js';
 import { SeashellCastanets } from '../Content/Items/Coral/SeashellCastanets.js';
 import { ConchShell } from '../Content/Items/QueenJellyfish/ConchShell.js';
@@ -248,6 +273,7 @@ import { HoneyRecorder } from '../Content/Items/Bard/HoneyRecorder.js';
 import { MarineCatcher } from '../Content/Items/Fishing/MarineCatcher.js';
 import { DiverHelmet } from '../Content/Items/Vanity/DiverHelmet.js';
 import { DiverSuit } from '../Content/Items/Vanity/DiverSuit.js';
+import { DruidCloak } from '../Content/Items/Vanity/DruidCloak.js';
 import { DiverLeggings } from '../Content/Items/Vanity/DiverLeggings.js';
 import { InspirationFragment } from '../Content/Items/Consumable/InspirationFragment.js';
 import { InspirationShard } from '../Content/Items/Consumable/InspirationShard.js';
@@ -259,13 +285,48 @@ import { JesterShirt2 } from '../Content/Items/Jester/JesterShirt2.js';
 import { JesterLeggings2 } from '../Content/Items/Jester/JesterLeggings2.js';
 import { JesterLeggings } from '../Content/Items/Jester/JesterLeggings.js';
 import { Panflute } from '../Content/Items/Bard/Panflute.js';
-import { ShadeWoodTambourine } from '../Content/Items/Bard/ShadewoodTambourine.js';
+import { ShadeWoodTambourine } from '../Content/Items/Bard/ShadeWoodTambourine.js';
+import { EbonwoodTambourine } from '../Content/Items/Bard/EbonwoodTambourine.js';
+import { PearlPike } from '../Content/Items/Aquaite/PearlPike.js';
+import { BentZombieArm } from '../Content/Items/Melee/BentZombieArm.js';
+import { EighthPlagueStaff } from '../Content/Items/Mage/EighthPlagueStaff.js';
+import { MeteorHeadStaff } from '../Content/Items/Summon/MeteorHeadStaff.js';
+import { WeedEater } from '../Content/Items/Sentry/WeedEater.js';
+import { Ukulele } from '../Content/Items/Bard/Ukulele.js';
+import { YewWoodLute } from '../Content/Items/Bard/YewWoodLute.js';
+import { Sitar } from '../Content/Items/Bard/Sitar.js';
+import { MeteoriteOboe } from '../Content/Items/Bard/MeteoriteOboe.js';
+import { ObsidianRackett } from '../Content/Items/Bard/ObsidianRackett.js';
+import { BloomGuard } from '../Content/Items/Healer/BloomGuard.js';
 
-
-// Register all items
 
 const List = [
+    BloomGuard,
+    WeedEater,
+    FrostPelter,
+    HarpyPelter,
+    Slugger,
+    TheZapper,
+    WindGust,
+    Flurry,
+    GraveBuster,
+    DarkWave,
+    VesselBuster,
+    JunglesWrath,
+    SinisterHonk,
+    BloomingBell,
+
     ShadeWoodTambourine,
+    EbonwoodTambourine,
+    PearlPike,
+    BentZombieArm,
+    EighthPlagueStaff,
+    MeteorHeadStaff,
+    Ukulele,
+    YewWoodLute,
+    Sitar,
+    MeteoriteOboe,
+    ObsidianRackett,
     Panflute,
     JesterMask,
     JesterShirt,
@@ -278,6 +339,7 @@ const List = [
     InspirationFragment,
     DiverHelmet,
     DiverSuit,
+    DruidCloak,
     DiverLeggings,
     MarineCatcher,
     HoneyRecorder,
@@ -508,9 +570,21 @@ const List = [
     ThunderTalon,
     ThunderBirdBag,
 
-    ClericEmblem
+    ClericEmblem,
+
+    VampireScepter,
+    GuanoGunner,
+    ViscountCane,
+    BatWing,
+    BatScythe,
+    SonarCannon,
+    LeechBolt,
+    LifeDisperser,
+    FeatherBarrierRod,
+
+    ViscountMask,
+    ViscountTreasureBag
 ]
-54
 export function RegisterItems() {
     for(const Item of List) {
         ModItem.register(Item)

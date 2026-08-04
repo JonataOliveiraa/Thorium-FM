@@ -12,6 +12,8 @@ export class SparkingJellyBallPro extends ModProjectile {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
+        this._chainTex = null;
+        this._texLoaded = false;
     }
 
     SetDefaults() {
@@ -37,7 +39,13 @@ export class SparkingJellyBallPro extends ModProjectile {
         const player = Main.player[proj.owner];
         if (!player || !player.active) return false;
 
-        const chainTexture = tl.texture.load('Textures/Projectiles/SparkingJellyBallPro_Chain.png');
+        // Carrega uma vez so: isso rodava a cada frame desenhado
+        if (!this._texLoaded) {
+            this._texLoaded = true;
+            try { this._chainTex = tl.texture.load('Textures/Projectiles/SparkingJellyBallPro_Chain.png'); } catch (_) { }
+        }
+
+        const chainTexture = this._chainTex;
         if (!chainTexture) return false;
 
         const playerArmPos = player.RotatedRelativePoint(player.MountedCenter, true, true);

@@ -1,5 +1,41 @@
 {
   "ItemName": {
+    "BronzeAlloyFragments": "Bronze Alloy Fragments",
+    "GraniteEnergyCore": "Granite Energy Core",
+    "ShadeWoodTambourine": "Shadewood Tambourine",
+    "EbonwoodTambourine": "Ebonwood Tambourine",
+    "PearlPike": "Pearl Pike",
+    "BentZombieArm": "Bent Zombie Arm",
+    "EighthPlagueStaff": "Eighth Plague Staff",
+    "MeteorHeadStaff": "Meteor Head Staff",
+    "Ukulele": "Ukulele",
+    "YewWoodLute": "Yew Wood Lute",
+    "Sitar": "Sitar",
+    "MeteoriteOboe": "Meteorite Oboe",
+    "ObsidianRackett": "Obsidian Rackett",
+    "Panflute": "Panflute",
+    "SinisterHonk": "Sinister Honk",
+    "BloomingBell": "Blooming Bell",
+    "JunglesWrath": "Jungle's Wrath",
+    "DarkWave": "Dark Wave",
+    "VesselBuster": "Vessel Buster",
+    "WindGust": "Wind Gust",
+    "Flurry": "Flurry",
+    "GraveBuster": "Grave Buster",
+    "FrostPelter": "Frost Pelter",
+    "HarpyPelter": "Harpy Pelter",
+    "Slugger": "Slugger",
+    "TheZapper": "The Zapper",
+    "LeechBolt": "Leech Bolt",
+    "FeatherBarrierRod": "Feather Barrier Rod",
+    "ViscountMask": "Viscount Mask",
+    "ViscountTreasureBag": "Treasure Bag (Viscount)",
+    "BatScythe": "Bat Scythe",
+    "SonarCannon": "Sonar Cannon",
+    "VampireScepter": "Vampire Scepter",
+    "GuanoGunner": "Guano Gunner",
+    "ViscountCane": "Viscount's Cane",
+    "BatWing": "Bat Wing",
     "Dissolve": "Dissolve",
     "Freeze": "Freeze",
     "Ignite": "Ignite",
@@ -241,9 +277,44 @@
     "JesterLeggings": "Crimson Jester's Leggings",
     "JesterMask2": "Corrupt Jester's Mask",
     "JesterShirt2": "Corrupt Jester's Shirt",
-    "JesterLeggings2": "Corrupt Jester's Leggings"
+    "JesterLeggings2": "Corrupt Jester's Leggings",
+    "WeedEater": "Weed Eater",
+    "BloomGuard": "Bloom Guard",
+    "DruidCloak": "Druid's Cloak",
+    "LifeDisperser": "Life Disperser"
   },
   "ItemTooltip": {
+    "ShadeWoodTambourine": "Throws a tambourine that returns to you\nTap Smart Interact while it is in the air to burst it into a shockwave",
+    "EbonwoodTambourine": "Throws a tambourine that returns to you\nTap Smart Interact while it is in the air to burst it into a shockwave",
+    "PearlPike": "Landing a hit makes you faster and jump higher",
+    "BentZombieArm": "Throws an arm that swings back around to you",
+    "EighthPlagueStaff": "Unleashes a swarm of locusts that may poison",
+    "MeteorHeadStaff": "Summons a meteor head that dives at nearby foes",
+    "Ukulele": "Plucks a note that bounces off walls",
+    "YewWoodLute": "Strums a heavy note that bounces off walls",
+    "Sitar": "Strums a spinning burst of wind that bounces off walls",
+    "MeteoriteOboe": "The note sticks to a foe and pulses waves of wind",
+    "ObsidianRackett": "Blows a weaving ember that seeks nearby foes and singes them",
+    "SinisterHonk": "Honks out a lingering shriek that pierces several foes",
+    "BloomingBell": "Scatters seeds that sprout into flowers where they land",
+    "JunglesWrath": "Hurls a seed that bursts into a ring of poisonous spores",
+    "DarkWave": "Casts a wave of darkness that curses whatever it touches",
+    "VesselBuster": "Sprays a short burst of blood at close range",
+    "WindGust": "Blasts a gust of wind that passes through several foes",
+    "Flurry": "Breathes a widening cloud of snow that inflicts Frostburn",
+    "GraveBuster": "Raises a row of tombstones along the ground",
+    "FrostPelter": "Uses snowballs as ammo\nFires a spray of four snowballs that may inflict Frostburn",
+    "HarpyPelter": "Fires a quick two shot burst",
+    "Slugger": "Fires a spread of three bullets\nThe recoil throws you backwards",
+    "TheZapper": "Fires a bolt of lightning that needs no ammo",
+    "LeechBolt": "Steals a sliver of life from the first foe it strikes",
+    "FeatherBarrierRod": "Tap Smart Interact to surround yourself with feathers for 10 seconds\nThe feathers strike nearby foes and reduce damage taken by 30%",
+    "BatScythe": "Tap Smart Interact to throw the scythe\nHitting enemies restores your soul essence",
+    "SonarCannon": "Fires an echo wave that ricochets\nCatching the echo back empowers your inspiration",
+    "VampireScepter": "Fires a blood bolt that steals life from your foes",
+    "GuanoGunner": "Fires globs of snot that slow enemies down\nFiring rapidly speeds up the weapon",
+    "ViscountCane": "Summons a lesser Viscount to fight for you\nIt hoards the blood it draws and brings it back to you",
+    "BatWing": "Releases bats at nearby enemies while spinning",
     "IceCube": "Throws an ice cube that slides across blocks\nIce cubes inflict frostburn on the target for a short time",
     "IcyArrow": "Reduces enemy movement speed",
     "IcyAxe": "Cold to the touch... may freeze your hands",
@@ -343,7 +414,7 @@
     "NoviceClericTabard": "10% reduced non-radiant damage\n4% increased radiant damage\nSlightly increased mana regeneration\nIncreases maximum mana by 10\nHealing spells will heal 2 additional life points",
     "NoviceClericPants": "10% reduced non-radiant damage\n3% increased radiant damage\nSlightly increased mana regeneration\nIncreases maximum mana by 5\nHealing spells will heal 1 additional life point",
     "InpirationRegenBonus": "{0}% increased inspiration regeneration rate",
-    "FarbegeEgg": "Killing enemies or dealing continuous damage to bosses with a wind instrument will produce an energy egg\nPlayers who touch the energy egg restore 15% of their lost primary resource",
+    "FabergeEgg": "Killing enemies has a 60% chance to produce an energy egg\nDealing continuous damage to bosses with a bard instrument also produces one\nTouching the energy egg restores 20% of the resource you last spent",
     "PadOPaper": "Increases inspiration regeneration rate by 10%",
     "PlungerMute": "6% increased symphonic critical strike chance\nCritical strikes from wind instrument attacks release a burst of piercing sparks",
     "HeadMirror": "Healing spells will heal 1 additional life point",
@@ -360,21 +431,16 @@
     "IceShaver": "It's extremely hot or extremely cold. Either way, it hurts A LOT",
     "WoodenBaton": "Spins a fragile wooden baton around you",
     "SkywareLute": "Fires a ricocheting shooting star\nOn ricochet, releases a burst of stars",
-
     "DepthDiverHelmet": "6% increased critical strike chance\n'Become a selfless protector'",
     "DepthDiverChestplate": "'Become a selfless protector'",
     "DepthDiverGreaves": "'Become a selfless protector'",
-
     "TideHunterCap": "4% increased ranged critical strike chance\nAllows breathing underwater\n'Not just for hunting fish'",
     "TideHunterChestpiece": "10% increased ranged damage\n'Not just for hunting fish'",
     "TideHunterLeggings": "10% increased ranged critical strike chance\n'Not just for hunting fish'",
-
     "DrenchedDirk": "Frantically slashes in a cone in front of you",
     "GeyserStaff": "Creates a moving water geyser",
-
     "HydroPickaxe": "Tool use speed is increased while you are wet",
     "HydroMallet": "Tool use speed is increased while you are wet",
-
     "MarineWineGlass": "Throws up to 6 'harmless' wine glasses",
     "ScubaCurva": "Projects a powerful sea breeze in front of you, pushing enemies back",
     "AquaiteScythe": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins an aquatic scythe around you",
@@ -384,7 +450,6 @@
     "SeashellCastanets": "Holds a pair of castanets in front of you, releasing damaging vibrations\nThe longer they are held, the higher the damage and knockback",
     "GrimPointer": "Points to your world's Blood Chamber while being held",
     "Pierce": "Creates a powerful piercing magic projectile",
-
     "DriftBoots": "5% increased movement speed\nReduces fall speed",
     "HealthyBoots": "+5% increased movement speed\nWhile running, your life regeneration is increased",
     "HoverBoots": "+5% increased movement speed\nAllows you to briefly hover after leaving the ground",
@@ -401,7 +466,10 @@
     "JesterLeggings": "Increases inspiration regeneration rate by 5%",
     "JesterMask2": "11% increased symphonic critical strike chance",
     "JesterShirt2": "Symphonic damage has a 20% chance to empower you with bonus life regeneration",
-    "JesterLeggings2": "Increases inspiration regeneration rate by 5%"
+    "JesterLeggings2": "Increases inspiration regeneration rate by 5%",
+    "WeedEater": "Summons a corpse weed sentry to spit poisonous spores",
+    "BloomGuard": "Summons a bloom bulb that periodically generates booster spores\nTouching the spores increases defense and life regeneration briefly",
+    "LifeDisperser": "Damage dealt heals all nearby hurt allies"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's automatic attack will chase enemies",
@@ -422,6 +490,10 @@
     "Jester2": "10% chance to ring a bell over your head, slowing all nearby enemies briefly"
   },
   "BuffName": {
+    "PearlPikeBuff": "Pearl Rush",
+    "MeteorHeadStaffBuff": "Meteor Head",
+    "ViscountCaneBuff": "Lesser Viscount",
+    "VampiresCurseBuff": "Vampire's Curse",
     "LivingWoodAcornBuff": "Sapling Loyalty",
     "LifeRecoveryBuff": "Vital Restoration",
     "StunnedBuff": "Stunned",
@@ -433,9 +505,14 @@
     "OvergrowthBuff": "Overgrowth",
     "SingedBuff": "Singed",
     "SheathBuff": "Sheath",
-    "SoulEssenceBuff": "Soul Essence"
+    "SoulEssenceBuff": "Soul Essence",
+    "BloomBoostBuff": "Bloom Boost"
   },
   "BuffDescription": {
+    "PearlPikeBuff": "Increased movement speed and jump height",
+    "MeteorHeadStaffBuff": "A meteor head is orbiting you",
+    "ViscountCaneBuff": "The little lord fights at your side",
+    "VampiresCurseBuff": "You have been forcibly transformed into a weak bat!",
     "LivingWoodAcornBuff": "This little one is giving its all to protect the world",
     "LifeRecoveryBuff": "Gradually recovers health over time",
     "StunnedBuff": "Unable to move",
@@ -447,12 +524,30 @@
     "OvergrowthBuff": "Vital restoration heals more and its chance has been increased",
     "SingedBuff": "You suffered an ugly burn",
     "SheathBuff": "Your equipped sheath is ready to strike",
-    "SoulEssenceBuff": "Upon reaching 5 stacks of soul essence, you recover 5 life and 20 mana"
+    "SoulEssenceBuff": "Upon reaching 5 stacks of soul essence, you recover 5 life and 20 mana",
+    "BloomBoostBuff": "Increased defense and life regeneration"
   },
   "ProjectileName": {
-    "IcyArrowProjectile": "Icy Arrow Projectile"
+    "IcyArrowProjectile": "Icy Arrow Projectile",
+    "CorpseBloomPro": "Fungus",
+    "CorpseWeedPro": "Spore",
+    "WeedEaterPro": "Weed Eater",
+    "WeedEaterPro2": "Spore",
+    "ShroomBoosterBulb": "Bloom Bulb",
+    "ShroomBooster": "Booster Spore",
+    "LifeDisperserPro": "Life Disperser"
   },
   "NPCName": {
+    "Nestling": "Nestling",
+    "WindElemental": "Wind Elemental",
+    "SpaceSlime": "Space Slime",
+    "SnowBall": "Snowball",
+    "Barracuda": "Barracuda",
+    "Blowfish": "Blowfish",
+    "GigaClam": "Giga Clam",
+    "Octopus": "Octopus",
+    "Viscount": "Viscount",
+    "BiteyBaby": "Bitey Baby",
     "Blacksmith": "Blacksmith",
     "DesertAcolyte": "Desert Acolyte",
     "ConfusedZombie": "Confused Zombie",
@@ -490,9 +585,23 @@
     "SeveredLegs": "Severed Legs",
     "ZealousJellyfish": "Zealous Jellyfish",
     "SpittingJellyfish": "Spitting Jellyfish",
-    "DistractingJellyfish": "Distracting Jellyfish"
+    "DistractingJellyfish": "Distracting Jellyfish",
+    "CorpseBloom": "Corpse Bloom",
+    "CorpsePetal": "Corpse Petal",
+    "CorpseWeed": "Corpse Weed",
+    "Druid": "Druid"
   },
   "Bestiary": {
+    "Nestling": "A species of avian that loves to cohabitate with Harpies, care for baby birds, and pelt curious Terrarians.",
+    "WindElemental": "Loose magicks that drift high into the air will occasionally manifest into these agitated beings. They can give quite a nasty zap to unaware Terrarians.",
+    "SpaceSlime": "Apparently slimes exist on other planets, too. Who knew?",
+    "SnowBall": "These guys take the idea of snowball fights and roll with it a little too much!",
+    "Barracuda": "This quick fish is known for hunting down its prey by any means. Not even walls will block their vicious appetite.",
+    "Blowfish": "Don't blow off this blowhard, they'll blow your socks off when brought down!",
+    "GigaClam": "Terrarians have long debated whether this clam's size should be classified as 'giga' or 'massive'. Giga has won for now.",
+    "Octopus": "A bulbous water dweller that extends its long arms to grab and crush its prey, even through walls at times.",
+    "Viscount": "Massive in both size and ego, the Viscount is the undisputed lord of the caverns.",
+    "BiteyBaby": "Servants of the Viscount. Often sent out to scout for new sources of blood and occasionally snacks.",
     "ArmyAnt": "An aggressive ant that patrols the depths of the jungle in search of prey.",
     "Blacksmith": "A skilled craftsman who shapes metal into weapons and tools. His work is as reliable as his temper is steady.",
     "DesertAcolyte": "The Desert Acolyte is quite nervous, but sells all sorts of equipment for those interested in throwing things at monsters.",
@@ -529,7 +638,10 @@
     "ZealousJellyfish": "A red jellyfish that loves charging at enemies for its Queen.",
     "SpittingJellyfish": "A yellow jellyfish that loves spitting bubbles at enemies for its Queen.",
     "DistractingJellyfish": "A blue jellyfish that loves taking hits for its Queen.",
-    "CoinBagSilver": "After passing through the caverns, this coin bag leaves the area as soon as a greedy Terrarian appears."
+    "CoinBagSilver": "After passing through the caverns, this coin bag leaves the area as soon as a greedy Terrarian appears.",
+    "CorpseBloom": "It's unclear if this mutant flower earned its name from its foul odor, or what it typically leaves Terrarians as in its wake.",
+    "CorpseWeed": "The living roots of a Corpse Bloom can be just as dangerous as its host plant. Perhaps even moreso!",
+    "Druid": "A wandering herbalist who gathers seeds from every corner of the world, no matter how hostile."
   },
   "NPCChat": {
     "Blacksmith_1": "Need something forged?",
@@ -563,7 +675,17 @@
     "Diverman_9": "I've slept with the fishes once, it was the worst feeling.",
     "Diverman_10": "Never underestimate a small sea creature. It usually has much bigger friends nearby.",
     "Diverman_11": "If you plan to explore submerged caves, bring plenty of light. The darkness down there seems alive.",
-    "Diverman_12": "Breathing underwater seems impossible... until you find the right equipment."
+    "Diverman_12": "Breathing underwater seems impossible... until you find the right equipment.",
+    "Druid_1": "Getting these seeds is a bigger hassle than you would think. Nearly drowning, almost melting, freezing to- You get the idea.",
+    "Druid_2": "I often take visits to the jungle. I can understand the aversion to the place, but the creatures within don't seem to hassle me...",
+    "Druid_3": "My mother was a well known herbalist back in the day. She doesn't talk about my father, though. I wonder why?",
+    "Druid_4": "How does today find you, {0}? Make sure to stop and smell the roses!",
+    "Druid_5": "Even a small seed can grow into a mighty oak! Keep that in mind, {0}...",
+    "Druid_6": "The natural world is quite a wonder. Every little place has its own charm. Some more than others!",
+    "Druid_BloodMoon_1": "Why don't you go fetch those seeds yourself you lazy, good for nothing-",
+    "Druid_BloodMoon_2": "I bet you don't even feel guilty about destroying the natural world to better suit your needs...",
+    "Druid_WitchDoctor": "Our friend there, {0}, is rather strange isn't he? He speaks in riddles...",
+    "Druid_Dryad": "Ever since I was a child, I've always wanted to meet a dryad. What luck it is to find {0} here!"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -650,11 +772,30 @@
       "NoHome": "I need a place to store my diving equipment. Can you provide one?",
       "FarFromHome": "I'm starting to miss my base. Keeping equipment in order makes a difference.",
       "SpecialMoodText": "The ocean always holds a new discovery for those with the courage to explore its depths."
+    },
+    "Druid": {
+      "Content": "I'm as fresh as a daisy, thanks for asking!",
+      "DislikeBiome": "I doubt much could bloom in such a nefarious place.",
+      "DislikeCrowded": "Talking to your plants is good and all, but even they need some quiet time.",
+      "DislikeNPC": "That darn {0} keeps setting fire to the grass with his explosives!",
+      "HateBiome": "I doubt much could bloom in such a nefarious place.",
+      "HateCrowded": "This place has got far too many people, I can't go a day without someone trampling on my herbs!",
+      "HateNPC": "*cough* *cough* All that steam and smoke {0}'s gadgets produce is giving me a headache...",
+      "LikeBiome": "This frozen tundra is no place to grow my flowers! ...Well I guess one of them could grow here, but that's besides the point!",
+      "LikeNPC": "{0} is such a little sunflower. C'mon, you can't hate a girl who can make small woodland creatures flock to her whenever she sings!",
+      "LoveBiome": "Well, it really shouldn't come as a surprise that I love the jungle, I practically grew up here!",
+      "LoveNPC": "Ever since I was a child, I've always wanted to meet a Dryad. What luck it is to find {0} here!",
+      "LoveSpace": "Feeling as great as a lone tree atop a hill!",
+      "NoHome": "Ah, the great outdoors...",
+      "FarFromHome": "Oh hello! I was just gathering some herbs around this area. It's always fun to go far out from home and explore!",
+      "SpecialMoodText": "Even a small seed can grow into a mighty oak. Give it time."
     }
   },
   "SinalizationChatMessage": {
     "OnPatchWerkDie": "The dreaded Patch Werk crumbles...",
-    "OnClickInInativeAncientPhylactery": "It seems to be inactive..."
+    "OnClickInInativeAncientPhylactery": "It seems to be inactive...",
+    "BloodAltarMissingShards": "The altar hungers for 5 Unholy Shards...",
+    "CorpseBloomDefeat": "The elusive Corpse Bloom withers away..."
   },
   "DeathMessage": {
     "DeepStaff": "{0} drained their own soul for power, leading to their death"

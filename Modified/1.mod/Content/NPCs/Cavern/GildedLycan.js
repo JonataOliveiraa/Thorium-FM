@@ -16,6 +16,8 @@ export class GildedLycan extends ModNPC {
     constructor() {
         super();
         this.Texture = 'NPCs/Cavern/' + this.constructor.name;
+        this._glow = null;
+        this._texLoaded = false;
     }
 
     SetStaticDefaults() {
@@ -140,7 +142,13 @@ export class GildedLycan extends ModNPC {
     PostDraw(npc, spriteBatch, screenPos) {
         if (npc.life > npc.lifeMax * 0.5) return;
 
-        const texture = tl.texture.load('Textures/NPCs/Cavern/GildedLycan_Glow.png');
+        // Carrega uma vez so: isso rodava a cada frame desenhado
+        if (!this._texLoaded) {
+            this._texLoaded = true;
+            try { this._glow = tl.texture.load('Textures/NPCs/Cavern/GildedLycan_Glow.png'); } catch (_) { }
+        }
+
+        const texture = this._glow;
         if (!texture) return;
 
         const drawPos = Vector2.Subtract(npc.Center, screenPos);

@@ -26,7 +26,9 @@ export class FabergeEggPro extends ModProjectile {
         this.Projectile.friendly = true;
         this.Projectile.tileCollide = false;
         this.Projectile.penetrate = -1;
-        this.Projectile.timeLeft = 600;
+        // Mesma janela do recurso (5s). Passou disso o recurso ja expirou e o
+        // ovo nao devolveria nada, entao ele some junto.
+        this.Projectile.timeLeft = 300;
         this.Projectile.alpha = 25;
         this.Projectile.ignoreWater = true;
     }

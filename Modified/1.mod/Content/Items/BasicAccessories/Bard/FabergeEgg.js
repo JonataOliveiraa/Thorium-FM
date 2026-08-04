@@ -18,7 +18,8 @@ export class FabergeEgg extends ModItem {
         this.Item.value = 50000;
     }
 
-    UpdateAccessory(player, hideVisual) {
+    UpdateAccessory(item, player, vanity, hideVisual) {
+        if (vanity) return;
         ThoriumPlayer.FabergeEggEquipped = true;
     }
 

@@ -47,7 +47,7 @@ export class Cobbler extends ModNPC {
       .SetNPCAffection(NPCID.BestiaryGirl, AffectionLevel.Love)
       .SetBiomeAffection(Terraria.ID.BiomeID.Forest, AffectionLevel.Like)
       .SetNPCAffection(NPCID.Clothier, AffectionLevel.Dislike)
-      .SetNPCAffection(Terraria.ID.BiomeID.Snow, AffectionLevel.Dislike)
+      .SetBiomeAffection(Terraria.ID.BiomeID.Snow, AffectionLevel.Dislike)
       .SetNPCAffection(NPCID.Nurse, AffectionLevel.Dislike);
   }
 
@@ -122,10 +122,9 @@ export class Cobbler extends ModNPC {
       'Cobbler_5'
     ];
     
-    let key = keys[Math.floor(Math.random() * keys.length)];
-    let message = ModLocalization.Translate(`NPCChat.${key}`);
-    if(message.includes('{0}')) message = message.replace('{0}', player.name)
-    return ModLocalization.Translate(`NPCChat.${key}`);
+    const key = keys[Math.floor(Math.random() * keys.length)];
+    const message = ModLocalization.Translate(`NPCChat.${key}`);
+    return message.includes('{0}') ? message.replace('{0}', player.name) : message;
   }
 
   SetChatButtons(npc, player, button1, button2) {

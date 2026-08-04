@@ -15,11 +15,17 @@ const CLASS_ICON = {
     thrower: 5160,
 };
 
+// get_HoverName e chamado o tempo todo (tooltip, item no chao, inventario).
+// As flags de classe nao mudam por tipo de item, entao o prefixo do icone
+// fica guardado e sobra so uma leitura nativa (item.type) por chamada.
+const PREFIX_BY_TYPE = new Map();
+
 export class ItemsClassIcon extends GlobalHooks {
     constructor() {
         super();
         this._tip55Original = null;
         this._originalTips = {};
+        this._lastTip55 = null;
     }
 
     getCustomClass(typeOrItem) {
@@ -48,6 +54,11 @@ export class ItemsClassIcon extends GlobalHooks {
             newValue += `\n${crit}${Terraria.Lang.tip[5].Value}`;
         }
 
+        // SetValue e interop e isso rodava a cada desenho do inventario, mesmo
+        // com o texto identico ao que ja estava la
+        if (newValue === this._lastTip55) return;
+        this._lastTip55 = newValue;
+
         Terraria.Lang.tip[55]['void SetValue(string text)'](newValue);
     }
 
@@ -57,14 +68,29 @@ export class ItemsClassIcon extends GlobalHooks {
 
     Initialize() {
         Terraria.Item.get_HoverName.hook((original, item) => {
-            const cls = this.getCustomClass(item);
-            if (cls && !item.hammer && !item.pick && !item.accessory && !item.consumable) return `[i:${CLASS_ICON[cls]}]` + original(item);
+            const type = item.type;
+            let prefix = PREFIX_BY_TYPE.get(type);
 
-            if (item.magic && !item.melee) return '[i:489]' + original(item);
-            if (item.ranged && !item.melee) return '[i:491]' + original(item);
-            if (item.summon && !item.melee) return '[i:2998]' + original(item);
-            if (item.melee) return '[i:490]' + original(item);
-            return original(item);
+            if (prefix === undefined) {
+                prefix = '';
+                const cls = this.getCustomClass(type);
+
+                if (cls && !item.hammer && !item.pick && !item.accessory && !item.consumable) {
+                    prefix = `[i:${CLASS_ICON[cls]}]`;
+                } else if (item.melee) {
+                    prefix = '[i:490]';
+                } else if (item.magic) {
+                    prefix = '[i:489]';
+                } else if (item.ranged) {
+                    prefix = '[i:491]';
+                } else if (item.summon) {
+                    prefix = '[i:2998]';
+                }
+
+                PREFIX_BY_TYPE.set(type, prefix);
+            }
+
+            return prefix === '' ? original(item) : prefix + original(item);
         });
 
         GUIPageIcons.DrawInventoryPage.hook((original, self) => {

@@ -32,6 +32,20 @@ import { TheInnocent } from '../Content/NPCs/Corruption/TheInnocent.js';
 import { ManofWar } from '../Content/NPCs/AquaticDepths/ManofWar.js';
 import { Sharptooth } from '../Content/NPCs/AquaticDepths/Sharptooth.js';
 import { Hammerhead } from '../Content/NPCs/AquaticDepths/Hammerhead.js';
+import { Barracuda } from '../Content/NPCs/AquaticDepths/Barracuda.js';
+import { Blowfish } from '../Content/NPCs/AquaticDepths/Blowfish.js';
+import { GigaClam } from '../Content/NPCs/AquaticDepths/GigaClam.js';
+import { Octopus } from '../Content/NPCs/AquaticDepths/Octopus.js';
+
+// Ilhas Flutuantes
+import { Nestling } from '../Content/NPCs/FloatingIslands/Nestling.js';
+import { WindElemental } from '../Content/NPCs/FloatingIslands/WindElemental.js';
+
+// Snow
+import { SnowBall } from '../Content/NPCs/Snow/SnowBall.js';
+
+// Meteoro
+import { SpaceSlime } from '../Content/NPCs/Meteor/SpaceSlime.js';
 
 // Blood Moon
 import { GorgedEye } from '../Content/NPCs/BloodMoon/GorgedEye.js';
@@ -51,6 +65,10 @@ import { ZealousJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/ZealousJel
 import { SpittingJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/SpittingJellyfish.js';
 import { DistractingJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/DistractingJellyfish.js';
 import { QueenJellyfish } from '../Content/NPCs/Boss/QueenJellyfish/QueenJellyfish.js';
+
+// Viscount
+import { Viscount } from '../Content/NPCs/Boss/Viscount/Viscount.js';
+import { BiteyBaby } from '../Content/NPCs/Boss/Viscount/BiteyBaby.js';
 import { CoinBagCopper } from '../Content/NPCs/Cavern/CoinBagCopper.js';
 import { CoinBagSilver } from '../Content/NPCs/Cavern/CoinBagSilver.js';
 import { CoinBagGold } from '../Content/NPCs/Cavern/CoinBagGold.js';
@@ -59,7 +77,11 @@ import { FlamekinCaster } from '../Content/NPCs/Cavern/FlamekinCaster.js';
 import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
 import { Cobbler } from '../Content/NPCs/Town/Cobbler.js';
 import { Diverman } from '../Content/NPCs/Town/Diverman.js';
+import { Druid } from '../Content/NPCs/Town/Druid.js';
 import { GoblinTrapper } from '../Content/NPCs/GoblinArmy/GoblinTrapper.js';
+import { CorpseBloom } from '../Content/NPCs/Jungle/CorpseBloom.js';
+import { CorpsePetal } from '../Content/NPCs/Jungle/CorpsePetal.js';
+import { CorpseWeed } from '../Content/NPCs/Jungle/CorpseWeed.js';
 
 const List = [
     Blacksmith,
@@ -67,6 +89,7 @@ const List = [
     ConfusedZombie,
     Cobbler,
     Diverman,
+    Druid,
 
     Biter,
 
@@ -92,6 +115,16 @@ const List = [
     ManofWar,
     Sharptooth,
     Hammerhead,
+    Barracuda,
+    Blowfish,
+    GigaClam,
+    Octopus,
+
+    Nestling,
+    WindElemental,
+
+    SnowBall,
+    SpaceSlime,
 
     GorgedEye,
     GraveLimb,
@@ -108,6 +141,13 @@ const List = [
     SpittingJellyfish,
     DistractingJellyfish,
     QueenJellyfish,
+
+    BiteyBaby,
+    Viscount,
+
+    CorpseBloom,
+    CorpsePetal,
+    CorpseWeed,
 
     CoinBagCopper,
     CoinBagSilver,

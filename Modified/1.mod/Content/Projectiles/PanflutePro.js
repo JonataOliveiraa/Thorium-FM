@@ -18,9 +18,6 @@ export class PanflutePro extends ModProjectile {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
         this.fadeOutTime = 30;
-        this.HomingRange = 600;
-        this.HomingSpeed = 10;
-        this.HomingLerp = 0.1;
     }
 
     SetStaticDefaults() {
@@ -53,17 +50,8 @@ export class PanflutePro extends ModProjectile {
             if (proj.frame >= 6) proj.frame = 0;
         }
 
-        const target = proj['NPC FindTargetWithinRange(float maxRange, bool checkCanHit)'](this.HomingRange, false);
-        if (target != null && target.active) {
-            _vecHelper.X = target.Center.X - proj.Center.X;
-            _vecHelper.Y = target.Center.Y - proj.Center.Y;
-            const len = Math.sqrt(_vecHelper.X * _vecHelper.X + _vecHelper.Y * _vecHelper.Y);
-            _vecHelper.X = (_vecHelper.X / len) * this.HomingSpeed;
-            _vecHelper.Y = (_vecHelper.Y / len) * this.HomingSpeed;
-            proj.velocity = Vector2.Lerp(proj.velocity, _vecHelper, this.HomingLerp);
-        } else {
-            proj.velocity = Vector2.Multiply(proj.velocity, 1.03);
-        }
+        // Vai reto, so ganhando velocidade. Nao procura mais alvo.
+        proj.velocity = Vector2.Multiply(proj.velocity, 1.03);
 
         Effects.AddLight(proj.Center, 0.05, 0.2, 0.4);
     }

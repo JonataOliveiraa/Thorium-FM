@@ -1,5 +1,22 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
 
+// ==== PROJETEIS NOVOS (topo da lista pra achar rapido) ====
+import { FrostPelterPro } from '../Content/Projectiles/FrostPelterPro.js';
+import { SluggerCloud } from '../Content/Projectiles/SluggerCloud.js';
+import { TheZapperPro } from '../Content/Projectiles/TheZapperPro.js';
+import { Gust } from '../Content/Projectiles/Gust.js';
+import { FlurryPro } from '../Content/Projectiles/FlurryPro.js';
+import { GraveBusterPro } from '../Content/Projectiles/GraveBusterPro.js';
+import { GraveBusterPro2 } from '../Content/Projectiles/GraveBusterPro2.js';
+import { DarkWavePro } from '../Content/Projectiles/DarkWavePro.js';
+import { VesselPro } from '../Content/Projectiles/VesselPro.js';
+import { JunglesWrathPro } from '../Content/Projectiles/JunglesWrathPro.js';
+import { JunglesWrathPro2 } from '../Content/Projectiles/JunglesWrathPro2.js';
+import { AlphornPro } from '../Content/Projectiles/AlphornPro.js';
+import { SinisterHonkPro } from '../Content/Projectiles/SinisterHonkPro.js';
+import { BloomingBellPro } from '../Content/Projectiles/BloomingBellPro.js';
+import { BloomingBellPro2 } from '../Content/Projectiles/BloomingBellPro2.js';
+
 // Icy
 import { IceCubePro } from '../Content/Projectiles/IceCubePro.js';
 import { IcyArrowPro } from '../Content/Projectiles/IcyArrowPro.js';
@@ -27,6 +44,11 @@ import { JungleArrow } from '../Content/Projectiles/JungleArrow.js';
 // NPC
 import { StrangeBulbPro } from '../Content/Projectiles/NPC/StrangeBulbPro.js';
 import { EarthenRock } from '../Content/Projectiles/NPC/EarthenRock.js';
+import { BlowfishStinger } from '../Content/Projectiles/NPC/BlowfishStinger.js';
+import { HostilePearl } from '../Content/Projectiles/NPC/HostilePearl.js';
+import { OctopusArm } from '../Content/Projectiles/NPC/OctopusArm.js';
+import { NestlingAttack } from '../Content/Projectiles/NPC/NestlingAttack.js';
+import { Zap } from '../Content/Projectiles/NPC/Zap.js';
 
 // Mage
 import { DissolvePro } from '../Content/Projectiles/DissolvePro.js';
@@ -64,6 +86,33 @@ import { BubblePulse } from '../Content/Projectiles/Boss/BubblePulse.js';
 import { BubbleBomb } from '../Content/Projectiles/Boss/BubbleBomb.js';
 import { QueenTorrent } from '../Content/Projectiles/Boss/QueenTorrent.js';
 import { QueenJellyfishArm } from '../Content/Projectiles/Boss/QueenJellyfishArm.js';
+
+// Viscount
+import { ViscountRipple } from '../Content/Projectiles/Boss/Viscount/ViscountRipple.js';
+import { ViscountRipple2 } from '../Content/Projectiles/Boss/Viscount/ViscountRipple2.js';
+import { ViscountRipple3 } from '../Content/Projectiles/Boss/Viscount/ViscountRipple3.js';
+import { ViscountBlood } from '../Content/Projectiles/Boss/Viscount/ViscountBlood.js';
+import { ViscountRockSummon } from '../Content/Projectiles/Boss/Viscount/ViscountRockSummon.js';
+import { ViscountRockSummon2 } from '../Content/Projectiles/Boss/Viscount/ViscountRockSummon2.js';
+import { ViscountRockFall } from '../Content/Projectiles/Boss/Viscount/ViscountRockFall.js';
+import { ViscountStomp } from '../Content/Projectiles/Boss/Viscount/ViscountStomp.js';
+import { ViscountStomp2 } from '../Content/Projectiles/Boss/Viscount/ViscountStomp2.js';
+import { CountScream } from '../Content/Projectiles/Boss/Viscount/CountScream.js';
+
+// Armas do Viscount
+import { VampireScepterPro } from '../Content/Projectiles/VampireScepterPro.js';
+import { VampireScepterPro2 } from '../Content/Projectiles/VampireScepterPro2.js';
+import { SnotShot } from '../Content/Projectiles/SnotShot.js';
+import { ViscountCanePro } from '../Content/Projectiles/ViscountCanePro.js';
+import { BatWingPro } from '../Content/Projectiles/BatWingPro.js';
+import { BatScythePro } from '../Content/Projectiles/BatScythePro.js';
+import { BatScythePro2 } from '../Content/Projectiles/BatScythePro2.js';
+import { EchoWave } from '../Content/Projectiles/EchoWave.js';
+
+// Radiantes
+import { LeechBoltPro } from '../Content/Projectiles/LeechBoltPro.js';
+import { FeatherBarrierPro } from '../Content/Projectiles/FeatherBarrierPro.js';
+import { FeatherBarrier } from '../Content/Projectiles/FeatherBarrier.js';
 import { GrandThunderBirdZap } from '../Content/Projectiles/Boss/GrandThunderBirdZap.js';
 import { TheGrandThunderBirdEnd } from '../Content/Projectiles/Boss/TheGrandThunderBirdEnd.js';
 import { ThunderBirdScreech } from '../Content/Projectiles/Boss/ThunderBirdScreech.js';
@@ -133,8 +182,44 @@ import { HostileSpikeBall } from '../Content/Projectiles/HostileSpikeBall.js';
 import { JesterBellPro } from '../Content/Projectiles/JesterBellPro.js';
 import { PanflutePro } from '../Content/Projectiles/PanflutePro.js';
 import { ShadeWoodTambourinePro } from '../Content/Projectiles/ShadeWoodTambourinePro.js';
+import { ShadeWoodTambourinePro2 } from '../Content/Projectiles/ShadeWoodTambourinePro2.js';
+import { EbonwoodTambourinePro } from '../Content/Projectiles/EbonwoodTambourinePro.js';
+import { EbonwoodTambourinePro2 } from '../Content/Projectiles/EbonwoodTambourinePro2.js';
+import { PearlPikePro } from '../Content/Projectiles/PearlPikePro.js';
+import { BentZombieArmPro } from '../Content/Projectiles/BentZombieArmPro.js';
+import { EighthPlagueStaffPro } from '../Content/Projectiles/EighthPlagueStaffPro.js';
+import { MeteorHeadStaffPro } from '../Content/Projectiles/MeteorHeadStaffPro.js';
+import { UkulelePro } from '../Content/Projectiles/UkulelePro.js';
+import { YewWoodLutePro } from '../Content/Projectiles/YewWoodLutePro.js';
+import { SitarWindBurst } from '../Content/Projectiles/SitarWindBurst.js';
+import { MeteoriteOboePro } from '../Content/Projectiles/MeteoriteOboePro.js';
+import { MeteoriteOboePro2 } from '../Content/Projectiles/MeteoriteOboePro2.js';
+import { MagmaRackettPro } from '../Content/Projectiles/MagmaRackettPro.js';
+import { CorpseBloomPro } from '../Content/Projectiles/CorpseBloomPro.js';
+import { CorpseWeedPro } from '../Content/Projectiles/CorpseWeedPro.js';
+import { WeedEaterPro } from '../Content/Projectiles/WeedEaterPro.js';
+import { WeedEaterPro2 } from '../Content/Projectiles/WeedEaterPro2.js';
+import { LifeDisperserPro } from '../Content/Projectiles/LifeDisperserPro.js';
+import { ShroomBooster } from '../Content/Projectiles/ShroomBooster.js';
+import { ShroomBoosterBulb } from '../Content/Projectiles/ShroomBoosterBulb.js';
 
 const List = [
+  FrostPelterPro,
+  SluggerCloud,
+  TheZapperPro,
+  Gust,
+  FlurryPro,
+  GraveBusterPro,
+  GraveBusterPro2,
+  DarkWavePro,
+  VesselPro,
+  JunglesWrathPro,
+  JunglesWrathPro2,
+  AlphornPro,
+  SinisterHonkPro,
+  BloomingBellPro,
+  BloomingBellPro2,
+
   HostileSpikeBall,
   BobberMarine,
   IceCubePro,
@@ -182,6 +267,19 @@ const List = [
   IcyPiccoloPro,
   PanflutePro,
   ShadeWoodTambourinePro,
+  ShadeWoodTambourinePro2,
+  EbonwoodTambourinePro,
+  EbonwoodTambourinePro2,
+  PearlPikePro,
+  BentZombieArmPro,
+  EighthPlagueStaffPro,
+  MeteorHeadStaffPro,
+  UkulelePro,
+  YewWoodLutePro,
+  SitarWindBurst,
+  MeteoriteOboePro,
+  MeteoriteOboePro2,
+  MagmaRackettPro,
 
   DrenchedPro,
   GeyserPro,
@@ -207,6 +305,14 @@ const List = [
   GiantGlowstickPro,
   SparkingJellyBallPro,
   QueensGlowstickPro,
+
+  CorpseBloomPro,
+  CorpseWeedPro,
+  WeedEaterPro,
+  WeedEaterPro2,
+  LifeDisperserPro,
+  ShroomBooster,
+  ShroomBoosterBulb,
 
   GoldBugleHornPro,
   PlatinumBugleHornPro,
@@ -264,6 +370,35 @@ const List = [
   BubbleBomb,
   QueenTorrent,
   QueenJellyfishArm,
+
+  ViscountRipple,
+  ViscountRipple2,
+  ViscountRipple3,
+  ViscountBlood,
+  ViscountRockSummon,
+  ViscountRockSummon2,
+  ViscountRockFall,
+  ViscountStomp,
+  ViscountStomp2,
+  CountScream,
+
+  VampireScepterPro,
+  VampireScepterPro2,
+  SnotShot,
+  ViscountCanePro,
+  BatWingPro,
+  BatScythePro,
+  BatScythePro2,
+  EchoWave,
+  LeechBoltPro,
+  FeatherBarrierPro,
+  FeatherBarrier,
+
+  BlowfishStinger,
+  HostilePearl,
+  OctopusArm,
+  NestlingAttack,
+  Zap,
 ]
 
 export function RegisterProjectiles() {

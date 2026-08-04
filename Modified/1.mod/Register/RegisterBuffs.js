@@ -20,6 +20,11 @@ import { SingedBuff } from '../Content/Buffs/SingedBuff.js';
 import { SheathBuff } from '../Content/Buffs/SheathBuff.js';
 import { SoulEssenceBuff } from '../Content/Buffs/SoulEssenceBuff.js';
 import { DistortedTimeEnemy } from '../Content/Buffs/DistortedTimeEnemy.js';
+import { VampiresCurseBuff } from '../Content/Buffs/VampiresCurseBuff.js';
+import { ViscountCaneBuff } from '../Content/Buffs/ViscountCaneBuff.js';
+import { PearlPikeBuff } from '../Content/Buffs/PearlPikeBuff.js';
+import { MeteorHeadStaffBuff } from '../Content/Buffs/MeteorHeadStaffBuff.js';
+import { BloomBoostBuff } from '../Content/Buffs/BloomBoostBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
@@ -39,7 +44,12 @@ const List = [
     SingedBuff,
     SheathBuff,
     SoulEssenceBuff,
-    DistortedTimeEnemy
+    DistortedTimeEnemy,
+    VampiresCurseBuff,
+    ViscountCaneBuff,
+    PearlPikeBuff,
+    MeteorHeadStaffBuff,
+    BloomBoostBuff
 ]
 
 export function RegisterBuffs() {

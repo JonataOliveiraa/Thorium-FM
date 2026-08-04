@@ -84,6 +84,7 @@ export class ThoriumPlayer extends ModPlayer {
   static _whiteColor = Color.White; // referência estática
 
   static _wheelSpriteFrame = null;
+  static _wheelFrameCache = new Array(70).fill(null);
 
   static _bardItemCache = new Map();
 
@@ -91,14 +92,21 @@ export class ThoriumPlayer extends ModPlayer {
   static _crietzProType = -1;
   static _incubatedSpiderType = -1;
   static _seaTurtlesBulwarkProType = -1;
+  static _charmedBuffType = -1;
 
   static _bardHealColor = Color.new(65, 217, 131)
 
   static _cachedHeldType = null;
   static _cachedBardItem = null
 
+  /**
+   * "Recurso" guardado pro Ovo de Faberge: quanto de mana/inspiracao o jogador
+   * gastou por ultimo. A janela e de 5s (300 ticks) contados A PARTIR do ultimo
+   * gasto -- antes o contador era livre e corria sozinho, entao o valor podia
+   * ser zerado quase no mesmo tick em que foi gravado.
+   */
   static resTimeCount = 0
-  static resTimeMax = 320
+  static resTimeMax = 300
   static resLastManaSpent = 0;
   static resLastInspirationSpent = 0;
 
@@ -152,6 +160,8 @@ export class ThoriumPlayer extends ModPlayer {
   static FabergeEggEquipped = false;
   static FabergeEggMaxDelay = 90;
   static FabergeEggDelay = 0;
+  static FabergeEggKillChance = 0.60; // 60% de chance ao eliminar um NPC
+  static FabergeEggRegenPercent = 0.20; // devolve 20% do recurso (minimo 1)
   static _fabergeEggProType = -1;
 
   static PlungerMuteActive = false
@@ -355,14 +365,18 @@ export class ThoriumPlayer extends ModPlayer {
 
     if (ThoriumPlayer.LifeShieldActive) {
       if (ThoriumPlayer.LifeShieldMaxExtraLife === null) return;
-      Terraria.GameContent.TextureAssets.Heart = LifeShieldPlayer.Heart_Shield_Texture;
-      Terraria.GameContent.TextureAssets.Heart2 = LifeShieldPlayer.Heart2_Shield_Texture;
-      Terraria.GameContent.TextureAssets.FancyHeart = LifeShieldPlayer.Heart_Shield_Texture;
-      Terraria.GameContent.TextureAssets.FancyHeart2 = LifeShieldPlayer.Heart2_Shield_Texture;
-      Terraria.GameContent.TextureAssets.BarHeart = LifeShieldPlayer.BarHeart_Shield_Texture;
-      Terraria.GameContent.TextureAssets.BarHeart2 = LifeShieldPlayer.BarHeart2_Shield_Texture;
 
-      ThoriumPlayer.LifeShieldIsDefault = false;
+      // So troca as texturas na virada de estado. Antes reescrevia as 6
+      // TextureAssets todo tick enquanto o escudo estivesse ativo.
+      if (ThoriumPlayer.LifeShieldIsDefault) {
+        Terraria.GameContent.TextureAssets.Heart = LifeShieldPlayer.Heart_Shield_Texture;
+        Terraria.GameContent.TextureAssets.Heart2 = LifeShieldPlayer.Heart2_Shield_Texture;
+        Terraria.GameContent.TextureAssets.FancyHeart = LifeShieldPlayer.Heart_Shield_Texture;
+        Terraria.GameContent.TextureAssets.FancyHeart2 = LifeShieldPlayer.Heart2_Shield_Texture;
+        Terraria.GameContent.TextureAssets.BarHeart = LifeShieldPlayer.BarHeart_Shield_Texture;
+        Terraria.GameContent.TextureAssets.BarHeart2 = LifeShieldPlayer.BarHeart2_Shield_Texture;
+        ThoriumPlayer.LifeShieldIsDefault = false;
+      }
 
       if (player.statLife < player.statLifeMax2 && !player.dead) {
         ThoriumPlayer.LifeShieldTimeDelay++;
@@ -385,15 +399,19 @@ export class ThoriumPlayer extends ModPlayer {
   PostUpdate(player) {
     ThoriumPlayer.UpdateClassItemsCrit(player);
 
-    ThoriumPlayer.resTimeCount++
+    // So conta enquanto existe recurso guardado. O timer e reiniciado a cada
+    // gasto novo em RegisterResourceSpent().
+    if (ThoriumPlayer.resLastManaSpent > 0 || ThoriumPlayer.resLastInspirationSpent > 0) {
+      if (++ThoriumPlayer.resTimeCount >= ThoriumPlayer.resTimeMax) {
+        ThoriumPlayer.ResetResources();
+      }
+    }
 
     if (!ThoriumPlayer.soulEssenceReady) ThoriumPlayer.soulEssenceCD++
     if (ThoriumPlayer.soulEssenceCD >= ThoriumPlayer.soulEssenceCDMax) {
       ThoriumPlayer.soulEssenceCD = 0
       ThoriumPlayer.soulEssenceReady = true
     }
-
-    if (ThoriumPlayer.resTimeMax <= ThoriumPlayer.resTimeCount) ThoriumPlayer.ResetResources()
 
     if (ThoriumPlayer.InCombat) {
       ThoriumPlayer.CombatTimer++;
@@ -499,7 +517,13 @@ export class ThoriumPlayer extends ModPlayer {
       }
     }
 
-    if (player.FindBuffIndex(ModBuff.getTypeByName('CharmedBuff'))) {
+    // FindBuffIndex devolve -1 quando o buff nao existe, e -1 e truthy em JS:
+    // sem o >= 0 a penalidade valia sempre. O tipo tambem fica em cache porque
+    // getTypeByName varre a lista de buffs por nome a cada golpe.
+    if (ThoriumPlayer._charmedBuffType === -1) {
+      ThoriumPlayer._charmedBuffType = ModBuff.getTypeByName('CharmedBuff') ?? -2;
+    }
+    if (ThoriumPlayer._charmedBuffType >= 0 && player.FindBuffIndex(ThoriumPlayer._charmedBuffType) >= 0) {
       finalDamage -= this.WeaponDamage * 0.2;
     }
 
@@ -556,10 +580,8 @@ export class ThoriumPlayer extends ModPlayer {
       }
     }
 
-    if (ThoriumPlayer.FabergeEggEquipped && ModBardItem.bardItemsName.has(item.type)) {
-      if (npc.boss && ThoriumPlayer.FabergeEggDelay <= 0) {
-        ThoriumPlayer.SpawnFabergeEgg(player, npc);
-      }
+    if (npc.boss && ModBardItem.bardItemsName.has(item.type)) {
+      ThoriumPlayer.TrySpawnFabergeEgg(player, npc);
     }
   }
 
@@ -621,10 +643,8 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.TriggerNoviceClericCross(npc);
     }
 
-    if (ThoriumPlayer.FabergeEggEquipped && isBardWeapon) {
-      if (npc.boss && ThoriumPlayer.FabergeEggDelay <= 0) {
-        ThoriumPlayer.SpawnFabergeEgg(player, npc);
-      }
+    if (npc.boss && isBardWeapon) {
+      ThoriumPlayer.TrySpawnFabergeEgg(player, npc);
     }
 
     if (ThoriumPlayer.equipJesterShirt && isBardWeapon && Rand.Next(1, 5) === 1) {
@@ -640,7 +660,6 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     if (ThoriumPlayer.setTideHunter && Rand.Next(1, 5) == 1) {
-      console.log('Ativo')
       for (let i = 0; i < 10; i++) {
         const dustIndex = Effects.NewDust(
           npc.position, npc.width, npc.height,
@@ -655,15 +674,23 @@ export class ThoriumPlayer extends ModPlayer {
           dust.noLight = true;
         }
       }
-      for (let i = 0; i < Main.maxNPCs; i++) {
-        const npc = Main.npc[i];
-        if (npc.CanBeChasedBy(null, false) && npc['int FindBuffIndex(int type)'](197) > 0 &&
-          Vector2.DistanceSquared(npc.Center, npc.Center) < 6400) {
-          npc.AddBuff(197, 90, false);
-        }
+      // O veneno pega os inimigos ao redor do alvo. Antes o som ficava fora do
+      // if e tocava uma vez por slot de NPC (200 sons por acerto), e a distancia
+      // era medida do alvo pra ele mesmo, entao o debuff pegava o mundo inteiro.
+      const hitCenter = npc.Center;
+      let spread = false;
 
-        Effects.PlaySound(Terraria.ID.SoundID.NPCHit26, npc.Center.X, npc.Center.y, 1, 0.5, 1)
+      for (let i = 0; i < Main.maxNPCs; i++) {
+        const other = Main.npc[i];
+        if (!other || !other.active || other.friendly || other.townNPC) continue;
+        if (Vector2.DistanceSquared(hitCenter, other.Center) >= 6400) continue;
+        if (!other.CanBeChasedBy(null, false)) continue;
+
+        other.AddBuff(197, 90, false);
+        spread = true;
       }
+
+      if (spread) Effects.PlaySound(Terraria.ID.SoundID.NPCHit26, hitCenter.X, hitCenter.Y, 1, 0.5, 1);
     }
   }
 
@@ -695,10 +722,22 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  /**
+   * Gasta a carga da bainha assim que o golpe sai. Antes exigia que a animacao
+   * estivesse exatamente no ultimo tick (itemAnimation === 1), o que nem sempre
+   * e amostrado com armas rapidas ou de reuso automatico: nesses casos a carga
+   * nunca zerava e o buff ficava aceso pra sempre.
+   */
   PostItemCheck(player) {
-    if (player.itemAnimation === 1 &&
-      ThoriumPlayer.SheatType !== undefined &&
-      player.HeldItem && player.HeldItem.melee) {
+    if (ThoriumPlayer.SheatType === undefined) return;
+
+    const held = player.HeldItem;
+    const swinging = player.itemAnimation > 0 && held && held.melee &&
+      held.useStyle === Terraria.ID.ItemUseStyleID.Swing;
+
+    if (!swinging) return;
+
+    if (ThoriumPlayer.SheathCooldown > 0) {
       ThoriumPlayer.SheathCooldown = 0;
       ThoriumPlayer._hitThisSwing = false;
     }
@@ -806,7 +845,22 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   OnConsumeMana(player, item, manaConsumed) {
-    ThoriumPlayer.resLastManaSpent = manaConsumed
+    ThoriumPlayer.RegisterResourceSpent(manaConsumed, 0);
+  }
+
+  /**
+   * Grava o recurso gasto e REINICIA a janela de 5s. Chamado pelo consumo de
+   * mana e pelo ModBardItem quando a inspiracao e efetivamente descontada.
+   */
+  static RegisterResourceSpent(mana = 0, inspiration = 0) {
+    if (mana <= 0 && inspiration <= 0) return;
+    if (mana > 0) ThoriumPlayer.resLastManaSpent = mana;
+    if (inspiration > 0) ThoriumPlayer.resLastInspirationSpent = inspiration;
+    ThoriumPlayer.resTimeCount = 0;
+  }
+
+  static HasStoredResource() {
+    return ThoriumPlayer.resLastManaSpent > 0 || ThoriumPlayer.resLastInspirationSpent > 0;
   }
 
   static MiniCriticalDamage(npc, damage) {
@@ -841,21 +895,28 @@ export class ThoriumPlayer extends ModPlayer {
     return v
   }
 
+  /**
+   * O `hide` esconde apenas o texto de combate. Antes o PlayerDB.set estava
+   * DENTRO do `if (!hide)`, entao chamar com hide=true nao dava inspiracao
+   * nenhuma. O valor tambem passa a respeitar o teto de inspiracao.
+   */
   static AddInspirationToPlayer(player, value = 1, hide = false) {
-    if (player && player.active && !player.dead) {
-      if (!hide) {
-        Terraria.CombatText['int NewText(Rectangle location, Color color, int amount, bool dramatic, bool dot)'](
-          Rectangle.new(player.position.X, player.position.Y, player.width, player.height),
-          ThoriumPlayer._bardHealColor,
-          value,
-          false,
-          false
-        );
+    if (!player || !player.active || player.dead) return;
+    if (value <= 0) return;
 
-        const curr = PlayerDB.get("Inspiration")
-        PlayerDB.set("Inspiration", curr + value)
-      }
+    if (!hide) {
+      Terraria.CombatText['int NewText(Rectangle location, Color color, int amount, bool dramatic, bool dot)'](
+        Rectangle.new(player.position.X, player.position.Y, player.width, player.height),
+        ThoriumPlayer._bardHealColor,
+        value,
+        false,
+        false
+      );
     }
+
+    const curr = PlayerDB.get("Inspiration") ?? 0;
+    const max = (PlayerDB.get("InspirationMax") ?? 0) + ThoriumPlayer.class.Bard.inspirationMax2;
+    PlayerDB.set("Inspiration", Math.min(max, curr + value));
   }
 
   static TriggerNoviceClericCross(npc) {
@@ -930,7 +991,7 @@ export class ThoriumPlayer extends ModPlayer {
     if (gold > 0) NewItem(x, y, w, h, GOLD, gold, false, 0, false);
     if (silver > 0) NewItem(x, y, w, h, SILVER, silver, false, 0, false);
     if (copper > 0) NewItem(x, y, w, h, COPPER, copper, false, 0, false);
-  } a
+  }
 
   static CrietzProjectile(player, npc) {
     if (ThoriumPlayer._crietzProType === -1) {
@@ -952,6 +1013,27 @@ export class ThoriumPlayer extends ModPlayer {
       NewProjectile(source, npc.Center, ThoriumPlayer._vec, ThoriumPlayer._crietzProType, damage, 4, player.whoAmI, 0, 0, 0, null);
     }
     ThoriumPlayer.CrietzInvoke = false;
+  }
+
+  /**
+   * Porta de entrada unica do Ovo de Faberge. So nasce ovo se:
+   *  - o acessorio esta equipado;
+   *  - existe recurso guardado (mana/inspiracao gastos nos ultimos 5s);
+   *  - o cooldown interno ja passou;
+   *  - e a rolagem de `chance` passa (60% no caso de matar um NPC).
+   * Sem essas checagens o ovo nascia em TODA morte e, na maioria das vezes,
+   * nao devolvia nada ao ser pego.
+   */
+  static TrySpawnFabergeEgg(player, npc, chance = 1) {
+    if (!ThoriumPlayer.FabergeEggEquipped) return false;
+    if (!player || !player.active || player.dead) return false;
+    if (!npc) return false;
+    if (ThoriumPlayer.FabergeEggDelay > 0) return false;
+    if (!ThoriumPlayer.HasStoredResource()) return false;
+    if (chance < 1 && Rand.NextFloat() >= chance) return false;
+
+    ThoriumPlayer.SpawnFabergeEgg(player, npc);
+    return true;
   }
 
   static SpawnFabergeEgg(player, npc) {
@@ -1014,18 +1096,28 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.resTimeCount = 0;
   }
 
+  /**
+   * Devolve 20% do recurso gasto, no minimo 1 quando houve gasto.
+   * Antes o `player.statMana += Mana15Perc` ficava FORA do if e usava um valor
+   * diferente do que era mostrado no ManaEffect (um com Math.max(1,..) e o
+   * outro sem), entao o numero que aparecia nao batia com o que era devolvido.
+   */
   static RegenFabergeEggRes(player) {
-    const Mana15Perc = Math.round(ThoriumPlayer.resLastManaSpent * 0.15)
-    const Insp15Perc = Math.round(ThoriumPlayer.resLastInspirationSpent * 0.15)
+    const pct = ThoriumPlayer.FabergeEggRegenPercent;
+    const mana = ThoriumPlayer.resLastManaSpent;
+    const insp = ThoriumPlayer.resLastInspirationSpent;
 
-    if (ThoriumPlayer.resLastManaSpent) player.ManaEffect(Math.max(1, Mana15Perc))
-    player.statMana += Mana15Perc
+    if (mana > 0) {
+      const value = Math.max(1, Math.round(mana * pct));
+      player.statMana += value;
+      player.ManaEffect(value);
+    }
 
-    if (ThoriumPlayer.resLastInspirationSpent) ThoriumPlayer.AddInspirationToPlayer(player, Math.max(1, Insp15Perc))
+    if (insp > 0) {
+      ThoriumPlayer.AddInspirationToPlayer(player, Math.max(1, Math.round(insp * pct)));
+    }
 
-    ThoriumPlayer.resTimeCount = ThoriumPlayer.resTimeMax;
-    ThoriumPlayer.resLastManaSpent = 0
-    ThoriumPlayer.resLastInspirationSpent = 0
+    ThoriumPlayer.ResetResources();
   }
 
   static _getCachedBardItem(type) {
@@ -1058,14 +1150,23 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   static DrawFrame(column, row, x, y, color = ThoriumPlayer._whiteColor, scale = 1) {
-    if (!ThoriumPlayer._wheelSpriteFrame) {
-      ThoriumPlayer._wheelSpriteFrame = SpriteFrame.new();
-      ThoriumPlayer._wheelSpriteFrame['void .ctor(byte columns, byte rows)'](7, 10);
+    // A roda tem 7x10 quadros fixos. Cada GetSourceRectangle e uma ida ao
+    // C#, e a roda desenha dezenas de quadros por frame, entao os 70
+    // retangulos ficam guardados depois da primeira vez.
+    const key = column * 10 + row;
+    let frame = ThoriumPlayer._wheelFrameCache[key];
+
+    if (!frame) {
+      if (!ThoriumPlayer._wheelSpriteFrame) {
+        ThoriumPlayer._wheelSpriteFrame = SpriteFrame.new();
+        ThoriumPlayer._wheelSpriteFrame['void .ctor(byte columns, byte rows)'](7, 10);
+      }
+      const sprite = ThoriumPlayer._wheelSpriteFrame;
+      sprite.CurrentColumn = column;
+      sprite.CurrentRow = row;
+      frame = sprite.GetSourceRectangle(ThoriumPlayer.SpriteSheet);
+      ThoriumPlayer._wheelFrameCache[key] = frame;
     }
-    const sprite = ThoriumPlayer._wheelSpriteFrame;
-    sprite.CurrentColumn = column;
-    sprite.CurrentRow = row;
-    const frame = sprite.GetSourceRectangle(ThoriumPlayer.SpriteSheet);
 
     ThoriumPlayer._vec.X = x;
     ThoriumPlayer._vec.Y = y;

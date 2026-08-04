@@ -29,7 +29,7 @@ export class Healer {
     itemNamePrefix = '[i:6033]'
 
     getHealValue() {
-        return this.healPowerExtraValue * this.healPowerMultiply + 1
+        return this.healPowerExtraValue * this.healPowerMultiply
     }
 }
 

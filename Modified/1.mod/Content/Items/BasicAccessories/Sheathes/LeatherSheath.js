@@ -41,7 +41,13 @@ export class LeatherSheath extends ModItem {
         ThoriumPlayer.SheatDamageMultiplier = this.DamageMultiplier;
         ThoriumPlayer.SheatCriticalChanceBonus = this.CriticalChanceBonus;
 
-        if (ThoriumPlayer.SheathCooldown < ThoriumPlayer.SheathMaxCooldown && player.HeldItem.melee && player.HeldItem.useStyle === Terraria.ID.ItemUseStyleID.Swing) {
+        // A bainha so carrega e so fica pronta com uma arma de corpo a corpo
+        // de balanco na mao. Sem essa mesma checagem no segundo bloco, qualquer
+        // outro item mantinha o buff aceso pra sempre depois de carregado uma vez.
+        const held = player.HeldItem;
+        const validWeapon = held && held.melee && held.useStyle === Terraria.ID.ItemUseStyleID.Swing;
+
+        if (ThoriumPlayer.SheathCooldown < ThoriumPlayer.SheathMaxCooldown && validWeapon) {
             ThoriumPlayer.SheathCooldown++;
 
             if (ThoriumPlayer.SheathCooldown === ThoriumPlayer.SheathMaxCooldown) {
@@ -49,7 +55,7 @@ export class LeatherSheath extends ModItem {
             }
         }
 
-        if (ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown) {
+        if (validWeapon && ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown) {
             player['void AddBuff(int type, int time, bool fromNetPvP)'](
                 ModBuff.getTypeByName('SheathBuff'), 2, false
             );

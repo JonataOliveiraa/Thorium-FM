@@ -1,5 +1,41 @@
 {
   "ItemName": {
+    "BronzeAlloyFragments": "Fragmentos de Aleación de Bronce",
+    "GraniteEnergyCore": "Núcleo de Energía de Granito",
+    "ShadeWoodTambourine": "Pandereta de Madera Sombria",
+    "EbonwoodTambourine": "Pandereta de Madera de Ebano",
+    "PearlPike": "Pica de Perla",
+    "BentZombieArm": "Brazo Torcido de Zombi",
+    "EighthPlagueStaff": "Baculo de la Octava Plaga",
+    "MeteorHeadStaff": "Baculo de Cabeza de Meteoro",
+    "Ukulele": "Ukelele",
+    "YewWoodLute": "Laud de Tejo",
+    "Sitar": "Sitar",
+    "MeteoriteOboe": "Oboe de Meteorito",
+    "ObsidianRackett": "Rackett de Obsidiana",
+    "Panflute": "Flauta de Pan",
+    "SinisterHonk": "Bocina Siniestra",
+    "BloomingBell": "Campana Florida",
+    "JunglesWrath": "Ira de la Jungla",
+    "DarkWave": "Onda Oscura",
+    "VesselBuster": "Revienta-Venas",
+    "WindGust": "Rafaga de Viento",
+    "Flurry": "Ventisca",
+    "GraveBuster": "Rompetumbas",
+    "FrostPelter": "Tirachinas Gelido",
+    "HarpyPelter": "Tirachinas de Arpia",
+    "Slugger": "Trabuco",
+    "TheZapper": "El Chispazo",
+    "LeechBolt": "Dardo Sanguijuela",
+    "FeatherBarrierRod": "Cetro de Barrera de Plumas",
+    "ViscountMask": "Mascara del Vizconde",
+    "ViscountTreasureBag": "Bolsa del Tesoro (Vizconde)",
+    "BatScythe": "Guadana Murcielago",
+    "SonarCannon": "Canon Sonar",
+    "VampireScepter": "Cetro Vampirico",
+    "GuanoGunner": "Lanzaguano",
+    "ViscountCane": "Baston del Vizconde",
+    "BatWing": "Ala de Murcielago",
     "Dissolve": "Disolver",
     "Freeze": "Congelar",
     "Ignite": "Inflamar",
@@ -241,9 +277,44 @@
     "JesterLeggings": "Pantalones del Bufón Carmesí",
     "JesterMask2": "Máscara del Bufón Corrupto",
     "JesterShirt2": "Camisa del Bufón Corrupto",
-    "JesterLeggings2": "Pantalones del Bufón Corrupto"
+    "JesterLeggings2": "Pantalones del Bufón Corrupto",
+    "WeedEater": "Devorahierbas",
+    "BloomGuard": "Guardia Floral",
+    "DruidCloak": "Manto del Druida",
+    "LifeDisperser": "Dispersor de Vida"
   },
   "ItemTooltip": {
+    "ShadeWoodTambourine": "Lanza una pandereta que vuelve a ti\nToca Interaccion Inteligente mientras esta en el aire para reventarla en una onda expansiva",
+    "EbonwoodTambourine": "Lanza una pandereta que vuelve a ti\nToca Interaccion Inteligente mientras esta en el aire para reventarla en una onda expansiva",
+    "PearlPike": "Acertar un golpe te vuelve mas rapido y te hace saltar mas alto",
+    "BentZombieArm": "Lanza un brazo que vuelve girando hacia ti",
+    "EighthPlagueStaff": "Suelta un enjambre de langostas que puede envenenar",
+    "MeteorHeadStaff": "Invoca una cabeza de meteoro que se lanza sobre los enemigos cercanos",
+    "Ukulele": "Suelta una nota que rebota en las paredes",
+    "YewWoodLute": "Suelta una nota pesada que rebota en las paredes",
+    "Sitar": "Suelta una rafaga de viento giratoria que rebota en las paredes",
+    "MeteoriteOboe": "La nota se pega al enemigo y emite ondas de viento",
+    "ObsidianRackett": "Sopla una brasa serpenteante que busca enemigos y los chamusca",
+    "SinisterHonk": "Suelta un graznido que se queda en el aire y atraviesa varios enemigos",
+    "BloomingBell": "Esparce semillas que brotan en flores donde caen",
+    "JunglesWrath": "Arroja una semilla que estalla en un anillo de esporas venenosas",
+    "DarkWave": "Lanza una onda de oscuridad que maldice lo que toca",
+    "VesselBuster": "Suelta un chorro corto de sangre, solo de cerca",
+    "WindGust": "Lanza una rafaga de viento que atraviesa varios enemigos",
+    "Flurry": "Sopla una nube de nieve que se va abriendo y causa Quemadura Gelida",
+    "GraveBuster": "Levanta una hilera de lapidas por el suelo",
+    "FrostPelter": "Usa bolas de nieve como municion\nLanza cuatro bolas de golpe, con opcion de causar Quemadura Gelida",
+    "HarpyPelter": "Dispara una rafaga rapida de dos tiros",
+    "Slugger": "Dispara tres balas en abanico\nEl retroceso te empuja hacia atras",
+    "TheZapper": "Dispara un rayo, sin gastar municion",
+    "LeechBolt": "Roba un poco de vida al primer enemigo que golpea",
+    "FeatherBarrierRod": "Toca Interaccion Inteligente para crear plumas girando a tu alrededor durante 10 segundos\nLas plumas golpean a quien se acerque y reducen un 30% el dano recibido",
+    "BatScythe": "Toca Interaccion Inteligente para lanzar la guadana\nGolpear enemigos devuelve esencia de alma",
+    "SonarCannon": "Dispara una onda sonora que rebota\nAtrapar el eco refuerza tu inspiracion",
+    "VampireScepter": "Dispara un proyectil de sangre que roba vida a los enemigos",
+    "GuanoGunner": "Dispara mocos que ralentizan a los enemigos\nDisparar sin parar acelera el arma",
+    "ViscountCane": "Invoca un pequeno Vizconde que lucha por ti\nGuarda la sangre que extrae y te la devuelve",
+    "BatWing": "Suelta murcielagos hacia los enemigos cercanos mientras gira",
     "IceCube": "Lanza un cubo de hielo que se desliza por los bloques\nLos cubos de hielo causan quemadura de hielo en el objetivo durante un breve período",
     "IcyArrow": "La velocidad de movimiento del enemigo se reduce",
     "IcyAxe": "Frío al tacto... puede congelar tus manos",
@@ -343,7 +414,7 @@
     "NoviceClericTabard": "Reducción del 10% en daño no radiante\nAumento del 4% en daño radiante\nRegeneración de maná ligeramente aumentada\nAumenta el maná máximo en 10\nLos hechizos de curación curarán 2 puntos de vida adicionales",
     "NoviceClericPants": "Reducción del 10% en daño no radiante\nAumento del 3% en daño radiante\nRegeneración de maná ligeramente aumentada\nAumenta el maná máximo en 5\nLos hechizos de curación curarán 1 punto de vida adicional",
     "InpirationRegenBonus": "Aumento del {0}% en la tasa de regeneración de inspiración",
-    "FarbegeEgg": "Matar enemigos o infligir daño continuo a jefes con un instrumento de viento producirá un huevo de energía\nLos jugadores que toquen el huevo de energía restauran el 15% de su recurso primario perdido",
+    "FabergeEgg": "Matar enemigos tiene un 60% de probabilidad de producir un huevo de energía\nInfligir daño continuo a jefes con un instrumento de bardo también produce uno\nTocar el huevo de energía restaura el 20% del recurso gastado por última vez",
     "PadOPaper": "Aumenta la tasa de regeneración de inspiración en un 10%",
     "PlungerMute": "Aumento del 6% en la probabilidad de golpe crítico sinfónico\nLos golpes críticos causados por ataques con instrumentos de viento liberan una ráfaga de chispas perforantes",
     "HeadMirror": "Los hechizos de curación curarán 1 punto de vida adicional",
@@ -360,21 +431,16 @@
     "IceShaver": "Está extremadamente caliente o extremadamente frío. De cualquier forma, duele MUCHO",
     "WoodenBaton": "Gira un frágil bastón de madera a tu alrededor",
     "SkywareLute": "Dispara una estrella fugaz que rebota\nAl rebotar, libera una explosión de estrellas",
-
     "DepthDiverHelmet": "Aumento del 6% en la probabilidad de golpe crítico\n'Conviértete en un protector altruista'",
     "DepthDiverChestplate": "'Conviértete en un protector altruista'",
     "DepthDiverGreaves": "'Conviértete en un protector altruista'",
-
     "TideHunterCap": "Aumento del 4% en la probabilidad de golpe crítico a distancia\nPermite respirar bajo el agua\n'No sirve solo para cazar peces'",
     "TideHunterChestpiece": "Aumento del 10% en el daño a distancia\n'No sirve solo para cazar peces'",
     "TideHunterLeggings": "Aumento del 10% en la probabilidad de golpe crítico a distancia\n'No sirve solo para cazar peces'",
-
     "DrenchedDirk": "Golpea frenéticamente en un cono frente a ti",
     "GeyserStaff": "Crea un géiser de agua en movimiento",
-
     "HydroPickaxe": "La velocidad de uso de la herramienta aumenta mientras estés mojado",
     "HydroMallet": "La velocidad de uso de la herramienta aumenta mientras estés mojado",
-
     "MarineWineGlass": "Lanza hasta 6 copas de vino 'inofensivas'",
     "ScubaCurva": "Proyecta una poderosa brisa marina frente a ti, empujando a los enemigos hacia atrás",
     "AquaiteScythe": "Otorga 1 Esencia de Alma al golpear directamente a un enemigo\nGira rápidamente una guadaña acuática a tu alrededor",
@@ -384,7 +450,6 @@
     "SeashellCastanets": "Sostiene un par de castañuelas frente a ti, liberando vibraciones que causan daño\nCuanto más tiempo se sostengan, mayor será el daño y el retroceso",
     "GrimPointer": "Apunta hacia la Cámara de Sangre de tu mundo mientras lo sostienes",
     "Pierce": "Crea un poderoso proyectil de magia perforante",
-
     "DriftBoots": "Aumento del 5% en la velocidad de movimiento\nReduce la velocidad de caída",
     "HealthyBoots": "+5% de aumento en la velocidad de movimiento\nMientras corres, tu regeneración de vida aumenta",
     "HoverBoots": "+5% de aumento en la velocidad de movimiento\nPermite flotar brevemente después de despegar del suelo",
@@ -401,7 +466,10 @@
     "JesterLeggings": "Aumenta la velocidad de regeneración de inspiración en un 5%",
     "JesterMask2": "11% más de probabilidad de golpe crítico con daño sinfónico",
     "JesterShirt2": "El daño sinfónico tiene un 20% de probabilidad de otorgar regeneración de vida adicional",
-    "JesterLeggings2": "Aumenta la velocidad de regeneración de inspiración en un 5%"
+    "JesterLeggings2": "Aumenta la velocidad de regeneración de inspiración en un 5%",
+    "WeedEater": "Invoca una hierba cadavérica que escupe esporas venenosas",
+    "BloomGuard": "Invoca un bulbo floral que genera esporas vigorizantes periódicamente\nTocar las esporas aumenta brevemente la defensa y la regeneración de vida",
+    "LifeDisperser": "El daño causado cura a todos los aliados heridos cercanos"
   },
   "ArmorSetBonus": {
     "LivingWood": "El ataque automático de tu Brote de Madera Viva perseguirá a los enemigos",
@@ -422,6 +490,10 @@
     "Jester2": "10% de probabilidad de hacer sonar una campana sobre tu cabeza, ralentizando brevemente a todos los enemigos cercanos"
   },
   "BuffName": {
+    "PearlPikeBuff": "Impulso de Perla",
+    "MeteorHeadStaffBuff": "Cabeza de Meteoro",
+    "ViscountCaneBuff": "Pequeno Vizconde",
+    "VampiresCurseBuff": "Maldicion del Vampiro",
     "LivingWoodAcornBuff": "Lealtad del Brote",
     "LifeRecoveryBuff": "Restauración Vital",
     "StunnedBuff": "Aturdido",
@@ -433,9 +505,14 @@
     "OvergrowthBuff": "Crecimiento Excesivo",
     "SingedBuff": "Chamuscado",
     "SheathBuff": "Funda",
-    "SoulEssenceBuff": "Esencia de las Almas"
+    "SoulEssenceBuff": "Esencia de las Almas",
+    "BloomBoostBuff": "Impulso Floral"
   },
   "BuffDescription": {
+    "PearlPikeBuff": "Mas velocidad de movimiento y altura de salto",
+    "MeteorHeadStaffBuff": "Una cabeza de meteoro te acompana",
+    "ViscountCaneBuff": "El pequeno senor lucha a tu lado",
+    "VampiresCurseBuff": "Has sido transformado a la fuerza en un murcielago indefenso!",
     "LivingWoodAcornBuff": "Este pequeño está dando todo de sí para proteger el mundo",
     "LifeRecoveryBuff": "Recupera salud gradualmente con el tiempo",
     "StunnedBuff": "Incapaz de moverse",
@@ -447,12 +524,30 @@
     "OvergrowthBuff": "La restauración vital cura más y la probabilidad ha aumentado",
     "SingedBuff": "Has sufrido una quemadura fea",
     "SheathBuff": "Tu funda equipada está lista para atacar",
-    "SoulEssenceBuff": "Al alcanzar 5 acumulaciones de esencia del alma, recuperas 5 de vida y 20 de maná"
+    "SoulEssenceBuff": "Al alcanzar 5 acumulaciones de esencia del alma, recuperas 5 de vida y 20 de maná",
+    "BloomBoostBuff": "Defensa y regeneración de vida aumentadas"
   },
   "ProjectileName": {
-    "IcyArrowProjectile": "Proyectil de Flecha Congelada"
+    "IcyArrowProjectile": "Proyectil de Flecha Congelada",
+    "CorpseBloomPro": "Hongo",
+    "CorpseWeedPro": "Espora",
+    "WeedEaterPro": "Devorahierbas",
+    "WeedEaterPro2": "Espora",
+    "ShroomBoosterBulb": "Bulbo Floral",
+    "ShroomBooster": "Espora Vigorizante",
+    "LifeDisperserPro": "Dispersor de Vida"
   },
   "NPCName": {
+    "Nestling": "Polluelo",
+    "WindElemental": "Elemental del Viento",
+    "SpaceSlime": "Slime Espacial",
+    "SnowBall": "Bola de Nieve",
+    "Barracuda": "Barracuda",
+    "Blowfish": "Pez Globo",
+    "GigaClam": "Almeja Giga",
+    "Octopus": "Pulpo",
+    "Viscount": "Vizconde",
+    "BiteyBaby": "Bebe Mordedor",
     "Blacksmith": "Herrero",
     "DesertAcolyte": "Acólito del Desierto",
     "ConfusedZombie": "Zombi Confundido",
@@ -490,9 +585,23 @@
     "SeveredLegs": "Piernas Cercenadas",
     "ZealousJellyfish": "Medusa Celosa",
     "SpittingJellyfish": "Medusa Escupidora",
-    "DistractingJellyfish": "Medusa Distractora"
+    "DistractingJellyfish": "Medusa Distractora",
+    "CorpseBloom": "Flor Cadavérica",
+    "CorpsePetal": "Pétalo Cadavérico",
+    "CorpseWeed": "Hierba Cadavérica",
+    "Druid": "Druida"
   },
   "Bestiary": {
+    "Nestling": "Una especie de ave a la que le encanta convivir con las Arpias, cuidar polluelos y apedrear a los Terrarios curiosos.",
+    "WindElemental": "Las magias sueltas que se elevan por el aire a veces se manifiestan en estos seres irritados. Pueden dar una descarga bastante desagradable a los Terrarios despistados.",
+    "SpaceSlime": "Por lo visto los slimes tambien existen en otros planetas. Quien lo diria?",
+    "SnowBall": "Estos tipos se toman demasiado en serio la guerra de bolas de nieve... y se van rodando con ella!",
+    "Barracuda": "Este pez veloz caza a su presa como sea. Ni las paredes detienen su apetito feroz.",
+    "Blowfish": "No te burles de este fanfarron: al caer suelta espinas por todas partes!",
+    "GigaClam": "Los terrarianos llevan tiempo discutiendo si el tamano de esta almeja es 'giga' o 'inmenso'. Por ahora gano giga.",
+    "Octopus": "Un habitante bulboso que estira sus largos brazos para atrapar y aplastar a su presa, a veces incluso a traves de paredes.",
+    "Viscount": "Enorme tanto en tamano como en ego, el Vizconde es el senor indiscutible de las cavernas.",
+    "BiteyBaby": "Sirvientes del Vizconde. Suelen ser enviados a buscar nuevas fuentes de sangre y, de vez en cuando, bocadillos.",
     "ArmyAnt": "Una hormiga agresiva que patrulla las profundidades de la jungla en busca de presas.",
     "Blacksmith": "Un artesano experimentado que da forma al metal en armas y herramientas. Su trabajo es tan fiable como su temperamento es estable.",
     "DesertAcolyte": "El Acólito del Desierto es bastante nervioso, pero vende todo tipo de equipo para aquellos interesados en lanzar cosas a los monstruos.",
@@ -529,7 +638,10 @@
     "ZealousJellyfish": "Una medusa roja que adora embestir contra los enemigos por su Reina.",
     "SpittingJellyfish": "Una medusa amarilla que adora escupir burbujas a los enemigos por su Reina.",
     "DistractingJellyfish": "Una medusa azul que adora recibir golpes por su Reina.",
-    "CoinBagSilver": "Tras pasar por las cavernas, este saco de monedas abandona el lugar en cuanto aparece un Terrariano codicioso."
+    "CoinBagSilver": "Tras pasar por las cavernas, este saco de monedas abandona el lugar en cuanto aparece un Terrariano codicioso.",
+    "CorpseBloom": "No queda claro si esta flor mutante debe su nombre a su hedor, o a lo que suele dejar de los Terrarios a su paso.",
+    "CorpseWeed": "Las raíces vivas de una Flor Cadavérica pueden ser tan peligrosas como la planta que las alberga. ¡Quizá incluso más!",
+    "Druid": "Una herbolaria errante que recoge semillas en todos los rincones del mundo, por hostiles que sean."
   },
   "NPCChat": {
     "Blacksmith_1": "¿Necesitas algo forjado?",
@@ -563,7 +675,17 @@
     "Diverman_9": "Una vez dormí con los peces, fue la peor sensación.",
     "Diverman_10": "Nunca subestimes a una criatura marina pequeña. Por lo general, tiene amigos mucho más grandes cerca.",
     "Diverman_11": "Si piensas explorar cuevas sumergidas, lleva luz de sobra. La oscuridad ahí abajo parece viva.",
-    "Diverman_12": "Respirar bajo el agua parece imposible... hasta que encuentras el equipo adecuado."
+    "Diverman_12": "Respirar bajo el agua parece imposible... hasta que encuentras el equipo adecuado.",
+    "Druid_1": "Conseguir estas semillas da mucho más trabajo de lo que crees. Casi me ahogo, casi me derrito, casi me congelo... Ya te haces una idea.",
+    "Druid_2": "Visito la jungla a menudo. Entiendo que le tengan aversión al lugar, pero las criaturas de allí no parecen molestarme...",
+    "Druid_3": "Mi madre fue una herbolaria muy conocida en su época. Aunque nunca habla de mi padre. ¿Por qué será?",
+    "Druid_4": "¿Cómo te trata el día, {0}? ¡No olvides parar a oler las rosas!",
+    "Druid_5": "¡Hasta una semilla pequeña puede volverse un roble enorme! Tenlo presente, {0}...",
+    "Druid_6": "El mundo natural es una maravilla. Cada rincón tiene su encanto. ¡Algunos más que otros!",
+    "Druid_BloodMoon_1": "¿Por qué no vas tú mismo a buscar esas semillas, holgazán bueno para na-",
+    "Druid_BloodMoon_2": "Apuesto a que ni siquiera te sientes culpable por destruir el mundo natural para acomodarlo a tus caprichos...",
+    "Druid_WitchDoctor": "Nuestro amigo de allí, {0}, es bastante raro, ¿no? Habla con acertijos...",
+    "Druid_Dryad": "Desde niña siempre quise conocer a una dríade. ¡Qué suerte encontrar a {0} aquí!"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -650,11 +772,30 @@
       "NoHome": "Necesito un lugar para guardar mi equipo de buceo. ¿Puedes proporcionarme uno?",
       "FarFromHome": "Estoy empezando a echar de menos mi base. Mantener el equipo en orden marca la diferencia.",
       "SpecialMoodText": "El océano siempre guarda un nuevo descubrimiento para quien tiene el valor de explorar sus profundidades."
+    },
+    "Druid": {
+      "Content": "¡Estoy fresca como una margarita, gracias por preguntar!",
+      "DislikeBiome": "Dudo que algo pueda florecer en un lugar tan nefasto.",
+      "DislikeCrowded": "Hablar con las plantas está muy bien, pero hasta ellas necesitan algo de silencio.",
+      "DislikeNPC": "¡Ese dichoso {0} no para de prender fuego a la hierba con sus explosivos!",
+      "HateBiome": "Dudo que algo pueda florecer en un lugar tan nefasto.",
+      "HateCrowded": "¡Hay demasiada gente aquí, no paso un día sin que alguien pisotee mis hierbas!",
+      "HateNPC": "*tos* *tos* Todo ese humo que sueltan los cacharros de {0} me está dando dolor de cabeza...",
+      "LikeBiome": "¡Esta tundra helada no es lugar para cultivar mis flores! ...Bueno, supongo que una de ellas podría crecer aquí, pero no viene al caso.",
+      "LikeNPC": "{0} es un girasolito. ¡Vamos, no se puede odiar a una chica que hace que los animalillos del bosque acudan a ella cuando canta!",
+      "LoveBiome": "Bueno, no debería sorprender a nadie que ame la jungla, ¡prácticamente crecí aquí!",
+      "LoveNPC": "Desde niña siempre quise conocer a una Dríade. ¡Qué suerte encontrar a {0} aquí!",
+      "LoveSpace": "¡Me siento tan bien como un árbol solitario en lo alto de una colina!",
+      "NoHome": "Ah, la naturaleza al aire libre...",
+      "FarFromHome": "¡Ah, hola! Solo estaba recogiendo hierbas por aquí. ¡Siempre es divertido alejarse de casa y explorar!",
+      "SpecialMoodText": "Hasta una semilla pequeña puede volverse un roble enorme. Solo hay que darle tiempo."
     }
   },
   "SinalizationChatMessage": {
     "OnPatchWerkDie": "El temido Remendado se derrumba...",
-    "OnClickInInativeAncientPhylactery": "Parece estar inactivo..."
+    "OnClickInInativeAncientPhylactery": "Parece estar inactivo...",
+    "BloodAltarMissingShards": "El altar exige 5 Fragmentos Profanos...",
+    "CorpseBloomDefeat": "La esquiva Flor Cadavérica se marchita..."
   },
   "DeathMessage": {
     "DeepStaff": "{0} drenó su propia alma por poder, lo que le llevó a la muerte"

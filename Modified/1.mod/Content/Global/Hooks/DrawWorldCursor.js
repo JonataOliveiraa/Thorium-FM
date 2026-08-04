@@ -13,6 +13,7 @@ const LegacyPlayerRenderer = new NativeClass("Terraria.Graphics.Renderers", "Leg
 
 let _cachedBardItem = null;
 let _cachedHeldType = -1;
+let _grimPointer = null;
 
 function getCachedBardItem(player) {
   const type = player.HeldItem?.type ?? -1;
@@ -39,25 +40,29 @@ export class DrawWorldCursor extends GlobalHooks {
       }
     });
 
-    Main["void DrawRain()"].hook((original, self) => {
-      if (self === null) self = Main.instance;
-      original(self);
-    });
+    // O hook de DrawRain so repassava a chamada original, entao virava um
+    // desvio por frame sem efeito nenhum. Removido.
 
     LegacyPlayerRenderer["void DrawPlayerFull(Camera camera, Player drawPlayer)"].hook(
       (original, self, camera, drawPlayer) => {
+        // Tudo aqui e da interface do proprio jogador: se nao for ele sendo
+        // desenhado, nem le HeldItem nem o resto
+        const isLocal = drawPlayer?.whoAmI === Main.myPlayer;
+        if (!isLocal) return original(self, camera, drawPlayer);
+
         const player = Main.player[Main.myPlayer];
         const bardItem = getCachedBardItem(player);
 
-        if (drawPlayer?.whoAmI === Main.myPlayer) {
-          Empowerments.DrawIcons(true);
-        }
+        Empowerments.DrawIcons(true);
+
         if (bardItem?.useTimer) {
           BardTimer.Draw(player);
         }
 
         if (ThoriumPlayer.IsHoldingGrimPointer) {
-          const GrimPointer = ModItem.getByName('GrimPointer');
+          // getByName varre a lista de itens por nome: guarda a referencia
+          if (_grimPointer === null) _grimPointer = ModItem.getByName('GrimPointer') ?? false;
+          const GrimPointer = _grimPointer || null;
           const pointerTexture = GrimPointer?.BatCavePointerTexture;
           const pos =  GrimPointer?.BloodChamberPos
 
@@ -88,9 +93,7 @@ export class DrawWorldCursor extends GlobalHooks {
 
         original(self, camera, drawPlayer);
 
-        if (drawPlayer?.whoAmI === Main.myPlayer) {
-          Empowerments.DrawIcons(false);
-        }
+        Empowerments.DrawIcons(false);
       }
     );
   }

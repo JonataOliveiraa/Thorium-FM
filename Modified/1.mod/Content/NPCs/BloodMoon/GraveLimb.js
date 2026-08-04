@@ -40,11 +40,14 @@ export class GraveLimb extends ModNPC {
         player['void AddBuff(int type, int time, bool fromNetPvP)'](buffType, duration, false);
     }
 
+    // info.BloodMoon e uma flag global do mundo, vale ate no subterraneo.
+    // A checagem de altura e o que prende ele na superficie.
     SpawnChance(info) {
-        if (info.CommonEnemy && info.BloodMoon) {
-            return 0.20;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.BloodMoon) return 0;
+        if (!info.AboveSurface || info.SpawnTileY > Terraria.Main.worldSurface) return 0;
+        if (info.Water || info.PlayerSafe) return 0;
+
+        return 0.20;
     }
 
     SetBestiary(database, bestiaryEntry) {
