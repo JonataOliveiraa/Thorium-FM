@@ -1,5 +1,34 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
 
+// Buried Champion Projectiles
+import { BuriedShock } from '../Content/Projectiles/Boss/BuriedShock.js';
+import { BuriedDaggerSpawner } from '../Content/Projectiles/Boss/BuriedDaggerSpawner.js';
+import { BuriedDagger } from '../Content/Projectiles/Boss/BuriedDagger.js';
+import { BuriedArrow } from '../Content/Projectiles/Boss/BuriedArrow.js';
+import { BuriedArrow2 } from '../Content/Projectiles/Boss/BuriedArrow2.js';
+import { BuriedArrowC } from '../Content/Projectiles/Boss/BuriedArrowC.js';
+import { BuriedArrowP } from '../Content/Projectiles/Boss/BuriedArrowP.js';
+import { BuriedArrowF } from '../Content/Projectiles/Boss/BuriedArrowF.js';
+import { BuriedArrowFBoom } from '../Content/Projectiles/Boss/BuriedArrowFBoom.js';
+import { BuriedMagic } from '../Content/Projectiles/Boss/BuriedMagic.js';
+import { BuriedMagicPop } from '../Content/Projectiles/Boss/BuriedMagicPop.js';
+import { MagicalBurstReflectedPro } from '../Content/Projectiles/Boss/MagicalBurstReflectedPro.js';
+import { ChampionShock } from '../Content/Projectiles/ChampionShock.js';
+import { ChampionsTrifectaShotPro } from '../Content/Projectiles/ChampionsTrifectaShotPro.js';
+import { ChampionsTrifectaShotPro2 } from '../Content/Projectiles/ChampionsTrifectaShotPro2.js';
+import { ChampionsTrifectaShotPro3 } from '../Content/Projectiles/ChampionsTrifectaShotPro3.js';
+import { ChampionsTrifectaShotPro4 } from '../Content/Projectiles/ChampionsTrifectaShotPro4.js';
+import { ChampionBomberStaffPro } from '../Content/Projectiles/ChampionBomberStaffPro.js';
+import { BuriedMagicPopPro } from '../Content/Projectiles/BuriedMagicPopPro.js';
+import { LightBolt } from '../Content/Projectiles/LightBolt.js';
+
+// Bronze Projectiles
+import { LightStrike } from '../Content/Projectiles/LightStrike.js';
+import { ChampionCatcherBobber } from '../Content/Projectiles/ChampionCatcherBobber.js';
+import { GorgonsEyePro } from '../Content/Projectiles/GorgonsEyePro.js';
+import { GorgonGazeStaffPro } from '../Content/Projectiles/GorgonGazeStaffPro.js';
+import { GorgonGazeStaffPro2 } from '../Content/Projectiles/GorgonGazeStaffPro2.js';
+
 // ==== PROJETEIS NOVOS (topo da lista pra achar rapido) ====
 import { FrostPelterPro } from '../Content/Projectiles/FrostPelterPro.js';
 import { SluggerCloud } from '../Content/Projectiles/SluggerCloud.js';
@@ -200,10 +229,44 @@ import { CorpseWeedPro } from '../Content/Projectiles/CorpseWeedPro.js';
 import { WeedEaterPro } from '../Content/Projectiles/WeedEaterPro.js';
 import { WeedEaterPro2 } from '../Content/Projectiles/WeedEaterPro2.js';
 import { LifeDisperserPro } from '../Content/Projectiles/LifeDisperserPro.js';
+import { GraniteControlRodBobber } from '../Content/Projectiles/GraniteControlRodBobber.js';
+import { GraniteArrowPro } from '../Content/Projectiles/GraniteArrowPro.js';
+import { GraniteIonStaffPro } from '../Content/Projectiles/GraniteIonStaffPro.js';
+import { GraniteIonStaffPro2 } from '../Content/Projectiles/GraniteIonStaffPro2.js';
+import { GraniteReflectorPro } from '../Content/Projectiles/GraniteReflectorPro.js';
+import { EnergyStormPartisanPro } from '../Content/Projectiles/EnergyStormPartisanPro.js';
+import { EnergyExplosion } from '../Content/Projectiles/EnergyExplosion.js';
 import { ShroomBooster } from '../Content/Projectiles/ShroomBooster.js';
 import { ShroomBoosterBulb } from '../Content/Projectiles/ShroomBoosterBulb.js';
 
 const List = [
+  BuriedShock,
+  BuriedDaggerSpawner,
+  BuriedDagger,
+  BuriedArrow,
+  BuriedArrow2,
+  BuriedArrowC,
+  BuriedArrowP,
+  BuriedArrowF,
+  BuriedArrowFBoom,
+  BuriedMagic,
+  BuriedMagicPop,
+  MagicalBurstReflectedPro,
+  ChampionShock,
+  ChampionsTrifectaShotPro,
+  ChampionsTrifectaShotPro2,
+  ChampionsTrifectaShotPro3,
+  ChampionsTrifectaShotPro4,
+  ChampionBomberStaffPro,
+  BuriedMagicPopPro,
+  LightBolt,
+
+  LightStrike,
+  ChampionCatcherBobber,
+  GorgonsEyePro,
+  GorgonGazeStaffPro,
+  GorgonGazeStaffPro2,
+
   FrostPelterPro,
   SluggerCloud,
   TheZapperPro,
@@ -311,6 +374,13 @@ const List = [
   WeedEaterPro,
   WeedEaterPro2,
   LifeDisperserPro,
+  GraniteControlRodBobber,
+  GraniteArrowPro,
+  GraniteIonStaffPro,
+  GraniteIonStaffPro2,
+  GraniteReflectorPro,
+  EnergyStormPartisanPro,
+  EnergyExplosion,
   ShroomBooster,
   ShroomBoosterBulb,
 

@@ -239,8 +239,28 @@ export class ThoriumPlayer extends ModPlayer {
   static LifeShieldTimeDelay = 0;
   static LifeShieldMaxTimeDelay = 120;
 
+  // Escudo temporario do Granite Ion Staff. Fica fora do ResetEffects porque
+  // ele tem duracao propria em vez de depender de um item equipado.
+  static IonShieldTimer = 0;
+  static IonShieldValue = 0;
+
+  static GrantIonShield(player, value, duration) {
+    if (!player || value <= 0) return;
+    if (value <= ThoriumPlayer.IonShieldValue && ThoriumPlayer.IonShieldTimer > 0) return;
+    ThoriumPlayer.IonShieldValue = value;
+    ThoriumPlayer.IonShieldTimer = duration;
+  }
+
   static LuckyRabbitsFootEquipped = false;
   static BandofReplenishmentEquipped = false;
+
+  // Champion & Bronze
+  static championsRebuttal = false;
+  static championDamage = 0;
+  static itemChampionsTrifectaShotCounter = 0;
+  static itemSwordStrikeCooldown = 0;
+  static setBronze = false;
+  static _lightStrikeType = -1;
 
   // Bard UI
   static SpriteSheet = null;
@@ -343,11 +363,20 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.SpiritsGraceEquipped = false;
     ThoriumPlayer.CoralSetBuff = false;
     ThoriumPlayer.CoralSetResetCount = 0;
+    ThoriumPlayer.championsRebuttal = false;
+    ThoriumPlayer.setBronze = false;
   }
 
   PreUpdate(player) {
     if (player.dead) {
       ThoriumPlayer.SheathCooldown = 0;
+    }
+
+    if (ThoriumPlayer.itemSwordStrikeCooldown > 0) {
+      ThoriumPlayer.itemSwordStrikeCooldown--;
+    }
+    if (ThoriumPlayer.championDamage > 300) {
+      ThoriumPlayer.championDamage = 300;
     }
 
     ThoriumPlayer.UpdateInspiration();
@@ -361,6 +390,13 @@ export class ThoriumPlayer extends ModPlayer {
     if (ThoriumPlayer.CoralSetBuff && ThoriumPlayer.CoralSetCount > 0) {
       ThoriumPlayer.LifeShieldActive = true;
       ThoriumPlayer.LifeShieldMaxExtraLife = ThoriumPlayer.CoralSetCount;
+    }
+
+    if (ThoriumPlayer.IonShieldTimer > 0) {
+      ThoriumPlayer.IonShieldTimer--;
+      ThoriumPlayer.LifeShieldActive = true;
+      ThoriumPlayer.LifeShieldMaxExtraLife = ThoriumPlayer.IonShieldValue;
+      ThoriumPlayer.LifeShieldHealValue = ThoriumPlayer.IonShieldValue;
     }
 
     if (ThoriumPlayer.LifeShieldActive) {
@@ -583,11 +619,37 @@ export class ThoriumPlayer extends ModPlayer {
     if (npc.boss && ModBardItem.bardItemsName.has(item.type)) {
       ThoriumPlayer.TrySpawnFabergeEgg(player, npc);
     }
+
+    if (ThoriumPlayer.championDamage > 0) {
+      const hitDir = npc.Center.X < player.Center.X ? -1 : 1;
+      npc['double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)'](
+        ThoriumPlayer.championDamage, 0, hitDir, true, false, false
+      );
+      ThoriumPlayer.championDamage = 0;
+    }
   }
 
   OnHitNPCWithProj(player, npc, projectile) {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
     ThoriumPlayer.EnterCombat();
+
+    if (ThoriumPlayer.championDamage > 0) {
+      const hitDir = npc.Center.X < player.Center.X ? -1 : 1;
+      npc['double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)'](
+        ThoriumPlayer.championDamage, 0, hitDir, true, false, false
+      );
+      ThoriumPlayer.championDamage = 0;
+    }
+
+    if (ThoriumPlayer.setBronze && Rand.Next(0, 5) === 0) {
+      if (ThoriumPlayer._lightStrikeType === -1) {
+        ThoriumPlayer._lightStrikeType = ModProjectile.getTypeByName('LightStrike') ?? -2;
+      }
+      if (ThoriumPlayer._lightStrikeType > 0 && projectile.type !== ThoriumPlayer._lightStrikeType) {
+        const source = projectile.GetProjectileSource_FromThis();
+        NewProjectile(source, Vector2.new(npc.Center.X, npc.Center.Y - 600), Vector2.new(0, 15), ThoriumPlayer._lightStrikeType, 30, 1, player.whoAmI, 0, 0, 0, null);
+      }
+    }
 
     const isRangedWeapon = player.HeldItem && player.HeldItem.ranged;
     if (isRangedWeapon) ThoriumPlayer.YewWoodHitsCount++;
@@ -697,6 +759,18 @@ export class ThoriumPlayer extends ModPlayer {
   OnHurt(player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
     ThoriumPlayer.EnterCombat();
     player.immuneTime += ThoriumPlayer.InvincibilityFrameBonus;
+
+    if (ThoriumPlayer.championsRebuttal && damage > 0) {
+      const stored = damage * 2;
+      ThoriumPlayer.championDamage = Math.min(300, ThoriumPlayer.championDamage + stored);
+      Terraria.CombatText['int NewText(Rectangle location, Color color, int amount, bool dramatic, bool dot)'](
+        Rectangle.new(player.position.X, player.position.Y, player.width, player.height),
+        Color.new(255, 100, 50, 255),
+        stored,
+        false,
+        true
+      );
+    }
 
     if (!pvp && ThoriumPlayer.BandofReplenishmentEquipped) {
       if (damage > 3 && Rand.Next(0, 3) === 0) {

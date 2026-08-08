@@ -281,7 +281,17 @@
     "WeedEater": "Weed Eater",
     "BloomGuard": "Bloom Guard",
     "DruidCloak": "Druid's Cloak",
-    "LifeDisperser": "Life Disperser"
+    "LifeDisperser": "Life Disperser",
+    "GraniteHelmet": "Granite Helmet",
+    "GraniteChestGuard": "Granite Chestguard",
+    "GraniteGreaves": "Granite Greaves",
+    "GraniteControlRod": "Granite Control Rod",
+    "GraniteCrossbow": "Granite Crossbow",
+    "GraniteHamaxe": "Granite Hamaxe",
+    "GranitePickAxe": "Granite Pickaxe",
+    "GraniteIonStaff": "Granite Ion Staff",
+    "GraniteReflector": "Granite Reflector",
+    "EnergyStormPartisan": "Energy Storm Partisan"
   },
   "ItemTooltip": {
     "ShadeWoodTambourine": "Throws a tambourine that returns to you\nTap Smart Interact while it is in the air to burst it into a shockwave",
@@ -469,7 +479,14 @@
     "JesterLeggings2": "Increases inspiration regeneration rate by 5%",
     "WeedEater": "Summons a corpse weed sentry to spit poisonous spores",
     "BloomGuard": "Summons a bloom bulb that periodically generates booster spores\nTouching the spores increases defense and life regeneration briefly",
-    "LifeDisperser": "Damage dealt heals all nearby hurt allies"
+    "LifeDisperser": "Damage dealt heals all nearby hurt allies",
+    "GraniteHelmet": "Defensively energized",
+    "GraniteChestGuard": "Defensively energized",
+    "GraniteGreaves": "Defensively energized",
+    "GraniteCrossbow": "Turns wooden arrows into granite arrows, which overflow hit enemies with energy\nOverflowed enemies take 5% more damage",
+    "GraniteIonStaff": "Charges up an ionized burst of granite energy\nCharging the burst multiplies its potency up to 3 times\nShields your life on release",
+    "GraniteReflector": "Overflows nearby enemies with energy on its first hit",
+    "EnergyStormPartisan": "Dealing damage two times in one use of this weapon will unleash an energized explosion"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's automatic attack will chase enemies",
@@ -487,7 +504,8 @@
     "TideHunter": "Ranged attacks have a chance to unleash a burst of foam",
     "DepthDiver": "10% increased damage and movement speed",
     "Jester": "10% chance to ring a bell over your head, slowing all nearby enemies briefly",
-    "Jester2": "10% chance to ring a bell over your head, slowing all nearby enemies briefly"
+    "Jester2": "10% chance to ring a bell over your head, slowing all nearby enemies briefly",
+    "Granite": "Immune to intense heat and enemy knockback, but your movement is slowed down greatly"
   },
   "BuffName": {
     "PearlPikeBuff": "Pearl Rush",
@@ -506,7 +524,8 @@
     "SingedBuff": "Singed",
     "SheathBuff": "Sheath",
     "SoulEssenceBuff": "Soul Essence",
-    "BloomBoostBuff": "Bloom Boost"
+    "BloomBoostBuff": "Bloom Boost",
+    "GraniteSurgeBuff": "Granite Surge"
   },
   "BuffDescription": {
     "PearlPikeBuff": "Increased movement speed and jump height",
@@ -522,10 +541,11 @@
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
     "SpiritsGraceBuff": "Grants increased invulnerability time and movement speed",
     "OvergrowthBuff": "Vital restoration heals more and its chance has been increased",
-    "SingedBuff": "You suffered an ugly burn",
+    "SingedBuff": "Losing life and unable to regenerate",
     "SheathBuff": "Your equipped sheath is ready to strike",
     "SoulEssenceBuff": "Upon reaching 5 stacks of soul essence, you recover 5 life and 20 mana",
-    "BloomBoostBuff": "Increased defense and life regeneration"
+    "BloomBoostBuff": "Increased defense and life regeneration",
+    "GraniteSurgeBuff": "Taking 5% more damage from all sources and damage over time"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Icy Arrow Projectile",
@@ -535,7 +555,14 @@
     "WeedEaterPro2": "Spore",
     "ShroomBoosterBulb": "Bloom Bulb",
     "ShroomBooster": "Booster Spore",
-    "LifeDisperserPro": "Life Disperser"
+    "LifeDisperserPro": "Life Disperser",
+    "GraniteControlRodBobber": "Bobber",
+    "GraniteArrowPro": "Granite Arrow",
+    "GraniteIonStaffPro": "Ion Charge",
+    "GraniteIonStaffPro2": "Ion Burst",
+    "GraniteReflectorPro": "Granite Reflector",
+    "EnergyStormPartisanPro": "Energy Storm Partisan",
+    "EnergyExplosion": "Energized Explosion"
   },
   "NPCName": {
     "Nestling": "Nestling",

@@ -1,5 +1,11 @@
 import { ModNPC } from '../TL/ModNPC.js';
 
+// Bosses
+import { BuriedChampion } from '../Content/NPCs/Boss/BossBuriedChampion/BuriedChampion.js';
+import { FallenChampion1 } from '../Content/NPCs/Boss/BossBuriedChampion/FallenChampion1.js';
+import { FallenChampion2 } from '../Content/NPCs/Boss/BossBuriedChampion/FallenChampion2.js';
+import { MagicalBurst } from '../Content/NPCs/Boss/BossBuriedChampion/MagicalBurst.js';
+
 // Town NPCs
 import { Blacksmith } from '../Content/NPCs/Town/Blacksmith.js';
 import { DesertAcolyte } from '../Content/NPCs/Town/DesertAcolyte.js';
@@ -84,6 +90,10 @@ import { CorpsePetal } from '../Content/NPCs/Jungle/CorpsePetal.js';
 import { CorpseWeed } from '../Content/NPCs/Jungle/CorpseWeed.js';
 
 const List = [
+    BuriedChampion,
+    FallenChampion1,
+    FallenChampion2,
+    MagicalBurst,
     Blacksmith,
     DesertAcolyte,
     ConfusedZombie,

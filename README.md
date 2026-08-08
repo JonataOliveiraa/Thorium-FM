@@ -1,52 +1,34 @@
-# Thorium Fan Made v1.2.1
+# Criação de mods acelerada
 
-> **Fan-made recreation of the Thorium Mod for Terraria Mobile.**
+### Fluxo
+1 - Pegue as texturas necessárias para o item, projétil, npc, etc. do mod: todas elas ficam em C:\Users\nadek\Downloads\tModUnpacker\ThoriumMod.
+2 - Leia o código C# do item/projétil/npc, etc. E adapte para o TL Pro, todas elas ficam em C:\Users\nadek\Downloads\tModUnpacker\dll\ThoriumMod.
+3 - E então, crie os arquivos, adaptando a coisa que vc quer adicionar no TL Pro.
 
-## Disclaimer
+### Práticas
+- Em projectiles, ao usar ai[], sempre use ProjAI.
+- Ao mover o Vector2 de algum source, não faça tipo npc.velocity.X++, invés disso, você pode atribuir um Vector2 já alterado. O TL Pro não reconhece alterações em struct, então se você fizer npc.velocity.X++, o TL Pro não vai reconhecer que houve uma alteração no npc.velocity. Então, faça algo como:
+```js
+   const vel = npc.velocity;
+    vel.X++;
+    npc.velocity = vel;
+```
+- Ao criar um item, projétil, npc, etc., sempre use o método SetDefaults() para definir os valores padrões do objeto. Evite definir valores diretamente no construtor ou em outros métodos, pois isso pode causar problemas de compatibilidade com o TL Pro.
+- Sempre que possível, utilize as funções e métodos fornecidos pela pasta Modules/, pois eles são otimizados para o TL Pro e garantem melhor desempenho e compatibilidade.
+- Sempre que possível, use métodos nativos do Terraria, exemplo:
+```js
+    for(int i = 0; i < Main.maxNPCs; i++) {
+        NPC npc = Main.npc[i];
+        if(Vector.Distance(npc.Center, player.Center) < 100) {
+            // Faça algo com o npc
+        }
+    }
 
-This project is **not official**. It is a fan-made port created purely for fun and learning purposes. It has **no commercial purpose whatsoever** and is completely **free to use**.
-
-All original content, concepts, artwork, and design belong to their respective creators. This project is not affiliated with, endorsed by, or associated with the original Thorium Mod team in any way.
-
----
-
-## Original Thorium Mod
-
-All credits for the original content go to the creators of the official Thorium Mod:
-
-- **DivermanSam** — Original creator of the Thorium Mod
-  - Forum thread: https://forums.terraria.org/index.php?threads/the-thorium-mod.40788/
-  - Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2909886416
-- **EduaRRdo** - Portrait fanart 
-  - X: https://x.com/EduaRRdo_DAE
-
-Please support the original mod!
-
-## Contributors
-
-### Fan Made Team
-| Name | Role |
-|------|------|
-| Zayah | Owner |
-| Potato | Manager |
-| Sacola | Helper |
-| Chronomiasma | Helper |
-
-### Special Thanks
-- **GST378** — Technical support & guidance
-- **Cainam** — Contributions & support
-- **Lemon Studio** (Discord server) — Community support
-- **ExMod Creators** — For creating and maintaining the ExMod framework that made this possible
-
----
-
-## License
-
-This project is licensed under **Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)**, following the same license as the official Thorium Mod.
-
-See the [LICENSE](./LICENSE.md) file for full details, or visit:
-https://creativecommons.org/licenses/by-nc-sa/3.0/
-
----
-
-Discord: https://discord.gg/B6AdMNAr4P
+    //faça
+    const findedNPC = proj['NPC FindTargetWithinRange(float maxRange, bool checkCanHit)'](
+        100, false
+    )
+```
+- Nunca coloque loops em Update() ou AI() que possam causar travamentos.
+- Métodos privados o TL Pro também reconhece.
+- Nunca mude a ordem de registro do item, projétil, npc, etc. no Register/, sempre adicione itens recém criados no topo da lista, pra facilitar testes.

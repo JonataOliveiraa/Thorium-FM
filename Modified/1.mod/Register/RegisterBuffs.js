@@ -24,6 +24,7 @@ import { VampiresCurseBuff } from '../Content/Buffs/VampiresCurseBuff.js';
 import { ViscountCaneBuff } from '../Content/Buffs/ViscountCaneBuff.js';
 import { PearlPikeBuff } from '../Content/Buffs/PearlPikeBuff.js';
 import { MeteorHeadStaffBuff } from '../Content/Buffs/MeteorHeadStaffBuff.js';
+import { GraniteSurgeBuff } from '../Content/Buffs/GraniteSurgeBuff.js';
 import { BloomBoostBuff } from '../Content/Buffs/BloomBoostBuff.js';
 
 const List = [
@@ -49,7 +50,8 @@ const List = [
     ViscountCaneBuff,
     PearlPikeBuff,
     MeteorHeadStaffBuff,
-    BloomBoostBuff
+    BloomBoostBuff,
+    GraniteSurgeBuff
 ]
 
 export function RegisterBuffs() {

@@ -1,5 +1,23 @@
 import { ModItem } from '../TL/ModItem.js';
 
+// Buried Champion Items
+import { ChampionSwiftBlade } from '../Content/Items/BossBuriedChampion/ChampionSwiftBlade.js';
+import { ChampionsTrifectaShot } from '../Content/Items/BossBuriedChampion/ChampionsTrifectaShot.js';
+import { ChampionBomberStaff } from '../Content/Items/BossBuriedChampion/ChampionBomberStaff.js';
+import { ChampionsGodHand } from '../Content/Items/BossBuriedChampion/ChampionsGodHand.js';
+import { ChampionsRebuttal } from '../Content/Items/BossBuriedChampion/ChampionsRebuttal.js';
+import { BuriedChampionMask } from '../Content/Items/BossBuriedChampion/BuriedChampionMask.js';
+
+// Bronze Items
+import { BronzeHelmet } from '../Content/Items/Bronze/BronzeHelmet.js';
+import { BronzeBreastplate } from '../Content/Items/Bronze/BronzeBreastplate.js';
+import { BronzeGreaves } from '../Content/Items/Bronze/BronzeGreaves.js';
+import { BronzeMallet } from '../Content/Items/Bronze/BronzeMallet.js';
+import { BronzePax } from '../Content/Items/Bronze/BronzePax.js';
+import { ChampionCatcher } from '../Content/Items/Bronze/ChampionCatcher.js';
+import { GorgonsEye } from '../Content/Items/Bronze/GorgonsEye.js';
+import { GorgonGazeStaff } from '../Content/Items/Bronze/GorgonGazeStaff.js';
+
 // ==== ITENS NOVOS (ficam no topo da lista pra achar rapido) ====
 import { FrostPelter } from '../Content/Items/Ranged/FrostPelter.js';
 import { HarpyPelter } from '../Content/Items/Ranged/HarpyPelter.js';
@@ -292,6 +310,16 @@ import { BentZombieArm } from '../Content/Items/Melee/BentZombieArm.js';
 import { EighthPlagueStaff } from '../Content/Items/Mage/EighthPlagueStaff.js';
 import { MeteorHeadStaff } from '../Content/Items/Summon/MeteorHeadStaff.js';
 import { WeedEater } from '../Content/Items/Sentry/WeedEater.js';
+import { GraniteHelmet } from '../Content/Items/Granite/GraniteHelmet.js';
+import { GraniteChestGuard } from '../Content/Items/Granite/GraniteChestGuard.js';
+import { GraniteGreaves } from '../Content/Items/Granite/GraniteGreaves.js';
+import { GraniteControlRod } from '../Content/Items/Granite/GraniteControlRod.js';
+import { GraniteCrossbow } from '../Content/Items/Granite/GraniteCrossbow.js';
+import { GraniteHamaxe } from '../Content/Items/Granite/GraniteHamaxe.js';
+import { GranitePickAxe } from '../Content/Items/Granite/GranitePickAxe.js';
+import { GraniteIonStaff } from '../Content/Items/Granite/GraniteIonStaff.js';
+import { GraniteReflector } from '../Content/Items/Granite/GraniteReflector.js';
+import { EnergyStormPartisan } from '../Content/Items/GraniteEnergyStorm/EnergyStormPartisan.js';
 import { Ukulele } from '../Content/Items/Bard/Ukulele.js';
 import { YewWoodLute } from '../Content/Items/Bard/YewWoodLute.js';
 import { Sitar } from '../Content/Items/Bard/Sitar.js';
@@ -301,8 +329,34 @@ import { BloomGuard } from '../Content/Items/Healer/BloomGuard.js';
 
 
 const List = [
+    ChampionSwiftBlade,
+    ChampionsTrifectaShot,
+    ChampionBomberStaff,
+    ChampionsGodHand,
+    ChampionsRebuttal,
+    BuriedChampionMask,
+
+    BronzeHelmet,
+    BronzeBreastplate,
+    BronzeGreaves,
+    BronzeMallet,
+    BronzePax,
+    ChampionCatcher,
+    GorgonsEye,
+    GorgonGazeStaff,
+
     BloomGuard,
     WeedEater,
+    GraniteHelmet,
+    GraniteChestGuard,
+    GraniteGreaves,
+    GraniteControlRod,
+    GraniteCrossbow,
+    GraniteHamaxe,
+    GranitePickAxe,
+    GraniteIonStaff,
+    GraniteReflector,
+    EnergyStormPartisan,
     FrostPelter,
     HarpyPelter,
     Slugger,

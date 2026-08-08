@@ -3,11 +3,7 @@ import { Terraria, Modules } from '../../../TL/ModImports.js';
 const { Color, Vector2, Effects } = Modules;
 const { Main } = Terraria;
 
-// Getters de Color/Vector2 sao chamadas nativas: resolve uma vez so
 const WHITE = Color.White;
-
-// Circulos unitarios ficam em cache por quantidade de pontos, entao os aneis
-// nao precisam de RotatedBy/SafeNormalize (chamada nativa) por particula.
 const circles = new Map();
 
 function unitCircle(count) {
@@ -25,10 +21,6 @@ function unitCircle(count) {
 }
 
 export class FxHelper {
-    /**
-     * Anel de dust. rotation gira o anel inteiro; inward faz as particulas
-     * convergirem pro centro em vez de explodirem pra fora.
-     */
     static ring(cx, cy, count, radiusX, radiusY, dustType, speed, scale, rotation = 0, alpha = 100, inward = false) {
         const pts = unitCircle(count);
         const cos = Math.cos(rotation);

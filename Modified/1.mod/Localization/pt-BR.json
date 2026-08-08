@@ -281,7 +281,17 @@
     "WeedEater": "Devora-Ervas",
     "BloomGuard": "Guarda Florida",
     "DruidCloak": "Manto do Druida",
-    "LifeDisperser": "Dispersor de Vida"
+    "LifeDisperser": "Dispersor de Vida",
+    "GraniteHelmet": "Elmo de Granito",
+    "GraniteChestGuard": "Peitoral de Granito",
+    "GraniteGreaves": "Grevas de Granito",
+    "GraniteControlRod": "Vara de Controle de Granito",
+    "GraniteCrossbow": "Besta de Granito",
+    "GraniteHamaxe": "Machadelo de Granito",
+    "GranitePickAxe": "Picareta de Granito",
+    "GraniteIonStaff": "Cajado de Íons de Granito",
+    "GraniteReflector": "Refletor de Granito",
+    "EnergyStormPartisan": "Partasana da Tempestade de Energia"
   },
   "ItemTooltip": {
     "ShadeWoodTambourine": "Arremessa um pandeiro que volta pra voce\nToque na Interação Inteligente com ele no ar pra estourar numa onda de choque",
@@ -469,7 +479,14 @@
     "JesterLeggings2": "Aumenta a taxa de regeneração de inspiração em 5%",
     "WeedEater": "Invoca uma erva cadavérica que cospe esporos venenosos",
     "BloomGuard": "Invoca um bulbo florido que gera esporos revigorantes periodicamente\nEncostar nos esporos aumenta brevemente a defesa e a regeneração de vida",
-    "LifeDisperser": "O dano causado cura todos os aliados feridos por perto"
+    "LifeDisperser": "O dano causado cura todos os aliados feridos por perto",
+    "GraniteHelmet": "Energizado defensivamente",
+    "GraniteChestGuard": "Energizado defensivamente",
+    "GraniteGreaves": "Energizado defensivamente",
+    "GraniteCrossbow": "Transforma flechas de madeira em flechas de granito, que sobrecarregam os inimigos com energia\nInimigos sobrecarregados tomam 5% mais dano",
+    "GraniteIonStaff": "Carrega uma explosão ionizada de energia de granito\nCarregar a explosão multiplica sua potência em até 3 vezes\nEscuda a sua vida ao soltar",
+    "GraniteReflector": "Sobrecarrega de energia os inimigos por perto no primeiro acerto",
+    "EnergyStormPartisan": "Causar dano duas vezes em um mesmo golpe libera uma explosão energizada"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -487,7 +504,8 @@
     "TideHunter": "Ataques à distância tem chance de liberar uma rajada de espuma",
     "DepthDiver": "10% de aumento nos danos e na velocidade de movimento",
     "Jester": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos",
-    "Jester2": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos"
+    "Jester2": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos",
+    "Granite": "Imune a calor intenso e a repulsão inimiga, mas seu movimento fica bem mais lento"
   },
   "BuffName": {
     "PearlPikeBuff": "Impeto da Perola",
@@ -506,7 +524,8 @@
     "SingedBuff": "Chamuscado",
     "SheathBuff": "Bainha",
     "SoulEssenceBuff": "Essência das Almas",
-    "BloomBoostBuff": "Impulso Florido"
+    "BloomBoostBuff": "Impulso Florido",
+    "GraniteSurgeBuff": "Sobrecarga de Granito"
   },
   "BuffDescription": {
     "PearlPikeBuff": "Mais velocidade de movimento e altura de pulo",
@@ -522,10 +541,11 @@
     "CharmedBuff": "Decreases contact damage by 25% and movement speed by 10%",
     "SpiritsGraceBuff": "Concede maior tempo de invulnerabilidade e velocidade de movimento",
     "OvergrowthBuff": "A restauração vital cura mais e a chance foi aumentada",
-    "SingedBuff": "Você sofrou uma queimadura feia",
+    "SingedBuff": "Perdendo vida e sem conseguir regenerar",
     "SheathBuff": "Sua bainha equipada está pronta para atacar",
     "SoulEssenceBuff": "Ao atingir 5 acúmulos de essência da alma, você recupera 5 de vida e 20 de mana",
-    "BloomBoostBuff": "Defesa e regeneração de vida aumentadas"
+    "BloomBoostBuff": "Defesa e regeneração de vida aumentadas",
+    "GraniteSurgeBuff": "Tomando 5% mais dano de todas as fontes, além de dano contínuo"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Projétil de Flecha Congelada",
@@ -535,7 +555,14 @@
     "WeedEaterPro2": "Esporo",
     "ShroomBoosterBulb": "Bulbo Florido",
     "ShroomBooster": "Esporo Revigorante",
-    "LifeDisperserPro": "Dispersor de Vida"
+    "LifeDisperserPro": "Dispersor de Vida",
+    "GraniteControlRodBobber": "Boia",
+    "GraniteArrowPro": "Flecha de Granito",
+    "GraniteIonStaffPro": "Carga de Íons",
+    "GraniteIonStaffPro2": "Explosão de Íons",
+    "GraniteReflectorPro": "Refletor de Granito",
+    "EnergyStormPartisanPro": "Partasana da Tempestade de Energia",
+    "EnergyExplosion": "Explosão Energizada"
   },
   "NPCName": {
     "Nestling": "Filhote de Ninho",

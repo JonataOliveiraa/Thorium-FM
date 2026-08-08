@@ -281,7 +281,17 @@
     "WeedEater": "Devorahierbas",
     "BloomGuard": "Guardia Floral",
     "DruidCloak": "Manto del Druida",
-    "LifeDisperser": "Dispersor de Vida"
+    "LifeDisperser": "Dispersor de Vida",
+    "GraniteHelmet": "Casco de Granito",
+    "GraniteChestGuard": "Peto de Granito",
+    "GraniteGreaves": "Grebas de Granito",
+    "GraniteControlRod": "Vara de Control de Granito",
+    "GraniteCrossbow": "Ballesta de Granito",
+    "GraniteHamaxe": "Hachamartillo de Granito",
+    "GranitePickAxe": "Pico de Granito",
+    "GraniteIonStaff": "Bastón de Iones de Granito",
+    "GraniteReflector": "Reflector de Granito",
+    "EnergyStormPartisan": "Partesana de la Tormenta de Energía"
   },
   "ItemTooltip": {
     "ShadeWoodTambourine": "Lanza una pandereta que vuelve a ti\nToca Interaccion Inteligente mientras esta en el aire para reventarla en una onda expansiva",
@@ -469,7 +479,14 @@
     "JesterLeggings2": "Aumenta la velocidad de regeneración de inspiración en un 5%",
     "WeedEater": "Invoca una hierba cadavérica que escupe esporas venenosas",
     "BloomGuard": "Invoca un bulbo floral que genera esporas vigorizantes periódicamente\nTocar las esporas aumenta brevemente la defensa y la regeneración de vida",
-    "LifeDisperser": "El daño causado cura a todos los aliados heridos cercanos"
+    "LifeDisperser": "El daño causado cura a todos los aliados heridos cercanos",
+    "GraniteHelmet": "Energizado defensivamente",
+    "GraniteChestGuard": "Energizado defensivamente",
+    "GraniteGreaves": "Energizado defensivamente",
+    "GraniteCrossbow": "Convierte las flechas de madera en flechas de granito, que sobrecargan a los enemigos con energía\nLos enemigos sobrecargados reciben un 5% más de daño",
+    "GraniteIonStaff": "Carga una descarga ionizada de energía de granito\nCargarla multiplica su potencia hasta 3 veces\nEscuda tu vida al soltarla",
+    "GraniteReflector": "Sobrecarga de energía a los enemigos cercanos en su primer impacto",
+    "EnergyStormPartisan": "Causar daño dos veces en un mismo uso libera una explosión energizada"
   },
   "ArmorSetBonus": {
     "LivingWood": "El ataque automático de tu Brote de Madera Viva perseguirá a los enemigos",
@@ -487,7 +504,8 @@
     "TideHunter": "Los ataques a distancia tienen la probabilidad de liberar una ráfaga de espuma",
     "DepthDiver": "Aumento del 10% en el daño y la velocidad de movimiento",
     "Jester": "10% de probabilidad de hacer sonar una campana sobre tu cabeza, ralentizando brevemente a todos los enemigos cercanos",
-    "Jester2": "10% de probabilidad de hacer sonar una campana sobre tu cabeza, ralentizando brevemente a todos los enemigos cercanos"
+    "Jester2": "10% de probabilidad de hacer sonar una campana sobre tu cabeza, ralentizando brevemente a todos los enemigos cercanos",
+    "Granite": "Inmune al calor intenso y al retroceso enemigo, pero tu movimiento se ralentiza mucho"
   },
   "BuffName": {
     "PearlPikeBuff": "Impulso de Perla",
@@ -506,7 +524,8 @@
     "SingedBuff": "Chamuscado",
     "SheathBuff": "Funda",
     "SoulEssenceBuff": "Esencia de las Almas",
-    "BloomBoostBuff": "Impulso Floral"
+    "BloomBoostBuff": "Impulso Floral",
+    "GraniteSurgeBuff": "Sobrecarga de Granito"
   },
   "BuffDescription": {
     "PearlPikeBuff": "Mas velocidad de movimiento y altura de salto",
@@ -522,10 +541,11 @@
     "CharmedBuff": "Reduce el daño de contacto en un 25% y la velocidad de movimiento en un 10%",
     "SpiritsGraceBuff": "Otorga mayor tiempo de invulnerabilidad y velocidad de movimiento",
     "OvergrowthBuff": "La restauración vital cura más y la probabilidad ha aumentado",
-    "SingedBuff": "Has sufrido una quemadura fea",
+    "SingedBuff": "Perdiendo vida y sin poder regenerar",
     "SheathBuff": "Tu funda equipada está lista para atacar",
     "SoulEssenceBuff": "Al alcanzar 5 acumulaciones de esencia del alma, recuperas 5 de vida y 20 de maná",
-    "BloomBoostBuff": "Defensa y regeneración de vida aumentadas"
+    "BloomBoostBuff": "Defensa y regeneración de vida aumentadas",
+    "GraniteSurgeBuff": "Recibiendo un 5% más de daño de todas las fuentes, además de daño continuo"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Proyectil de Flecha Congelada",
@@ -535,7 +555,14 @@
     "WeedEaterPro2": "Espora",
     "ShroomBoosterBulb": "Bulbo Floral",
     "ShroomBooster": "Espora Vigorizante",
-    "LifeDisperserPro": "Dispersor de Vida"
+    "LifeDisperserPro": "Dispersor de Vida",
+    "GraniteControlRodBobber": "Boya",
+    "GraniteArrowPro": "Flecha de Granito",
+    "GraniteIonStaffPro": "Carga de Iones",
+    "GraniteIonStaffPro2": "Descarga de Iones",
+    "GraniteReflectorPro": "Reflector de Granito",
+    "EnergyStormPartisanPro": "Partesana de la Tormenta de Energía",
+    "EnergyExplosion": "Explosión Energizada"
   },
   "NPCName": {
     "Nestling": "Polluelo",

@@ -7,6 +7,7 @@ import { Rand } from "../../../TL/Modules/Rand.js";
 import { ThoriumPlayer } from "../ThoriumPlayer.js";
 import { ElementalDecayBuff } from "../../Buffs/ElementalDecayBuff.js";
 import { SingedBuff } from "../../Buffs/SingedBuff.js";
+import { GraniteSurgeBuff } from "../../Buffs/GraniteSurgeBuff.js";
 
 const { NPCID } = Terraria.ID;
 const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
@@ -32,12 +33,14 @@ let CharmedBuffType = -1;
 let ElementalDecayBuffType = -1;
 let SingedBuffType = -1
 let DistortedTimeEnemy = -1
+let GraniteSurgeBuffType = -1
 function initBuffTypes() {
     StunnedBuffType = ModBuff.getTypeByName("StunnedBuff");
     CharmedBuffType = ModBuff.getTypeByName("CharmedBuff");
     ElementalDecayBuffType = ModBuff.getTypeByName("ElementalDecayBuff");
     SingedBuffType = ModBuff.getTypeByName("SingedBuff")
     DistortedTimeEnemy = ModBuff.getTypeByName("DistortedTimeEnemy")
+    GraniteSurgeBuffType = ModBuff.getTypeByName("GraniteSurgeBuff")
 }
 
 const dtVec2 = Vector2.new(0.60, 0.60)
@@ -175,6 +178,35 @@ export class UpdateNPCBuff extends GlobalNPC {
         }
 
         return true;
+    }
+
+    // DoT do Granite Surge. Vai por lifeRegen (o caminho nativo de debuff)
+    // em vez de um contador em localAI, que ja esta ocupado por outros NPCs.
+    UpdateLifeRegen(npc, damage) {
+        if (GraniteSurgeBuffType === -1) initBuffTypes();
+        if (npc[FindBuffIndex](GraniteSurgeBuffType) < 0) return;
+
+        if (npc.lifeRegen > 0) npc.lifeRegen = 0;
+        npc.lifeRegen -= GraniteSurgeBuff.Damage;
+
+        if (Math.random() >= 0.2) return;
+        const sparkIdx = NewDust(
+            npc.position, npc.width, npc.height,
+            59, 0, 0, 100, TRANSPARENT, 1
+        );
+        const spark = Terraria.Main.dust[sparkIdx];
+        if (spark) spark.noGravity = true;
+    }
+
+    // O framework nao expoe um hook de "dano recebido" pra NPC, entao o extra
+    // de 5% e aplicado como um golpe sem intera\u00e7\u00e3o logo apos o acerto.
+    OnHitByPlayer(npc, player, item, damageDone, knockBack) {
+        if (GraniteSurgeBuffType === -1) initBuffTypes();
+        if (!damageDone || npc[FindBuffIndex](GraniteSurgeBuffType) < 0) return;
+
+        const extra = Math.floor(damageDone * GraniteSurgeBuff.DamageTakenBonus);
+        if (extra < 1) return;
+        npc[StrikeNPCNoInteraction](extra, 0, npc.direction ?? 1, false, true, false);
     }
 
     ModifyHitPlayer(npc, player, modifiers) {

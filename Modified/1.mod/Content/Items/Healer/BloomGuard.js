@@ -65,3 +65,19 @@ export class BloomGuard extends ModHealerItem {
         return false;
     }
 }
+
+
+class a {
+    b() {
+
+    }
+
+    static b() {
+
+    }
+
+    c() {
+        this.b();
+        a.b();
+    }
+}
