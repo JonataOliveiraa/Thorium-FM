@@ -149,7 +149,7 @@ export class Abomination extends ModNPC {
     OnKill(npc) {
         const target = npc.target >= 0 && npc.target < 255 ? npc.target : 255;
         const center = npc.Center;
-        const source = Terraria.Projectile.GetNoneSource();
+        const source = null;
 
         for (const name of DEATH_SPAWNS) {
             const type = ModNPC.getTypeByName(name);

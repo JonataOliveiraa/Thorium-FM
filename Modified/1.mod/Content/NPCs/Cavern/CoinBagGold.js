@@ -106,7 +106,7 @@ export class CoinBagGold extends ModNPC {
 
     DropCoins(npc, amount) {
         Terraria.Item['int NewItem(IEntitySource source, int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'](
-            npc.GetItemSource_Loot(),
+            null,
             Math.floor(npc.position.X),
             Math.floor(npc.position.Y),
             npc.width,

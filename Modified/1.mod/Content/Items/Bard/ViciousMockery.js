@@ -64,7 +64,7 @@ export class ViciousMockery extends ModBardItem {
             position.Y + advanceY - perpY
         );
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

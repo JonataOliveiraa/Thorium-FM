@@ -37,7 +37,7 @@ export class CoralCrossbowPro extends ModProjectile {
 
     OnHitNPC(proj, npc) {
         const pro2Type = ModProj.getTypeByName('CoralCrossbowPro2');
-        const source = proj.GetProjectileSource_FromThis();
+        const source = null;
         const speed = 6;
         const angles = [-Math.PI / 4, 0, Math.PI / 4];
 

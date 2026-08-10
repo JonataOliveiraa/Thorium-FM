@@ -33,7 +33,7 @@ export class ThunderBirdScreech extends ModProjectile {
 
   OnKill(proj) {
     NewProjectile(
-      Terraria.Projectile.GetNoneSource(),
+      null,
       proj.Center.X, proj.Center.Y,
       0, 0, ModProjectile.getTypeByName("TheGrandThunderBirdEnd"), 0, 0,
       Terraria.Main.myPlayer, 0, 0, 0, null

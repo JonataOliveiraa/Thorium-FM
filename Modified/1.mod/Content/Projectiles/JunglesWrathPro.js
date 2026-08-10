@@ -97,7 +97,7 @@ export class JunglesWrathPro extends ModProjectile {
         if (_burstType === -1) _burstType = ModProjectile.getTypeByName('JunglesWrathPro2') ?? -2;
         if (_burstType < 0) return;
 
-        const source = proj.GetProjectileSource_FromThis();
+        const source = null;
         const count = 12;
 
         for (let i = 0; i < count; i++) {

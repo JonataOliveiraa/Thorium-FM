@@ -53,7 +53,7 @@ export class BloomingBell extends ModBardItem {
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         if (_proType < 0) return true;
 
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
         const spread = 30 * Math.PI / 180;
 
         for (let i = 0; i < 5; i++) {

@@ -28,7 +28,7 @@ export class WebGunPro1 extends ModProjectile {
     OnKill(proj, timeLeft) {
 
         NewProjectile(
-            proj.GetProjectileSource_FromThis(),
+            null,
             Vector2.new(proj.Center.X, proj.Center.Y),
             Vector2.new(0, 0),
             ModProjectile.getTypeByName('WebGunPro2'),

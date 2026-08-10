@@ -12,7 +12,6 @@ const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terrari
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewDustDirect = Terraria.Dust['Dust NewDustDirect(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 const FindTeleportSpot = 'bool AI_AttemptToFindTeleportSpot(ref Vector2 chosenTile, int targetTileX, int targetTileY, int rangeFromTargetTile, int telefragPreventionDistanceInTiles, int solidTileCheckFluff, bool solidTileCheckCentered, bool teleportInAir)';
 
 const PHASE_IDLE = 0;
@@ -220,7 +219,7 @@ export class CorpseWeed extends ModNPC {
         const y = center.Y - 18;
         const aim = Vector2.SafeNormalize(Vector2.new(pCenter.X - x, pCenter.Y - y), Vector2.UnitX);
 
-        NewProjectile(npc[GetSource_ForNPC](), x, y, aim.X * 8, aim.Y * 8, _proType, 25, 0, Main.myPlayer, 0, 0, 0, null);
+        NewProjectile(null, x, y, aim.X * 8, aim.Y * 8, _proType, 25, 0, Main.myPlayer, 0, 0, 0, null);
     }
 
     _snapToGround(npc) {

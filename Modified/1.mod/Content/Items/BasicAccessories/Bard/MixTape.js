@@ -5,7 +5,7 @@ import { ModItem } from "../../../../TL/ModItem.js";
 export class MixTape extends ModItem {
     constructor() {
         super();
-        this.Texture = "Textures/Items/BasicAccessories/Bard/" + this.constructor.name;
+        this.Texture = "Items/BasicAccessories/Bard/" + this.constructor.name;
     }
 
     SetDefaults() {

@@ -55,7 +55,7 @@ export class AquamarineWineGlassPro extends ModProjectile {
         if (proj.owner !== Main.myPlayer) return;
 
         const shardType = ModProjectile.getTypeByName('AquamarineWineGlassPro2');
-        const source = proj.GetProjectileSource_FromThis();
+        const source = null;
         for (let i = 0; i < 5; i++) {
             const vel = Vector2.new(
                 Rand.Next(-5, 6),

@@ -4,6 +4,7 @@ import { BuffLoader } from './../Loaders/BuffLoader.js';
 import { NPCLoader } from './../Loaders/NPCLoader.js';
 import { CombinedLoader } from './../Loaders/CombinedLoader.js';
 import { NPCSpawnInfo } from './../NPCSpawnInfo.js';
+import { ThoriumPlayer } from '../../Content/Global/ThoriumPlayer.js';
 
 const NewText = Terraria.Main['void NewText(string newText, byte R, byte G, byte B)'];
 const { Rectangle, Vector2 } = Modules;
@@ -709,9 +710,15 @@ export class NPCHooks {
                     
                     const spawnX = npc.Center.X;
                     const spawnY = npc.Bottom.Y;
-                    const newNpc = NPCLoader.ChooseSpawn(new NPCSpawnInfo(spawnX, spawnY, Terraria.Main.player[Terraria.Main.myPlayer]));
+                    const spawnPlayer = Terraria.Main.player[Terraria.Main.myPlayer];
+                    const newNpc = NPCLoader.ChooseSpawn(new NPCSpawnInfo(spawnX, spawnY, spawnPlayer));
                     if (newNpc == null || newNpc === 0) return;
                     if (newNpc == -1) {
+                        npc.active = false;
+                        return;
+                    }
+
+                    if (spawnPlayer && ThoriumPlayer.ShouldBlockRepellentSpawn(spawnPlayer, newNpc)) {
                         npc.active = false;
                         return;
                     }
@@ -721,7 +728,7 @@ export class NPCHooks {
                         NPCLoader.getModNPC(newNpc)?.SpawnNPC(spawnX, spawnY);
                     } else {
                         Terraria.NPC.NewNPC(
-                            Terraria.NPC.GetSpawnSourceForNaturalSpawn(),
+                            null,
                             spawnX, spawnY, newNpc,
                             0, 0, 0, 0, 0, 255
                         );

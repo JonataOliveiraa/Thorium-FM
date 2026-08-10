@@ -50,7 +50,7 @@ export class PrehistoricAmberStaff extends ModItem {
         type = Rand.NextBool() ? trexType : pterodactylType;
 
         const projIndex = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position, velocity,
             type, damage, knockBack,
             player.whoAmI, 0, 10, -1, null

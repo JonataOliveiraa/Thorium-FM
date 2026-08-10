@@ -59,7 +59,7 @@ export class BuccaneerBlunderBuss extends ModItem {
             const velX = speed * speedMult * Math.sin(angle);
             const velY = speed * speedMult * Math.cos(angle);
             NewProjectile(
-                player.GetProjectileSource_Item(item),
+                null,
                 position,
                 Vector2.new(velX, velY),
                 type,

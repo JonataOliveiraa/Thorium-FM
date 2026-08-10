@@ -18,7 +18,6 @@ const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewDustDirect = Terraria.Dust['Dust NewDustDirect(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 const FindTeleportSpot = 'bool AI_AttemptToFindTeleportSpot(ref Vector2 chosenTile, int targetTileX, int targetTileY, int rangeFromTargetTile, int telefragPreventionDistanceInTiles, int solidTileCheckFluff, bool solidTileCheckCentered, bool teleportInAir)';
 const DRAW = 'void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)';
 
@@ -326,7 +325,7 @@ export class CorpseBloom extends ModNPC {
         SoundHelper.play(SFX_SPAWN, center.X, center.Y);
         if (Main.netMode === 1 || _petalType < 0) return;
 
-        const source = npc[GetSource_ForNPC]();
+        const source = null;
         const x = center.X;
         const y = center.Y - 26;
         const count = Math.min(MAX_PETALS, MAX_PETALS - Math.floor(npc.ai[2]));
@@ -343,7 +342,7 @@ export class CorpseBloom extends ModNPC {
         SoundHelper.play(SFX_SHOOT, center.X, center.Y);
         if (Main.netMode === 1 || _proType < 0) return;
 
-        const source = npc[GetSource_ForNPC]();
+        const source = null;
         const away = player.Center.X < center.X;
         const minX = away ? -3 : 0.5;
         const maxX = away ? 0.5 : 3;
@@ -401,7 +400,7 @@ export class CorpseBloom extends ModNPC {
         SoundHelper.play(SFX_ANGER, center.X, center.Y);
 
         if (Main.netMode !== 1 && _weedType >= 0) {
-            const index = NewNPC(npc[GetSource_ForNPC](), center.X, center.Y - 14, _weedType, 0, 0, 0, 0, 0, 255);
+            const index = NewNPC(null, center.X, center.Y - 14, _weedType, 0, 0, 0, 0, 0, 255);
             if (index < Main.maxNPCs) Main.npc[index].localAI[2] = npc.whoAmI;
         }
 

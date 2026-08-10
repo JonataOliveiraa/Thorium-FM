@@ -38,12 +38,18 @@ export class GorgonGazeStaff extends ModItem {
     if (_pro1 >= 0) this.Item.shoot = _pro1;
   }
 
+  ModifyShootStats(item, player, stats) {
+    if (player.whoAmI === Terraria.Main.myPlayer) {
+      stats.position = Terraria.Main.MouseWorld;
+    }
+  }
+
   HoldItem(item, player) {
     if (_pro2 === -1) _pro2 = ModProjectile.getTypeByName('GorgonGazeStaffPro2') ?? -2;
 
     if (_pro2 > 0 && player.whoAmI === Terraria.Main.myPlayer) {
       if (player.ownedProjectileCounts[_pro2] < 1) {
-        const source = player.GetSpawnSource_ItemUse(item);
+        const source = null;
         NewProjectile(source, player.Center, Vector2.Zero, _pro2, 0, 0, player.whoAmI, 0, 0, 0, null);
       }
     }

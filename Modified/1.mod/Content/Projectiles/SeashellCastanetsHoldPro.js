@@ -46,7 +46,7 @@ export class SeashellCastanetsHoldPro extends ModProjectile {
                 const kb = proj.knockBack * (1 + ai[0]);
 
                 NewProjectile(
-                    proj.GetProjectileSource_FromThis(),
+                    null,
                     proj.Center,
                     Vector2.Multiply(dirToMouse, speed),
                     ModProjectile.getTypeByName('SeashellCastanetsProj'),
@@ -54,7 +54,7 @@ export class SeashellCastanetsHoldPro extends ModProjectile {
                 );
 
                 NewProjectile(
-                    proj.GetProjectileSource_FromThis(),
+                    null,
                     proj.Center,
                     Vector2.Multiply(dirToMouse, 0.1),
                     ModProjectile.getTypeByName('SeashellCastanetsEffect'),

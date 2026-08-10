@@ -21,7 +21,7 @@ export class QueenJellyfishBag extends ModItem {
   }
 
   OpenBossBag(item, player) {
-    const source = player['IEntitySource GetItemSource_OpenItem(int itemType)'](item.type);
+    const source = null;
     const QuickSpawnItem = player['void QuickSpawnItem(IEntitySource source, int item, int stack)'];
 
     const items = [

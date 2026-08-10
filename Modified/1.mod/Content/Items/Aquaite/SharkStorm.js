@@ -54,7 +54,7 @@ export class SharkStorm extends ModItem {
         const velY = velocity.X * sin + velocity.Y * cos;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position,
             Vector2.new(velX, velY),
             type,

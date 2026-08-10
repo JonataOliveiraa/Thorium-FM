@@ -150,6 +150,19 @@ export class ConfusedZombie extends ModNPC {
     npcShop.Add(ModItem.getTypeByName('BentZombieArm'), 1, Terraria.Item.buyPrice(0, 6, 0, 0));
     npcShop.Add(ModItem.getTypeByName('ViciousMockery'), 1, Terraria.Item.buyPrice(0, 15, 0, 0));
     npcShop.Add(ModItem.getTypeByName('GrimPointer'), 1, Terraria.Item.buyPrice(0, 1, 0, 0));
+
+    // Repellents
+    const batRepellentId = ModItem.getTypeByName('BatRepellent');
+    const fishRepellentId = ModItem.getTypeByName('FishRepellent');
+    const insectRepellentId = ModItem.getTypeByName('InsectRepellent');
+    const skeletonRepellentId = ModItem.getTypeByName('SkeletonRepellent');
+    const zombieRepellentId = ModItem.getTypeByName('ZombieRepellent');
+
+    if (batRepellentId > 0) npcShop.Add(batRepellentId, 1, Terraria.Item.buyPrice(0, 0, 50, 0));
+    if (fishRepellentId > 0) npcShop.Add(fishRepellentId, 1, Terraria.Item.buyPrice(0, 0, 50, 0));
+    if (insectRepellentId > 0) npcShop.Add(insectRepellentId, 1, Terraria.Item.buyPrice(0, 0, 50, 0));
+    if (skeletonRepellentId > 0) npcShop.Add(skeletonRepellentId, 1, Terraria.Item.buyPrice(0, 0, 50, 0));
+    if (zombieRepellentId > 0) npcShop.Add(zombieRepellentId, 1, Terraria.Item.buyPrice(0, 0, 50, 0));
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

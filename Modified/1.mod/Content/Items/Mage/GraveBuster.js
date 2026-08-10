@@ -42,7 +42,7 @@ export class GraveBuster extends ModItem {
         const dir = player.direction > 0 ? 1 : -1;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             player.Center.X + dir * SPAWN_OFFSET,
             player.Bottom.Y - 10,
             dir * WALK_SPEED, 0,

@@ -53,7 +53,7 @@ export class SkywareLute extends ModBardItem {
     );
 
     NewProjectile(
-      player.GetProjectileSource_Item(item),
+      null,
       spawnPos, velocity, type, damage, knockBack,
       player.whoAmI, 0, 0, 0, null
     );

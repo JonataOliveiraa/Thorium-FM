@@ -119,7 +119,7 @@ export class FallenChampion1 extends ModNPC {
         const len = Math.sqrt(dx * dx + dy * dy) || 1;
         const speed = 9;
         NewProjectile(
-          npc.GetSpawnSource_ForProjectile(),
+          null,
           npcCenter.X, npcCenter.Y,
           (dx / len) * speed, (dy / len) * speed,
           _buriedArrowType, 10, 0, npc.target, 0, 0, 0, null

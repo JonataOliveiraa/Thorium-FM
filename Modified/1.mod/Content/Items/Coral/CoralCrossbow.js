@@ -37,7 +37,7 @@ export class CoralCrossbow extends ModItem {
             : projType;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position,
             Vector2.Multiply(velocity, 1.2),
             finalType,

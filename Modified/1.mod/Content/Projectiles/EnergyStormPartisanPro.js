@@ -44,7 +44,7 @@ export class EnergyStormPartisanPro extends ModProjectile {
         if (_blastType < 0 || Main.myPlayer !== proj.owner) return;
 
         NewProjectile(
-            proj.GetProjectileSource_FromThis(),
+            null,
             npc.Center, Vector2.new(0.2 * proj.direction, 0),
             _blastType, proj.damage, proj.knockBack, proj.owner, 0, 0, 0, null
         );

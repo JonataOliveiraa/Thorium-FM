@@ -95,7 +95,7 @@ export class GraniteIonStaffPro extends ModProjectile {
         const scale = (len > BURST_SPEED ? BURST_SPEED / len : 1) * 1.15;
 
         NewProjectile(
-            proj.GetProjectileSource_FromThis(),
+            null,
             center, Vector2.new(aim.X * scale, aim.Y * scale),
             _burstType, proj.damage, 3, proj.owner, empower, 0, 0, null
         );

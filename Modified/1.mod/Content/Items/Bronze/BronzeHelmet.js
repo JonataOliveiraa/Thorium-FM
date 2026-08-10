@@ -1,5 +1,6 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
+import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
 export class BronzeHelmet extends ModItem {
   constructor() {
@@ -33,7 +34,6 @@ export class BronzeHelmet extends ModItem {
   }
 
   UpdateArmorSet(item, player) {
-    const { ThoriumPlayer } = require('../../Global/ThoriumPlayer.js');
     ThoriumPlayer.setBronze = true;
   }
 

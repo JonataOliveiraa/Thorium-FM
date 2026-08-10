@@ -29,6 +29,7 @@ const BlackList = new Set([
 ]);
 
 let StunnedBuffType = -1;
+let PetrifyBuffType = -1;
 let CharmedBuffType = -1;
 let ElementalDecayBuffType = -1;
 let SingedBuffType = -1
@@ -36,6 +37,7 @@ let DistortedTimeEnemy = -1
 let GraniteSurgeBuffType = -1
 function initBuffTypes() {
     StunnedBuffType = ModBuff.getTypeByName("StunnedBuff");
+    PetrifyBuffType = ModBuff.getTypeByName("PetrifyBuff");
     CharmedBuffType = ModBuff.getTypeByName("CharmedBuff");
     ElementalDecayBuffType = ModBuff.getTypeByName("ElementalDecayBuff");
     SingedBuffType = ModBuff.getTypeByName("SingedBuff")
@@ -60,24 +62,43 @@ export class UpdateNPCBuff extends GlobalNPC {
     }
 
     PreAI(npc) {
+        if (!npc.boss) {
+            if (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npc)) {
+                if (npc.target !== 255) npc.target = 255;
+            }
+            if (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npc)) {
+                if (npc.target !== 255) npc.target = 255;
+            }
+            if (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npc)) {
+                if (npc.target !== 255) npc.target = 255;
+            }
+            if (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npc)) {
+                if (npc.target !== 255) npc.target = 255;
+            }
+            if (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npc)) {
+                if (npc.target !== 255) npc.target = 255;
+            }
+        }
+
         if (StunnedBuffType === -1) initBuffTypes();
         if (npc.buffType[0] === 0) return true;
 
         // Um passo unico pela lista de buffs em vez de 5 FindBuffIndex nativos
         // por NPC por tick. Sai fora no primeiro slot vazio.
-        let stunned = false, charmed = false, elemental = false, singed = false, distorted = false;
+        let stunned = false, petrified = false, charmed = false, elemental = false, singed = false, distorted = false;
         const slots = npc.buffType.length;
         for (let i = 0; i < slots; i++) {
             const t = npc.buffType[i];
             if (t === 0) break;
             if (t === StunnedBuffType) stunned = true;
+            else if (t === PetrifyBuffType) petrified = true;
             else if (t === CharmedBuffType) charmed = true;
             else if (t === ElementalDecayBuffType) elemental = true;
             else if (t === SingedBuffType) singed = true;
             else if (t === DistortedTimeEnemy) distorted = true;
         }
 
-        if (!stunned && !charmed && !elemental && !singed && !distorted) {
+        if (!stunned && !petrified && !charmed && !elemental && !singed && !distorted) {
             const slot = npc.whoAmI;
             if (tinted[slot]) {
                 tinted[slot] = 0;
@@ -88,7 +109,12 @@ export class UpdateNPCBuff extends GlobalNPC {
 
         const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 900 && !npc.boss;
 
-        if (stunned && isSmallNonBoss) {
+        if (petrified && isSmallNonBoss) {
+            npc.position = npc.oldPosition;
+            npc.netOffset = Vector2.Zero;
+            npc.frameCounter = 0;
+            npc.velocity = Vector2.Zero;
+        } else if (stunned && isSmallNonBoss) {
             npc.velocity = Vector2.Zero;
         }
 

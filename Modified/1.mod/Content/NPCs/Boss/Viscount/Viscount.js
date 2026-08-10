@@ -20,7 +20,6 @@ const { SpriteEffects } = Microsoft.Xna.Framework.Graphics;
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
 const CanHit = Terraria.Collision['bool CanHit(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)'];
 const SolidCollision = Terraria.Collision['bool SolidCollision(Vector2 Position, int Width, int Height)'];
@@ -324,7 +323,7 @@ export class Viscount extends ModNPC {
         }
 
         let source = null;
-        const spawnSource = () => source ?? (source = npc[GetSource_ForNPC]());
+        const spawnSource = () => source ?? (source = null);
         const vel = npc.velocity;
         const npcCenter = npc.Center;
         const playerCenter = player.Center;

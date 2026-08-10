@@ -11,7 +11,6 @@ const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
 const NewDust = Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const CanHit = Collision['bool CanHit(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 
 let _spikeBallType = -1;
 
@@ -132,7 +131,7 @@ export class GoblinTrapper extends ModNPC {
                     const len = Math.sqrt(dx * dx + dy * dy) || 1;
 
                     NewProjectile(
-                        npc[GetSource_ForNPC](),
+                        null,
                         spawnX, spawnY,
                         (dx / len) * speed, (dy / len) * speed,
                         _spikeBallType, 10, 0, Main.myPlayer,

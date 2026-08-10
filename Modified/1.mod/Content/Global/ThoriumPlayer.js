@@ -254,6 +254,13 @@ export class ThoriumPlayer extends ModPlayer {
   static LuckyRabbitsFootEquipped = false;
   static BandofReplenishmentEquipped = false;
 
+  // Repellent Buff Flags
+  static repellentBats = false;
+  static repellentFish = false;
+  static repellentInsects = false;
+  static repellentSkeletons = false;
+  static repellentZombies = false;
+
   // Champion & Bronze
   static championsRebuttal = false;
   static championDamage = 0;
@@ -365,6 +372,12 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.CoralSetResetCount = 0;
     ThoriumPlayer.championsRebuttal = false;
     ThoriumPlayer.setBronze = false;
+
+    ThoriumPlayer.repellentBats = false;
+    ThoriumPlayer.repellentFish = false;
+    ThoriumPlayer.repellentInsects = false;
+    ThoriumPlayer.repellentSkeletons = false;
+    ThoriumPlayer.repellentZombies = false;
   }
 
   PreUpdate(player) {
@@ -590,6 +603,26 @@ export class ThoriumPlayer extends ModPlayer {
     ) {
       player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
     }
+
+    if (ThoriumPlayer.repellentBats || ThoriumPlayer.repellentFish || ThoriumPlayer.repellentInsects || ThoriumPlayer.repellentSkeletons || ThoriumPlayer.repellentZombies) {
+      const npcTypeCount = Terraria.ID.NPCID.Count ?? 700;
+      const noAggro = player.npcTypeNoAggro;
+
+      for (let type = 1; type < npcTypeCount && type < noAggro.length; type++) {
+        const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[type];
+        if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) continue;
+
+        if (
+          (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
+          (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
+          (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
+          (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
+          (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
+        ) {
+          noAggro[type] = true;
+        }
+      }
+    }
   }
 
   OnHitNPC(player, item, npc, damageDone, knockBack) {
@@ -646,7 +679,7 @@ export class ThoriumPlayer extends ModPlayer {
         ThoriumPlayer._lightStrikeType = ModProjectile.getTypeByName('LightStrike') ?? -2;
       }
       if (ThoriumPlayer._lightStrikeType > 0 && projectile.type !== ThoriumPlayer._lightStrikeType) {
-        const source = projectile.GetProjectileSource_FromThis();
+        const source = null;
         NewProjectile(source, Vector2.new(npc.Center.X, npc.Center.Y - 600), Vector2.new(0, 15), ThoriumPlayer._lightStrikeType, 30, 1, player.whoAmI, 0, 0, 0, null);
       }
     }
@@ -667,7 +700,7 @@ export class ThoriumPlayer extends ModPlayer {
         if (ThoriumPlayer._incubatedSpiderType === -1) {
           ThoriumPlayer._incubatedSpiderType = ModProjectile.getTypeByName('IncubatedSpider');
         }
-        const source = projectile.GetProjectileSource_FromThis();
+        const source = null;
         NewProjectile(source, npc.Center, Vector2.new(0, -2), ThoriumPlayer._incubatedSpiderType, 2, 0, player.whoAmI, 0, 0, 0, null);
         ThoriumPlayer.IncubatedEggCount++;
       }
@@ -788,7 +821,7 @@ export class ThoriumPlayer extends ModPlayer {
       const angle = Rand.NextFloat() * Math.PI * 2;
       ThoriumPlayer._vec.X = Math.cos(angle) * speed;
       ThoriumPlayer._vec.Y = Math.sin(angle) * speed;
-      const source = Terraria.Projectile.GetNoneSource();
+      const source = null;
       const healValue = Math.floor(damage * 0.25);
 
       NewProjectile(source, player.Center, ThoriumPlayer._vec, ThoriumPlayer._seaTurtlesBulwarkProType, 0, 0, player.whoAmI, 0, 0, healValue, null);
@@ -1083,7 +1116,7 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer._vec.X = dirX * speed;
       ThoriumPlayer._vec.Y = dirY * speed;
       const damage = player.HeldItem != null ? player.HeldItem.damage : 10;
-      const source = player.GetProjectileSource_Item(player.HeldItem);
+      const source = null;
       NewProjectile(source, npc.Center, ThoriumPlayer._vec, ThoriumPlayer._crietzProType, damage, 4, player.whoAmI, 0, 0, 0, null);
     }
     ThoriumPlayer.CrietzInvoke = false;
@@ -1119,7 +1152,7 @@ export class ThoriumPlayer extends ModPlayer {
     const angle = Rand.NextFloat() * Math.PI * 2;
     ThoriumPlayer._vec2.X = Math.cos(angle) * speed;
     ThoriumPlayer._vec2.Y = Math.sin(angle) * speed;
-    const source = Terraria.Projectile.GetNoneSource();
+    const source = null;
     NewProjectile(source, npc.Center, ThoriumPlayer._vec2, ThoriumPlayer._fabergeEggProType, 0, 0, player.whoAmI, 0, 0, 0, null);
     ThoriumPlayer.FabergeEggDelay = ThoriumPlayer.FabergeEggMaxDelay;
   }
@@ -1264,7 +1297,7 @@ export class ThoriumPlayer extends ModPlayer {
     Terraria.Projectile[
       'int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'
     ](
-      player.GetProjectileSource_SetBonus(bellType),
+      null,
       player.Center,
       Vector2.Zero,
       bellType,
@@ -1361,4 +1394,65 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.class.Healer.radiantCrit += crit
     }
   }
+
+  // Repellent NPC classification helpers
+  static IsBatNPC(npc) {
+    if (!npc) return false;
+    if (Terraria.ID.NPCID.Sets.DemonEyes[npc.type]) return true;
+    if (npc.aiStyle === 14) return true;
+    const name = npc.TypeName ?? npc.name ?? '';
+    return name.includes('Bat') || name.includes('Moray');
+  }
+
+  static IsFishNPC(npc) {
+    if (!npc) return false;
+    if (npc.aiStyle === 16) return true;
+    if (npc.wet && !npc.townNPC && !npc.friendly) return true;
+    const name = npc.TypeName ?? npc.name ?? '';
+    return name.includes('Fish') || name.includes('Shark') || name.includes('Jellyfish') || name.includes('Piranha');
+  }
+
+  static IsInsectNPC(npc) {
+    if (!npc) return false;
+    if (npc.aiStyle === 5 || npc.aiStyle === 13 || npc.aiStyle === 15) return true;
+    const name = npc.TypeName ?? npc.name ?? '';
+    return name.includes('Hornet') || name.includes('Bee') || name.includes('Spider') || name.includes('Antlion') || name.includes('Fly') || name.includes('Beetle') || name.includes('Bug');
+  }
+
+  static IsSkeletonNPC(npc) {
+    if (!npc) return false;
+    if (Terraria.ID.NPCID.Sets.Skeletons[npc.type]) return true;
+    const name = npc.TypeName ?? npc.name ?? '';
+    return name.includes('Skeleton') || name.includes('Bone');
+  }
+
+  static IsZombieNPC(npc) {
+    if (!npc) return false;
+    if (Terraria.ID.NPCID.Sets.Zombies[npc.type]) return true;
+    const name = npc.TypeName ?? npc.name ?? '';
+    return name.includes('Zombie') || name.includes('Mummy') || name.includes('Ghoul');
+  }
+
+  static ShouldBlockRepellentSpawn(player, npcType) {
+    if (!player || npcType <= 0) return false;
+    if (!(
+      ThoriumPlayer.repellentBats ||
+      ThoriumPlayer.repellentFish ||
+      ThoriumPlayer.repellentInsects ||
+      ThoriumPlayer.repellentSkeletons ||
+      ThoriumPlayer.repellentZombies
+    )) return false;
+
+    const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[npcType];
+    if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) return false;
+
+    return (
+      (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
+      (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
+      (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
+      (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
+      (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
+    );
+  }
+
 }

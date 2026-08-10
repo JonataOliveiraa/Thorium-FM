@@ -65,7 +65,7 @@ export class VampireScepterPro extends ModProjectile {
         // Cada orbe volta pro jogador e cura 1 ao chegar
         for (let i = 0; i < heal; i++) {
             NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 proj.Center.X, proj.Center.Y,
                 Math.random() * 6 - 3, Math.random() * 6 - 3,
                 _orbType, 0, 0, proj.owner, 0, 0, 0, null

@@ -55,7 +55,7 @@ export class ScubaCurva extends ModBardItem {
         );
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos,
             projVel,
             type,

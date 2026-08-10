@@ -73,7 +73,7 @@ export class SpittingJellyfish extends ModNPC {
             if (_bubblePulseType >= 0) {
                 const dist = Math.sqrt(dx * dx + dy * dy) || 1;
                 NewProjectile(
-                    Terraria.Projectile.GetNoneSource(),
+                    null,
                     npc.Center.X, npc.Center.Y,
                     (dx / dist) * 6, (dy / dist) * 6,
                     _bubblePulseType, 12, 2, 255, 0, 0, 0, null

@@ -260,7 +260,7 @@ export class WorldGenHooks {
                         }
                     }
                     
-                    let index8 = Terraria.NPC.NewNPC(Terraria.NPC.GetSpawnSourceForTownSpawn(), spawnTileX * 16, spawnTileY * 16, index1, 1, 0, 0, 0, 0, 255);
+                    let index8 = Terraria.NPC.NewNPC(null, spawnTileX * 16, spawnTileY * 16, index1, 1, 0, 0, 0, 0, 255);
                     if (index8 === Terraria.Main.maxNPCs && Terraria.Main.npc[index8].type !== index1) {
                         return TownNPCSpawnResult.BlockedTooManyNPCs;
                     }

@@ -96,7 +96,7 @@ export class ShadeWoodTambourine extends ModBardItem {
         if (_burstType < 0) return false;
 
         // Estoura uma onda em cima de cada pandeiro que estiver no ar
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
         let fired = false;
 
         for (let i = 0; i < Main.maxProjectiles; i++) {

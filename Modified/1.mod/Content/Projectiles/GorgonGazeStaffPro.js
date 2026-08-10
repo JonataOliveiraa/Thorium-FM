@@ -4,7 +4,7 @@ import { ModBuff } from '../../TL/ModBuff.js';
 
 const { Vector2, Color } = Modules;
 
-let _stunType = -1;
+let _petrifyType = -1;
 
 export class GorgonGazeStaffPro extends ModProjectile {
   constructor() {
@@ -32,8 +32,8 @@ export class GorgonGazeStaffPro extends ModProjectile {
 
   OnHitNPC(proj, npc) {
     if (npc && npc.active) {
-      if (_stunType === -1) _stunType = ModBuff.getTypeByName('StunnedBuff') ?? Terraria.ID.BuffID.Confused;
-      npc.AddBuff(_stunType, 30, false);
+      if (_petrifyType === -1) _petrifyType = ModBuff.getTypeByName('PetrifyBuff') ?? -2;
+      if (_petrifyType > 0) npc.AddBuff(_petrifyType, 120, false);
     }
   }
 

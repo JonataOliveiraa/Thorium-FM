@@ -46,7 +46,7 @@ export class ConchShell extends ModBardItem {
         for (const speed of speeds) {
             const vel = Vector2.new(speed * dir, 0);
             NewProjectile(
-                player.GetProjectileSource_Item(item),
+                null,
                 spawnPos, vel, type, damage, knockBack,
                 player.whoAmI, 0, 0, 0, null
             );

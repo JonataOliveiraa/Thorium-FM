@@ -38,7 +38,7 @@ export class ChampionsGodHand extends ModItem {
   Shoot(item, player, position, velocity, type, damage, knockBack) {
     if (_boltType === -1) _boltType = ModProjectile.getTypeByName('LightBolt') ?? -2;
     const projType = _boltType > 0 ? _boltType : type;
-    const source = player.GetSpawnSource_ItemUse_WithAmmo(item, projType);
+    const source = null;
 
     const fastVel = Vector2.new(velocity.X * 1.65, velocity.Y * 1.65);
     NewProjectile(source, position, fastVel, projType, damage, knockBack, player.whoAmI, 0, 0, 0, null);

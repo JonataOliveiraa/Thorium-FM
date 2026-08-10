@@ -78,7 +78,7 @@ export class FeatherBarrierRod extends ModHealerItem {
             }
         }
 
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
         const center = player.Center;
 
         for (let i = 0; i < FEATHERS; i++) {

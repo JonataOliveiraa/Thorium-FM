@@ -75,7 +75,7 @@ export class StrangeBulb extends ModNPC {
                     const velY = (distanceY / distance) * speed;
 
                     NewProjectile(
-                        Projectile.GetNoneSource(),
+                        null,
                         Vector2.new(npc.Center.X, npc.Center.Y - 10),
                         Vector2.new(velX, velY),
                         ModProjectile.getTypeByName('StrangeBulbPro'),

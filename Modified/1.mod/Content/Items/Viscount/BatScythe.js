@@ -68,7 +68,7 @@ export class BatScythe extends ModHealerItem {
 
         const len = Math.sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y) || 1;
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position,
             Vector2.new(velocity.X / len * THROW_SPEED, velocity.Y / len * THROW_SPEED),
             _thrownType, Math.floor(damage * THROW_DAMAGE), 3, player.whoAmI,

@@ -25,7 +25,7 @@ export class ExampleLightPetBuff extends ModBuff {
             return;
         
         const proj = Terraria.Main.projectile[NewProjectile(
-            player['IEntitySource GetProjectileSource_Buff(int buffIndex)'](buffIndex),
+            null,
             player.position.X + player.width / 2,
             player.position.Y + player.height / 2,
             0, 0, this.petType, 0, 0.0, player.whoAmI, 0, 0, 0, null

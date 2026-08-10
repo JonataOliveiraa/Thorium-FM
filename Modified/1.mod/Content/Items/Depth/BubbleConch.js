@@ -55,7 +55,7 @@ export class BubbleConch extends ModItem {
         const angle = (Math.random() - 0.5) * 0.4;
         const dir = Vector2.RotatedBy(velocity, angle);
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position.X, position.Y,
             dir.X, dir.Y,
             type, damage, knockBack,

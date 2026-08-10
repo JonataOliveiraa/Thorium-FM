@@ -161,7 +161,7 @@ export class Blowfish extends ModNPC {
         for (let i = 0; i < STINGERS; i++) {
             const angle = i * step;
             NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 center.X, center.Y,
                 Math.cos(angle) * 2.5, Math.sin(angle) * 2.5,
                 _stingerType, damage, 1, Main.myPlayer, 0, 0, 0, null

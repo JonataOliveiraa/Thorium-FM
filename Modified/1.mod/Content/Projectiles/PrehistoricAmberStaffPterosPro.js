@@ -127,7 +127,7 @@ export class PrehistoricAmberStaffPterosPro extends ModProjectile {
                 const aim = aimDist > 0 ? Vector2.Divide(aimDir, aimDist) : Vector2.new(0, 0);
                 const shootSpeed = 10;
                 const damage = proj.damage * 2;
-                const source = Terraria.Projectile.GetNoneSource();
+                const source = null;
                 Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'](
                     source, proj.Center, Vector2.Multiply(aim, shootSpeed),
                     shootType, damage, 0, proj.owner, 0, 0, 0, null

@@ -80,7 +80,7 @@ export class CoralSlasher extends ModItem {
         const damage = Math.floor(player.GetWeaponDamage(item) * 0.637);
 
         const proType = ModProjectile.getTypeByName('CoralSlasherPro');
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
         NewProjectile(source, spawnPos, vel, proType, damage, 0, player.whoAmI, 0, 0, 0, null);
 
         if (spawnIdx === 0) {

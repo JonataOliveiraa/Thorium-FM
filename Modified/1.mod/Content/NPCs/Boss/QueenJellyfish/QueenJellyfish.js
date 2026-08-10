@@ -11,7 +11,6 @@ const { Color, Vector2 } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
 const IItemDropRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'IItemDropRule');
 const OneFromRulesRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'OneFromRulesRule');
@@ -224,7 +223,7 @@ export class QueenJellyfish extends ModNPC {
         if (npc.ai[0] >= 120) {
             if (CountNPCS(_zealousType) < 3) {
                 npc.ai[0] = 0;
-                NewNPC(npc[GetSource_ForNPC](), npc.Center.X | 0, npc.Center.Y | 0, _zealousType, 0, 0, 0, 0, 0, npc.target);
+                NewNPC(null, npc.Center.X | 0, npc.Center.Y | 0, _zealousType, 0, 0, 0, 0, 0, npc.target);
             } else {
                 npc.ai[0] = 60;
             }
@@ -235,7 +234,7 @@ export class QueenJellyfish extends ModNPC {
             if (npc.ai[1] >= 180) {
                 if (CountNPCS(_spittingType) < 2) {
                     npc.ai[1] = 0;
-                    NewNPC(npc[GetSource_ForNPC](), npc.Center.X | 0, npc.Center.Y | 0, _spittingType, 0, 0, 0, 0, 0, npc.target);
+                    NewNPC(null, npc.Center.X | 0, npc.Center.Y | 0, _spittingType, 0, 0, 0, 0, 0, npc.target);
                 } else {
                     npc.ai[1] = 90;
                 }
@@ -247,7 +246,7 @@ export class QueenJellyfish extends ModNPC {
             if (npc.ai[2] >= 240) {
                 if (CountNPCS(_distractingType) < 2) {
                     npc.ai[2] = 0;
-                    NewNPC(npc[GetSource_ForNPC](), npc.Center.X | 0, npc.Center.Y | 0, _distractingType, 0, npc.whoAmI, 0, 0, 0, npc.target);
+                    NewNPC(null, npc.Center.X | 0, npc.Center.Y | 0, _distractingType, 0, npc.whoAmI, 0, 0, 0, npc.target);
                 } else {
                     npc.ai[2] = 120;
                 }
@@ -260,7 +259,7 @@ export class QueenJellyfish extends ModNPC {
         npc.localAI[0] = 1;
         for (let i = 0; i < 4; i++) {
             const idx = NewProjectile(
-                npc.GetSpawnSource_ForProjectile(),
+                null,
                 npc.Center.X, npc.Center.Y,
                 0, 0,
                 _armType, hostileDamage(npc.damage, 40 / 30), 0, 255,
@@ -283,7 +282,7 @@ export class QueenJellyfish extends ModNPC {
             const dx1 = player.Center.X - npc.Center.X;
             const dy1 = player.Center.Y - npc.Center.Y;
             const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
-            NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, hostileDamage(npc.damage, 1), 3, 255, 0, 0, 0, null);
+            NewProjectile(null, npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, hostileDamage(npc.damage, 1), 3, 255, 0, 0, 0, null);
         }
 
         if (lifeRatio < 0.5) {
@@ -296,7 +295,7 @@ export class QueenJellyfish extends ModNPC {
                 const baseAngle = Math.atan2(dy2, dx2);
                 for (let i = -1; i <= 1; i++) {
                     const a = baseAngle + i * 0.35;
-                    NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, hostileDamage(npc.damage, 1), 2, 255, 0, 0, 0, null);
+                    NewProjectile(null, npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, hostileDamage(npc.damage, 1), 2, 255, 0, 0, 0, null);
                 }
             }
         }
@@ -309,7 +308,7 @@ export class QueenJellyfish extends ModNPC {
             const spawnX = player.Center.X + (Math.random() * 100 - 50);
             const spawnY = player.Center.Y - 320;
             NewProjectile(
-                npc.GetSpawnSource_ForProjectile(),
+                null,
                 spawnX, spawnY,
                 (player.Center.X - spawnX) * 0.01, 2,
                 _bubbleBombType, hostileDamage(npc.damage, 40 / 30), 3, 255,
@@ -339,7 +338,7 @@ export class QueenJellyfish extends ModNPC {
                 const num11 = i < 5 ? 0.0 : (i < 7 ? 1.0 : (i < 9 ? 2.0 : 3.0));
 
                 NewProjectile(
-                    npc.GetSpawnSource_ForProjectile(),
+                    null,
                     spawnX, spawnY,
                     0, 0,
                     _torrentType, hostileDamage(npc.damage, 50 / 30), 0, 255,
@@ -487,7 +486,7 @@ export class QueenJellyfish extends ModNPC {
         if (divermanType < 0) return;
 
         NewNPC(
-            npc[GetSource_ForNPC](),
+            null,
             npc.Center.X | 0,
             npc.Center.Y | 0,
             divermanType,

@@ -44,10 +44,11 @@ export class ChampionsTrifectaShotPro3 extends ModProjectile {
     }
 
     if (_explosionType > 0 && proj.owner === Terraria.Main.myPlayer) {
+      const direction = proj.velocity.X >= 0 ? 1 : -1;
       NewProjectile(
         null, proj.Center, Vector2.Zero, _explosionType,
         Math.floor(proj.damage * 0.5), 1, proj.owner,
-        proj.velocity.X, 0, 0, null
+        direction, 0, 0, null
       );
     }
   }

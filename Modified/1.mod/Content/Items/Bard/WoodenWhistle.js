@@ -41,7 +41,7 @@ export class WoodenWhistle extends ModBardItem {
             position.Y + norm.Y * 50
         );
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

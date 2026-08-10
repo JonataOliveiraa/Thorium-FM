@@ -56,14 +56,14 @@ export class Harmonica extends ModBardItem {
       velocity.Y * 0.8
     );
     NewProjectile(
-      player.GetProjectileSource_Item(item),
+      null,
       spawnPos, slowVelocity, type, damage, knockBack,
       player.whoAmI, 0, 0, 0, null
     );
 
     // Disparo normal (1.0x velocidade)
     NewProjectile(
-      player.GetProjectileSource_Item(item),
+      null,
       spawnPos, velocity, type, damage, knockBack,
       player.whoAmI, 0, 0, 0, null
     );
@@ -74,7 +74,7 @@ export class Harmonica extends ModBardItem {
       velocity.Y * 1.2
     );
     NewProjectile(
-      player.GetProjectileSource_Item(item),
+      null,
       spawnPos, fastVelocity, type, damage, knockBack,
       player.whoAmI, 0, 0, 0, null
     );

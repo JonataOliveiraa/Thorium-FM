@@ -45,7 +45,7 @@ export class FrostPelter extends ModItem {
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         if (_proType < 0) return true;
 
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
 
         for (let i = 0; i < SHOTS; i++) {
             const angle = (Math.random() * 2 - 1) * SPREAD;

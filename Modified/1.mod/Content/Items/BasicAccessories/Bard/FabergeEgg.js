@@ -7,7 +7,7 @@ const { ItemRarityID, TileID, ItemID } = Terraria.ID;
 export class FabergeEgg extends ModItem {
     constructor() {
         super();
-        this.Texture = "Textures/Items/BasicAccessories/Bard/" + this.constructor.name;
+        this.Texture = "Items/BasicAccessories/Bard/" + this.constructor.name;
     }
 
     SetDefaults() {

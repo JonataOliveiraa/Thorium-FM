@@ -51,7 +51,7 @@ export class AntlionMaraca extends ModBardItem {
             const finalVel = Vector2.Multiply(randomVel, speedMult);
 
             NewProjectile(
-                player.GetProjectileSource_Item(item),
+                null,
                 spawnPos, finalVel, type, damage, knockBack,
                 player.whoAmI, 0, 0, 0, null
             );

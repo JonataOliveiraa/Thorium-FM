@@ -40,7 +40,7 @@ export class BloomGuard extends ModHealerItem {
         if (!this.FindRestingSpot(position)) return false;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position.X, position.Y + 20,
             0, 0,
             type, damage, knockBack,

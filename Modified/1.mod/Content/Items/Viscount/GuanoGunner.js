@@ -89,7 +89,7 @@ export class GuanoGunner extends ModItem {
         if (CanHit(position, 0, 0, ahead, 0, 0)) spawn = ahead;
 
         const index = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawn, velocity, type, damage, knockBack, player.whoAmI,
             0, 0, 0, null
         );

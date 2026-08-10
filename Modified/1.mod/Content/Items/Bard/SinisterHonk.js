@@ -76,7 +76,7 @@ export class SinisterHonk extends ModBardItem {
         if (_proType < 0) return true;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position, velocity,
             _proType, damage, knockBack, player.whoAmI,
             0, 0, 0, null

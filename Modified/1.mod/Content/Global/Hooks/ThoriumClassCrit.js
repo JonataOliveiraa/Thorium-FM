@@ -38,7 +38,7 @@ export class ThoriumClassCrit extends GlobalHooks {
                     for (let i = 0; i < Rand.Next(1, 4); i++) {
                         const velocity = Vector2.new(Rand.Next(-2, 2), Rand.Next(-2, 2));
                         NewProjectile(
-                            player.GetProjectileSource_Item(player.HeldItem),
+                            null,
                             spawnPos, velocity, ThoriumClassCrit._muteBurst1Type,
                             Math.max(1, Math.round(damage / 3)), 0, owner, 0, 0, 0, null
                         );

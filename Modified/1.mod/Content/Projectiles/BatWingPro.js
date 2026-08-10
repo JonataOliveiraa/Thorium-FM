@@ -107,7 +107,7 @@ export class BatWingPro extends ModProjectile {
         SoundHelper.play(['Item17', 'Item2'], center.X, center.Y, 0.2, 0.6);
 
         const index = NewProjectile(
-            Terraria.Projectile.GetNoneSource(),
+            null,
             center.X, center.Y,
             bestX / dist * BAT_SPEED, bestY / dist * BAT_SPEED,
             batType(), Math.floor(proj.damage * BAT_DAMAGE), 2, proj.owner, 0, 0, 0, null

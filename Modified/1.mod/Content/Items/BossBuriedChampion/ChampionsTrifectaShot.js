@@ -43,7 +43,7 @@ export class ChampionsTrifectaShot extends ModItem {
     if (_pro3 === -1) _pro3 = ModProjectile.getTypeByName('ChampionsTrifectaShotPro3') ?? -2;
 
     const counter = ThoriumPlayer.itemChampionsTrifectaShotCounter;
-    const source = player.GetSpawnSource_ItemUse_WithAmmo(item, type);
+    const source = null;
 
     if (counter === 0 && _pro1 > 0) {
       NewProjectile(source, position, velocity, _pro1, Math.floor(damage * 1.25), knockBack, player.whoAmI, 0, 0, 0, null);

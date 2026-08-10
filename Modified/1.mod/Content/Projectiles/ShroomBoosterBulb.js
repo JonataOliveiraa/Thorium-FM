@@ -50,7 +50,7 @@ export class ShroomBoosterBulb extends ModProjectile {
         ai[1]++;
         if (ai[1] >= 0) {
             if (proj.owner === Main.myPlayer && SHROOM_BOOSTER_TYPE >= 0) {
-                const source = Terraria.Projectile.GetNoneSource();
+                const source = null;
                 const x = proj.Center.X;
                 const y = proj.Center.Y + 2;
                 NewProjectile(source, x, y, -1.15, -4.5, SHROOM_BOOSTER_TYPE, 0, 0, Main.myPlayer, 0, 0, 0, null);

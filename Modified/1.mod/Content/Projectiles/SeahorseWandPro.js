@@ -73,7 +73,7 @@ export class SeahorseWandPro extends ModProjectile {
                 const dist = dir.Length();
                 if (dist > 0) {
                     const vel = Vector2.Multiply(Vector2.Divide(dir, dist), 10);
-                    NewProjectile(Terraria.Projectile.GetNoneSource(), proj.Center, vel, shootType, proj.damage, 0, proj.owner, 0, 0, 0, null);
+                    NewProjectile(null, proj.Center, vel, shootType, proj.damage, 0, proj.owner, 0, 0, 0, null);
                 }
                 ai[1]--;
                 ai[2] = 6;

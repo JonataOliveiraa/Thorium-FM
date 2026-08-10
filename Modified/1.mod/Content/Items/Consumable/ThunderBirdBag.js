@@ -21,13 +21,14 @@ export class ThunderBirdBag extends ModItem {
   }
 
   OpenBossBag(item, player) {
-    const source = player['IEntitySource GetItemSource_OpenItem(int itemType)'](item.type);
+    const source = null;
     const QuickSpawnItem = player['void QuickSpawnItem(IEntitySource source, int item, int stack)'];
 
     const items = [
       ModItem.getTypeByName('TalonBurst'),
       ModItem.getTypeByName('ThunderTalon'),
-      ModItem.getTypeByName('StormHatchlingStaff')
+      ModItem.getTypeByName('StormHatchlingStaff'),
+      ModItem.getTypeByName('Didgeridoo')
     ];
     const choice = items[Rand.Next(0, items.length - 1)];
     QuickSpawnItem(source, choice, 1);

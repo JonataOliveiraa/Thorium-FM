@@ -169,7 +169,7 @@ export class WeedEaterPro extends ModProjectile {
         const scale = len > SHOT_SPEED ? SHOT_SPEED / len : 1;
 
         NewProjectile(
-            proj.GetProjectileSource_FromThis(),
+            null,
             center.X + proj.spriteDirection * 10, center.Y - 4,
             dx * scale, dy * scale,
             _shotType, proj.damage, proj.knockBack, proj.owner, 0, 0, 0, null

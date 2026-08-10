@@ -38,7 +38,7 @@ export class TalonBurst extends ModItem {
       finalType = ModProjectile.getTypeByName("TalonBurstPro");
     }
     try {
-      NewProjectile2(Projectile.GetNoneSource(), position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
+      NewProjectile2(null, position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
     } catch (e) { }
     return false;
   }

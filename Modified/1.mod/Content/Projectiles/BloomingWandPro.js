@@ -88,7 +88,7 @@ export class BloomingWandPro extends ModProjectile {
 
         if (npc.life <= 0) {
             const staffType = ModProjectile.getTypeByName('BloomingStaffPro');
-            const source = Terraria.Projectile.GetNoneSource();
+            const source = null;
             for (let i = 0; i < 3; i++) {
                 const angle = Math.random() * Math.PI * 2;
                 const speed = 4 + Math.random() * 3;

@@ -72,7 +72,7 @@ export class LivingHemorrage extends ModNPC {
         const centerY = npc.Center.Y;
 
         Terraria.NPC.NewNPC(
-            Terraria.Projectile.GetNoneSource(),
+            null,
             centerX,
             centerY,
             ModNPC.getTypeByName('Clot'),

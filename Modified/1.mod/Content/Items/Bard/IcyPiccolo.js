@@ -48,7 +48,7 @@ export class IcyPiccolo extends ModBardItem {
             position.Y + norm.Y * 30
         );
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

@@ -31,7 +31,7 @@ export class BloomingBow extends ModItem {
   Shoot(item, player, position, velocity, type, damage, knockBack) {
 
     NewProjectile(
-      player.GetProjectileSource_Item_WithPotentialAmmo(item, item.useAmmo),
+      null,
       position,
       Vector2.Multiply(velocity, 3),
       ModProjectile.getTypeByName('BloomingBowPro'),

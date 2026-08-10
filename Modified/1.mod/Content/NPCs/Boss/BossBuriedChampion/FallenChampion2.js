@@ -114,7 +114,7 @@ export class FallenChampion2 extends ModNPC {
         const dy = playerCenter.Y - npcCenter.Y;
         const len = Math.sqrt(dx * dx + dy * dy) || 1;
         const speed = 10;
-        NewProjectile(npc.GetSpawnSource_ForProjectile(), npcCenter.X, npcCenter.Y, (dx / len) * speed, (dy / len) * speed, shockType, 10, 0, npc.target, 0, 0, 0, null);
+        NewProjectile(null, npcCenter.X, npcCenter.Y, (dx / len) * speed, (dy / len) * speed, shockType, 10, 0, npc.target, 0, 0, 0, null);
       }
       npc.ai[3] = 0;
     }

@@ -52,7 +52,7 @@ export class GeyserPro extends ModProjectile {
         const geyser2Type = ModProjectile.getTypeByName('GeyserPro2');
         const spawnPos = Vector2.new(proj.Center.X, proj.Bottom.Y - 30);
         NewProjectile(
-            proj.GetProjectileSource_FromThis(),
+            null,
             spawnPos,
             Vector2.new(proj.velocity.X * 0.01, 8),
             geyser2Type,

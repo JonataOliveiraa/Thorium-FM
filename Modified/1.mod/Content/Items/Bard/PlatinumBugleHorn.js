@@ -44,12 +44,12 @@ export class PlatinumBugleHorn extends ModBardItem {
         );
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 1, 0, null
         );
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

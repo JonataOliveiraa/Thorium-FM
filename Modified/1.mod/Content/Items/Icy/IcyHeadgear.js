@@ -39,7 +39,7 @@ export class IcyHeadgear extends ModItem {
 
     if (!ThoriumPlayer.IcyArmorPro && player.whoAmI === Terraria.Main.myPlayer) {
       const NewPro = NewProjectile(
-        player.GetProjectileSource_Item(item),
+        null,
         player.Center, Modules.Vector2.Zero,
         ModProjectile.getTypeByName("IcyArmorEffect1"),
         0, 0, player.whoAmI, 0, 0, 0, null

@@ -226,7 +226,7 @@ export class WindElemental extends ModNPC {
             const offsetX = standing ? -npc.direction * Rand.Next(7, 16) : 0;
 
             NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 (center.X | 0) + offsetX, (center.Y | 0) + 16,
                 0, SHOT_SPEED,
                 _zapType, SHOT_DAMAGE, 1, Main.myPlayer,

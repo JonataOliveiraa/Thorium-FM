@@ -70,7 +70,7 @@ export class StormFlareP extends ModProjectile {
     const spawnY = Math.floor(proj.Center.Y - 600);
 
     Terraria.NPC.NewNPC(
-      Terraria.Projectile.GetNoneSource(),
+      null,
       spawnX, spawnY, bossType,
       0, 0, 0, 0, 0,
       player.whoAmI

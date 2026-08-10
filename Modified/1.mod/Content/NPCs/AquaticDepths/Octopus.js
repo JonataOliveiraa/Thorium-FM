@@ -112,7 +112,7 @@ export class Octopus extends ModNPC {
 
         for (let i = 0; i < ARMS; i++) {
             const index = NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 center.X, center.Y, 0, 0,
                 _armType, damage, 0, Main.myPlayer, 0, 0, 0, null
             );

@@ -123,8 +123,12 @@ export class Cobbler extends ModNPC {
     ];
     
     const key = keys[Math.floor(Math.random() * keys.length)];
+    return this._say(key, player.name);
+  }
+
+  _say(key, name) {
     const message = ModLocalization.Translate(`NPCChat.${key}`);
-    return message.includes('{0}') ? message.replace('{0}', player.name) : message;
+    return message.includes('{0}') ? message.replace('{0}', name) : message;
   }
 
   SetChatButtons(npc, player, button1, button2) {

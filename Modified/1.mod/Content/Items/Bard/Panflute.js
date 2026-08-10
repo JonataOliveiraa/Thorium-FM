@@ -50,7 +50,7 @@ export class Panflute extends ModBardItem {
         );
         const spawnPos = Vector2.Add(Vector2.Add(position, forward), perpendicular);
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

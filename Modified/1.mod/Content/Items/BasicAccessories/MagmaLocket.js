@@ -6,7 +6,7 @@ import { ModPlayer } from "../../../TL/ModPlayer.js";
 export class MagmaLocket extends ModItem {
     constructor() {
         super();
-        this.Texture = "Textures/Items/BasicAccessories/" + this.constructor.name;
+        this.Texture = "Items/BasicAccessories/" + this.constructor.name;
     }
 
     SetDefaults() {

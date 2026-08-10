@@ -60,7 +60,7 @@ export class ViscountRockSummon extends ModProjectile {
 
         if (_rockFallType >= 0) {
             NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 proj.Center.X, proj.Center.Y + 8,
                 0, 2,
                 _rockFallType, proj.damage, 0, Main.myPlayer,

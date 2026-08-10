@@ -61,7 +61,7 @@ export class GraveBusterPro extends ModProjectile {
 
             if (_graveType >= 0) {
                 NewProjectile(
-                    proj.GetProjectileSource_FromThis(),
+                    null,
                     Vector2.new(proj.Center.X, proj.Bottom.Y - 30),
                     Vector2.new(vel.X * 0.01, 8),
                     _graveType, proj.damage, proj.knockBack, proj.owner,

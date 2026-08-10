@@ -45,7 +45,7 @@ export class SeahorseWand extends ModItem {
         player.AddBuff(this.Item.buffType, 2, false);
         
         const projIndex = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position, velocity,
             type, damage, knockBack,
             player.whoAmI, 0, 10, -1, null

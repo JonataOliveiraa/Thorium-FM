@@ -138,10 +138,15 @@ export class DesertAcolyte extends ModNPC {
   SetupShop(npc, player, npcShop) {
     npcShop.Clear();
 
+    const cactusFruitId = ModItem.getTypeByName('CactusFruit');
+    if (cactusFruitId > 0) {
+      npcShop.Add(cactusFruitId, 1, Terraria.Item.buyPrice(0, 0, 10, 0));
+    }
+
     if (!Terraria.Main.hardMode) {
       npcShop.AddRange([
         ModItem.getTypeByName("TechniqueBlankScroll")
-      ])
+      ]);
     }
 
     npcShop.Add(ModItem.getTypeByName('EighthPlagueStaff'), 1, Terraria.Item.buyPrice(0, 54, 0, 0));

@@ -135,7 +135,7 @@ export class ModNPC extends ModTexturedType {
     
     SpawnNPC(spawnX, spawnY) {
         return Terraria.NPC.NewNPC(
-            Terraria.NPC.GetSpawnSourceForNaturalSpawn(),
+            null,
             spawnX, spawnY, this.Type,
             0, 0, 0, 0, 0, 255
         );

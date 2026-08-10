@@ -113,9 +113,9 @@ export class GigaClam extends ModNPC {
         if (_pearlType === -1) _pearlType = ModProjectile.getTypeByName('HostilePearl');
         if (_pearlType >= 0) {
             const center = npc.Center;
-            NewProjectile(Terraria.Projectile.GetNoneSource(), center.X, center.Y, 0, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
-            NewProjectile(Terraria.Projectile.GetNoneSource(), center.X, center.Y, 0.7, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
-            NewProjectile(Terraria.Projectile.GetNoneSource(), center.X, center.Y, -0.7, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
+            NewProjectile(null, center.X, center.Y, 0, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
+            NewProjectile(null, center.X, center.Y, 0.7, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
+            NewProjectile(null, center.X, center.Y, -0.7, -2, _pearlType, PEARL_DAMAGE, 0, Main.myPlayer, 0, 0, 0, null);
         }
 
         FxHelper.burst(Vector2.new(npc.Center.X - 12, npc.Center.Y - 12), 20, 20, 10, 16, 4, 1.65);

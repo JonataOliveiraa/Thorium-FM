@@ -42,7 +42,7 @@ export class GeyserStaff extends ModItem {
         const spawnPos = Vector2.new(player.Center.X + dir, player.Bottom.Y - 20);
         const vel = Vector2.new(velX, 0);
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawnPos, vel, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

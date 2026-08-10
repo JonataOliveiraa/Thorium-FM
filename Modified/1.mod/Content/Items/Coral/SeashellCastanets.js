@@ -36,7 +36,7 @@ export class SeashellCastanets extends ModBardItem {
 
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position, velocity, type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null
         );

@@ -201,7 +201,7 @@ export class Nestling extends ModNPC {
             const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
             NewProjectile(
-                Terraria.Projectile.GetNoneSource(),
+                null,
                 center.X, center.Y,
                 dx / dist * SHOT_SPEED, dy / dist * SHOT_SPEED,
                 _attackType, SHOT_DAMAGE, 0, Main.myPlayer,

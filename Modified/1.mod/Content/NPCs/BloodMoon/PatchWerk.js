@@ -141,7 +141,7 @@ export class PatchWerk extends ModNPC {
 
                     for (let i = 0; i < toSummon; i++) {
                         Terraria.NPC.NewNPC(
-                            Terraria.Projectile.GetNoneSource(),
+                            null,
                             npc.Center.X + (Math.random() * 80 - 40),
                             npc.Center.Y + (Math.random() * 80 - 40),
                             ModNPC.getTypeByName('FamishedMaggot'),

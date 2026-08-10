@@ -165,7 +165,7 @@ export class EarthenGolem extends ModNPC {
     }
 
     _impact(npc, player) {
-        const source = Terraria.Projectile.GetNoneSource();
+        const source = null;
 
         if (_stompType >= 0) {
             const index = NewProjectile(

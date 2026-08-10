@@ -78,7 +78,7 @@ export class HoneyRecorder extends ModBardItem {
 
   Shoot(item, player, position, velocity, type, damage, knockBack) {
     if (this.beeMode) {
-      const source = player.GetProjectileSource_Item(item);
+      const source = null;
       const numBees = 3;
 
       for (let i = 0; i < numBees; i++) {

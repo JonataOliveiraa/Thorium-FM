@@ -58,7 +58,7 @@ export class ThunderSpark extends ModProjectile {
     const type = ModProjectile.getTypeByName("ThunderGust");
     for (let i = 0; i < 2; i++) {
       const dir = (i % 2 === 0) ? 1 : -1;
-      NewProjectile(Terraria.Projectile.GetNoneSource(), proj.Center.X, proj.Center.Y, dir * 3, 0, type, 10, 0, proj.owner, 0, 0, 0, null)
+      NewProjectile(null, proj.Center.X, proj.Center.Y, dir * 3, 0, type, 10, 0, proj.owner, 0, 0, 0, null)
     }
   }
 }

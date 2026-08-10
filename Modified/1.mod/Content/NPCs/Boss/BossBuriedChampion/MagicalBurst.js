@@ -64,7 +64,7 @@ export class MagicalBurst extends ModNPC {
 
     const delta = Vector2.Subtract(nearest.Center, npcCenter);
     const velocity = Vector2.Multiply(Vector2.SafeNormalize(delta, Vector2.UnitY), 16);
-    NewProjectile(npc.GetSpawnSource_ForProjectile(), npcCenter.X, npcCenter.Y, velocity.X, velocity.Y, reflectedType, 25, 0, 0, 0, 0, 0, null);
+    NewProjectile(null, npcCenter.X, npcCenter.Y, velocity.X, velocity.Y, reflectedType, 25, 0, 0, 0, 0, 0, null);
     npc.active = false;
   }
 

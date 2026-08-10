@@ -38,7 +38,7 @@ export class JellyfishResonator extends ModItem {
         const spawnX = player.Center.X + (Math.random() < 0.5 ? -600 : 600);
         const spawnY = player.Center.Y - 130;
 
-        const source = Terraria.Projectile.GetNoneSource();
+        const source = null;
         NewNPC(source, spawnX, spawnY, queenType, 0, 0, 0, 0, 0, player.whoAmI);
 
         Effects.PlaySound(15, player.Center.X, player.Center.Y, 0, 1.0, 1.0);

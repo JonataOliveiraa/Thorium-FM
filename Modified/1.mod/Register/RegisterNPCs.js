@@ -19,6 +19,12 @@ import { FireAnt } from '../Content/NPCs/Jungle/FireAnt.js';
 import { StrangeBulb } from '../Content/NPCs/Jungle/StrangeBulb.js';
 import { MahoganyEnt } from '../Content/NPCs/Jungle/MahoganyEnt.js';
 
+// Marble Cave
+import { AncientArcher } from '../Content/NPCs/MarbleCave/AncientArcher.js';
+import { AncientCharger } from '../Content/NPCs/MarbleCave/AncientCharger.js';
+import { AncientPhalanx } from '../Content/NPCs/MarbleCave/AncientPhalanx.js';
+import { BizarreRockFormation } from '../Content/NPCs/MarbleCave/BizarreRockFormation.js';
+
 // Cavern
 import { EarthenGolem } from '../Content/NPCs/Cavern/EarthenGolem.js';
 import { EarthenBat } from '../Content/NPCs/Cavern/EarthenBat.js';
@@ -93,6 +99,10 @@ const List = [
     BuriedChampion,
     FallenChampion1,
     FallenChampion2,
+    BizarreRockFormation,
+    AncientArcher,
+    AncientPhalanx,
+    AncientCharger,
     MagicalBurst,
     Blacksmith,
     DesertAcolyte,
@@ -107,6 +117,10 @@ const List = [
     FireAnt,
     StrangeBulb,
     MahoganyEnt,
+
+    AncientArcher,
+    AncientCharger,
+    AncientPhalanx,
 
     EarthenGolem,
     EarthenBat,

@@ -116,7 +116,8 @@ export class TheGrandThunderBird extends ModNPC {
     const options = [
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('TalonBurst'), 1, 1, 1, 1),
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('StormHatchlingStaff'), 1, 1, 1, 1),
-      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('ThunderTalon'), 1, 1, 1, 1)
+      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('ThunderTalon'), 1, 1, 1, 1),
+      ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('Didgeridoo'), 1, 1, 1, 1)
     ].makeGeneric(IItemDropRule)
 
     const oneDropRule = OneFromRulesRule.new();
@@ -318,7 +319,7 @@ export class TheGrandThunderBird extends ModNPC {
 
         for (let i = 0; i < 8; i++) {
           NewProjectile(
-            Terraria.Projectile.GetNoneSource(),
+            null,
             player.Center.X + Rand.Next(-200, 200),
             player.Center.Y - 800 + Rand.Next(-30, 30),
             0, 10, Zap, 12, 0,
@@ -425,7 +426,7 @@ export class TheGrandThunderBird extends ModNPC {
         if (!player.dead) {
           for (let i = 0; i < 3; i++) {
             Terraria.NPC.NewNPC(
-              Terraria.NPC.GetSpawnSourceForNPCFromNPCAI(npc),
+              null,
               npc.Center.X + Rand.Next(-40, 40),
               npc.Center.Y + Rand.Next(-40, 40),
               ModNPC.getTypeByName("StormHatchling"),
@@ -454,7 +455,7 @@ export class TheGrandThunderBird extends ModNPC {
       if (this.AttackStateTimer === 60) {
         const Cloud = ModProjectile.getTypeByName("GrandThunderBirdCloud");
         for (let i = 0; i < 4; i++) {
-          NewProjectile(Terraria.Projectile.GetNoneSource(), player.Center.X + Rand.Next(-200, 200), player.Center.Y + Rand.Next(-150, -100), 0, 0, Cloud, 0, 0, Terraria.Main.myPlayer, 0, 0, 0, null);
+          NewProjectile(null, player.Center.X + Rand.Next(-200, 200), player.Center.Y + Rand.Next(-150, -100), 0, 0, Cloud, 0, 0, Terraria.Main.myPlayer, 0, 0, 0, null);
         }
       }
       if (this.AttackStateTimer >= 120) {
@@ -500,6 +501,6 @@ export class TheGrandThunderBird extends ModNPC {
 
   OnKill(npc) {
     WorldDB.set('Thorium:HasBeenDefeated_TheGrandThunderBird', true)
-    NewProjectile(Terraria.Projectile.GetNoneSource(), npc.Center.X, npc.Center.Y, 0, 0, ModProjectile.getTypeByName("ThunderBirdScreech"), 0, 0, Terraria.Main.myPlayer, 0, 0, 0, null);
+    NewProjectile(null, npc.Center.X, npc.Center.Y, 0, 0, ModProjectile.getTypeByName("ThunderBirdScreech"), 0, 0, Terraria.Main.myPlayer, 0, 0, 0, null);
   }
 }

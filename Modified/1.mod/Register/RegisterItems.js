@@ -7,6 +7,8 @@ import { ChampionBomberStaff } from '../Content/Items/BossBuriedChampion/Champio
 import { ChampionsGodHand } from '../Content/Items/BossBuriedChampion/ChampionsGodHand.js';
 import { ChampionsRebuttal } from '../Content/Items/BossBuriedChampion/ChampionsRebuttal.js';
 import { BuriedChampionMask } from '../Content/Items/BossBuriedChampion/BuriedChampionMask.js';
+import { ChampionWing } from '../Content/Items/BossBuriedChampion/ChampionWing.js';
+import { BuriedChampionTreasureBag } from '../Content/Items/BossBuriedChampion/BuriedChampionTreasureBag.js';
 
 // Bronze Items
 import { BronzeHelmet } from '../Content/Items/Bronze/BronzeHelmet.js';
@@ -17,6 +19,23 @@ import { BronzePax } from '../Content/Items/Bronze/BronzePax.js';
 import { ChampionCatcher } from '../Content/Items/Bronze/ChampionCatcher.js';
 import { GorgonsEye } from '../Content/Items/Bronze/GorgonsEye.js';
 import { GorgonGazeStaff } from '../Content/Items/Bronze/GorgonGazeStaff.js';
+
+// Repellent Potions
+
+// Potions
+import { AquaPotion } from "../Content/Items/Potions/AquaPotion.js";
+import { ArcanePotion } from "../Content/Items/Potions/ArcanePotion.js";
+import { BloodPotion } from "../Content/Items/Potions/BloodPotion.js";
+import { CreativityPotion } from "../Content/Items/Potions/CreativityPotion.js";
+import { EarwormPotion } from "../Content/Items/Potions/EarwormPotion.js";
+import { FrenzyPotion } from "../Content/Items/Potions/FrenzyPotion.js";
+import { GlowingPotion } from "../Content/Items/Potions/GlowingPotion.js";
+import { HydrationPotion } from "../Content/Items/Potions/HydrationPotion.js";
+import { BatRepellent } from '../Content/Items/Potions/BatRepellent.js';
+import { FishRepellent } from '../Content/Items/Potions/FishRepellent.js';
+import { InsectRepellent } from '../Content/Items/Potions/InsectRepellent.js';
+import { SkeletonRepellent } from '../Content/Items/Potions/SkeletonRepellent.js';
+import { ZombieRepellent } from '../Content/Items/Potions/ZombieRepellent.js';
 
 // ==== ITENS NOVOS (ficam no topo da lista pra achar rapido) ====
 import { FrostPelter } from '../Content/Items/Ranged/FrostPelter.js';
@@ -335,6 +354,8 @@ const List = [
     ChampionsGodHand,
     ChampionsRebuttal,
     BuriedChampionMask,
+    ChampionWing,
+    BuriedChampionTreasureBag,
 
     BronzeHelmet,
     BronzeBreastplate,
@@ -344,6 +365,21 @@ const List = [
     ChampionCatcher,
     GorgonsEye,
     GorgonGazeStaff,
+
+    
+    AquaPotion,
+    ArcanePotion,
+    BloodPotion,
+    CreativityPotion,
+    EarwormPotion,
+    FrenzyPotion,
+    GlowingPotion,
+    HydrationPotion,
+    BatRepellent,
+    FishRepellent,
+    InsectRepellent,
+    SkeletonRepellent,
+    ZombieRepellent,
 
     BloomGuard,
     WeedEater,

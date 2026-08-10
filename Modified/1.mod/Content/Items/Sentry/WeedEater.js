@@ -44,7 +44,7 @@ export class WeedEater extends ModItem {
         const spawn = Vector2.new(player.Center.X, player.position.Y + player.height);
 
         const index = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             spawn, Vector2.Zero,
             type, damage, knockBack, player.whoAmI, 0, 0, 0, null
         );

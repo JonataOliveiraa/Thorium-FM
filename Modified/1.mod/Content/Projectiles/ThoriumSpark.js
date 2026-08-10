@@ -9,7 +9,7 @@ const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawn
 export class ThoriumSpark extends ModProjectile {
     constructor() {
         super();
-        this.Texture = 'Textures/Projectiles/' + this.constructor.name;
+        this.Texture = 'Projectiles/' + this.constructor.name;
     }
 
     SetDefaults() {

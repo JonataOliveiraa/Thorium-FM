@@ -127,7 +127,7 @@ export class FlamekinCaster extends ModNPC {
         if (Terraria.Main.netMode !== 1) {
             for (let i = 0; i < count; i++) {
                 NewNPC(
-                    Terraria.Projectile.GetNoneSource(),
+                    null,
                     Math.floor(npc.Center.X),
                     Math.floor(npc.Center.Y - 14),
                     ModNPC.getTypeByName('BatOutaHell'),

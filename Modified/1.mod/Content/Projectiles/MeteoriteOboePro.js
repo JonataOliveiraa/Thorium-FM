@@ -139,7 +139,7 @@ export class MeteoriteOboePro extends ModProjectile {
         if (_pulseType < 0) return;
 
         Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'](
-            proj.GetProjectileSource_FromThis(),
+            null,
             npc.Center, Vector2.Zero,
             _pulseType, Math.max(1, Math.round(proj.damage * 0.5)), proj.knockBack, proj.owner,
             0, 0, 0, null

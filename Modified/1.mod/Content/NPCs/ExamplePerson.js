@@ -206,7 +206,7 @@ export class ExamplePerson extends ModNPC {
         
         // Shoot the projectile
         NewProjectile(
-            Terraria.Projectile.GetNoneSource(),
+            null,
             npc.Center.X, npc.Center.Y,
             speed.X, speed.Y,
             ModProjectile.getTypeByName('IceCubePro'),

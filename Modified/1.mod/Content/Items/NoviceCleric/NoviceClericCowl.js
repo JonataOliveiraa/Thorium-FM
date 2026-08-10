@@ -72,7 +72,7 @@ export class NoviceClericCowl extends ModItem {
 
         const crossType = ModProjectile.getTypeByName('NoviceClericCrossPro');
         const id = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             player.Center, Vector2.Zero,
             crossType, 15, 0, player.whoAmI,
             0, slot, 0, null

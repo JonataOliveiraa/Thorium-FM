@@ -38,7 +38,7 @@ export class Slugger extends ModItem {
 
     // Escopeta: 3 balas em leque, coice pra tras e fumaca no cano
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        const source = player.GetProjectileSource_Item(item);
+        const source = null;
         const speed = Math.sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
         const base = Math.atan2(velocity.X, velocity.Y);
 

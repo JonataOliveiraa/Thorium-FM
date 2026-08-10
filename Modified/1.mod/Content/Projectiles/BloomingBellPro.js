@@ -52,7 +52,7 @@ export class BloomingBellPro extends ModProjectile {
                 const offset = proj.velocity.Y > 0 ? 12 : -12;
 
                 NewProjectile(
-                    proj.GetProjectileSource_FromThis(),
+                    null,
                     Vector2.new(center.X, center.Y + offset), Vector2.Zero,
                     _flowerType, proj.damage, proj.knockBack, proj.owner,
                     0, 0, 0, null

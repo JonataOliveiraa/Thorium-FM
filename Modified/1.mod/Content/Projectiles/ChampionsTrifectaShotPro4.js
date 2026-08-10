@@ -1,7 +1,8 @@
 import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
+import { ProjAI } from '../../TL/ProjAI.js';
 
-const { Color } = Modules;
+const { Color, Rand } = Modules;
 
 export class ChampionsTrifectaShotPro4 extends ModProjectile {
   constructor() {
@@ -33,15 +34,15 @@ export class ChampionsTrifectaShotPro4 extends ModProjectile {
   AI(proj) {
     proj.scale += 0.025;
     proj.alpha += 5;
-    const pai0 = proj.ai ? proj.ai[0] : 0;
-    proj.rotation += pai0 > 0 ? 0.1 : -0.1;
+    const ai = new ProjAI(proj, false);
+    proj.rotation += ai[0] > 0 ? 0.1 : -0.1;
   }
 
   OnKill(proj, timeLeft) {
     for (let i = 0; i < 20; i++) {
       const dustIdx = Terraria.Dust.NewDust(
         proj.position, proj.width, proj.height, 127,
-        Terraria.Main.rand.Next(-6, 6), Terraria.Main.rand.Next(-6, 6), 0, Color.White, 2
+        Rand.Next(-6, 6), Rand.Next(-6, 6), 0, Color.White, 2
       );
       const dust = Terraria.Main.dust[dustIdx];
       if (dust) dust.noGravity = true;

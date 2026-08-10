@@ -10,7 +10,6 @@ const { BestiaryDatabaseNPCsPopulator } = Terraria.GameContent.Bestiary;
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
-const GetSource_ForNPC = 'IEntitySource GetSpawnSourceForNPCFromNPCAI()';
 
 const IItemDropRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'IItemDropRule');
 const OneFromRulesRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'OneFromRulesRule');
@@ -245,7 +244,7 @@ export class BuriedChampion extends ModNPC {
     const npcCenter = npc.Center;
     const playerCenter = player.Center;
     const lifeRatio = npc.life / npc.lifeMax;
-    const spawnSource = npc.GetSpawnSource_ForProjectile();
+    const spawnSource = null;
 
     // ===== FASE 1: ESPADA (> 66% HP) =====
     if (lifeRatio >= 0.66) {
@@ -447,10 +446,10 @@ export class BuriedChampion extends ModNPC {
         }
 
         if (_fallenChamp2Type >= 0) {
-          NewNPC(npc[GetSource_ForNPC](), (npcCenter.X + 45) | 0, npcCenter.Y | 0, _fallenChamp2Type, 0, 0, 0, 0, 0, 255);
+          NewNPC(null, (npcCenter.X + 45) | 0, npcCenter.Y | 0, _fallenChamp2Type, 0, 0, 0, 0, 0, 255);
         }
         if (Terraria.Main.expertMode && _fallenChamp1Type >= 0) {
-          NewNPC(npc[GetSource_ForNPC](), (npcCenter.X - 45) | 0, npcCenter.Y | 0, _fallenChamp1Type, 0, 0, 0, 0, 0, 255);
+          NewNPC(null, (npcCenter.X - 45) | 0, npcCenter.Y | 0, _fallenChamp1Type, 0, 0, 0, 0, 0, 255);
         }
         this.shifted = 2;
       }
@@ -507,7 +506,7 @@ export class BuriedChampion extends ModNPC {
 
         if (_magicalBurstNPCType >= 0) {
           NewNPC(
-            npc[GetSource_ForNPC](),
+            null,
             npcCenter.X | 0,
             (npcCenter.Y + 16) | 0,
             _magicalBurstNPCType,
@@ -519,13 +518,13 @@ export class BuriedChampion extends ModNPC {
       }
     }
 
-    // ===== MOVIMENTO: posto lateral, acima do jogador, com oscilação suave =====
+    // ===== MOVIMENTO: voo amplo e fluido acima do jogador =====
     const dx = playerCenter.X - npcCenter.X;
     npc.spriteDirection = dx > 0 ? 1 : -1;
 
-    this.flux += this.shift ? -1.4 : 1.4;
-    if (this.flux >= 60) this.shift = true;
-    else if (this.flux <= -60) this.shift = false;
+    // Senoidal: não há troca brusca de direção no topo/fundo da oscilação.
+    this.flux += 0.032;
+    if (this.flux >= Math.PI * 2) this.flux -= Math.PI * 2;
 
     const velocity = npc.velocity;
     if (!this.charging) {
@@ -535,17 +534,21 @@ export class BuriedChampion extends ModNPC {
 
       const distAbsX = Math.abs(dx);
       let targetX = playerCenter.X;
-      if (distAbsX <= 500) {
+      if (distAbsX <= 560) {
         const side = this.sideRight ? 1 : -1;
-        targetX = playerCenter.X + side * 350;
+        targetX = playerCenter.X + side * 390;
       }
-      const targetY = playerCenter.Y - 155 + this.flux;
 
-      const desiredX = clamp((targetX - npcCenter.X) * 0.04, -8, 8);
-      const desiredY = clamp((targetY - npcCenter.Y) * 0.05, -7, 7);
+      // Voo 70px maior que o anterior, com leve oscilação horizontal.
+      const targetY = playerCenter.Y - 185 + Math.sin(this.flux) * 130;
+      targetX += Math.cos(this.flux * 0.65) * 45;
 
-      velocity.X += (desiredX - velocity.X) * 0.1;
-      velocity.Y += (desiredY - velocity.Y) * 0.12;
+      const desiredX = clamp((targetX - npcCenter.X) * 0.032, -8.5, 8.5);
+      const desiredY = clamp((targetY - npcCenter.Y) * 0.038, -6.5, 6.5);
+
+      // Steering com inércia: o chefe desacelera antes de inverter o voo.
+      velocity.X += (desiredX - velocity.X) * 0.075;
+      velocity.Y += (desiredY - velocity.Y) * 0.09;
     } else {
       this.chargeTimer = (this.chargeTimer || 0) + 1;
       if (this.chargeTimer > 60 || Math.abs(dx) < 150) {

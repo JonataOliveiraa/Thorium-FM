@@ -56,7 +56,7 @@ export class BloodAltar extends GlobalTile {
         const spawnX = (player.Center.X + side * SPAWN_DISTANCE) | 0;
         const spawnY = (player.Center.Y - 240) | 0;
 
-        NewNPC(Terraria.Projectile.GetNoneSource(), spawnX, spawnY, viscountType, 0, 0, 0, 0, 0, player.whoAmI);
+        NewNPC(null, spawnX, spawnY, viscountType, 0, 0, 0, 0, 0, player.whoAmI);
 
         Effects.PlaySound(Terraria.ID.SoundID.Roar, player.Center.X, player.Center.Y, 0, 0, 1);
 

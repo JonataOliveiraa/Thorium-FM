@@ -37,7 +37,7 @@ export class GrandThunderBirdCloud extends ModProjectile {
     proj.velocity = Vector2.Zero;
     ai[0] += 3;
     if (ai[0] * 0.005 >= 1) {
-      NewProjectile(Terraria.Projectile.GetNoneSource(), proj.Center.X, proj.Center.Y, 0, 10,
+      NewProjectile(null, proj.Center.X, proj.Center.Y, 0, 10,
         ModProjectile.getTypeByName("ThunderSpark"),
         0, 0, proj.owner, 0, 0, 0, null);
       proj.Kill();

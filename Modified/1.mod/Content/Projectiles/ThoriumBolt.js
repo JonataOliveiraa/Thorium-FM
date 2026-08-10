@@ -9,7 +9,7 @@ const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawn
 export class ThoriumBolt extends ModProjectile {
     constructor() {
         super();
-        this.Texture = 'Textures/Projectiles/' + this.constructor.name;
+        this.Texture = 'Projectiles/' + this.constructor.name;
     }
 
     SetDefaults() {
@@ -57,7 +57,7 @@ export class ThoriumBolt extends ModProjectile {
 
         for (const dir of directions) {
             NewProjectile(
-                proj.GetProjectileSource_FromThis(),
+                null,
                 Vector2.new(center.X, center.Y),
                 Vector2.Multiply(dir, 5),
                 sparkType, damage, proj.knockBack,

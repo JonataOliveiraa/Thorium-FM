@@ -45,7 +45,7 @@ export class MeteorHeadStaff extends ModItem {
         player.AddBuff(this.Item.buffType, 3600, false);
 
         const index = NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             position, velocity,
             type, damage, knockBack,
             player.whoAmI, 0, 0, 0, null

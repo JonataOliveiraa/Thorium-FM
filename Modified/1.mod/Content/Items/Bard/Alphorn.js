@@ -59,7 +59,7 @@ export class Alphorn extends ModBardItem {
         const center = player.Center;
 
         NewProjectile(
-            player.GetProjectileSource_Item(item),
+            null,
             Vector2.new(center.X + player.direction * 24, center.Y + 6),
             Vector2.new(Rand.NextFloat() * 8 - 4, Rand.NextFloat() * -3 - 12),
             _proType, damage, knockBack, player.whoAmI,
