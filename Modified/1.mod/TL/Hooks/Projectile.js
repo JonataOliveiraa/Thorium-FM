@@ -24,7 +24,8 @@ export class ProjectileHooks {
         OnSpawn: (info) => info.hasProjectiles || info.hasGlobalProjectiles, // requires AI hook
         Kill: (info) => info.hasProjectiles || info.hasGlobalProjectiles,
         GetAlpha: (info) => info.hasProjectiles || info.hasGlobalProjectiles,
-        Damage: (info) => info.hasProjectiles || info.hasGlobalProjectiles
+        Damage: (info) => info.hasProjectiles || info.hasGlobalProjectiles,
+        GrappleHooks: (info) => info.hasProjectiles || info.hasGlobalProjectiles
     };
     
     static Initialize(info) {
@@ -38,8 +39,12 @@ export class ProjectileHooks {
                     self.active = true;
                     const proj = ProjectileLoader.getModProjectile(type);
                     if (proj) {
-                        proj?.SetDefaults(self);
-                        Object.assign(self, proj?.Projectile);
+                        proj.SetDefaults(self);
+                        try {
+                            Object.assign(self, proj.Projectile);
+                        } catch (error) {
+                            throw new Error(`SetDefaults failed for projectile <${proj.constructor.name}>, error: ${error}`);
+                        }
                     }
                     self.width = self.width * self.scale;
                     self.height = self.height * self.scale;
@@ -156,6 +161,29 @@ export class ProjectileHooks {
             Terraria.Projectile['Rectangle Damage_GetHitbox()'
             ].hook((original, self) => {
                 return ProjectileLoader.ModifyDamageHitbox(self, original(self));
+            });
+        }
+        
+        if (this.HookList.GrappleHooks(info)) {
+            Terraria.Projectile['bool AI_007_GrapplingHooks_CanTileBeLatchedOnTo(Tile theTile)'
+            ].hook((original, self, tile) => {
+                let result;
+                if (ProjectileLoader.isModType(self.type)) {
+                    result = tile['bool nactive()']() && Terraria.Main.tileSolid[tile.type];
+                } else result = original(self, tile);
+                return ProjectileLoader.GrappleCanLatchOnTo(self, tile, result);
+            });
+            
+            Terraria.Player['void FireGrapple(Item grappleItem)'
+            ].hook((original, self, item) => {
+                const oldType = item.shoot;
+                if (ProjectileLoader.CanUseGrapple(self, oldType)) {
+                    const type = ProjectileLoader.UseGrapple(self, oldType);
+                    const flag = type !== oldType;
+                    if (flag) item.shoot = type;
+                    original(self, item);
+                    if (flag) item.shoot = oldType;
+                }
             });
         }
         

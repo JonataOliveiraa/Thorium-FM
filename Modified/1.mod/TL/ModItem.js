@@ -203,9 +203,28 @@ export class ModItem extends ModTexturedType {
         return true;
     }
     
-    /** @deprecated */
     ChoosePrefix(item, rolledPrefix, rollablePrefixes) {
         return -1;
+    }
+    
+    MeleePrefix(item) {
+        return ItemLoader.MeleePrefix(item);
+    }
+    RangedPrefix(item) {
+        return ItemLoader.RangedPrefix(item);
+    }
+    MagicPrefix(item) {
+        return ItemLoader.MagicPrefix(item);
+    }
+    SummonPrefix(item) {
+        return ItemLoader.SummonPrefix(item);
+    }
+    WeaponPrefix(item) {
+        return ItemLoader.WeaponPrefix(item);
+    }
+    
+    ApplyPrefix(item, prefix) {
+        
     }
     
     CanUseItem(item, player) {
@@ -298,7 +317,7 @@ export class ModItem extends ModTexturedType {
         return true;
     }
     
-    OnHitNPC(item, player, npc, damageDone, knockBack) {
+    OnHitNPC(item, player, npc, damageDone, knockBack, crit) {
         
     }
     

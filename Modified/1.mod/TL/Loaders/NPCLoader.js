@@ -108,7 +108,17 @@ export class NPCLoader {
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'IsDragonfly', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'BelongsToInvasionOldOnesArmy', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'TeleportationImmune', nextNPC);
-        //resizeArrayProperty(Terraria.ID.NPCID.Sets, 'UsesNewTargetting', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'IsGoldCritter', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'UsesNewTargeting', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'CritterThatCanTurnOnPlayers', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'CanBeHurtByBees', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'ConveyorBeltCollision', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'SlimeCanContainItems', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'SearchSpawnSlotsInReverse', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'CannotSpawnInSlot0', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'SkipUpdateInUnsyncedTiles', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'HunterPotionFriendlyOverride', nextNPC, null);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'BirdThatCanPoop', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'TakesDamageFromHostilesWithoutBeingFriendly', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'AllNPCs', nextNPC, true);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'HurtingBees', nextNPC);
@@ -150,8 +160,8 @@ export class NPCLoader {
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'MustAlwaysDraw', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'ExpandedCullDraw', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'ExtraTextureCount', nextNPC, 0);
-        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'NPCFramingGroup', nextNPC);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'CanHitPastShimmer', nextNPC);
+        resizeArrayProperty(Terraria.ID.NPCID.Sets, 'NPCFramingGroup', nextNPC, 0);
         resizeArrayProperty(Terraria.ID.NPCID.Sets, 'TownNPCsFramingGroups', nextNPC);
         
         // Resize Arrays
@@ -282,6 +292,8 @@ export class NPCLoader {
             
             npc.PostSetupContent();
         }
+        
+        Terraria.ID.ContentSamples['void CreateBestiarySortingIds(BestiaryDatabase database)'](Terraria.Main.BestiaryDB);
         
         for (const gLoot of GlobalLoot.Loots) {
             const gL = new gLoot(Terraria.Main.ItemDropsDB, Terraria.Main.BestiaryDB);
@@ -642,12 +654,12 @@ export class NPCLoader {
         }
     }
     
-    static OnHitByPlayer(npc, player, item, damageDone, knockBack) {
+    static OnHitByPlayer(npc, player, item, damageDone, knockBack, crit) {
         if (this.isModType(npc.type)) {
-            this.getModNPC(npc.type)?.OnHitByPlayer(npc, player, item, damageDone, knockBack);
+            this.getModNPC(npc.type)?.OnHitByPlayer(npc, player, item, damageDone, knockBack, crit);
         }
         for (const gNpc of GlobalNPC.RegisteredNPCs) {
-            gNpc?.OnHitByPlayer(npc, player, item, damageDone, knockBack);
+            gNpc?.OnHitByPlayer(npc, player, item, damageDone, knockBack, crit);
         }
     }
     

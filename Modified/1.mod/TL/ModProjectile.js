@@ -25,7 +25,7 @@ export class ModProjectile extends ModTexturedType {
     SetDefaults(proj) { }
     
     PostStaticDefaults() { }
-    f
+    
     // Used to ensure that all projectiles have been initialized
     PostSetupContent() {
         
@@ -176,6 +176,18 @@ export class ModProjectile extends ModTexturedType {
     
     ModifyDamageHitbox(proj, hitbox) {
         
+    }
+    
+    CanUseGrapple(player, type) {
+        return true;
+    }
+    
+    UseGrapple(player, type) {
+        return type;
+    }
+    
+    GrappleCanLatchOnTo(proj, player, tile) {
+        return null;
     }
     
     static register(proj) {

@@ -5,6 +5,7 @@ import { ItemLoader } from './../Loaders/ItemLoader.js';
 import { BuffLoader } from './../Loaders/BuffLoader.js';
 import { NPCLoader } from './../Loaders/NPCLoader.js';
 import { ProjectileLoader } from './../Loaders/ProjectileLoader.js';
+import { EmoteBubbleLoader } from './../Loaders/EmoteBubbleLoader.js';
 
 export class LangHooks {
     static initialized = false;
@@ -18,6 +19,7 @@ export class LangHooks {
         GetBuffDescription: (info) => info.hasBuffs,
         GetProjectileName: (info) => info.hasProjectiles,
         GetNPCName: (info) => info.hasNPCs,
+        GetEmojiName: (info) => info.hasEmotes,
         AnglerQuestChat: (info) => info.hasItems,
         GetTextValue: (info) => info.hasNPCs
     };
@@ -78,6 +80,15 @@ export class LangHooks {
             });
         }
         
+        if (this.HookList.GetEmojiName(info)) {
+            Terraria.Lang.GetEmojiName.hook((original, type) => {
+                if (EmoteBubbleLoader.isModType(type)) {
+                    return ModLocalization.Translate(`EmojiName.${EmoteBubbleLoader.getModEmote(type)?.constructor?.name ?? ''}`);
+                }
+                return original(type);
+            });
+        }
+        
         if (this.HookList.AnglerQuestChat(info)) {
             Terraria.Lang.AnglerQuestChat.hook((original, turnIn) => {
                 const questItemType = Terraria.Main.anglerQuestItemNetIDs[Terraria.Main.anglerQuest];
@@ -96,6 +107,10 @@ export class LangHooks {
             ].hook((original, key) => {
                 if (key.startsWith('TownNPCMood_') && key.endsWith('.NoHome')) {
                     let text = ModLocalization.TryTranslate(key.replace('TownNPCMood_', 'TownNPCMood.'));
+                    if (text.length > 0) return text;
+                }
+                if (key.startsWith('EmojiName')) {
+                    let text = ModLocalization.TryTranslate(key);
                     if (text.length > 0) return text;
                 }
                 return original(key);

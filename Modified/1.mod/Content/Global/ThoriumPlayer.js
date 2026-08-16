@@ -156,6 +156,19 @@ export class ThoriumPlayer extends ModPlayer {
   static IcyArmorPro = false;
 
   static accVibrationTuner = false
+  static accShockAbsorber = false;
+  static accJarOMayo = false;
+  static accShockAbsorberStorage = 0;
+  static _shockAbsorberProType = -1;
+  static _shockAbsorberBuffType = -1;
+  // Este framework nao expoe a "Accessory Ability key" do tModLoader, entao o
+  // gatilho e' a tecla de Quick Mana (J): bardo gasta inspiracao, nao mana, e
+  // ela nao conflita com nada. `_held` faz a deteccao de borda - sem isso o
+  // efeito dispararia todo tick enquanto a tecla estivesse pressionada.
+  static _shockAbsorberKeyHeld = false;
+  static ShockAbsorberMinStorage = 100;
+  static ShockAbsorberMaxStorage = 1000;
+  static ShockAbsorberTicksPer100 = 180;
 
   static FabergeEggEquipped = false;
   static FabergeEggMaxDelay = 90;
@@ -323,6 +336,8 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.GiantShellSpineEquipped = false;
 
     ThoriumPlayer.accVibrationTuner = false
+    ThoriumPlayer.accShockAbsorber = false;
+    ThoriumPlayer.accJarOMayo = false;
     ThoriumPlayer.setJester = false;
     ThoriumPlayer.CrietzEquipped = false;
 
@@ -542,6 +557,8 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     if (ThoriumPlayer.FabergeEggDelay > 0) ThoriumPlayer.FabergeEggDelay--;
+
+    ThoriumPlayer.UpdateShockAbsorber(player);
   }
 
   ModifyMaxStats(player) {
@@ -574,6 +591,13 @@ export class ThoriumPlayer extends ModPlayer {
     }
     if (ThoriumPlayer._charmedBuffType >= 0 && player.FindBuffIndex(ThoriumPlayer._charmedBuffType) >= 0) {
       finalDamage -= this.WeaponDamage * 0.2;
+    }
+
+    if (ThoriumPlayer._shockAbsorberBuffType === -1) {
+      ThoriumPlayer._shockAbsorberBuffType = ModBuff.getTypeByName('ShockAbsorberBuff') ?? -2;
+    }
+    if (ThoriumPlayer._shockAbsorberBuffType >= 0 && player.FindBuffIndex(ThoriumPlayer._shockAbsorberBuffType) >= 0) {
+      finalDamage += damage * 0.15;
     }
 
     if (ThoriumPlayer.setDepthDiverHelmet) {
@@ -625,8 +649,25 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  // Jar O' Mayo: acertar enquanto saciado rende dois empoderamentos brandos.
+  static TryJarOMayo(player) {
+    if (!ThoriumPlayer.accJarOMayo) return;
+    if (!ThoriumPlayer.IsWellFed(player)) return;
+
+    Empowerments.Apply(player, 'LifeRegeneration', 1);
+    Empowerments.Apply(player, 'JumpHeight', 1);
+  }
+
+  static IsWellFed(player) {
+    const { BuffID } = Terraria.ID;
+    return player.FindBuffIndex(BuffID.WellFed) >= 0
+      || player.FindBuffIndex(BuffID.WellFed2) >= 0
+      || player.FindBuffIndex(BuffID.WellFed3) >= 0;
+  }
+
   OnHitNPC(player, item, npc, damageDone, knockBack) {
     ThoriumPlayer.EnterCombat();
+    ThoriumPlayer.TryJarOMayo(player);
 
     if (
       ThoriumPlayer.SheathMaxCooldown !== undefined &&
@@ -653,6 +694,10 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.TrySpawnFabergeEgg(player, npc);
     }
 
+    if (ThoriumPlayer.accShockAbsorber && ModBardItem.bardItemsName.has(item.type)) {
+      ThoriumPlayer.StoreShockAbsorberDamage(damageDone);
+    }
+
     if (ThoriumPlayer.championDamage > 0) {
       const hitDir = npc.Center.X < player.Center.X ? -1 : 1;
       npc['double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)'](
@@ -665,6 +710,7 @@ export class ThoriumPlayer extends ModPlayer {
   OnHitNPCWithProj(player, npc, projectile) {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
     ThoriumPlayer.EnterCombat();
+    ThoriumPlayer.TryJarOMayo(player);
 
     if (ThoriumPlayer.championDamage > 0) {
       const hitDir = npc.Center.X < player.Center.X ? -1 : 1;
@@ -674,7 +720,9 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.championDamage = 0;
     }
 
-    if (ThoriumPlayer.setBronze && Rand.Next(0, 5) === 0) {
+    // Sem o filtro de classe o raio saia com qualquer projetil - magia, invocacao,
+    // sentinela e ate' mascote - o que nenhuma das descricoes do conjunto promete.
+    if (ThoriumPlayer.setBronze && projectile.ranged && Rand.Next(0, 5) === 0) {
       if (ThoriumPlayer._lightStrikeType === -1) {
         ThoriumPlayer._lightStrikeType = ModProjectile.getTypeByName('LightStrike') ?? -2;
       }
@@ -740,6 +788,10 @@ export class ThoriumPlayer extends ModPlayer {
 
     if (npc.boss && isBardWeapon) {
       ThoriumPlayer.TrySpawnFabergeEgg(player, npc);
+    }
+
+    if (ThoriumPlayer.accShockAbsorber && isBardWeapon) {
+      ThoriumPlayer.StoreShockAbsorberDamage(projectile.damage);
     }
 
     if (ThoriumPlayer.equipJesterShirt && isBardWeapon && Rand.Next(1, 5) === 1) {
@@ -1201,6 +1253,80 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.resLastManaSpent = 0;
     ThoriumPlayer.resLastInspirationSpent = 0;
     ThoriumPlayer.resTimeCount = 0;
+  }
+
+  static StoreShockAbsorberDamage(damage) {
+    if (!damage || damage <= 0) return;
+    ThoriumPlayer.accShockAbsorberStorage = Math.min(1000, ThoriumPlayer.accShockAbsorberStorage + Math.floor(damage));
+  }
+
+  static UpdateShockAbsorber(player) {
+    if (!ThoriumPlayer.accShockAbsorber) {
+      ThoriumPlayer.accShockAbsorberStorage = 0;
+      ThoriumPlayer._shockAbsorberKeyHeld = false;
+      return;
+    }
+
+    if (ThoriumPlayer.accShockAbsorberStorage > ThoriumPlayer.ShockAbsorberMaxStorage) {
+      ThoriumPlayer.accShockAbsorberStorage = ThoriumPlayer.ShockAbsorberMaxStorage;
+    }
+
+    ThoriumPlayer.EnsureShockAbsorberProjectile(player);
+
+    // Sem o gate de tecla o efeito descarregava sozinho assim que passava de 100,
+    // travando o estoque nesse patamar e deixando o buff eternamente em 3s.
+    const pressed = !!player.controlQuickMana;
+    const justPressed = pressed && !ThoriumPlayer._shockAbsorberKeyHeld;
+    ThoriumPlayer._shockAbsorberKeyHeld = pressed;
+
+    if (justPressed && ThoriumPlayer.accShockAbsorberStorage > ThoriumPlayer.ShockAbsorberMinStorage) {
+      ThoriumPlayer.ActivateShockAbsorber(player);
+    }
+  }
+
+  static EnsureShockAbsorberProjectile(player) {
+    if (!player || player.whoAmI !== Main.myPlayer) return;
+    if (ThoriumPlayer._shockAbsorberProType === -1) {
+      ThoriumPlayer._shockAbsorberProType = ModProjectile.getTypeByName('ShockAbsorberPro') ?? -2;
+    }
+    if (ThoriumPlayer._shockAbsorberProType < 0) return;
+    if (player.ownedProjectileCounts[ThoriumPlayer._shockAbsorberProType] >= 1) return;
+
+    NewProjectile(null, player.Center, Vector2.Zero, ThoriumPlayer._shockAbsorberProType, 0, 0, player.whoAmI, 0, 0, 0, null);
+  }
+
+  static ActivateShockAbsorber(player) {
+    if (!player || player.whoAmI !== Main.myPlayer) return;
+    if (ThoriumPlayer._shockAbsorberBuffType === -1) {
+      ThoriumPlayer._shockAbsorberBuffType = ModBuff.getTypeByName('ShockAbsorberBuff') ?? -2;
+    }
+    if (ThoriumPlayer._shockAbsorberBuffType < 0) return;
+
+    // 3s por 100 de dano guardado, teto de 30s no estoque cheio.
+    const duration = ThoriumPlayer.ShockAbsorberTicksPer100 * Math.floor(ThoriumPlayer.accShockAbsorberStorage / 100);
+    if (duration <= 0) return;
+
+    player.AddBuff(ThoriumPlayer._shockAbsorberBuffType, duration, true, false);
+    Effects.PlaySound(Terraria.ID.SoundID.Item94, player.Center.X, player.Center.Y);
+
+    for (let index = 0; index < 20; index++) {
+      const offset = Vector2.new(Rand.Next(-50, 51), Rand.Next(-50, 51));
+      const dustIndex = Effects.NewDust(Vector2.Add(player.position, offset), player.width, player.height, 59, 0, 0, 75, Color.White, 3);
+      const dust = Main.dust[dustIndex];
+      dust.noGravity = true;
+      dust.velocity = Vector2.Multiply(offset, -0.1);
+    }
+
+    if (ThoriumPlayer._shockAbsorberProType >= 0) {
+      for (let index = 0; index < Main.maxProjectiles; index++) {
+        const projectile = Main.projectile[index];
+        if (!projectile || !projectile.active || projectile.owner !== player.whoAmI || projectile.type !== ThoriumPlayer._shockAbsorberProType) continue;
+
+        projectile.ai[0] = 1;
+      }
+    }
+
+    ThoriumPlayer.accShockAbsorberStorage = 0;
   }
 
   /**

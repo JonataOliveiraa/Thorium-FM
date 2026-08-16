@@ -14,7 +14,7 @@ function resizeArrayProperty(propertyHolder, propertyName, newSize, value) {
 export class HairLoader {
     static Hairs = [];
     
-    static MAX_VANILLA_ID = Terraria.Main.numberOfHairstyles;
+    static MAX_VANILLA_ID = Terraria.Main.maxHairStyles;
     static Count = 0;
     static HairCount = this.MAX_VANILLA_ID + this.Count;
     static ModTypes = new Set();
@@ -31,7 +31,7 @@ export class HairLoader {
     
     static LoadHair(hair) {
         this.Count++;
-        const nextHair = this.MAX_VANILLA_ID + this.Count;
+        const nextHair = Terraria.GameContent.TextureAssets.PlayerHair.length + 1;
         hair.Type = nextHair - 1;
         this.ModTypes.add(hair.Type);
         
@@ -46,6 +46,10 @@ export class HairLoader {
     
     static SetupContent() {
         this.LoadHairs();
-        this.HairCount = this.MAX_VANILLA_ID + this.Count;
+        this.HairCount = Terraria.GameContent.TextureAssets.PlayerHair.length;
+    }
+    
+    static PostSetupContent() {
+        this.HairCount = Terraria.GameContent.TextureAssets.PlayerHair.length;
     }
 }

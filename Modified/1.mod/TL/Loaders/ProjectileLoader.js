@@ -359,4 +359,39 @@ export class ProjectileLoader {
         }
         return hitbox;
     }
+    
+    static CanUseGrapple(player, type) {
+        let value = true;
+        if (this.isModType(type)) {
+            value = this.getModProjectile(type).CanUseGrapple(player, type) ?? true;
+        }
+        for (const gProj of GlobalProjectile.RegisteredProjectiles) {
+            const _value = gProj.CanUseGrapple(player, type) ?? value;
+            if (value !== false) value = _value;
+        }
+        return value;
+    }
+    
+    static UseGrapple(player, type) {
+        if (this.isModType(type)) {
+            return this.getModProjectile(type).UseGrapple(player, type) ?? type;
+        }
+        for (const gProj of GlobalProjectile.RegisteredProjectiles) {
+            type = gProj.UseGrapple(player, type) ?? type;
+        }
+        return type;
+    }
+    
+    static GrappleCanLatchOnTo(proj, tile, originalValue) {
+        const player = Terraria.Main.player[proj.owner];
+        let value = null;
+        if (this.isModType(proj.type)) {
+            value = this.getModProjectile(proj.type).GrappleCanLatchOnTo(proj, player, tile);
+        }
+        for (const gProj of GlobalProjectile.RegisteredProjectiles) {
+            const _value = gProj.GrappleCanLatchOnTo(proj, player, tile);
+            if ((value || value === null) && _value !== null) value = _value;
+        }
+        return value ?? originalValue;
+    }
 }

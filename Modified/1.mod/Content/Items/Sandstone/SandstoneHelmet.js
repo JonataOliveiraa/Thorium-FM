@@ -27,7 +27,8 @@ export class SandstoneHelmet extends ModItem {
       this.Type,
       ModItem.getTypeByName("SandstoneMail"),
       ModItem.getTypeByName("SandstoneGreaves"),
-      "Desert winds have granted you a sandy double jump"
+      // Mesmo caso do Bronze: a chave ja' existia traduzida e nao era usada.
+      ModLocalization.getTranslationArmorSetBonus('Sandstone')
     );
   }
 

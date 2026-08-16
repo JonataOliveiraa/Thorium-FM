@@ -47,6 +47,14 @@ export class GlobalTile {
         return true;
     }
     
+    GetTileDustAmount(tile, fail, amount) {
+        return amount;
+    }
+    
+    MakeTileDust(i, j, tile) {
+        return true;
+    }
+    
     CanDropItems(i, j, tile) {
         return true;
     }

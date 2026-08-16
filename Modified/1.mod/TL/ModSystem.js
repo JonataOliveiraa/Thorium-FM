@@ -29,6 +29,8 @@ export class ModSystem {
     
     OnStartNight() {}
     
+    ModifyWorldGenTasks(tasks) {}
+    
     SendMessage(player, message) {
         return true;
     }

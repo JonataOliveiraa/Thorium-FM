@@ -1,5 +1,8 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
 
+// Granite Energy Storm Projectiles
+import { GraniteCharge } from '../Content/Projectiles/Boss/GraniteCharge.js';
+
 // Buried Champion Projectiles
 import { BuriedShock } from '../Content/Projectiles/Boss/BuriedShock.js';
 import { BuriedDaggerSpawner } from '../Content/Projectiles/Boss/BuriedDaggerSpawner.js';
@@ -235,11 +238,22 @@ import { GraniteIonStaffPro } from '../Content/Projectiles/GraniteIonStaffPro.js
 import { GraniteIonStaffPro2 } from '../Content/Projectiles/GraniteIonStaffPro2.js';
 import { GraniteReflectorPro } from '../Content/Projectiles/GraniteReflectorPro.js';
 import { EnergyStormPartisanPro } from '../Content/Projectiles/EnergyStormPartisanPro.js';
+import { EnergyStormBolterPro } from '../Content/Projectiles/EnergyStormBolterPro.js';
+import { GraniteBarrier } from '../Content/Projectiles/GraniteBarrier.js';
+import { BoulderProbeStaffPro } from '../Content/Projectiles/BoulderProbeStaffPro.js';
+import { BoulderProbeStaffProLaser } from '../Content/Projectiles/BoulderProbeStaffProLaser.js';
+import { ShockAbsorberPro } from '../Content/Projectiles/ShockAbsorberPro.js';
+import { EnergizedQuadCubePro } from '../Content/Projectiles/EnergizedQuadCubePro.js';
+import { SpudPro } from '../Content/Projectiles/SpudPro.js';
+import { SpudSplatter } from '../Content/Projectiles/SpudSplatter.js';
+import { GraniteEradicatorArm } from '../Content/Projectiles/NPC/GraniteEradicatorArm.js';
+import { GraniteAttack } from '../Content/Projectiles/NPC/GraniteAttack.js';
 import { EnergyExplosion } from '../Content/Projectiles/EnergyExplosion.js';
 import { ShroomBooster } from '../Content/Projectiles/ShroomBooster.js';
 import { ShroomBoosterBulb } from '../Content/Projectiles/ShroomBoosterBulb.js';
 
 const List = [
+  GraniteCharge,
   BuriedShock,
   BuriedDaggerSpawner,
   BuriedDagger,
@@ -380,6 +394,16 @@ const List = [
   GraniteIonStaffPro2,
   GraniteReflectorPro,
   EnergyStormPartisanPro,
+  EnergyStormBolterPro,
+  GraniteBarrier,
+  BoulderProbeStaffPro,
+  BoulderProbeStaffProLaser,
+  ShockAbsorberPro,
+  EnergizedQuadCubePro,
+  SpudPro,
+  SpudSplatter,
+  GraniteEradicatorArm,
+  GraniteAttack,
   EnergyExplosion,
   ShroomBooster,
   ShroomBoosterBulb,

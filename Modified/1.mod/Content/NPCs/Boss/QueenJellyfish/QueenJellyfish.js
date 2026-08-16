@@ -5,10 +5,12 @@ import { WorldDB } from '../../../../TL/WorldDB.js';
 import { ProjAI } from '../../../../TL/ProjAI.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { TileData } from '../../../../TL/Modules/TileData.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { MiscHelper } from '../../../Global/Utils/MiscHelper.js';
 
 const { Color, Vector2 } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
 const CountNPCS = Terraria.NPC['int CountNPCS(int Type)'];
@@ -121,6 +123,14 @@ export class QueenJellyfish extends ModNPC {
         this.NPC.HitSound = Terraria.ID.SoundID.NPCHit1;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath19;
         this.NPC.value = ModNPC.NPCValue(0, 0, 0, 1);
+    }
+
+    SetBestiary(database, bestiaryEntry) {
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean);
+
+        const flavor = FlavorTextBestiaryInfoElement.new();
+        flavor._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
+        bestiaryEntry.Info.Add(flavor);
     }
 
     PreAI(npc) {

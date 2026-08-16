@@ -189,11 +189,22 @@ export class ItemLoader {
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityPainting', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityTerraforming', nextItem, -1);
         
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'SwordsHammersAxesPicks', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'SpearsMacesChainsawsDrillsPunchCannon', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'GunsBows', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'Magic', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'Summon', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'BoomerangsChakrams', nextItem, false);
+        resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'ItemsThatCanHaveLegendary2', nextItem, false);
+        
         resizeArrayProperty(Terraria.Item, 'cachedItemSpawnsByType', nextItem, -1);
         resizeArrayProperty(Terraria.Item, 'staff', nextItem);
         resizeArrayProperty(Terraria.Item, 'claw', nextItem);
         
         resizeArrayProperty(Terraria.DataStructures.ArmorSetBonuses, 'SetsContaining', nextItem, [].makeGeneric(Terraria.DataStructures.ArmorSetBonus));
+        
+        resizeArrayProperty(Terraria.UI.ItemSorting, '_layerIndexForItemType', nextItem, 52);
+        resizeArrayProperty(Terraria.GameContent.QuickStacking.matchingItemTypeScratch, 'firstEntryForType', nextItem);
         
         if (item?.IsQuestFish()) {
             const newSize = Terraria.Main.anglerQuestItemNetIDs.length + 1;
@@ -577,7 +588,6 @@ export class ItemLoader {
         return result;
     }
     
-    /** @deprecated */
     static ChoosePrefix(item, rolledPrefix, rollablePrefixes) {
         if (this.isModType(item.type)) {
             let rolledPrefix2 = this.getModItem(item.type)?.ChoosePrefix(item, rolledPrefix, rollablePrefixes) ?? -1;
@@ -588,6 +598,15 @@ export class ItemLoader {
             if (rolledPrefix2 > 0) rolledPrefix = rolledPrefix2;
         }
         return rolledPrefix;
+    }
+    
+    static ApplyPrefix(item, prefix) {
+        if (this.isModType(item.type)) {
+            this.getModItem(item.type).ApplyPrefix(item, prefix);
+        }
+        for (const gItem of GlobalItem.RegisteredItems) {
+            gItem.ApplyPrefix(item, prefix);
+        }
     }
     
     static CanUseItem(item, player) {
@@ -799,12 +818,12 @@ export class ItemLoader {
         return value;
     }
     
-    static OnHitNPC(item, player, npc, damageDone, knockBack) {
+    static OnHitNPC(item, player, npc, damageDone, knockBack, crit) {
         if (this.isModType(item.type)) {
-            this.getModItem(item.type)?.OnHitNPC(item, player, npc, damageDone, knockBack);
+            this.getModItem(item.type)?.OnHitNPC(item, player, npc, damageDone, knockBack, crit);
         }
         for (const gItem of GlobalItem.RegisteredItems) {
-            gItem?.OnHitNPC(item, player, npc, damageDone, knockBack);
+            gItem?.OnHitNPC(item, player, npc, damageDone, knockBack, crit);
         }
     }
     

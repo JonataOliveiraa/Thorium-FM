@@ -62,6 +62,18 @@ export class GlobalProjectile {
         
     }
     
+    CanUseGrapple(player, type) {
+        return true;
+    }
+    
+    UseGrapple(player, type) {
+        return type;
+    }
+    
+    GrappleCanLatchOnTo(proj, player, tile) {
+        return null;
+    }
+    
     static register(gProj) {
         this.RegisteredProjectiles.push(new gProj());
     }

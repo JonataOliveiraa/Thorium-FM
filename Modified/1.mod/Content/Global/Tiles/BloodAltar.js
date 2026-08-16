@@ -7,6 +7,7 @@ import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 import { TileData } from "../../../TL/Modules/TileData.js";
 import { WorldDB } from "../../../TL/WorldDB.js";
+import { MiscHelper } from "../Utils/MiscHelper.js";
 
 const { Main, NPC } = Terraria
 const { TileObjectData } = Terraria.ObjectData
@@ -30,10 +31,6 @@ export class BloodAltar extends GlobalTile {
         TileObjectData.readOnlyData = true;
     }
 
-    /**
-     * Clicar no altar troca 5 Fragmentos Profanos pela invocacao do Visconde.
-     * Ele nasce longe pra ter que se aproximar em vez de aparecer em cima.
-     */
     RightClick(player, i, j, type) {
         if (this.Type !== type) return null;
 
@@ -46,7 +43,7 @@ export class BloodAltar extends GlobalTile {
         if (!(shardType > 0)) return false;
 
         if (this._countShards(player, shardType) < SHARD_COST) {
-            Main.NewText(ModLocalization.Translate('SinalizationChatMessage.BloodAltarMissingShards'), 200, 40, 40);
+            MiscHelper.ThoriumChatMessage('BloodAltarMissingShards', Color.White);
             return false;
         }
 

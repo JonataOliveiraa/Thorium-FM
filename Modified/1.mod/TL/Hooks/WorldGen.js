@@ -21,9 +21,12 @@ export class WorldGenHooks {
         CanKillTile: (info) => info.hasGlobalTiles,
         KillTile: (info) => info.hasGlobalTiles,
         KillTile_PlaySounds: (info) => info.hasGlobalTiles,
+        KillTile_GetTileDustAmount: (info) => info.hasGlobalTiles,
+        KillTile_MakeTileDust: (info) => info.hasGlobalTiles,
         KillTile_DropItems: (info) => info.hasGlobalTiles,
         SlopeTile: (info) => info.hasGlobalTiles,
         ShakeTree: (info) => info.hasGlobalTiles,
+        AddPasses: (info) => true,
         SaveAndQuit: (info) => true,
         SpawnTownNPC: (info) => info.hasNPCs
     };
@@ -99,6 +102,24 @@ export class WorldGenHooks {
             });
         }
         
+        if (this.HookList.KillTile_GetTileDustAmount(info)) {
+            Terraria.WorldGen['int KillTile_GetTileDustAmount(bool fail, Tile tileCache)'
+            ].hook((original, fail, tile) => {
+                const amount = original(fail, tile);
+                return TileLoader.GetTileDustAmount(fail, tile, amount);
+            });
+        }
+        
+        if (this.HookList.KillTile_MakeTileDust(info)) {
+            Terraria.WorldGen['int KillTile_MakeTileDust(int i, int j, Tile tileCache)'
+            ].hook((original, i, j, tile) => {
+                if (TileLoader.MakeTileDust(i, j, tile)) {
+                    return original(i, j, tile);
+                }
+                return 6000;
+            });
+        }
+        
         if (this.HookList.KillTile_DropItems(info)) {
             Terraria.WorldGen['void KillTile_DropItems(int x, int y, Tile tileCache, bool includeLargeObjectDrops)'
             ].hook((original, i, j, tile, includeLargeObjectDrops) => {
@@ -136,6 +157,14 @@ export class WorldGenHooks {
                     original(i, j);
                     TileLoader.ShakeTree(i, j, treeType);
                 }
+            });
+        }
+        
+        if (this.HookList.AddPasses(info)) {
+            Terraria.WorldGen['void AddPasses()'
+            ].hook((original) => {
+                original();
+                SystemLoader.ModifyWorldGenTasks(Terraria.WorldGen._generator._passes);
             });
         }
         
@@ -260,7 +289,7 @@ export class WorldGenHooks {
                         }
                     }
                     
-                    let index8 = Terraria.NPC.NewNPC(null, spawnTileX * 16, spawnTileY * 16, index1, 1, 0, 0, 0, 0, 255);
+                    let index8 = Terraria.NPC.NewNPC(Terraria.NPC.GetSpawnSourceForTownSpawn(), spawnTileX * 16, spawnTileY * 16, index1, 1, 0, 0, 0, 0, 255);
                     if (index8 === Terraria.Main.maxNPCs && Terraria.Main.npc[index8].type !== index1) {
                         return TownNPCSpawnResult.BlockedTooManyNPCs;
                     }

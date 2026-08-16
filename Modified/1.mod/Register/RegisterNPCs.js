@@ -1,6 +1,11 @@
 import { ModNPC } from '../TL/ModNPC.js';
 
 // Bosses
+import { GraniteEnergyStorm } from '../Content/NPCs/Boss/GraniteEnergyStorm/GraniteEnergyStorm.js';
+import { CoalescedEnergy } from '../Content/NPCs/Boss/GraniteEnergyStorm/CoalescedEnergy.js';
+import { EnergyBarrier } from '../Content/NPCs/Boss/GraniteEnergyStorm/EnergyBarrier.js';
+import { EnergyConduit } from '../Content/NPCs/Boss/GraniteEnergyStorm/EnergyConduit.js';
+import { EncroachingEnergy } from '../Content/NPCs/Boss/GraniteEnergyStorm/EncroachingEnergy.js';
 import { BuriedChampion } from '../Content/NPCs/Boss/BossBuriedChampion/BuriedChampion.js';
 import { FallenChampion1 } from '../Content/NPCs/Boss/BossBuriedChampion/FallenChampion1.js';
 import { FallenChampion2 } from '../Content/NPCs/Boss/BossBuriedChampion/FallenChampion2.js';
@@ -90,12 +95,22 @@ import { ConfusedZombie } from '../Content/NPCs/Town/ConfusedZombie.js';
 import { Cobbler } from '../Content/NPCs/Town/Cobbler.js';
 import { Diverman } from '../Content/NPCs/Town/Diverman.js';
 import { Druid } from '../Content/NPCs/Town/Druid.js';
+import { Cook } from '../Content/NPCs/Town/Cook.js';
+import { GraniteFusedSlime } from '../Content/NPCs/GraniteCave/GraniteFusedSlime.js';
+import { GraniteEradicator } from '../Content/NPCs/GraniteCave/GraniteEradicator.js';
+import { GraniteSurger } from '../Content/NPCs/GraniteCave/GraniteSurger.js';
+import { UnstableEnergyAnomaly } from '../Content/NPCs/GraniteCave/UnstableEnergyAnomaly.js';
 import { GoblinTrapper } from '../Content/NPCs/GoblinArmy/GoblinTrapper.js';
 import { CorpseBloom } from '../Content/NPCs/Jungle/CorpseBloom.js';
 import { CorpsePetal } from '../Content/NPCs/Jungle/CorpsePetal.js';
 import { CorpseWeed } from '../Content/NPCs/Jungle/CorpseWeed.js';
 
 const List = [
+    GraniteEnergyStorm,
+    CoalescedEnergy,
+    EnergyBarrier,
+    EnergyConduit,
+    EncroachingEnergy,
     BuriedChampion,
     FallenChampion1,
     FallenChampion2,
@@ -110,6 +125,11 @@ const List = [
     Cobbler,
     Diverman,
     Druid,
+    Cook,
+    GraniteFusedSlime,
+    GraniteEradicator,
+    GraniteSurger,
+    UnstableEnergyAnomaly,
 
     Biter,
 

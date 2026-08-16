@@ -27,6 +27,9 @@ import { PearlPikeBuff } from "../Content/Buffs/PearlPikeBuff.js";
 import { MeteorHeadStaffBuff } from "../Content/Buffs/MeteorHeadStaffBuff.js";
 import { GraniteSurgeBuff } from "../Content/Buffs/GraniteSurgeBuff.js";
 import { BloomBoostBuff } from "../Content/Buffs/BloomBoostBuff.js";
+import { ShockAbsorberBuff } from "../Content/Buffs/Bard/ShockAbsorberBuff.js";
+import { EnergizedQuadCubeBuff } from "../Content/Buffs/Pet/EnergizedQuadCubeBuff.js";
+import { FullStomach } from "../Content/Buffs/FullStomach.js";
 
 // Potions
 import { AquaAffinityBuff } from "../Content/Buffs/Potions/AquaAffinityBuff.js";
@@ -70,6 +73,9 @@ const List = [
     MeteorHeadStaffBuff,
     BloomBoostBuff,
     GraniteSurgeBuff,
+    ShockAbsorberBuff,
+    EnergizedQuadCubeBuff,
+    FullStomach,
 
     // Potions
     AquaAffinityBuff,

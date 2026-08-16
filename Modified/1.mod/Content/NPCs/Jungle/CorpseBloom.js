@@ -89,6 +89,11 @@ export class CorpseBloom extends ModNPC {
         this._texTried = false;
     }
 
+    DeathMessage = (npc) => {
+        return Terraria.Localization.Language.GetText('Announcement.HasBeenDefeated_Single'
+        ).Value.replace('{0}', ModLocalization.Translate('NPCName.CorpseBloom'));
+    }
+
     SetStaticDefaults() {
         Main.npcFrameCount[this.Type] = FRAME_COUNT;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;

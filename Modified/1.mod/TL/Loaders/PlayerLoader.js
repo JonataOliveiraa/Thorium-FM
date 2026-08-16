@@ -242,9 +242,9 @@ export class PlayerLoader {
         return true;
     }
     
-    static OnHitNPC(player, item, npc, damageDone, knockBack) {
+    static OnHitNPC(player, item, npc, damageDone, knockBack, crit) {
         for (const modPlayer of this.RegisteredPlayers) {
-            modPlayer?.OnHitNPC(player, item, npc, damageDone, knockBack);
+            modPlayer?.OnHitNPC(player, item, npc, damageDone, knockBack, crit);
         }
     }
     

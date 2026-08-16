@@ -34,11 +34,11 @@ export class BestiaryHelper {
         const allDrops = entry.Info.ToArray();
         const len = allDrops.length;
         for (let i = 0; i < len; i++) {
-            let drop;
-            try { drop = allDrops[i]?._droprateInfo; } catch {}
-            if (!drop) continue;
-            if (drop.itemId === itemId) {
-                entry.Info.RemoveAt(i);
+            let drop = allDrops[i];
+            if (drop.ToString() === 'Terraria.GameContent.Bestiary.ItemDropBestiaryInfoElement') {
+                if (drop._droprateInfo.itemId === itemId) {
+                    entry.Info.RemoveAt(i);
+                }
             }
         }
     }

@@ -158,7 +158,7 @@ export class ModPlayer {
         return true;
     }
     
-    OnHitNPC(player, item, npc, damageDone, knockBack) {
+    OnHitNPC(player, item, npc, damageDone, knockBack, crit) {
         
     }
     

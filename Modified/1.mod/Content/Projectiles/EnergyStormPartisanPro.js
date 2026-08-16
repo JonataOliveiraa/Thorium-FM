@@ -19,17 +19,14 @@ export class EnergyStormPartisanPro extends ModProjectile {
     }
 
     SetDefaults() {
+        // DefaultToSpear ja' cuida de aiStyle/penetrate/tileCollide/ownerHitCheck e,
+        // principalmente, do drawLayer 7 - a camada em que a lanca aparece na mao.
+        this.DefaultToSpear();
+
         this.Projectile.width = 26;
         this.Projectile.height = 26;
-        this.Projectile.aiStyle = 19;
-        this.Projectile.friendly = true;
-        this.Projectile.melee = true;
-        this.Projectile.hide = true;
-        this.Projectile.ownerHitCheck = true;
         this.Projectile.light = 0.4;
-        this.Projectile.penetrate = -1;
         this.Projectile.timeLeft = 600;
-        this.Projectile.tileCollide = false;
         this.Projectile.usesIDStaticNPCImmunity = true;
         this.Projectile.idStaticNPCHitCooldown = 8;
     }

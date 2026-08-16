@@ -37,6 +37,21 @@ import { InsectRepellent } from '../Content/Items/Potions/InsectRepellent.js';
 import { SkeletonRepellent } from '../Content/Items/Potions/SkeletonRepellent.js';
 import { ZombieRepellent } from '../Content/Items/Potions/ZombieRepellent.js';
 
+// Food Items
+import { CherryPie } from '../Content/Items/Consumable/Food/CherryPie.js';
+import { StackofPancakes } from '../Content/Items/Consumable/Food/StackofPancakes.js';
+import { IceCreamCone } from '../Content/Items/Consumable/Food/IceCreamCone.js';
+import { HamandCheeseMelt } from '../Content/Items/Consumable/Food/HamandCheeseMelt.js';
+import { CarrotCookie } from '../Content/Items/Consumable/Food/CarrotCookie.js';
+import { ToughNutToffee } from '../Content/Items/Consumable/Food/ToughNutToffee.js';
+import { SpudBomber } from '../Content/Items/Consumable/Food/SpudBomber.js';
+import { Spud } from '../Content/Items/Consumable/Food/Spud.js';
+import { LargePopcorn } from '../Content/Items/Consumable/Food/LargePopcorn.js';
+import { JarOMayo } from '../Content/Items/Consumable/Food/JarOMayo.js';
+import { AromaticBiscuit } from '../Content/Items/Consumable/Food/AromaticBiscuit.js';
+import { BlueCheese } from '../Content/Items/Consumable/Food/BlueCheese.js';
+import { QuestionableStew } from '../Content/Items/Consumable/Food/QuestionableStew.js';
+
 // ==== ITENS NOVOS (ficam no topo da lista pra achar rapido) ====
 import { FrostPelter } from '../Content/Items/Ranged/FrostPelter.js';
 import { HarpyPelter } from '../Content/Items/Ranged/HarpyPelter.js';
@@ -339,6 +354,12 @@ import { GranitePickAxe } from '../Content/Items/Granite/GranitePickAxe.js';
 import { GraniteIonStaff } from '../Content/Items/Granite/GraniteIonStaff.js';
 import { GraniteReflector } from '../Content/Items/Granite/GraniteReflector.js';
 import { EnergyStormPartisan } from '../Content/Items/GraniteEnergyStorm/EnergyStormPartisan.js';
+import { EnergyStormBolter } from '../Content/Items/GraniteEnergyStorm/EnergyStormBolter.js';
+import { EnergyProjector } from '../Content/Items/GraniteEnergyStorm/EnergyProjector.js';
+import { BoulderProbeStaff } from '../Content/Items/GraniteEnergyStorm/BoulderProbeStaff.js';
+import { ShockAbsorber } from '../Content/Items/GraniteEnergyStorm/ShockAbsorber.js';
+import { GraniteEnergyStormMask } from '../Content/Items/GraniteEnergyStorm/GraniteEnergyStormMask.js';
+import { EnergizedQuadCube } from '../Content/Items/GraniteEnergyStorm/EnergizedQuadCube.js';
 import { Ukulele } from '../Content/Items/Bard/Ukulele.js';
 import { YewWoodLute } from '../Content/Items/Bard/YewWoodLute.js';
 import { Sitar } from '../Content/Items/Bard/Sitar.js';
@@ -348,6 +369,20 @@ import { BloomGuard } from '../Content/Items/Healer/BloomGuard.js';
 
 
 const List = [
+    CherryPie,
+    StackofPancakes,
+    IceCreamCone,
+    HamandCheeseMelt,
+    CarrotCookie,
+    ToughNutToffee,
+    SpudBomber,
+    Spud,
+    BlueCheese,
+    QuestionableStew,
+    LargePopcorn,
+    JarOMayo,
+    AromaticBiscuit,
+
     ChampionSwiftBlade,
     ChampionsTrifectaShot,
     ChampionBomberStaff,
@@ -393,6 +428,12 @@ const List = [
     GraniteIonStaff,
     GraniteReflector,
     EnergyStormPartisan,
+    EnergyStormBolter,
+    EnergyProjector,
+    BoulderProbeStaff,
+    ShockAbsorber,
+    GraniteEnergyStormMask,
+    EnergizedQuadCube,
     FrostPelter,
     HarpyPelter,
     Slugger,

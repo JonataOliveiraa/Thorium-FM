@@ -1,6 +1,7 @@
 import { ModLocalization } from "../../../TL/ModLocalization.js";
 import { Point } from "../../../TL/Modules/Point.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
+import { Color } from "../../../TL/Modules/Color.js";
 import { Terraria } from "../../../TL/ModImports.js";
 
 const { Main } = Terraria;
@@ -142,10 +143,12 @@ export class MiscHelper {
         desiredPosition.Y = checkPos.Y + size.Y / 2;
     }
 
+    // A sobrecarga nativa exige (texto, cor); passar so' o texto derrubava o mod
+    // inteiro. A cor recebida agora e' de fato usada, com branco como padrao.
     static ThoriumChatMessage(key, color) {
-        const fullKey = `SinalizationChatMessage.${key}`
         Main['void NewText(string newText, Color color)'](
-            ModLocalization.Translate(fullKey,)
-        )
+            ModLocalization.Translate(`SinalizationChatMessage.${key}`),
+            color ?? Color.White
+        );
     }
 }

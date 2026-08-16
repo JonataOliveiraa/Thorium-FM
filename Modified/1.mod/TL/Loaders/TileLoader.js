@@ -70,6 +70,20 @@ export class TileLoader {
         return true;
     }
     
+    static GetTileDustAmount(fail, tile, amount) {
+        for (const gTile of GlobalTile.RegisteredTiles) {
+            amount = gTile?.GetTileDustAmount(tile, fail, amount) ?? amount;
+        }
+        return amount;
+    }
+    
+    static MakeTileDust(i, j, tile) {
+        if (GlobalTile.RegisteredTiles.some(gT => gT.MakeTileDust(i, j, tile) === false)) {
+            return false;
+        }
+        return true;
+    }
+    
     static CanDropItems(i, j, tile) {
         let flag = true;
         

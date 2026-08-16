@@ -16,10 +16,10 @@ export class NPCShop {
         }
     }
     
-    Add(type, stack = 1, price = 0) {
+    Add(type, stack = 1) {
         if (!type || !stack) return -1;
         for (let i = 0; i < 40; i++) {
-            if (this.item[i] == null || this.item[i].type == 0) {
+            if (this.item[i] === null || this.item[i].type === 0) {
                 this.item[i] = Terraria.Item.new();
                 let newVar = Terraria.GameContent.Items.ItemVariant.new();
                 this.item[i]['void SetDefaults(int Type, ItemVariant variant)'](type, newVar);
@@ -28,10 +28,6 @@ export class NPCShop {
                 this.item[i].buyOnce = false;
                 this.item[i].stack = Math.max(1, Math.min(stack, this.item[i].maxStack));
                 this.item[i].material = Terraria.ID.ItemID.Sets.IsAMaterial[type];
-
-                if(price) {
-                    this.item[i].value = price
-                }
                 return i;
             }
         }
@@ -54,7 +50,7 @@ export class NPCShop {
     
     RemoveAt(slot = 0, type = null) {
         slot = Math.max(0, Math.min(slot, 39));
-        if (type != null) {
+        if (type !== null) {
             if (this.item[slot]?.type === type) {
                 this.item[slot].TurnToAir(true);
             }
@@ -80,7 +76,7 @@ export class NPCShop {
     
     NextSlot() {
         for (let i = 0; i < 40; i++) {
-            if (this.item[i] == null || this.item[i].type == 0) {
+            if (this.item[i] === null || this.item[i].type === 0) {
                 return i;
             }
         }

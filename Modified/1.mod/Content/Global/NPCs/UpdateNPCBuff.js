@@ -4,6 +4,7 @@ import { Vector2 } from "../../../TL/Modules/Vector2.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { Color } from "../../../TL/Modules/Color.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
+import { Effects } from "../../../TL/Modules/Effects.js";
 import { ThoriumPlayer } from "../ThoriumPlayer.js";
 import { ElementalDecayBuff } from "../../Buffs/ElementalDecayBuff.js";
 import { SingedBuff } from "../../Buffs/SingedBuff.js";
@@ -51,8 +52,16 @@ const charmVec2 = Vector2.new(0.85, 0.85)
 // Color.Pink / Color.Transparent sao getters nativos: guardamos uma copia
 const PINK = Color.Pink;
 const TRANSPARENT = Color.Transparent;
+// 0.45 * 255: o mesmo fator do buffColor usado pelo Petrify original.
+const STONE = Color.new(115, 115, 115);
 
-// Lembra quais slots de NPC estao tingidos de rosa, pra so escrever npc.color
+const PETRIFY_DUST_OFFSET = Vector2.new(2, 2);
+
+const TINT_NONE = 0;
+const TINT_PINK = 1;
+const TINT_STONE = 2;
+
+// Lembra com que cor cada slot de NPC esta tingido, pra so escrever npc.color
 // quando a cor realmente muda em vez de reescrever toda hora
 const tinted = new Uint8Array(Terraria.Main.maxNPCs);
 
@@ -80,8 +89,23 @@ export class UpdateNPCBuff extends GlobalNPC {
             }
         }
 
+        return true;
+    }
+
+    // Tudo que mexe em velocity/position precisa rodar DEPOIS da AI nativa.
+    // Antes isso vivia no PreAI, onde era inofensivo: a AI do NPC reescreve a
+    // velocidade logo em seguida, e no PreAI `position` ainda e' igual a
+    // `oldPosition` - ou seja, o congelamento do Petrify nunca acontecia.
+    PostAI(npc) {
         if (StunnedBuffType === -1) initBuffTypes();
-        if (npc.buffType[0] === 0) return true;
+        if (npc.buffType[0] === 0) {
+            const slot = npc.whoAmI;
+            if (tinted[slot]) {
+                tinted[slot] = TINT_NONE;
+                npc.color = TRANSPARENT;
+            }
+            return;
+        }
 
         // Um passo unico pela lista de buffs em vez de 5 FindBuffIndex nativos
         // por NPC por tick. Sai fora no primeiro slot vazio.
@@ -98,32 +122,38 @@ export class UpdateNPCBuff extends GlobalNPC {
             else if (t === DistortedTimeEnemy) distorted = true;
         }
 
+        const slot = npc.whoAmI;
+
         if (!stunned && !petrified && !charmed && !elemental && !singed && !distorted) {
-            const slot = npc.whoAmI;
             if (tinted[slot]) {
-                tinted[slot] = 0;
+                tinted[slot] = TINT_NONE;
                 npc.color = TRANSPARENT;
             }
-            return true;
+            return;
         }
 
         const isSmallNonBoss = !BlackList.has(npc.type) && npc.lifeMax < 900 && !npc.boss;
+        const frozen = petrified && isSmallNonBoss;
 
-        if (petrified && isSmallNonBoss) {
+        if (frozen) {
             npc.position = npc.oldPosition;
             npc.netOffset = Vector2.Zero;
             npc.frameCounter = 0;
             npc.velocity = Vector2.Zero;
+            this._petrifyEffects(npc);
         } else if (stunned && isSmallNonBoss) {
             npc.velocity = Vector2.Zero;
         }
 
+        // Pedra tem prioridade visual sobre o rosa do Charmed.
+        const wantTint = frozen ? TINT_STONE : (charmed && isSmallNonBoss) ? TINT_PINK : TINT_NONE;
+        if (tinted[slot] !== wantTint) {
+            tinted[slot] = wantTint;
+            npc.color = wantTint === TINT_STONE ? STONE : wantTint === TINT_PINK ? PINK : TRANSPARENT;
+        }
+
         if (charmed && isSmallNonBoss) {
-            npc.velocity = Vector2.Multiply(npc.velocity, charmVec2);
-            if (!tinted[npc.whoAmI]) {
-                tinted[npc.whoAmI] = 1;
-                npc.color = PINK;
-            }
+            if (!frozen) npc.velocity = Vector2.Multiply(npc.velocity, charmVec2);
 
             if (Math.random() >= 0.85) {
                 let vec2 = Vector2.new(Rand.Next(-10, 11), Rand.Next(-10, 11));
@@ -137,9 +167,6 @@ export class UpdateNPCBuff extends GlobalNPC {
                 );
                 Terraria.Main.gore[index].sticky = false;
             }
-        } else if (tinted[npc.whoAmI]) {
-            tinted[npc.whoAmI] = 0;
-            npc.color = TRANSPARENT;
         }
 
         if (elemental) {
@@ -199,11 +226,34 @@ export class UpdateNPCBuff extends GlobalNPC {
             }
         }
 
-        if (distorted && isSmallNonBoss) {
+        if (distorted && isSmallNonBoss && !frozen) {
             npc.velocity = Vector2.Multiply(npc.velocity, dtVec2);
         }
+    }
 
-        return true;
+    // Lascas de pedra saindo do alvo + a luz apagada do Petrify original.
+    _petrifyEffects(npc) {
+        Effects.AddLight(npc.Center, 0.1, 0.1, 0.1);
+
+        if (Rand.Next(4) === 0) return;
+
+        const dustIndex = NewDust(
+            Vector2.Subtract(npc.position, PETRIFY_DUST_OFFSET),
+            npc.width, npc.height,
+            1, 0, 0, 100, TRANSPARENT, 0.6
+        );
+        const dust = Terraria.Main.dust[dustIndex];
+        if (!dust) return;
+
+        dust.noGravity = true;
+        const velocity = Vector2.Multiply(dust.velocity, 1.8);
+        velocity.Y -= 0.5;
+        dust.velocity = velocity;
+
+        if (Rand.Next(4) === 0) {
+            dust.noGravity = false;
+            dust.scale *= 0.5;
+        }
     }
 
     // DoT do Granite Surge. Vai por lifeRegen (o caminho nativo de debuff)

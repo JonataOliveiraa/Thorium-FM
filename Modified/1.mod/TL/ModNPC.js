@@ -42,7 +42,7 @@ export class ModNPC extends ModTexturedType {
         npc['void SetDefaults(int Type, NPCSpawnParams spawnparams)'](this.Type, null);
         
         Terraria.ID.ContentSamples.NpcsByNetId.Add(this.Type, npc);
-        Terraria.ID.ContentSamples.NpcBestiarySortingId.Add(this.Type, this.Type);
+        //Terraria.ID.ContentSamples.NpcBestiarySortingId.Add(this.Type, this.Type);
         Terraria.ID.ContentSamples.NpcBestiaryRarityStars.Add(this.Type, this.BestiaryRarityStars);
         Terraria.ID.ContentSamples.NpcBestiaryCreditIdsByNpcNetIds.Add(this.Type, name);
         Terraria.ID.ContentSamples.NpcNetIdsByPersistentIds.Add(name, this.Type);
@@ -135,7 +135,7 @@ export class ModNPC extends ModTexturedType {
     
     SpawnNPC(spawnX, spawnY) {
         return Terraria.NPC.NewNPC(
-            null,
+            Terraria.NPC.GetSpawnSourceForNaturalSpawn(),
             spawnX, spawnY, this.Type,
             0, 0, 0, 0, 0, 255
         );
@@ -242,7 +242,7 @@ export class ModNPC extends ModTexturedType {
         
     }
     
-    OnHitByPlayer(npc, player, item, damageDone, knockBack) {
+    OnHitByPlayer(npc, player, item, damageDone, knockBack, crit) {
         
     }
     

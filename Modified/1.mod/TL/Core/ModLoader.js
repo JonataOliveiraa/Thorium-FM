@@ -21,6 +21,9 @@ import { SubworldLoader } from './../Loaders/SubworldLoader.js';
 import { HairLoader } from './../Loaders/HairLoader.js';
 import { MountLoader } from './../Loaders/MountLoader.js';
 import { AchievementLoader } from './../Loaders/AchievementLoader.js';
+import { CommandLoader } from './../Loaders/CommandLoader.js';
+import { EmoteBubbleLoader } from './../Loaders/EmoteBubbleLoader.js';
+import { PrefixLoader } from './../Loaders/PrefixLoader.js';
 
 // ModTypes
 import { ModSystem } from './../ModSystem.js';
@@ -74,6 +77,7 @@ export class ModLoader extends ModSystem {
             is64Bits: !tl.device.is32Bits,
             hasGlobalTiles: GlobalTile.RegisteredTiles.length > 0,
             hasItems: ItemLoader.Items.length > 0,
+            hasPrefixes: PrefixLoader.Prefixes.length > 0,
             hasGlobalItems: GlobalItem.RegisteredItems.length > 0,
             hasNPCs: NPCLoader.NPCs.length > 0,
             hasGlobalNPCs: GlobalNPC.RegisteredNPCs.length > 0,
@@ -87,6 +91,8 @@ export class ModLoader extends ModSystem {
             hasBiomes: BiomeLoader.Biomes.length > 0,
             hasBackgrounds: BackgroundLoaders._hasBackgrounds,
             hasAchievements: AchievementLoader.Achievements.length > 0,
+            hasCommands: CommandLoader.Commands.length > 0,
+            hasEmotes: EmoteBubbleLoader.EmoteBubbles.length > 0,
             hasMenus: MenuLoader.Menus.length > 0,
             hasSubworlds: SubworldLoader.Subworlds.length > 0
         };
@@ -98,6 +104,10 @@ export class ModLoader extends ModSystem {
     SetupContent() {
         this.UpdateModData();
         
+        // Localizations
+        ModLocalization.UpdateTranslations();
+        SystemLoader.OnLocalizationsLoaded();
+        
         // Loaders
         TileLoader.SetupContent();
         BiomeLoader.SetupContent();
@@ -105,17 +115,16 @@ export class ModLoader extends ModSystem {
         BuffLoader.SetupContent();
         ProjectileLoader.SetupContent();
         ItemLoader.SetupContent();
+        PrefixLoader.SetupContent();
         NPCLoader.SetupContent();
         GoreLoader.SetupContent();
         CloudLoader.SetupContent();
         HairLoader.SetupContent();
         MenuLoader.SetStaticDefaults();
         
-        // Localizations
-        ModLocalization.UpdateTranslations();
-        SystemLoader.OnLocalizationsLoaded();
-        
         AchievementLoader.SetupContent();
+        CommandLoader.SetupContent();
+        EmoteBubbleLoader.SetupContent();
     }
     
     PostSetupContent() {
@@ -131,8 +140,12 @@ export class ModLoader extends ModSystem {
         BuffLoader.PostSetupContent();
         ProjectileLoader.PostSetupContent();
         ItemLoader.PostSetupContent();
+        PrefixLoader.PostSetupContent();
         NPCLoader.PostSetupContent();
         GoreLoader.PostSetupContent();
+        HairLoader.PostSetupContent();
+        CommandLoader.PostSetupContent();
+        EmoteBubbleLoader.PostSetupContent();
         MenuLoader.OnEnter();
         
         this.CheckFiles('Players/', '.plr');
@@ -189,6 +202,8 @@ export class ModLoader extends ModSystem {
                 }
             }
             if (buffs.length) PlayerDB.set('modsystem:buffs', buffs.join('/'));
+            else PlayerDB.set('modsystem:buffs', null);
+            PlayerDB.set('modsystem:hair', player.hair);
             PlayerDB.Instance.Save();
         }
         if (WorldDB.Instance) WorldDB.Instance.Save();

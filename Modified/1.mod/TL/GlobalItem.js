@@ -12,9 +12,12 @@ export class GlobalItem {
         return true;
     }
     
-    /** @deprecated */
     ChoosePrefix(item, rolledPrefix, rollablePrefixes) {
         return -1;
+    }
+    
+    ApplyPrefix(item, prefix) {
+        
     }
     
     CanUseItem(item, player) {

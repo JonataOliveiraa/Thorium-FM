@@ -269,6 +269,8 @@
     "DiverHelmet": "Casco del Buceador",
     "DiverSuit": "Traje del Buceador",
     "DiverLeggings": "Pantalones del Buceador",
+    "CooksHat": "Gorro del Cocinero",
+    "CooksApron": "Delantal del Cocinero",
     "InspirationFragment": "Fragmento de Inspiración",
     "InspirationShard": "Pieza de Inspiración",
     "InspirationCrystal": "Cristal de Inspiración",
@@ -292,6 +294,9 @@
     "GraniteIonStaff": "Bastón de Iones de Granito",
     "GraniteReflector": "Reflector de Granito",
     "EnergyStormPartisan": "Partesana de la Tormenta de Energía",
+    "EnergyStormBolter": "Ballesta de la Tormenta de Energía",
+    "EnergyProjector": "Proyector de Energía",
+    "BoulderProbeStaff": "Bastón de Sonda de Roca",
     "ChampionSwiftBlade": "Espada Veloz del Campeón",
     "ChampionsTrifectaShot": "Disparo Triple del Campeón",
     "ChampionBomberStaff": "Báculo de Bombardero del Campeón",
@@ -321,9 +326,26 @@
     "EarwormPotion": "Earworm Potion",
     "FrenzyPotion": "Frenzy Potion",
     "GlowingPotion": "Glowing Potion",
-    "HydrationPotion": "Hydration Potion"
+    "HydrationPotion": "Hydration Potion",
+    "GraniteEnergyStormMask": "Máscara de la Tormenta de Energía",
+    "EnergizedQuadCube": "Cubo Cuádruple Energizado",
+    "SpudBomber": "Bombardero de Papas",
+    "Spud": "Papa",
+    "CherryPie": "Tarta de Cereza",
+    "StackofPancakes": "Pila de Panqueques",
+    "IceCreamCone": "Cono de Helado",
+    "HamandCheeseMelt": "Sándwich de Jamón y Queso",
+    "CarrotCookie": "Galleta de Zanahoria",
+    "ToughNutToffee": "Caramelo Duro de Nueces",
+    "LargePopcorn": "Palomitas Grandes",
+    "JarOMayo": "Tarro de Mayonesa",
+    "AromaticBiscuit": "Galleta Aromática",
+    "BlueCheese": "Queso Azul",
+    "QuestionableStew": "Guiso Cuestionable"
   },
   "ItemTooltip": {
+    "CooksHat": "'El chef de hierro no es rival para ti'",
+    "CooksApron": "'El chef de hierro no es rival para ti'",
     "ShadeWoodTambourine": "Lanza una pandereta que vuelve a ti\nToca Interaccion Inteligente mientras esta en el aire para reventarla en una onda expansiva",
     "EbonwoodTambourine": "Lanza una pandereta que vuelve a ti\nToca Interaccion Inteligente mientras esta en el aire para reventarla en una onda expansiva",
     "PearlPike": "Acertar un golpe te vuelve mas rapido y te hace saltar mas alto",
@@ -517,6 +539,9 @@
     "GraniteIonStaff": "Carga una descarga ionizada de energía de granito\nCargarla multiplica su potencia hasta 3 veces\nEscuda tu vida al soltarla",
     "GraniteReflector": "Sobrecarga de energía a los enemigos cercanos en su primer impacto",
     "EnergyStormPartisan": "Causar daño dos veces en un mismo uso libera una explosión energizada",
+    "EnergyStormBolter": "Convierte las balas de mosquete en proyectiles teledirigidos de energía de granito\nInflige Sobrecarga de Granito al golpear",
+    "EnergyProjector": "Invoca una barrera giratoria de energía de granito a tu alrededor\nVolver a lanzarlo reinicia la barrera\nInflige Sobrecarga de Granito al golpear",
+    "BoulderProbeStaff": "Invoca una sonda de granito que dispara un láser hacia tu cursor\nClic derecho para retirar la sonda\nInflige Sobrecarga de Granito al golpear",
     "ChampionSwiftBlade": "Golpear a un enemigo otorga un impulso de velocidad de movimiento",
     "ChampionsTrifectaShot": "Dispara una secuencia de tres flechas antiguas diferentes",
     "ChampionBomberStaff": "Invoca una bomba antigua para flotar cerca de ti\nToca dos veces ABAJO para soltar una bomba",
@@ -543,7 +568,20 @@
     "EarwormPotion": "Increases symphonic critical strike chance by 5%",
     "FrenzyPotion": "Increases attack speed by 10%",
     "GlowingPotion": "Emits light and increases radiant damage by 10%",
-    "HydrationPotion": "Increases maximum health by 10% and health regeneration"
+    "HydrationPotion": "Increases maximum health by 10% and health regeneration",
+    "EnergizedQuadCube": "Invoca un cubo cuádruple energizado que te sigue",
+    "SpudBomber": "'Supongo que el Cocinero es todo un artesano'\nUsa papas como munición",
+    "Spud": "Munición para el Bombardero de Papas",
+    "CherryPie": "Restaura 50 de vida\nOtorga Regeneración\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "StackofPancakes": "Restaura 50 de vida\nOtorga Rapidez\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "IceCreamCone": "Restaura 50 de vida\nOtorga Poder Mágico\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "HamandCheeseMelt": "Restaura 50 de vida\nOtorga Titán\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "CarrotCookie": "Restaura 50 de vida\nOtorga Búho Nocturno\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "ToughNutToffee": "Restaura 50 de vida\nOtorga Piel de Hierro\nSolo puede comerse fuera de combate\nComer la comida del Cocinero te deja lleno por 45 segundos",
+    "BlueCheese": "Restaura 75 de vida\n'Azul, sí... ¡Esta cosa prácticamente brilla!'\nSolo puede comerse fuera de combate\nOtorga emisión de luz y leves mejoras a todos los atributos",
+    "QuestionableStew": "Restaura 75 de vida\n'El plato en sí no es cuestionable, comerlo en cambio...'\nSolo puede comerse fuera de combate\nAumenta la aparición de enemigos y da leves mejoras a todos los atributos",
+    "LargePopcorn": "Un cubo entero, y nunca se sabe qué hay dentro\nOtorga tres efectos aleatorios de 10 segundos: uno malo, uno útil y uno bueno",
+    "JarOMayo": "Accesorio de bardo\nGolpear a un enemigo estando Bien Alimentado otorga los empoderamientos de Regeneración de Vida y Altura de Salto"
   },
   "ArmorSetBonus": {
     "LivingWood": "El ataque automático de tu Brote de Madera Viva perseguirá a los enemigos",
@@ -598,7 +636,9 @@
     "EarwormBuff": "Earworm",
     "FrenzyPotionBuff": "Frenzy",
     "GlowingBuff": "Glowing",
-    "HydrationBuff": "Hydrated"
+    "HydrationBuff": "Hydrated",
+    "EnergizedQuadCubeBuff": "Cubo Cuádruple Energizado",
+    "FullStomach": "Estómago Lleno"
   },
   "BuffDescription": {
     "PearlPikeBuff": "Mas velocidad de movimiento y altura de salto",
@@ -633,7 +673,9 @@
     "EarwormBuff": "5% increased symphonic critical strike chance",
     "FrenzyPotionBuff": "10% increased attack speed",
     "GlowingBuff": "Emitting light and radiant damage increased",
-    "HydrationBuff": "Maximum health and life regeneration increased"
+    "HydrationBuff": "Maximum health and life regeneration increased",
+    "EnergizedQuadCubeBuff": "Un cubo cuádruple energizado te está siguiendo",
+    "FullStomach": "¡No podrías comer ni un bocado más!"
   },
   "ProjectileName": {
     "IcyArrowProjectile": "Proyectil de Flecha Congelada",
@@ -650,7 +692,16 @@
     "GraniteIonStaffPro2": "Descarga de Iones",
     "GraniteReflectorPro": "Reflector de Granito",
     "EnergyStormPartisanPro": "Partesana de la Tormenta de Energía",
-    "EnergyExplosion": "Explosión Energizada"
+    "EnergyStormBolter": "Ballesta de la Tormenta de Energía",
+    "GraniteBarrier": "Barrera de Granito",
+    "BoulderProbeStaffProLaser": "Láser de Sonda de Roca",
+    "BoulderProbeStaffPro": "Sonda de Roca",
+    "EnergyExplosion": "Explosión Energizada",
+    "EnergizedQuadCubePro": "Cubo Cuádruple Energizado",
+    "SpudPro": "Papa",
+    "SpudSplatter": "Salpicadura",
+    "GraniteEradicatorArm": "Brazo del Erradicador de Granito",
+    "GraniteAttack": "Ataque de Granito"
   },
   "NPCName": {
     "Nestling": "Polluelo",
@@ -705,12 +756,18 @@
     "CorpsePetal": "Pétalo Cadavérico",
     "CorpseWeed": "Hierba Cadavérica",
     "Druid": "Druida",
+    "Cook": "Cocinero",
     "AncientArcher": "Ancient Archer",
     "AncientCharger": "Ancient Charger",
     "AncientPhalanx": "Ancient Phalanx",
     "BizarreRockFormation": "Formación rocosa extraña",
     "BuriedChampion": "Campeón Enterrado",
-    "QueenJellyfish": "Reina Medusa"
+    "QueenJellyfish": "Reina Medusa",
+    "GraniteEnergyStorm": "Tormenta de Energía de Granito",
+    "GraniteFusedSlime": "Limo Fundido de Granito",
+    "GraniteEradicator": "Erradicador de Granito",
+    "GraniteSurger": "Surgidor de Granito",
+    "UnstableEnergyAnomaly": "Anomalía de Energía Inestable"
   },
   "Bestiary": {
     "Nestling": "Una especie de ave a la que le encanta convivir con las Arpias, cuidar polluelos y apedrear a los Terrarios curiosos.",
@@ -763,10 +820,18 @@
     "CorpseBloom": "No queda claro si esta flor mutante debe su nombre a su hedor, o a lo que suele dejar de los Terrarios a su paso.",
     "CorpseWeed": "Las raíces vivas de una Flor Cadavérica pueden ser tan peligrosas como la planta que las alberga. ¡Quizá incluso más!",
     "Druid": "Una herbolaria errante que recoge semillas en todos los rincones del mundo, por hostiles que sean.",
+    "Cook": "Un chef experto que puede convertir hasta los ingredientes más sencillos en una comida digna de un aventurero.",
     "AncientArcher": "Precise units from an ancient civilization, they use powerful bronze bows to pick off opposition from a distance.",
     "AncientCharger": "Swift warriors of a forgotten civilization, they charge through marble caverns with relentless force.",
     "AncientPhalanx": "Colossal guardians from an ancient civilization, they have little to protect but themselves.",
-    "BizarreRockFormation": "Una figura de piedra con la forma de un Terrariano; no puedes quitarte la sensación de que sus ojos rocosos te están siguiendo..."
+    "BizarreRockFormation": "Una figura de piedra con la forma de un Terrariano; no puedes quitarte la sensación de que sus ojos rocosos te están siguiendo...",
+    "GraniteEnergyStorm": "Una tormenta viviente de energía granítica condensada en las profundidades de las cavernas.",
+    "GraniteFusedSlime": "Un limo que absorbió tanta energía de granito que empezó a brillar por dentro.",
+    "GraniteEradicator": "Una construcción flotante de granito vivo, hecha para purgar a quien se adentre demasiado.",
+    "GraniteSurger": "Un caparazón flotante de granito cargado que lanza haces de energía pura desde arriba.",
+    "UnstableEnergyAnomaly": "Un nudo de energía de granito que nunca se asentó. Rómpelo y lo que hay dentro saldrá.",
+    "QueenJellyfish": "La matriarca del arrecife, hinchada de luz robada. Los marineros que ven su brillo rara vez vuelven a la costa.",
+    "BuriedChampion": "Un guerrero sellado en mármol mucho antes del primer amanecer de Terraria, y que aún se niega a ceder el duelo."
   },
   "NPCChat": {
     "Blacksmith_1": "¿Necesitas algo forjado?",
@@ -810,7 +875,20 @@
     "Druid_BloodMoon_1": "¿Por qué no vas tú mismo a buscar esas semillas, holgazán bueno para na-",
     "Druid_BloodMoon_2": "Apuesto a que ni siquiera te sientes culpable por destruir el mundo natural para acomodarlo a tus caprichos...",
     "Druid_WitchDoctor": "Nuestro amigo de allí, {0}, es bastante raro, ¿no? Habla con acertijos...",
-    "Druid_Dryad": "Desde niña siempre quise conocer a una dríade. ¡Qué suerte encontrar a {0} aquí!"
+    "Druid_Dryad": "Desde niña siempre quise conocer a una dríade. ¡Qué suerte encontrar a {0} aquí!",
+    "Cook_Angler": "{0} puede ser muy malcriado a veces, pero mientras me siga trayendo pescado fresco, no me quejaré.",
+    "Cook_Dryad": "Cocinar para {0} no es tarea fácil. ¡Simplemente se niega a comer cualquier tipo de carne!",
+    "Cook_WitchDoctor": "La última vez que {0} me pidió que cocinara para él, ¡pidió bichos! Este lugar es realmente extraño...",
+    "Cook_1": "Tengo muchos pedidos de los demás lugareños ahora mismo, ¡hazlo rápido!",
+    "Cook_2": "¿Cómo sobrevivía cualquiera de ustedes antes de que yo llegara? ¿Qué comían, tierra?",
+    "Cook_3": "¿Estoy atascado con cuchillos sin filo mientras tú empuñas armas de un poder inimaginable? Dame un respiro...",
+    "Cook_4": "Nadie debería salir de aventura con el estómago vacío. ¡Come bien, héroe!",
+    "Cook_5": "¡Tráeme los ingredientes adecuados y podré prepararte comidas verdaderamente poderosas, héroe!",
+    "Cook_CookIngredients": "Cocinar Ingredientes",
+    "Cook_Donated": "¡Gracias! Tráeme {0} {1} más y me pongo a cocinar.",
+    "Cook_RecipeUnlocked": "¡Perfecto! Toma, prueba unas muestras de {0}. De ahora en adelante lo venderé.",
+    "Cook_NoIngredients": "No traes nada que yo pueda usar. Tráeme: {0}",
+    "Cook_NothingLeft": "¡Ya me has traído todo lo que sé cocinar!"
   },
   "TownNPCMood": {
     "Blacksmith": {
@@ -914,6 +992,23 @@
       "NoHome": "Ah, la naturaleza al aire libre...",
       "FarFromHome": "¡Ah, hola! Solo estaba recogiendo hierbas por aquí. ¡Siempre es divertido alejarse de casa y explorar!",
       "SpecialMoodText": "Hasta una semilla pequeña puede volverse un roble enorme. Solo hay que darle tiempo."
+    },
+    "Cook": {
+      "Content": "La cocina está caliente y la despensa llena. ¿Qué más puede pedir un cocinero?",
+      "DislikeBiome": "No crece nada que valga la pena en {0}. Solo roca y tierra.",
+      "DislikeCrowded": "Demasiados cocineros arruinan el caldo, y demasiados vecinos arruinan mi humor.",
+      "DislikeNPC": "{0} se cuela en mi despensa cuando no estoy mirando.",
+      "FarFromHome": "¡Estoy lejos de mi cocina y mis ingredientes se van a echar a perder!",
+      "HateBiome": "¿Esperas que encuentre productos frescos en {0}?",
+      "HateCrowded": "¡Apenas puedo darme la vuelta sin chocar con alguien! ¡Sácalos de mi cocina!",
+      "HateNPC": "{0} me pidió una vez sazonar la comida con aceite de motor. Nunca más.",
+      "LikeBiome": "{0} tiene ingredientes decentes, eso se lo concedo.",
+      "LikeNPC": "{0} me trae buenos ingredientes de vez en cuando.",
+      "LoveBiome": "¡Todos estos hongos creciendo junto a mi puerta! Podría cocinar durante días.",
+      "LoveNPC": "{0} siempre aprecia una buena comida. ¡Es todo lo que pido!",
+      "LoveSpace": "Espacio de sobra para una cocina de verdad. ¡Así se cocina!",
+      "NoHome": "¡No puedo cocinar sin una cocina! Consígueme un lugar para trabajar, ¿quieres?",
+      "SpecialMoodText": "Tráeme los ingredientes correctos y te prepararé algo por lo que valga la pena luchar."
     }
   },
   "SinalizationChatMessage": {
@@ -921,7 +1016,8 @@
     "OnClickInInativeAncientPhylactery": "Parece estar inactivo...",
     "BloodAltarMissingShards": "El altar exige 5 Fragmentos Profanos...",
     "CorpseBloomDefeat": "La esquiva Flor Cadavérica se marchita...",
-    "BuriedChampionAppear": "¡El Campeón Enterrado ha despertado!"
+    "BuriedChampionAppear": "¡El Campeón Enterrado ha despertado!",
+    "GraniteEnergyStormAppear": "¡La Tormenta de Energía de Granito ha despertado!"
   },
   "DeathMessage": {
     "DeepStaff": "{0} drenó su propia alma por poder, lo que le llevó a la muerte"

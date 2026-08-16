@@ -4,7 +4,6 @@ import { BuffLoader } from './../Loaders/BuffLoader.js';
 import { NPCLoader } from './../Loaders/NPCLoader.js';
 import { CombinedLoader } from './../Loaders/CombinedLoader.js';
 import { NPCSpawnInfo } from './../NPCSpawnInfo.js';
-import { ThoriumPlayer } from '../../Content/Global/ThoriumPlayer.js';
 
 const NewText = Terraria.Main['void NewText(string newText, byte R, byte G, byte B)'];
 const { Rectangle, Vector2 } = Modules;
@@ -18,7 +17,7 @@ export class NPCHooks {
         All: (info) => info.hasNPCs || info.hasGlobalNPCs || info.hasPlayers,
         SetDefaults: (info) => info.hasNPCs || info.hasGlobalNPCs,
         DrawNPCs: (info) => info.hasNPCs,
-        CheckActive: (info) => info.hasNPCs || info.hasGlobalNPCs,
+        CheckActive: (info) => false,//info.hasNPCs || info.hasGlobalNPCs,
         CheckDead: (info) => info.hasNPCs || info.hasGlobalNPCs,
         NPCLoot: (info) => info.hasNPCs || info.hasGlobalNPCs,
         BossHeadSlot: (info) => info.hasNPCs,
@@ -30,7 +29,7 @@ export class NPCHooks {
         ReleaseNPC: (info) => info.hasPlayers,
         AddBuff: (info) => info.hasBuffs,
         UpdateNPC_BuffApplyDOTs: (info) => info.hasNPCs || info.hasGlobalNPCs,
-        UpdateNPC_BuffSetFlags: (info) => info.hasBuffs && false, // lag
+        UpdateNPC_BuffSetFlags: (info) => false,//info.hasBuffs, // lag
         HitEffect: (info) => info.hasNPCs || info.hasGlobalNPCs,
         Collision_DecideFallThroughPlatforms: (info) => info.hasNPCs,
         GetChat: (info) => info.hasNPCs || info.hasGlobalNPCs,
@@ -80,7 +79,11 @@ export class NPCHooks {
                 if (NPCLoader.isModType(self.type)) {
                     const npc = NPCLoader.getModNPC(self.type);
                     npc.SetDefaults(self);
-                    Object.assign(self, npc.NPC);
+                    try {
+                        Object.assign(self, npc.NPC);
+                    } catch (error) {
+                        throw new Error(`SetDefaults failed for npc <${npc.constructor.name}>, error: ${error}`);
+                    }
                     
                     self.life = self.lifeMax;
                     self.defDamage = self.damage;
@@ -101,43 +104,54 @@ export class NPCHooks {
             ].hook((original, self, behindTiles) => {
                 original(self, behindTiles);
                 
-                let drawNpcs = [];
-                if (behindTiles) drawNpcs.push(...NPCHooks.NPCsToDraw_BehindTiles);
-                else drawNpcs.push(...NPCHooks.NPCsToDraw_OverTiles);
-                
+                const drawNpcs = behindTiles ? NPCHooks.NPCsToDraw_BehindTiles : NPCHooks.NPCsToDraw_OverTiles;
                 const npcArray = Terraria.Main.npc;
                 const DrawNPCDirect = Terraria.Main.instance['void DrawNPCDirect(SpriteBatch mySpriteBatch, NPC rCurrentNPC, bool behindTiles, Vector2 screenPos)'];
                 const screenPosition = Terraria.Main.screenPosition;
                 const spriteBatch = Terraria.Main.spriteBatch;
-                
+                const npcAssets = Terraria.GameContent.TextureAssets.Npc;
+                const extraAssets = Terraria.GameContent.TextureAssets.Extra;
+                const sX = screenPosition.X, sY = screenPosition.Y, sW = Terraria.Main.screenWidth, sH = Terraria.Main.screenHeight;
                 for (const npcIndex of drawNpcs) {
                     const npc = npcArray[npcIndex];
-                    if (npc.active) {
-                        if (NPCLoader.PreDraw(npc, spriteBatch, screenPosition)) {
-                            let originalTexture = null;
-                            
-                            let altTextureIndex = npc.townNPC ? NPCLoader.GetAltTextureIndex(npc) : -1;
-                            if (altTextureIndex !== -1) {
-                                originalTexture = Terraria.GameContent.TextureAssets.Npc[npc.type];
-                                Terraria.GameContent.TextureAssets.Npc[npc.type] = Terraria.GameContent.TextureAssets.Extra[altTextureIndex];
-                            }
-                            
-                            DrawNPCDirect(spriteBatch, npc, behindTiles, screenPosition);
-                            
-                            if (originalTexture != null) {
-                                Terraria.GameContent.TextureAssets.Npc[npc.type] = originalTexture;
-                            }
-                            
-                            NPCLoader.PostDraw(npc, spriteBatch, screenPosition);
+                    const { X, Y } = npc.position;
+                    if (!npc.active || X + npc.width < sX || X >= sX + sW || Y + npc.height < sY || Y >= sY + sH) {
+                        drawNpcs.delete(npcIndex);
+                        continue;
+                    }
+                    if (NPCLoader.PreDraw(npc, spriteBatch, screenPosition)) {
+                        let originalTexture = null;
+                        
+                        let altTextureIndex = npc.townNPC ? NPCLoader.GetAltTextureIndex(npc) : -1;
+                        if (altTextureIndex !== -1) {
+                            originalTexture = npcAssets[npc.type];
+                            npcAssets[npc.type] = extraAssets[altTextureIndex];
                         }
-                    } else if (behindTiles) {
-                        NPCHooks.NPCsToDraw_BehindTiles.delete(npcIndex);
-                    } else {
-                        NPCHooks.NPCsToDraw_OverTiles.delete(npcIndex);
+                        
+                        DrawNPCDirect(spriteBatch, npc, behindTiles, screenPosition);
+                        
+                        if (originalTexture !== null) {
+                            npcAssets[npc.type] = originalTexture;
+                        }
+                        
+                        NPCLoader.PostDraw(npc, spriteBatch, screenPosition);
                     }
                 }
             });
             
+            function _cacheNpcDraw(self) {
+                if (!self.active) return;
+                const isBoss = self.boss && !self.IsABestiaryIconDummy && !self.IsAPortraitDummy;
+                if (isBoss) NPCLoader.AnyBossActive = true;
+                if (!NPCLoader.ModTypes.has(self.type)) return;
+                if (isBoss) NPCLoader.ActiveBoss = self.type;
+                if (self.behindTiles) {
+                    NPCHooks.NPCsToDraw_BehindTiles.add(self.whoAmI);
+                    return;
+                }
+                NPCHooks.NPCsToDraw_OverTiles.add(self.whoAmI);
+            }
+                
             Terraria.NPC['void FindFrame()'
             ].hook((original, self) => {
                 // Vanilla Code
@@ -168,6 +182,7 @@ export class NPCHooks {
                     self.type = modnpc.Type;
                     if (!isTownNPC) Terraria.GameContent.TextureAssets.Npc[modnpc.AnimationType] = oldTexture;
                     NPCLoader.FindFrame(self, frameHeight);
+                    _cacheNpcDraw(self);
                     return;
                 }
                 
@@ -178,35 +193,20 @@ export class NPCHooks {
                 self.position = newPos;
                 
                 NPCLoader.FindFrame(self, frameHeight);
+                _cacheNpcDraw(self);
             });
         }
         
         if (this.HookList.CheckActive(info)) {
             Terraria.NPC['void CheckActive()'
             ].hook((original, self) => {
-                if (this.BlackListedNPCs.has(self.type)) {
+                if (NPCHooks.BlackListedNPCs.has(self.type)) {
                     original(self);
                     return;
                 }
                 
                 if (NPCLoader.CheckActive(self)) {
                     original(self);
-                }
-                
-                if (self.active) {
-                    if (self.boss) NPCLoader.AnyBossActive = true;
-                    if (NPCLoader.ModTypes.has(self.type)) {
-                        if (self.boss) NPCLoader.ActiveBoss = self.type;
-                        if (self.behindTiles) {
-                            if (!NPCHooks.NPCsToDraw_BehindTiles.has(self.whoAmI)) {
-                                NPCHooks.NPCsToDraw_BehindTiles.add(self.whoAmI);
-                            }
-                        } else {
-                            if (!NPCHooks.NPCsToDraw_OverTiles.has(self.whoAmI)) {
-                                NPCHooks.NPCsToDraw_OverTiles.add(self.whoAmI);
-                            }
-                        }
-                    }
                 }
             });
         }
@@ -677,6 +677,7 @@ export class NPCHooks {
                 }
                 
                 if (option1Clicked) {
+                    Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(int type, int x, int y, int Style, float volumeScale, float pitchOffset)'](12, -1, -1, 1, 1, 0);
                     NPCLoader.Option1Clicked(npc, player, button1.cost);
                 } else if (option2Clicked) {
                     NPCLoader.Option2Clicked(npc, player);
@@ -710,15 +711,9 @@ export class NPCHooks {
                     
                     const spawnX = npc.Center.X;
                     const spawnY = npc.Bottom.Y;
-                    const spawnPlayer = Terraria.Main.player[Terraria.Main.myPlayer];
-                    const newNpc = NPCLoader.ChooseSpawn(new NPCSpawnInfo(spawnX, spawnY, spawnPlayer));
+                    const newNpc = NPCLoader.ChooseSpawn(new NPCSpawnInfo(spawnX, spawnY, Terraria.Main.player[Terraria.Main.myPlayer]));
                     if (newNpc == null || newNpc === 0) return;
                     if (newNpc == -1) {
-                        npc.active = false;
-                        return;
-                    }
-
-                    if (spawnPlayer && ThoriumPlayer.ShouldBlockRepellentSpawn(spawnPlayer, newNpc)) {
                         npc.active = false;
                         return;
                     }
@@ -728,7 +723,7 @@ export class NPCHooks {
                         NPCLoader.getModNPC(newNpc)?.SpawnNPC(spawnX, spawnY);
                     } else {
                         Terraria.NPC.NewNPC(
-                            null,
+                            Terraria.NPC.GetSpawnSourceForNaturalSpawn(),
                             spawnX, spawnY, newNpc,
                             0, 0, 0, 0, 0, 255
                         );

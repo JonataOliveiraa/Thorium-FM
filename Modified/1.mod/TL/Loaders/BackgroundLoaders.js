@@ -108,6 +108,8 @@ export class SurfaceBackgroundLoader {
             this.TotalCount++;
             resizeArrayProperty(Terraria.Main, 'bgAlphaFrontLayer', this.TotalCount, 0);
             resizeArrayProperty(Terraria.Main, 'bgAlphaFarBackLayer', this.TotalCount, 0);
+            resizeArrayProperty(Terraria.Main, 'bgFrame', this.TotalCount, 0);
+            resizeArrayProperty(Terraria.Main, 'bgFrameCounter', this.TotalCount, 0);
         }
     }
     
@@ -143,10 +145,10 @@ export class SurfaceBackgroundLoader {
         for (const bg of this.Backgrounds) {
             const alpha = Terraria.Main.bgAlphaFarBackLayer[bg.Slot];
             Terraria.Main.ColorOfSurfaceBackgroundsModified = Color.op_Multiply(Terraria.Main.ColorOfSurfaceBackgroundsBase, alpha);
-            if (alpha <= 0) return;
+            if (alpha <= 0) continue;
             
             const textureSlot = bg.ChooseFarTexture() ?? -1;
-            if (textureSlot < 0 || textureSlot >= BackgroundTextureLoader.TotalCount) return;
+            if (textureSlot < 0 || textureSlot >= BackgroundTextureLoader.TotalCount) continue;
             
             if (bg.ScaleMultiplier !== 1.0) {
                 Terraria.Main.bgScale *= Math.max(0, bg.ScaleMultiplier);
@@ -179,10 +181,10 @@ export class SurfaceBackgroundLoader {
         for (const bg of this.Backgrounds) {
             const alpha = Terraria.Main.bgAlphaFarBackLayer[bg.Slot];
             Terraria.Main.ColorOfSurfaceBackgroundsModified = Color.op_Multiply(Terraria.Main.ColorOfSurfaceBackgroundsBase, alpha);
-            if (alpha <= 0) return;
+            if (alpha <= 0) continue;
             
             const textureSlot = bg.ChooseMiddleTexture() ?? -1;
-            if (textureSlot < 0 || textureSlot >= BackgroundTextureLoader.TotalCount) return;
+            if (textureSlot < 0 || textureSlot >= BackgroundTextureLoader.TotalCount) continue;
             
             if (bg.ScaleMultiplier !== 1.0) {
                 Terraria.Main.bgScale *= Math.max(0, bg.ScaleMultiplier);
@@ -208,8 +210,11 @@ export class SurfaceBackgroundLoader {
     }
     
     static DrawCloseTexture(slot) {
-        const bg = this.Backgrounds.find(b => b.Slot === slot);
+        const bg = this.GetBackground(Terraria.Main.bgStyle); 
         if (!bg || Terraria.Main.bgAlphaFrontLayer[bg.Slot] <= 0) return;
+        
+        const alpha = Terraria.Main.bgAlphaFrontLayer[bg.Slot];
+        Terraria.Main.ColorOfSurfaceBackgroundsModified = Color.op_Multiply(Terraria.Main.ColorOfSurfaceBackgroundsBase, alpha);
         
         if (!bg.PreDrawCloseBackground(Terraria.Main.spriteBatch)) return;
         
@@ -220,7 +225,7 @@ export class SurfaceBackgroundLoader {
         let b = 1750;
         
         const textureSlot = bg.ChooseCloseTexture() ?? -1;
-        if (textureSlot <= 0 || textureSlot >= BackgroundTextureLoader.TotalCount) return;
+        if (textureSlot < 0 || textureSlot >= BackgroundTextureLoader.TotalCount) return;
         
         const info = bg.ModifyCloseTexture({ scale: Terraria.Main.bgScale, parallax: Terraria.Main.instance.bgParallax, a, b });
         Terraria.Main.bgScale = info.scale;

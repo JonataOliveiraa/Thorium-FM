@@ -4,9 +4,13 @@ import { CombinedLoader } from './../Loaders/CombinedLoader.js';
 import { ItemLoader } from './../Loaders/ItemLoader.js';
 import { NPCLoader } from './../Loaders/NPCLoader.js';
 import { HairLoader } from './../Loaders/HairLoader.js';
+import { EmoteBubbleLoader } from './../Loaders/EmoteBubbleLoader.js';
 import { NPCHappiness } from './../NPCHappiness.js';
+import { PlayerDB } from './../PlayerDB.js';
 
-const { Rand, Vector2 } = Modules;
+const { Color, Rand, Rectangle, Vector2 } = Modules;
+const { SpriteEffects } = Modules.Effects;
+
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 
 export class GameContentHooks {
@@ -19,13 +23,39 @@ export class GameContentHooks {
         NotifyItemCraft: (info) => info.hasItems || info.hasGlobalItems || info.hasPlayers || info.hasAchievements,
         DropItemFromNPC: (info) => info.hasItems || info.hasNPCs || info.hasGlobalNPCs,
         GetShoppingSettings: (info) => info.hasNPCs || info.hasGlobalNPCs,
-        TownRoomManager: (info) => info.hasNPCs
+        TownRoomManager: (info) => info.hasNPCs,
+        Emotes: (info) => info.hasEmotes
     };
     
     static Initialize(info) {
         if (!this.HookList.All(info) || this.initialized) return;
         
         if (this.HookList.Hairs(info)) {
+            const GUIPlayerCreateMenu = new NativeClass('', 'GUIPlayerCreateMenu');
+            GUIPlayerCreateMenu['void CreateAndSave()'
+            ].hook((original, self) => {
+                const player = Terraria.Main.PendingPlayer;
+                const db = new PlayerDB(Terraria.Main['string GetPlayerPathFromName(string playerName, bool cloudSave)'](player.name, false) + '.bin');
+                db.Load();
+                db.set('modsystem:hair', player.hair);
+                db.Save();
+                original(self);
+            });
+            
+            Terraria.Main['void LoadPlayers(bool canFullRefresh)'
+            ].hook((original, self, canFullRefresh) => {
+                original(self, canFullRefresh);
+                const list = Terraria.Main.PlayerList;
+                const count = list.Count;
+                for (let i = 0; i < count; i++) {
+                    const plr = list.get_Item(i);
+                    const db = new PlayerDB(plr.Path + '.bin');
+                    db.Load();
+                    const hair = parseInt(db.get('modsystem:hair'));
+                    if (hair || hair === 0) plr.Player.hair = hair;
+                }
+            });
+            
             Terraria.GameContent.HairstyleUnlocksHelper['bool ListWarrantsRemake()'
             ].hook((original, self) => {
                 let flag = original(self);
@@ -44,7 +74,7 @@ export class GameContentHooks {
                 original(self);
                 const list = self.AvailableHairstyles;
                 for (const hair of HairLoader.Hairs) {
-                    if (hair.Type >= HairLoader.MAX_VANILLA_ID && hair.Type < HairLoader.HairCount) {
+                    if (hair.Type >= HairLoader.MAX_VANILLA_ID) {
                         if (hair._isUnlocked) list.Add(hair.Type);
                     }
                 }
@@ -287,6 +317,129 @@ export class GameContentHooks {
                 Terraria.Main.townNPCCanSpawn = Terraria.Main.townNPCCanSpawn.cloneResized(NPCLoader.NPCCount);
                 Terraria.WorldGen.TownManager._hasRoom = Terraria.WorldGen.TownManager._hasRoom.cloneResized(NPCLoader.NPCCount);
                 original(self, reader);
+            });
+        }
+        
+        if (this.HookList.Emotes(info)) {
+            const GUIEmotesWindow = new NativeClass('', 'GUIEmotesWindow');
+            
+            GUIEmotesWindow.GetEmotesGeneral.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.General, list);
+            });
+            GUIEmotesWindow.GetEmotesRPS.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.Rps, list);
+            });
+            GUIEmotesWindow.GetEmotesItems.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.Items, list);
+            });
+            GUIEmotesWindow.GetEmotesBiomesAndEvents.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.BiomesAndEvents, list);
+            });
+            GUIEmotesWindow.GetEmotesTownNPCs.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.Town, list);
+            });
+            GUIEmotesWindow.GetEmotesCritters.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.CrittersAndMonsters, list);
+            });
+            GUIEmotesWindow.GetEmotesBosses.hook((original, self, list) => {
+                original(self, list);
+                EmoteBubbleLoader.AddToCategory(Terraria.Enums.EmoteBubbleCategory.Dangers, list);
+            });
+            
+            GUIEmotesWindow.GetFrame.hook((original, self, emote) => {
+                if (EmoteBubbleLoader.OriginalEmoteTexture !== null) {
+                    self._emoteTexture.Value = EmoteBubbleLoader.OriginalEmoteTexture;
+                    EmoteBubbleLoader.OriginalEmoteTexture = null;
+                }
+                const frame = original(self, emote);
+                if (EmoteBubbleLoader.isModType(emote)) {
+                    const modEmote = EmoteBubbleLoader.getModEmote(emote);
+                    EmoteBubbleLoader.OriginalEmoteTexture = self._emoteTexture.Value;
+                    self._emoteTexture.Value = modEmote._texture.Value;
+                    frame.X = (frame.X % 68) === 0 ? 0 : 34; frame.Y = 28;
+                    frame.Width = 34; frame.Height = 28;
+                }
+                return frame;
+            });
+            
+            const { EmoteBubble } = Terraria.GameContent.UI;
+            EmoteBubble['int NewBubble(int emoticon, WorldUIAnchor bubbleAnchor, int time)'
+            ].hook((original, emote, anchor, time) => {
+                const id = original(emote, anchor, time);
+                if (EmoteBubbleLoader.isModType(emote)) {
+                    EmoteBubbleLoader.getModEmote(emote).OnSpawn(EmoteBubble.byID.get_Item(id));
+                }
+                return id;
+            });
+            EmoteBubble['int NewBubbleNPC(WorldUIAnchor bubbleAnchor, int time, WorldUIAnchor other)'
+            ].hook((original, anchor, time, anchorOther) => {
+                const id = original(anchor, time, anchorOther);
+                const bubble = EmoteBubble.byID.get_Item(id);
+                if (EmoteBubbleLoader.isModType(bubble.emote)) {
+                    EmoteBubbleLoader.getModEmote(bubble.emote).OnSpawn(bubble);
+                }
+                return id;
+            });
+            
+            EmoteBubble.PickNPCEmote.hook((original, self, anchor) => {
+                original(self, anchor);
+                if (Rand.Next(5) === 0) {
+                    const unlocked = EmoteBubbleLoader.EmoteBubbles.filter(e => e.IsUnlocked());
+                    if (unlocked.length > 0) {
+                        const emote = unlocked[Math.floor(Math.random() * unlocked.length)];
+                        if (emote && Rand.Next(2) === 0) self.emote = emote.Type;
+                    }
+                }
+            });
+            
+            EmoteBubble['void Draw(SpriteBatch sb)'
+            ].hook((original, self, spriteBatch) => {
+                if (EmoteBubbleLoader.OriginalEmoteTexture !== null) {
+                    Terraria.GameContent.TextureAssets.Extra[48].Value = EmoteBubbleLoader.OriginalEmoteTexture;
+                    EmoteBubbleLoader.OriginalEmoteTexture = null;
+                }
+                
+                if (!EmoteBubbleLoader.isModType(self.emote)) {
+                    original(self, spriteBatch);
+                    return;
+                }
+                
+                const Draw = spriteBatch['void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)'];
+                const modEmote = EmoteBubbleLoader.getModEmote(self.emote);
+                
+                let texture2D = Terraria.GameContent.TextureAssets.Extra[48].Value;
+                let effect = SpriteEffects.None;
+                if (self.anchor.type.value__ === Terraria.GameContent.UI.WorldUIAnchor.AnchorType.Entity.value__) {
+                    effect = self.anchor.entity.direction === -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                }
+                let vector2 = Terraria.Utils['Vector2 Floor(Vector2 vec)'](self.GetPosition(null));
+                let flag = self.lifeTime < 6 || self.lifeTimeStart - self.lifeTime < 6;
+                const rectangle = Rectangle.new(flag ? 0 : 34, 0, 34, 28);
+                const origin = Vector2.new(rectangle.Width / 2, rectangle.Height);
+                if (Terraria.Main.player[Terraria.Main.myPlayer].gravDir === -1) {
+                    origin.Y = 0;
+                    effect.value__ |= SpriteEffects.FlipVertically.value__;
+                    vector2 = Terraria.Main['Vector2 ReverseGravitySupport(Vector2 pos, float height)'](vector2, 0);
+                }
+                const emoteTexture = modEmote._texture.Value;
+                const emoteFrame = modEmote.GetFrame(self, Rectangle.new(self.frame * 34, 28, 34, 28));
+                if (EmoteBubbleLoader.PreDraw(self, spriteBatch, emoteTexture, vector2, emoteFrame, origin, effect) === false) {
+                    EmoteBubbleLoader.PostDraw(self, spriteBatch, emoteTexture, vector2, emoteFrame, origin, effect);
+                    return;
+                }
+                Draw(texture2D, vector2, rectangle, Color.White, 0.0, origin, 1, effect, 0.0);
+                if (!flag) {
+                    if (self.emote >= 0) {
+                        Draw(emoteTexture, vector2, emoteFrame, Color.White, 0.0, origin, 1, effect, 0.0);
+                    }
+                }
+                EmoteBubbleLoader.PostDraw(self, spriteBatch, emoteTexture, vector2, emoteFrame, origin, effect)
             });
         }
         

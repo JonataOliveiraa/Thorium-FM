@@ -3,10 +3,11 @@ import { ModNPC } from '../../../../TL/ModNPC.js';
 import { ModProjectile } from '../../../../TL/ModProjectile.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { WorldDB } from '../../../../TL/WorldDB.js';
+import { ModLocalization } from '../../../../TL/ModLocalization.js';
 
 const { Color, Vector2, Effects } = Modules;
 const { ItemDropRule, Conditions } = Terraria.GameContent.ItemDropRules;
-const { BestiaryDatabaseNPCsPopulator } = Terraria.GameContent.Bestiary;
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const NewNPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
@@ -58,7 +59,7 @@ function clamp(val, min, max) {
 export class BuriedChampion extends ModNPC {
   constructor() {
     super();
-    this.Texture = 'NPCs/BossBuriedChampion/' + this.constructor.name;
+    this.Texture = 'NPCs/Boss/BossBuriedChampion/' + this.constructor.name;
     this.phaseSwapTimer = 0;
     this.counter = 0;
     this.flux = 0;
@@ -71,6 +72,11 @@ export class BuriedChampion extends ModNPC {
     this.charge = false;
     this.charging = false;
     this.chargeTimer = 0;
+  }
+
+  DeathMessage = (npc) => {
+      return Terraria.Localization.Language.GetText('Announcement.HasBeenDefeated_Single'
+      ).Value.replace('{0}', ModLocalization.Translate('NPCName.BuriedChampion'));
   }
 
   SetStaticDefaults() {
@@ -117,6 +123,10 @@ export class BuriedChampion extends ModNPC {
 
   SetBestiary(database, bestiaryEntry) {
     bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Marble);
+
+    const flavor = FlavorTextBestiaryInfoElement.new();
+    flavor._key = ModLocalization.Translate(`Bestiary.${this.constructor.name}`);
+    bestiaryEntry.Info.Add(flavor);
   }
 
   ModifyNPCLoot(npcLoot) {

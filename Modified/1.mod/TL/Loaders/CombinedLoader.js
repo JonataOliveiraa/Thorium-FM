@@ -123,10 +123,10 @@ export class CombinedLoader {
         && PlayerLoader.Shoot(player, item, position, velocity, type, damage, knockBack);
     }
     
-    static OnHitNPC(item, player, npc, damageDone, knockBack) {
-        ItemLoader.OnHitNPC(item, player, npc, damageDone, knockBack);
-        NPCLoader.OnHitByPlayer(npc, player, item, damageDone, knockBack);
-        PlayerLoader.OnHitNPC(player, item, npc, damageDone, knockBack);
+    static OnHitNPC(item, player, npc, damageDone, knockBack, crit) {
+        ItemLoader.OnHitNPC(item, player, npc, damageDone, knockBack, crit);
+        NPCLoader.OnHitByPlayer(npc, player, item, damageDone, knockBack, crit);
+        PlayerLoader.OnHitNPC(player, item, npc, damageDone, knockBack, crit);
     }
     
     static OnHitNPCWithProj(proj, npc) {

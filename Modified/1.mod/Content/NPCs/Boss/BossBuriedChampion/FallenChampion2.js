@@ -24,7 +24,7 @@ function clamp(val, min, max) {
 export class FallenChampion2 extends ModNPC {
   constructor() {
     super();
-    this.Texture = 'NPCs/BossBuriedChampion/' + this.constructor.name;
+    this.Texture = 'NPCs/Boss/BossBuriedChampion/' + this.constructor.name;
     this.counter = 0;
     this.flux = 0;
     this.shift = false;

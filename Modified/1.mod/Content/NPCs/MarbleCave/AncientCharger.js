@@ -43,8 +43,7 @@ export class AncientCharger extends ModNPC {
   }
 
   SpawnChance(info) {
-    if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe) return 0;
-    if (info.SpawnTileType !== Terraria.ID.TileID.MarbleBlock) return 0;
+    if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneMarble) return 0;
     if (!Terraria.NPC.downedBoss3) return 0;
     return 0.18;
   }

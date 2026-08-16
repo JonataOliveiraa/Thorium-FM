@@ -1,5 +1,6 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
+import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
 export class BronzeHelmet extends ModItem {
@@ -29,7 +30,9 @@ export class BronzeHelmet extends ModItem {
       this.Type,
       ModItem.getTypeByName('BronzeBreastplate'),
       ModItem.getTypeByName('BronzeGreaves'),
-      "Ranged damage has a 20% chance to unleash a piercing lightning strike"
+      // A chave ArmorSetBonus.Bronze ja' existia traduzida nos 4 idiomas; o texto
+      // cru em ingles que estava aqui nunca passava pela localizacao.
+      ModLocalization.getTranslationArmorSetBonus('Bronze')
     );
   }
 

@@ -96,6 +96,12 @@ export class SystemLoader {
         }
     }
     
+    static ModifyWorldGenTasks(tasks) {
+        for (const system of this.RegisteredSystems) {
+            system?.ModifyWorldGenTasks(tasks);
+        }
+    }
+    
     static SendMessage(player, message) {
         if (this.RegisteredSystems.some(s => (s?.SendMessage(player, message) ?? true) === false)) {
             return false;

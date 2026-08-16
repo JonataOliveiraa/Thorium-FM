@@ -21,7 +21,7 @@ function initTypes() {
 export class MagicalBurst extends ModNPC {
   constructor() {
     super();
-    this.Texture = 'NPCs/BossBuriedChampion/' + this.constructor.name;
+    this.Texture = 'NPCs/Boss/BossBuriedChampion/' + this.constructor.name;
     this.timer = 0;
   }
 
