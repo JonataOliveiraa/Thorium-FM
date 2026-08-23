@@ -215,7 +215,7 @@ export class Cook extends ModNPC {
     ]);
 
     if (Terraria.NPC.downedBoss1) {
-      this._stock(npcShop, ['Fork', 'Spoon', 'KitchenKnife', 'SpudBomber', 'Spud', 'PotionChaser']);
+      this._stock(npcShop, ['Fork', 'Spoon', 'Knife', 'SpudBomber', 'Spud', 'PotionChaser']);
     }
 
     if (Terraria.NPC.downedBoss2) {

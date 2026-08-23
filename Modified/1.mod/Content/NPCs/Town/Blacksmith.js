@@ -116,18 +116,19 @@ export class Blacksmith extends ModNPC {
     npcShop.Clear();
 
     if (!Terraria.Main.hardMode) {
-      npcShop.AddRange([
-        ModItem.getTypeByName("SteelHelmet"),
-        ModItem.getTypeByName("SteelChestplate"),
-        ModItem.getTypeByName("SteelGreaves"),
-        ModItem.getTypeByName("SteelBlade"),
-        ModItem.getTypeByName("SteelAxe"),
-        ModItem.getTypeByName("SteelPickaxe"),
-        ModItem.getTypeByName("SteelHammer"),
-        ModItem.getTypeByName("SteelBow"),
-        Terraria.ID.ItemID.DyeVat
-      ]);
+        npcShop.AddRange([
+            ModItem.getTypeByName("SteelHelmet"),
+            ModItem.getTypeByName("SteelChestplate"),
+            ModItem.getTypeByName("SteelGreaves"),
+            ModItem.getTypeByName("SteelBlade"),
+            ModItem.getTypeByName("SteelAxe"),
+            ModItem.getTypeByName("SteelPickaxe"),
+            ModItem.getTypeByName("SteelHammer"),
+            ModItem.getTypeByName("SteelBow"),
+            Terraria.ID.ItemID.DyeVat
+        ]);
     }
+    npcShop.Add(ModItem.getTypeByName('BlacksmithsBarrierShield'));
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

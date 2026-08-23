@@ -142,6 +142,12 @@ export class Vector2 {
         ](v1, angle, center);
     }
     
+    static Negate(vec) {
+        vec.X *= -1;
+        vec.Y *= -1;
+        return vec;
+    }
+    
     constructor(x = 0, y = 0) {
         this._x = x;
         this._y = y;

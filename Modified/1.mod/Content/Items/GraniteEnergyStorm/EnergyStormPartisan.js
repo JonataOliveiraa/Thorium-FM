@@ -1,11 +1,16 @@
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
+import { ThoriumPlayer } from './../../Global/ThoriumPlayer.js';
 
 export class EnergyStormPartisan extends ModItem {
     constructor() {
         super();
         this.Texture = 'Items/GraniteEnergyStorm/' + this.constructor.name;
+    }
+
+    SetStaticDefaults() {
+        ThoriumPlayer.SPEARS.add(this.Type);
     }
 
     SetDefaults() {

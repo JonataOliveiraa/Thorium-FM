@@ -44,7 +44,7 @@ export class AncientArcher extends ModNPC {
   }
 
   SpawnChance(info) {
-    if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneMarble) return 0;
+    if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneMarble || info.SpawnTileType !== Terraria.ID.TileID.Marble) return 0;
     if (!Terraria.NPC.downedBoss3) return 0;
     return 0.18;
   }

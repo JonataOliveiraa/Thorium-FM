@@ -3,6 +3,7 @@ import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { AncientArcher } from './AncientArcher.js';
 import { FxHelper } from '../../Global/Utils/FxHelper.js';
+import { Rand } from '../../../TL/Modules/Rand.js';
 
 const { Main, Utils } = Terraria;
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
@@ -44,6 +45,7 @@ export class AncientCharger extends ModNPC {
 
   SpawnChance(info) {
     if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneMarble) return 0;
+    if(info.SpawnTileType === Terraria.ID.TileID.Marble && Rand.NextBool()) return 0
     if (!Terraria.NPC.downedBoss3) return 0;
     return 0.18;
   }

@@ -119,7 +119,7 @@ export class GraniteFusedSlime extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneGranite) return 0;
+        if (!info.CommonEnemy || !info.BelowSurface || info.PlayerSafe || !info.Player.ZoneGranite || !info.SpawnTileType === Terraria.ID.TileID.Granite) return 0;
         if (!Terraria.NPC.downedBoss3) return 0;
         return 0.18;
     }

@@ -64,6 +64,14 @@ const InjectionRules = [
         stack: 1,
         calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
         action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedGold,
+        getItemID: () => ModItem.getTypeByName('StreamSting'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
     }
 ];
 

@@ -133,6 +133,13 @@ export class gNPCsLoot extends GlobalLoot {
 
             ]
         },
+        {
+            npcType: NPCID.BoneSerpentHead,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SpineBreaker'), 12, 1, 1)
+
+            ]
+        },
     ];
 
     ModifyGlobalLoot() {

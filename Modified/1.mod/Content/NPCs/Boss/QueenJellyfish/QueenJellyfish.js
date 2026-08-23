@@ -21,14 +21,7 @@ const Main = Terraria.Main;
 let _zealousType = -1, _spittingType = -1, _distractingType = -1;
 let _bubblePulseType = -1, _armType = -1, _bubbleBombType = -1, _torrentType = -1;
 let _typesInit = false;
-/**
- * Projetil hostil causa o DOBRO do damage no jogador. Entao pra um ataque
- * bater X, ele precisa nascer com X/2. Os alvos sao os da wiki (classico):
- * contato 30, redemoinho 50, bomba 40, tentaculo 40, bolha 30.
- *
- * As contas saem de npc.damage (que ja vem multiplicado no Expert/Master),
- * pra que os ataques continuem escalando junto com o modo de jogo.
- */
+
 function hostileDamage(npcDamage, ratioToContact) {
     return Math.max(1, Math.round(npcDamage * ratioToContact * 0.5));
 }

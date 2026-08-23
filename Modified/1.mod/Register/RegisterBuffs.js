@@ -11,6 +11,7 @@ import { EnchantedCaneBuff } from "../Content/Buffs/EnchantedCaneBuff.js";
 import { CharmedBuff } from "../Content/Buffs/CharmedBuff.js";
 import { HatclingBuff } from "../Content/Buffs/HatclingBuff.js";
 import { BubbledBuff } from "../Content/Buffs/BubbledBuff.js";
+import { RosySlimeStaffBuff } from './../Content/Buffs/RosySlimeStaffBuff.js';
 
 // Mounts
 import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
@@ -46,6 +47,7 @@ import { RepellentFishBuff } from "../Content/Buffs/Potions/RepellentFishBuff.js
 import { RepellentInsectsBuff } from "../Content/Buffs/Potions/RepellentInsectsBuff.js";
 import { RepellentSkeletonsBuff } from "../Content/Buffs/Potions/RepellentSkeletonsBuff.js";
 import { RepellentZombiesBuff } from "../Content/Buffs/Potions/RepellentZombiesBuff.js";
+import { SandshroudPouchBuff, SandshroudPouchDebuff } from './../Content/Buffs/SandshroudPouchBuff.js';
 
 const List = [
     LivingWoodAcornBuff,
@@ -76,6 +78,7 @@ const List = [
     ShockAbsorberBuff,
     EnergizedQuadCubeBuff,
     FullStomach,
+    RosySlimeStaffBuff,
 
     // Potions
     AquaAffinityBuff,
@@ -91,7 +94,9 @@ const List = [
     RepellentFishBuff,
     RepellentInsectsBuff,
     RepellentSkeletonsBuff,
-    RepellentZombiesBuff
+    RepellentZombiesBuff,
+    SandshroudPouchBuff,
+    SandshroudPouchDebuff
 ];
 
 export function RegisterBuffs() {

@@ -189,6 +189,8 @@ export class ItemLoader {
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityPainting', nextItem, -1);
         resizeArrayProperty(Terraria.ID.ItemID.Sets, 'SortingPriorityTerraforming', nextItem, -1);
         
+        resizeArrayProperty(Terraria.ID.AmmoID.Sets, 'IsSpecialist', nextItem);
+        
         resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'SwordsHammersAxesPicks', nextItem, false);
         resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'SpearsMacesChainsawsDrillsPunchCannon', nextItem, false);
         resizeArrayProperty(Terraria.GameContent.Prefixes.PrefixLegacy.ItemSets, 'GunsBows', nextItem, false);

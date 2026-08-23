@@ -51,6 +51,8 @@ import { JarOMayo } from '../Content/Items/Consumable/Food/JarOMayo.js';
 import { AromaticBiscuit } from '../Content/Items/Consumable/Food/AromaticBiscuit.js';
 import { BlueCheese } from '../Content/Items/Consumable/Food/BlueCheese.js';
 import { QuestionableStew } from '../Content/Items/Consumable/Food/QuestionableStew.js';
+import { MeatSlab } from './../Content/Items/Consumable/Food/MeatSlab.js';
+import { GraniteEnergyStormTreasureBag } from '../Content/Items/Consumable/GraniteEnergyStormTreasureBag.js';
 
 // ==== ITENS NOVOS (ficam no topo da lista pra achar rapido) ====
 import { FrostPelter } from '../Content/Items/Ranged/FrostPelter.js';
@@ -65,6 +67,11 @@ import { VesselBuster } from '../Content/Items/Mage/VesselBuster.js';
 import { JunglesWrath } from '../Content/Items/Mage/JunglesWrath.js';
 import { SinisterHonk } from '../Content/Items/Bard/SinisterHonk.js';
 import { BloomingBell } from '../Content/Items/Bard/BloomingBell.js';
+import { FrostburnPouch } from './../Content/Items/Donate/FrostburnPouch.js';
+import { SandshroudPouch } from './../Content/Items/Donate/SandshroudPouch.js';
+import { SilverSpearTip } from './../Content/Items/BasicAccessories/SilverSpearTip.js';
+import { BallnChain } from './../Content/Items/NPCItems/BallnChain.js';
+import { ObsidianScale } from './../Content/Items/BasicAccessories/ObsidianScale.js';
 
 // Icy Items
 import { IceCube } from '../Content/Items/Icy/IceCube.js';
@@ -123,17 +130,24 @@ import { BubbleConch } from '../Content/Items/Depth/BubbleConch.js';
 import { JellyfishResonator } from '../Content/Items/Consumable/JellyfishResonator.js';
 import { RainStone } from '../Content/Items/Depth/RainStone.js';
 import { DepthScales } from '../Content/Items/Materials/DepthScales.js';
+import { Illustrious } from './../Content/Items/Depth/Illustrious.js';
 
 // Mage
 import { EnchantedStaff } from '../Content/Items/Mage/EnchantedStaff.js';
 import { MagickStaff } from '../Content/Items/Mage/MagickStaff.js';
+import { SpineBreaker } from './../Content/Items/Mage/SpineBreaker.js';
+import { ObsidianStaff } from './../Content/Items/Mage/ObsidianStaff.js';
 
 // Ranged
 import { WebGun } from '../Content/Items/Ranged/WebGun.js';
 import { BrambleShot } from '../Content/Items/Ranged/BrambleShot.js';
+import { StreamSting } from './../Content/Items/Ranged/StreamSting.js';
+import { Trapper } from './../Content/Items/Ranged/Trapper.js';
+import { HellfireMinigun } from './../Content/Items/Ranged/HellfireMinigun.js';
 
 // Summon
 import { PrehistoricAmberStaff } from '../Content/Items/Summon/PrehistoricAmberStaff.js';
+import { RosySlimeStaff } from '../Content/Items/Tracker/RosySlimeStaff.js';
 
 // Shields
 import { SeaTurtlesBulwark } from '../Content/Items/BasicAccessories/Shields/SeaTurtlesBulwark.js';
@@ -161,6 +175,7 @@ import { BloomingBow } from '../Content/Items/Blooming/BloomingBow.js';
 import { BloomingStaff } from '../Content/Items/Blooming/BloomingStaff.js';
 
 // Steel
+import { BlacksmithsBarrierShield } from './../Content/Items/Steel/BlacksmithsBarrier.js';
 import { SteelBlade } from '../Content/Items/Steel/SteelBlade.js';
 import { SteelChestplate } from '../Content/Items/Steel/SteelChestplate.js';
 import { SteelGreaves } from '../Content/Items/Steel/SteelGreaves.js';
@@ -213,6 +228,7 @@ import { LifeQuartzClaymore } from '../Content/Items/Healer/LifeQuartzClaymore.j
 import { BandofReplenishment } from '../Content/Items/BasicAccessories/BandofReplenishment.js';
 import { ShadowflameStaff } from '../Content/Items/YewWood/ShadowflameStaff.js';
 import { ShadowWand } from '../Content/Items/YewWood/ShadowWand.js';
+import { YewWoodFlintlock } from './../Content/Items/YewWood/YewWoodFlintlock.js';
 import { YewWoodHelmet } from '../Content/Items/YewWood/YewWoodHelmet.js';
 import { YewWoodBreastguard } from '../Content/Items/YewWood/YewWoodBreastguard.js';
 import { YewWoodLeggings } from '../Content/Items/YewWood/YewWoodLeggings.js';
@@ -239,6 +255,7 @@ import { CoralChestguard } from '../Content/Items/Coral/CoralChestguard.js';
 import { CoralGreaves } from '../Content/Items/Coral/CoralGreaves.js';
 import { CoralSlasher } from '../Content/Items/Coral/CoralSlasher.js';
 import { CoralHamaxe } from '../Content/Items/Coral/CoralHamaxe.js';
+import { CoralPolearm } from './../Content/Items/Coral/CoralPolearm.js';
 import { BloomingWand } from '../Content/Items/Blooming/BloomingWand.js';
 import { BloomingShield } from '../Content/Items/Blooming/BloomingShield.js';
 import { BloomingCrown } from '../Content/Items/Blooming/BloomingCrown.js';
@@ -367,6 +384,20 @@ import { MeteoriteOboe } from '../Content/Items/Bard/MeteoriteOboe.js';
 import { ObsidianRackett } from '../Content/Items/Bard/ObsidianRackett.js';
 import { BloomGuard } from '../Content/Items/Healer/BloomGuard.js';
 
+// NPCItems
+import { LilTorpedo } from './../Content/Items/NPCItems/LilTorpedo.js';
+import { MarineLauncher } from './../Content/Items/NPCItems/MarineLauncher.js';
+import { KineticKnife } from './../Content/Items/NPCItems/KineticKnife.js';
+import { Scorpain } from './../Content/Items/NPCItems/Scorpain.js';
+import { Knife } from './../Content/Items/NPCItems/Knife.js';
+import { Spoon } from './../Content/Items/NPCItems/Spoon.js';
+import { Eelrod } from './../Content/Items/NPCItems/Eelrod.js';
+
+// Tracker
+import { Whip } from './../Content/Items/Tracker/Whip.js';
+
+// Misc
+import { SpringHook } from './../Content/Items/Misc/SpringHook.js';
 
 const List = [
     CherryPie,
@@ -379,6 +410,8 @@ const List = [
     Spud,
     BlueCheese,
     QuestionableStew,
+    MeatSlab,
+    GraniteEnergyStormTreasureBag,
     LargePopcorn,
     JarOMayo,
     AromaticBiscuit,
@@ -400,7 +433,6 @@ const List = [
     ChampionCatcher,
     GorgonsEye,
     GorgonGazeStaff,
-
     
     AquaPotion,
     ArcanePotion,
@@ -446,6 +478,11 @@ const List = [
     JunglesWrath,
     SinisterHonk,
     BloomingBell,
+    FrostburnPouch,
+    SandshroudPouch,
+    SilverSpearTip,
+    BallnChain,
+    ObsidianScale,
 
     ShadeWoodTambourine,
     EbonwoodTambourine,
@@ -578,14 +615,21 @@ const List = [
     JellyfishResonator,
     RainStone,
     DepthScales,
+    Illustrious,
 
     EnchantedStaff,
     MagickStaff,
+    SpineBreaker,
+    ObsidianStaff,
 
     WebGun,
     BrambleShot,
+    StreamSting,
+    Trapper,
+    HellfireMinigun,
 
     PrehistoricAmberStaff,
+    RosySlimeStaff,
 
     SeaTurtlesBulwark,
     CopperBuckler,
@@ -623,6 +667,7 @@ const List = [
     NoviceClericPants,
     PalmCross,
 
+    BlacksmithsBarrierShield,
     SteelBlade,
     SteelChestplate,
     SteelGreaves,
@@ -639,6 +684,7 @@ const List = [
     YewWoodHelmet,
     YewWoodBreastguard,
     YewWoodLeggings,
+    YewWoodFlintlock,
     ShadowflameStaff,
     ShadowWand,
     ThumbRing,
@@ -656,6 +702,7 @@ const List = [
     CoralChestguard,
     CoralGreaves,
     CoralSlasher,
+    CoralPolearm,
     CoralPurifier,
     CoralCrossbow,
     CoralPickaxe,
@@ -714,7 +761,22 @@ const List = [
     FeatherBarrierRod,
 
     ViscountMask,
-    ViscountTreasureBag
+    ViscountTreasureBag,
+    
+    // NPCItems
+    //KineticKnife, // Hardmode
+    LilTorpedo,
+    MarineLauncher,
+    Scorpain,
+    Knife,
+    Spoon,
+    Eelrod,
+    
+    // Tracker
+    Whip,
+    
+    // Misc
+    SpringHook
 ]
 export function RegisterItems() {
     for(const Item of List) {

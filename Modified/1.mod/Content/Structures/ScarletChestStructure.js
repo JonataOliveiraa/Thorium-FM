@@ -173,6 +173,7 @@ export class ScarletChestStructure {
             ModItem.getTypeByName('MagmaCharmItem'),
             ModItem.getTypeByName('LootRang'),
             ModItem.getTypeByName('MagmaLocket'),
+            ModItem.getTypeByName('SpringHook'),
             ModItem.getTypeByName('SpringSteps'),
             ModItem.getTypeByName('DeepStaff'),
             Terraria.ID.ItemID.LavaCharm

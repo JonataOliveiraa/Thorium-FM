@@ -172,6 +172,15 @@ export class Diverman extends ModNPC {
       ModItem.getTypeByName('DiverSuit'),
       ModItem.getTypeByName('DiverLeggings'),
     ]);
+    
+    // Skeletron
+    if (Terraria.NPC.downedBoss3) {
+      npcShop.AddRange([
+        ModItem.getTypeByName('MarineLauncher'),
+        ModItem.getTypeByName('LilTorpedo'),
+        ModItem.getTypeByName('Eelrod')
+      ]);
+    }
   }
 
   CanGoToStatue(npc, toKingStatue) {

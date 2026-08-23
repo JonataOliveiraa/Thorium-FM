@@ -1,5 +1,6 @@
 import { GlobalNPC } from "../../../TL/GlobalNPC.js";
 import { ModBuff } from "../../../TL/ModBuff.js";
+import { ModItem } from "../../../TL/ModItem.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { Color } from "../../../TL/Modules/Color.js";
@@ -302,6 +303,12 @@ export class UpdateNPCBuff extends GlobalNPC {
         if (ThoriumPlayer.FabergeEggEquipped) {
             const player = Terraria.Main.player[Terraria.Main.myPlayer];
             ThoriumPlayer.TrySpawnFabergeEgg(player, npc, ThoriumPlayer.FabergeEggKillChance);
+        }
+    }
+    
+    SetupShop(npc, player, npcShop) {
+        if (npc.type === 453) {
+            npcShop.Add(ModItem.getTypeByName('Trapper'));
         }
     }
 }

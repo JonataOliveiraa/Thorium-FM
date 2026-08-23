@@ -30,6 +30,7 @@ const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawn
 const NewItem = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 const StrikeNPCNoInteraction = 'double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)';
 const SpriteFrame = new NativeClass('Terraria.DataStructures', 'SpriteFrame');
+const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(LegacySoundStyle type, Vector2 position, float pitchOffset, float volumeScale)'];
 
 const { ItemID } = Terraria.ID;
 const { Main } = Terraria;
@@ -74,6 +75,7 @@ export class ThoriumPlayer extends ModPlayer {
     ItemID.Tabi,
     ItemID.MasterNinjaGear
   ]);
+  static SPEARS = new Set([280, 277, 2332, 4061, 802, 274, 537, 1186, 390, 1193, 406, 1200, 2331, 550, 756, 3836, 1228, 1947, 5687]);
 
   static _cachedWheelPos = { X: 0, Y: 0 };
   static _wheelPosCacheTimer = 0;
@@ -98,6 +100,8 @@ export class ThoriumPlayer extends ModPlayer {
 
   static _cachedHeldType = null;
   static _cachedBardItem = null
+  
+  static coralPolearmCharge = 0;
 
   /**
    * "Recurso" guardado pro Ovo de Faberge: quanto de mana/inspiracao o jogador
@@ -179,6 +183,10 @@ export class ThoriumPlayer extends ModPlayer {
 
   static PlungerMuteActive = false
 
+  static hellfireEnergy = 0;
+  static hellfireEnergyTimer = 0;
+  static hellfireEnergyOverload = false;
+
   static soulEssenceStackMax = 5;
   static soulEssenceCD = 0;
   static soulEssenceCDMax = 30;
@@ -192,6 +200,12 @@ export class ThoriumPlayer extends ModPlayer {
   static YewWoodHitsCount = 0;
 
   static accMouthPiece = false;
+  static frostburnPouch = false;
+  static accFrostburnPouchTimer = 0;
+  static accSandshroudPouch = false;
+  static accSandshroudPouch2 = false;
+  static accReducedKnockback = false;
+  static spearNormal = false;
 
   static NoviceClericSetBonus = false;
   static NoviceClericCrossCount = 0;
@@ -282,6 +296,9 @@ export class ThoriumPlayer extends ModPlayer {
   static setBronze = false;
   static _lightStrikeType = -1;
 
+  // Yew Wood
+  static itemYewWoodShrapnel = false;
+
   // Bard UI
   static SpriteSheet = null;
   static Timer = 0;
@@ -297,6 +314,10 @@ export class ThoriumPlayer extends ModPlayer {
     PlayerDB.set("Inspiration", 0);
     ThoriumPlayer.PreviousInspiration = 0;
     ThoriumPlayer.RegenCooldown = 60;
+    ThoriumPlayer.coralPolearmCharge = 0;
+    ThoriumPlayer.hellfireEnergy = 0;
+    ThoriumPlayer.hellfireEnergyTimer = 0;
+    ThoriumPlayer.hellfireEnergyOverload = false;
   }
 
   ResetEffects(player) {
@@ -320,6 +341,9 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.SheatCriticalChanceBonus = 0;
 
     ThoriumPlayer.accMouthPiece = false;
+    ThoriumPlayer.frostburnPouch = false;
+    ThoriumPlayer.accSandshroudPouch = false;
+    ThoriumPlayer.spearNormal = false;
 
     ThoriumPlayer.soulEssenceActive = false;
 
@@ -338,6 +362,7 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.accVibrationTuner = false
     ThoriumPlayer.accShockAbsorber = false;
     ThoriumPlayer.accJarOMayo = false;
+    ThoriumPlayer.accReducedKnockback = false;
     ThoriumPlayer.setJester = false;
     ThoriumPlayer.CrietzEquipped = false;
 
@@ -387,6 +412,8 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.CoralSetResetCount = 0;
     ThoriumPlayer.championsRebuttal = false;
     ThoriumPlayer.setBronze = false;
+
+    ThoriumPlayer.itemYewWoodShrapnel = false;
 
     ThoriumPlayer.repellentBats = false;
     ThoriumPlayer.repellentFish = false;
@@ -460,8 +487,33 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  UpdateEquips(player) {
+    if (ThoriumPlayer.hellfireEnergy > 0) {
+        ThoriumPlayer.hellfireEnergyTimer++;
+        if (ThoriumPlayer.hellfireEnergyTimer > 10) {
+            ThoriumPlayer.hellfireEnergy--;
+            ThoriumPlayer.hellfireEnergyTimer = 0;
+        }
+        if (ThoriumPlayer.hellfireEnergy > 100) {
+            ThoriumPlayer.hellfireEnergyOverload = true;
+            PlaySound(Terraria.ID.SoundID.Item74, player.position, 0, 1);
+        }
+    } else {
+        ThoriumPlayer.hellfireEnergy = 0;
+        ThoriumPlayer.hellfireEnergyOverload = false;
+    }
+  }
+
   PostUpdate(player) {
     ThoriumPlayer.UpdateClassItemsCrit(player);
+
+    if (ThoriumPlayer.accFrostburnPouchTimer > 0) {
+        ThoriumPlayer.accFrostburnPouchTimer--;
+    }
+    if (ThoriumPlayer.accSandshroudPouch2) {
+        player.AddBuff(ModBuff.getTypeByName('SandshroudPouchBuff'), 2, false);
+        player.endurance += 0.1;
+    }
 
     // So conta enquanto existe recurso guardado. O timer e reiniciado a cada
     // gasto novo em RegisterResourceSpent().
@@ -617,6 +669,14 @@ export class ThoriumPlayer extends ModPlayer {
     stats.damage += finalDamageBonus;
   }
 
+  Shoot(player, item, position, velocity, type, damage, knockBack) {
+    if (ThoriumPlayer.SPEARS.has(item.type) && (ThoriumPlayer.spearNormal)) {
+        if (ThoriumPlayer.spearNormal)
+          NewProjectile(player.GetProjectileSource_Item(item), position, Vector2.Multiply(velocity, 1.25), ModProjectile.getTypeByName('SpearExtra'), (damage * 0.5) | 0, knockBack, player.whoAmI, 0.0, 0.0, 0.0, null);
+    }
+    return true;
+  }
+
   PostUpdateBuffs(player) {
     Empowerments.Update(player);
 
@@ -763,6 +823,40 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.MiniCriticalDamage(npc, damage + Rand.Next(damage, damage + Math.round(damage * 0.1)));
       ThoriumPlayer.YewWoodHitsCount = 0;
     }
+    
+    if (projectile.aiStyle === 99) {
+        if (ThoriumPlayer.frostburnPouch && ThoriumPlayer.accFrostburnPouchTimer <= 0) {
+            npc.AddBuff(324, 90, false);
+            for (let i = 0; i < 8; i++) {
+                const _idx = Terraria.Dust.NewDust(npc.position, npc.width, npc.height, 111, Rand.Next(-5, 5), Rand.Next(-5, 5), 0, null, 1.5);
+                Terraria.Main.dust[_idx].noGravity = true;
+            }
+            ThoriumPlayer.accFrostburnPouchTimer = 300;
+        }
+        if (ThoriumPlayer.accSandshroudPouch && !ThoriumPlayer.accSandshroudPouch2 && player.FindBuffIndex(ModBuff.getTypeByName('SandshroudPouchDebuff')) < 0) {
+            ThoriumPlayer.accSandshroudPouch2 = true;
+            for (let i = 0; i < 15; i++) {
+                let _idx = Terraria.Dust.NewDust(player.position, 20, 20, 32, 0.0, 0.0, 150, null, 1.35);
+                let _dust = Terraria.Main.dust[_idx];
+                _dust.noGravity = true;
+                _dust.velocity = Vector2.Multiply(_dust.velocity, 0.75);
+                let num1 = Rand.Next(-50, 51), num2 = Rand.Next(-50, 51);
+                _dust.position = Vector2.new(_dust.position.X + num1, _dust.position.Y + num2);
+                _dust.velocity = Vector2.new(-(num1 * 0.075000002980232239), -(num2 * 0.075000002980232239));
+            }
+        }
+    }
+    
+    if (projectile.ranged) {
+        if (ThoriumPlayer.itemYewWoodShrapnel && Rand.Next(5) === 0) {
+            PlaySound(Terraria.ID.SoundID.Item17, npc.position, 0, 1);
+            let num9 = 7, num11 = Rand.Next(2), num12 = ModProjectile.getTypeByName('YewWoodShrapnelPro');
+            for (let num10 = 0; num10 < num9; num10++) {
+                const vector2 = Vector2.RotatedBy(Vector2.Multiply(Vector2.Negate(Vector2.RotatedBy(Vector2.UnitY, num10 * (Math.PI * 2 / num9), Vector2.new())), Vector2.new(8, 8)), Vector2.ToRotation(npc.velocity), Vector2.new());
+                NewProjectile(projectile.GetProjectileSource_OnHit(npc, projectile.whoAmI), Vector2.Add(npc.Center, vector2), Vector2.Add(Vector2.Multiply(npc.velocity, 0), Vector2.Multiply(Vector2.SafeNormalize(vector2, Vector2.UnitY), 5)), num12, (projectile.damage * 0.5) | 0, 1, Terraria.Main.myPlayer, num11, npc.whoAmI, 0, null);
+            }
+        }
+    }
 
     if (ThoriumPlayer.ThumbRingEquipped) {
       if (projectile.arrow) {
@@ -845,6 +939,12 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.EnterCombat();
     player.immuneTime += ThoriumPlayer.InvincibilityFrameBonus;
 
+    if (ThoriumPlayer.accReducedKnockback && !player.noKnockback && hitDirection !== 0) {
+        const _v = player.velocity;
+        _v.X *= 0.65;
+        player.velocity = _v;
+    }
+
     if (ThoriumPlayer.championsRebuttal && damage > 0) {
       const stored = damage * 2;
       ThoriumPlayer.championDamage = Math.min(300, ThoriumPlayer.championDamage + stored);
@@ -878,6 +978,15 @@ export class ThoriumPlayer extends ModPlayer {
 
       NewProjectile(source, player.Center, ThoriumPlayer._vec, ThoriumPlayer._seaTurtlesBulwarkProType, 0, 0, player.whoAmI, 0, 0, healValue, null);
       ThoriumPlayer.SeaTurtlesBulwarkTimeDelay = ThoriumPlayer.SeaTurtlesBulwarkMaxTimeDelay;
+    }
+    
+    if (ThoriumPlayer.accSandshroudPouch2) {
+        player.AddBuff(ModBuff.getTypeByName('SandshroudPouchDebuff'), 900, false);
+        ThoriumPlayer.accSandshroudPouch2 = false;
+        for (let i = 0; i < 15; i++) {
+            let _idx = Terraria.Dust.NewDust(player.position, player.width, player.height, 32, Rand.Next(-8, 8), Rand.Next(-8, 8), 125, null, 1.75);
+            Terraria.Main.dust[_idx].noGravity = true;
+        }
     }
   }
 

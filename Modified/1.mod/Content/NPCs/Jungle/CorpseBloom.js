@@ -28,8 +28,6 @@ const STATE_ROOTED = 3;
 const STATE_BURROW = 4;
 const STATE_EMERGE = 5;
 
-// 0-7 respirando | 8,11,12 inflando | 13,14 cuspindo | 15-19 se fechando
-// 20-24 afundando na terra | 9 e 10 sao recolores azul/dourado, nao entram na animacao
 const FRAME_COUNT = 25;
 const FRAME_IDLE_END = 7;
 const FRAME_WINDUP_START = 8;
@@ -135,12 +133,12 @@ export class CorpseBloom extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (!info.CommonEnemy || !info.BelowSurface) return 0;
+        if (!info.CommonEnemy || !(info.SpawnTileY > Terraria.Main.worldSurface) || !info.Player.ZoneJungle) return 0;
         if (info.SpawnTileType !== Terraria.ID.TileID.JungleGrass) return 0;
         if (!Terraria.NPC.downedBoss2) return 0;
-        if (info.Water || info.PlayerSafe) return 0;
-        if (WorldDB.get('Thorium:HasBeenDefeated_CorpseBloom') === true) return 0;
         if (CountNPCS(this.Type) > 0) return 0;
+
+        if (WorldDB.get('Thorium:HasBeenDefeated_CorpseBloom') === true) return 0.005;
         return 0.05;
     }
 

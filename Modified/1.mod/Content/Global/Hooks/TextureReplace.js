@@ -96,6 +96,8 @@ export class TextureReplace extends ModSystem {
     ClericEmblem.InjectTexture()
     GrimAstroturf.InjectTexture()
     SmoothCoal.InjectTexture()
+
+    
   }
 
   PostSetupContent() {

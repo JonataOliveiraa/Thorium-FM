@@ -1,6 +1,7 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
+import { ThoriumPlayer } from './../../Global/ThoriumPlayer.js';
 
 let _proType = -1;
 
@@ -9,8 +10,9 @@ export class PearlPike extends ModItem {
         super();
         this.Texture = 'Items/Aquaite/' + this.constructor.name;
     }
-
+    
     SetStaticDefaults() {
+        ThoriumPlayer.SPEARS.add(this.Type);
         Terraria.ID.ItemID.Sets.SkipsInitialUseSound[this.Type] = true;
     }
 

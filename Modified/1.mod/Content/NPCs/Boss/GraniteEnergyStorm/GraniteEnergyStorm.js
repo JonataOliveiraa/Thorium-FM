@@ -3,15 +3,24 @@ import { ModNPC } from './../../../../TL/ModNPC.js';
 import { ModProjectile } from './../../../../TL/ModProjectile.js';
 import { WorldDB } from './../../../../TL/WorldDB.js';
 import { ModLocalization } from './../../../../TL/ModLocalization.js';
+import { ModItem } from '../../../../TL/ModItem.js';
 
 const { Color, Vector2, Rand, Effects, Rectangle } = Modules;
 const { Main } = Terraria;
 const { SpriteEffects } = Microsoft.Xna.Framework.Graphics;
+
 const NPC_COUNT = Terraria.NPC['int CountNPCS(int Type)'];
 const NEW_NPC = Terraria.NPC['int NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)'];
 const NEW_PROJECTILE = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const CAN_HIT = Terraria.Collision['bool CanHit(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)'];
 const DRAW = 'void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)';
+const IItemDropRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'IItemDropRule');
+const OneFromRulesRule = new NativeClass('Terraria.GameContent.ItemDropRules', 'OneFromRulesRule');
+const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
+// ItemID.Granite = bloco de granito. Literal porque e' o valor usado no original.
+const GRANITE_BLOCK = 3086;
+const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
+
 const BARRIER_COUNT = 8;
 const COALESCED_SPAWN_TIME = 120;
 const COALESCED_COOLDOWN = -1500;
@@ -60,7 +69,6 @@ export class GraniteEnergyStorm extends ModNPC {
         try { this._effectTex = tl.texture.load('Textures/NPCs/Boss/GraniteEnergyStorm/GraniteEnergyStorm_Effect.png'); } catch (_) { }
         try { this._effect2Tex = tl.texture.load('Textures/NPCs/Boss/GraniteEnergyStorm/GraniteEnergyStorm_Effect2.png'); } catch (_) { }
 
-        // Tudo abaixo era reconstruido nos dois desenhos de cada frame.
         if (this._effect2Tex) {
             this._auraOrigin = Vector2.new(this._effect2Tex.Width / 2, this._effect2Tex.Height / 2);
             this._auraColor = Color.op_Multiply(Color.White, 0.65);
@@ -109,9 +117,6 @@ export class GraniteEnergyStorm extends ModNPC {
         this.generate = 0;
     }
 
-    // Aceleracao direcional do original (estilo BatAI): o X ganha um empurrao extra
-    // quando precisa inverter o sentido e um freio leve quando ja esta indo certo,
-    // resultando num voo bem mais erratico que um lerp em direcao a um ponto fixo.
     _updateMovement(npc, player) {
         npc.directionY = player.position.Y - HOVER_HEIGHT > npc.position.Y ? 1 : -1;
 
@@ -140,7 +145,6 @@ export class GraniteEnergyStorm extends ModNPC {
         npc.velocity = velocity;
     }
 
-    // Sucção de poeira para dentro enquanto o boss carrega o dash.
     _createChargeDust(npc) {
         const offset = Vector2.new(Rand.Next(-75, 76), Rand.Next(-75, 76));
         const position = Vector2.new(npc.Center.X - 2 + offset.X, npc.Center.Y - 6 + offset.Y);
@@ -277,7 +281,7 @@ export class GraniteEnergyStorm extends ModNPC {
 
             if (npc.ai[0] >= DASH_TIME) {
                 npc.velocity = Vector2.Multiply(Vector2.SafeNormalize(Vector2.Subtract(player.Center, center), Vector2.UnitX), DASH_SPEED);
-                        npc.ai[0] = this.rage;
+                npc.ai[0] = this.rage;
             }
         }
 
@@ -286,9 +290,6 @@ export class GraniteEnergyStorm extends ModNPC {
         npc.rotation -= 0.05;
     }
 
-    // O loader entrega (npc, hitDirection, damage) - a versao anterior recebia o
-    // hitDirection como se fosse um objeto `hit` e lia hit.Damage (undefined -> NaN),
-    // entao a poeira de dano nunca aparecia fora da morte.
     HitEffect(npc, hitDirection, damage) {
         const position = npc.position;
         const width = npc.width;
@@ -303,6 +304,38 @@ export class GraniteEnergyStorm extends ModNPC {
 
         for (let index = 0; index < 15; index++) Effects.NewDust(position, width, height, 15, Rand.Next(-4, 4), Rand.Next(-4, 4), 255, white, 1.5);
         for (let index = 0; index < 20; index++) Effects.NewDust(position, width, height, 37, Rand.Next(-4, 4), Rand.Next(-4, 4), 0, white, 1.5);
+    }
+
+    ModifyNPCLoot(npcLoot) {
+        npcLoot.Add(ItemDropRule.Common(Terraria.ID.ItemID.HealingPotion, 1, 5, 15));
+        npcLoot.Add(ItemDropRule.Common(GRANITE_BLOCK, 1, 30, 60));
+
+        const core = ModItem.getTypeByName('GraniteEnergyCore');
+        if (core > 0) npcLoot.Add(ItemDropRule.Common(core, 1, 4, 6));
+
+        const weapons = [];
+        for (const name of ['EnergyStormPartisan', 'EnergyStormBolter', 'EnergyProjector', 'BoulderProbeStaff', 'ShockAbsorber']) {
+            const type = ModItem.getTypeByName(name);
+            if (type > 0) weapons.push(ItemDropRule.Common(type, 1, 1, 1));
+        }
+
+        if (weapons.length > 0) {
+            const oneOf = OneFromRulesRule.new();
+            oneOf['void .ctor(int chanceDenominator, IItemDropRule[] options)'](1, weapons.makeGeneric(IItemDropRule));
+            npcLoot.Add(oneOf);
+        }
+
+        const mask = ModItem.getTypeByName('GraniteEnergyStormMask');
+        if (mask > 0) npcLoot.Add(ItemDropRule.Common(mask, 7, 1, 1));
+
+        // Trofeu ainda nao existe; entra sozinho quando o item for criado.
+        const trophy = ModItem.getTypeByName('GraniteEnergyStormTrophy');
+        if (trophy > 0) npcLoot.Add(ItemDropRule.Common(trophy, 10, 1, 1));
+
+        // Expert e Master: o BossBag ja' cuida de substituir o drop normal pela
+        // bolsa. No Master, a bolsa tambem entrega o mascote.
+        const bag = ModItem.getTypeByName('GraniteEnergyStormTreasureBag');
+        if (bag > 0) npcLoot.Add(ItemDropRule.BossBag(bag));
     }
 
     OnKill() {

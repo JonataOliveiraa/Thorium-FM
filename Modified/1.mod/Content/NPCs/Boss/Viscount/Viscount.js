@@ -94,8 +94,7 @@ function initTypes() {
 
 function hasBuff(entity, type) {
     if (!type || type < 0) return false;
-    try { return entity['bool HasBuff(int type)'](type) === true; } catch (_) { }
-    try { return entity.HasBuff(type) === true; } catch (_) { return false; }
+    return entity.FindBuffIndex(type) > -1;
 }
 
 function clamp(v, min, max) {

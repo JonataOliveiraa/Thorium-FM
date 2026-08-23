@@ -8,7 +8,8 @@ export class Tambourine extends ModBardItem {
     constructor() {
         super();
         this.Texture = 'Items/Bard/' + this.constructor.name;
-        this.useWheel = false;
+        this.useWheel = true;
+        this.inspirationCost = 1;
         this.instrumentStyle = 'Percussion'
     }
 
@@ -21,20 +22,21 @@ export class Tambourine extends ModBardItem {
         this.Item.UseSound = Terraria.ID.SoundID.Item1;
         this.Item.maxStack = 1
 
-        this.SetWeaponValues(15, 8, 10);
+        this.SetWeaponValues(11, 5, 4);
         this.SetDefaultWeaponStyle(25, false);
 
-        this.Item.useAnimation = 10;
-        this.Item.useTime = 10;
+        this.Item.useAnimation = 20;
+        this.Item.useTime = 20;
         this.Item.autoReuse = true;
         this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
         this.Item.noUseGraphic = true;
 
         this.Item.shoot = ModProjectile.getTypeByName("TambourinePro");
-        this.Item.shootSpeed = 10;
+        this.Item.shootSpeed = 8;
     }
 
     CanUseItem(item, player) {
+        if (!super.CanUseItem(item, player)) return false;
         return player.ownedProjectileCounts[this.Item.shoot] < 1;
     }
 
@@ -44,5 +46,14 @@ export class Tambourine extends ModBardItem {
             Empowerments.Apply(player, "MovementSpeed", 1);
         }
         return true;
+    }
+    
+    AddRecipes() {
+        this.CreateRecipe()
+        .AddIngredient(Terraria.ID.ItemID.Wood, 10)
+        .AddIngredient(Terraria.ID.ItemID.IronBar, 3)
+        .AddRecipeGroup(Terraria.ID.RecipeGroups.IronBar)
+        .AddTile(Terraria.ID.TileID.WorkBenches)
+        .Register();
     }
 }

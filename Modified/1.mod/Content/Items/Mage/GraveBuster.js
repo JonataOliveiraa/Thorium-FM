@@ -38,7 +38,8 @@ export class GraveBuster extends ModItem {
     // Ignora a mira: a onda sai rente ao chao, pro lado que voce esta virado
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         if (_proType < 0) return true;
-
+        
+        player.direction = Terraria.Main.MouseWorld.X < player.Center.X ? -1 : 1;
         const dir = player.direction > 0 ? 1 : -1;
 
         NewProjectile(

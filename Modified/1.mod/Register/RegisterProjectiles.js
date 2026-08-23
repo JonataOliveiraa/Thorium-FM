@@ -63,6 +63,7 @@ import { LivingWoodAcornShotPro } from '../Content/Projectiles/LivingWoodAcornSh
 import { PrehistoricAmberStaffPterosPro } from '../Content/Projectiles/PrehistoricAmberStaffPterosPro.js';
 import { PrehistoricAmberStaffPterosProShoot } from '../Content/Projectiles/PrehistoricAmberStaffPterosProShoot.js';
 import { PrehistoricAmberStaffTRexPro } from '../Content/Projectiles/PrehistoricAmberStaffTRexPro.js';
+import { RosySlimeStaffPro } from '../Content/Projectiles/RosySlimeStaffPro.js';
 
 // Accessories
 import { IncubatedSpider } from '../Content/Projectiles/IncubatedSpider.js';
@@ -92,6 +93,8 @@ import { CharmPro } from '../Content/Projectiles/CharmPro.js';
 import { StunPro } from '../Content/Projectiles/StunPro.js';
 import { MagickStaffPro } from '../Content/Projectiles/MagickStaffPro.js';
 import { AquamarineStaffPro } from '../Content/Projectiles/AquamarineStaffPro.js';
+import { SpineBreaker1, SpineBreaker2, SpineBreaker1Dummy } from './../Content/Projectiles/SpineBreaker1.js';
+import { ObsidianStaffPro, ObsidianStaffPro2, ObsidianStaffPro3 } from './../Content/Projectiles/ObsidianStaffPro.js';
 
 // Blooming
 import { BloomingBowPro } from '../Content/Projectiles/BloomingBowPro.js';
@@ -168,6 +171,9 @@ import { CoralCrossbowPro2 } from '../Content/Projectiles/CoralCrossbowPro2.js';
 import { SeahorseWandPro } from '../Content/Projectiles/SeahorseWandPro.js';
 import { SeahorseWandPro2 } from '../Content/Projectiles/SeahorseWandPro2.js';
 import { CoralSlasherPro } from '../Content/Projectiles/CoralSlasherPro.js';
+import { CoralPolearmPro } from './../Content/Projectiles/CoralPolearmPro.js';
+import { CoralPolearmPro2 } from './../Content/Projectiles/CoralPolearmPro2.js';
+import { CoralPolearmPro2Dummy, CoralPolearmPro3 } from './../Content/Projectiles/CoralPolearmPro3.js';
 import { BloomingWandPro } from '../Content/Projectiles/BloomingWandPro.js';
 import { PiercePro } from '../Content/Projectiles/PiercePro.js';
 import { PalmCrossPro } from '../Content/Projectiles/PalmCrossPro.js';
@@ -252,6 +258,16 @@ import { EnergyExplosion } from '../Content/Projectiles/EnergyExplosion.js';
 import { ShroomBooster } from '../Content/Projectiles/ShroomBooster.js';
 import { ShroomBoosterBulb } from '../Content/Projectiles/ShroomBoosterBulb.js';
 
+import { IllustriousPro } from './../Content/Projectiles/IllustriousPro.js';
+import { KineticKnifePro } from './../Content/Projectiles/KineticKnifePro.js';
+import { ScorpainPro, ScorpainPro2 } from './../Content/Projectiles/ScorpainPro.js';
+import { WhipPro } from './../Content/Projectiles/WhipPro.js';
+import { YewWoodShrapnelPro } from './../Content/Projectiles/YewWoodShrapnelPro.js';
+import { TorpedoPro, TorpedoPro2 } from './../Content/Projectiles/TorpedoPro.js';
+import { EelSpark } from './../Content/Projectiles/EelSpark.js';
+import { SpearExtra } from './../Content/Projectiles/SpearExtra.js';
+import { SpringHookPro } from './../Content/Projectiles/SpringHookPro.js';
+
 const List = [
   GraniteCharge,
   BuriedShock,
@@ -310,6 +326,7 @@ const List = [
   PrehistoricAmberStaffPterosPro,
   PrehistoricAmberStaffPterosProShoot,
   PrehistoricAmberStaffTRexPro,
+  RosySlimeStaffPro,
 
   IncubatedSpider,
   CrietzPro,
@@ -330,6 +347,12 @@ const List = [
   StunPro,
   PiercePro,
   MagickStaffPro,
+  SpineBreaker1,
+  SpineBreaker2,
+  SpineBreaker1Dummy,
+  ObsidianStaffPro,
+  ObsidianStaffPro2,
+  ObsidianStaffPro3,
   AquamarineStaffPro,
   TheDigesterPro,
   PalmCrossPro,
@@ -428,6 +451,10 @@ const List = [
   SeahorseWandPro,
   SeahorseWandPro2,
   CoralSlasherPro,
+  CoralPolearmPro,
+  CoralPolearmPro2,
+  CoralPolearmPro2Dummy,
+  CoralPolearmPro3,
   
   JesterBellPro,
 
@@ -493,6 +520,18 @@ const List = [
   OctopusArm,
   NestlingAttack,
   Zap,
+  
+  IllustriousPro,
+  KineticKnifePro,
+  ScorpainPro,
+  ScorpainPro2,
+  WhipPro,
+  YewWoodShrapnelPro,
+  TorpedoPro,
+  TorpedoPro2,
+  EelSpark,
+  SpearExtra,
+  SpringHookPro
 ]
 
 export function RegisterProjectiles() {
