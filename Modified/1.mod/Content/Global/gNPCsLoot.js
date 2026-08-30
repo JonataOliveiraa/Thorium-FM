@@ -134,10 +134,94 @@ export class gNPCsLoot extends GlobalLoot {
             ]
         },
         {
+            npcType: NPCID.SkeletronHead,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('GuildsStaff'), 4, 1, 1)
+            ]
+        },
+        {
             npcType: NPCID.BoneSerpentHead,
             rules: [
                 () => ItemDropRule.Common(ModItem.getTypeByName('SpineBreaker'), 12, 1, 1)
 
+            ]
+        },
+        {
+            npcType: 494,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('CrawdadClaw'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 495,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('CrawdadClaw'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 498,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 499,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 500,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 501,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 502,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 503,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 504,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 505,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 506,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('SalamanderEye'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 496,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('GiantShellSpine'), 20, 1, 1)
+            ]
+        },
+        {
+            npcType: 497,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('GiantShellSpine'), 20, 1, 1)
             ]
         },
     ];

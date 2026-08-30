@@ -3,13 +3,14 @@ import { ModItem } from '../TL/ModItem.js';
 import { ModBuff } from '../TL/ModBuff.js';
 import { ThoriumPlayer } from '../Content/Global/ThoriumPlayer.js';
 
-const { BuffID, ItemID, ItemUseStyleID, SoundID } = Terraria.ID;
+const { ItemID, SoundID } = Terraria.ID;
+const { Main } = Terraria;
 const DrawAnimationVertical = new NativeClass('Terraria.DataStructures', 'DrawAnimationVertical');
 
-export const FULL_STOMACH_DURATION = 2700; // 45s
-export const SECONDARY_DURATION = 3600;    // 60s
-export const WELL_FED_BASIC = 7200;        // 2min - comida basica da loja
-export const WELL_FED_RECIPE = 18000;      // 5min - comida de receita
+export const FULL_STOMACH_DURATION = 2700;
+export const SECONDARY_DURATION = 3600;
+export const WELL_FED_BASIC = 7200;
+export const WELL_FED_RECIPE = 18000;
 
 const FOOD_FRAMES = 3;
 const NEVER_ADVANCE = 2147483647;
@@ -22,11 +23,13 @@ export class ModCookFood extends ModItem {
     this.ResearchUnlockCount = 30;
     this.foodHealLife = 50;
     this.foodHealMana = 0;
-    this.wellFedType = BuffID.WellFed;
+    this.wellFedType = 26;
     this.wellFedDuration = WELL_FED_BASIC;
     this.fullStomachDuration = FULL_STOMACH_DURATION;
     this.secondaryBuff = 0;
     this.secondaryDuration = SECONDARY_DURATION;
+    this.isDrink = false;
+    this.ignoresCombat = false;
   }
 
   static FullStomachType() {
@@ -47,7 +50,7 @@ export class ModCookFood extends ModItem {
       animation.TicksPerFrame = NEVER_ADVANCE;
       animation.PingPong = false;
     }
-    Terraria.Main.RegisterItemAnimation(this.Type, animation);
+    Main.RegisterItemAnimation(this.Type, animation);
 
     this.CookStaticDefaults();
   }
@@ -57,8 +60,6 @@ export class ModCookFood extends ModItem {
   SetDefaults() {
     this.Item.useTime = 17;
     this.Item.useAnimation = 17;
-    this.Item.useStyle = ItemUseStyleID.EatFood;
-    this.Item.UseSound = SoundID.Item2;
     this.Item.useTurn = true;
     this.Item.consumable = true;
     this.Item.maxStack = 9999;
@@ -67,27 +68,71 @@ export class ModCookFood extends ModItem {
 
     this.CookDefaults();
 
-    this.Item.buffType = this.wellFedType;
-    this.Item.buffTime = this.wellFedDuration;
+    if (this.isDrink) {
+      this.Item.useStyle = 9;
+      this.Item.UseSound = SoundID.Item3;
+    } else {
+      this.Item.useStyle = 2;
+      this.Item.UseSound = SoundID.Item2;
+    }
   }
 
   CookDefaults() { }
 
-  UseItem(item, player) {
-    if (this.foodHealLife > 0) player.HealLife(this.foodHealLife);
-    if (this.foodHealMana > 0) player.HealMana(this.foodHealMana);
+  CanUseItem(item, player) {
+    const stomach = ModCookFood.FullStomachType();
+    if (stomach > 0 && player.FindBuffIndex(stomach) >= 0) return false;
+    if (!this.ignoresCombat && ThoriumPlayer.InCombat) return false;
+    return true;
+  }
+
+  OnConsumeItem(item, player) {
+    if (this.foodHealLife > 0) player.Heal(this.foodHealLife);
+
+    if (this.foodHealMana > 0) {
+      const missing = player.statManaMax2 - player.statMana;
+      const restored = Math.min(this.foodHealMana, Math.max(0, missing));
+      if (restored > 0) {
+        player.statMana += restored;
+        player.ManaEffect(restored);
+      }
+    }
+
     if (this.secondaryBuff > 0) player.AddBuff(this.secondaryBuff, this.secondaryDuration, false);
+
+    this.ApplyWellFed(player);
+    this.OnEat(player);
 
     const stomach = ModCookFood.FullStomachType();
     if (stomach > 0) player.AddBuff(stomach, this.fullStomachDuration, false);
+  }
 
-    this.OnEat(player);
+  ApplyWellFed(player) {
+    if (this.wellFedType <= 0 || this.wellFedDuration <= 0) return;
 
-    if (ThoriumPlayer.InCombat) return false;
+    const tiers = [26, 206, 207];
+    let activeTier = -1;
+    let activeIndex = -1;
 
-    if (stomach > 0 && player.FindBuffIndex(stomach) >= 0) return false;
+    for (let i = tiers.length - 1; i >= 0; i--) {
+      const index = player.FindBuffIndex(tiers[i]);
+      if (index > -1) {
+        activeTier = i;
+        activeIndex = index;
+        break;
+      }
+    }
 
-    return true;
+    const myTier = tiers.indexOf(this.wellFedType);
+    if (myTier < activeTier) return;
+
+    let duration = this.wellFedDuration;
+    if (activeIndex > -1 && myTier === activeTier) {
+      const remaining = player.buffTime[activeIndex];
+      if (remaining > duration) duration = remaining;
+    }
+
+    player.AddBuff(this.wellFedType, duration, false);
   }
 
   OnEat(player) { }

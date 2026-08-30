@@ -2,6 +2,7 @@ import { Terraria, Modules, Microsoft } from '../../../TL/ModImports.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { Effects } from '../../../TL/Modules/Effects.js';
+import { SpawnHelper } from '../../Global/Utils/SpawnHelper.js';
 
 const { Color, Vector2 } = Modules;
 const { SpriteEffects } = Microsoft.Xna.Framework.Graphics;
@@ -45,10 +46,10 @@ export class GildedLycan extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
-            return 0.025;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.Cavern) return 0;
+        if (info.Water || info.SpawnTileY >= Terraria.Main.maxTilesY - 200) return 0;
+        if (!SpawnHelper.NoBiome(info)) return 0;
+        return 0.003;
     }
 
     FindFrame(npc, frameHeight) {

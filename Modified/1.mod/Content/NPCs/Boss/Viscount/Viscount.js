@@ -8,6 +8,7 @@ import { WorldDB } from '../../../../TL/WorldDB.js';
 import { MiscHelper } from '../../../Global/Utils/MiscHelper.js';
 import { SoundHelper } from '../../../Global/Utils/SoundHelper.js';
 import { FxHelper } from '../../../Global/Utils/FxHelper.js';
+import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const WHITE = Color.White;
@@ -157,11 +158,14 @@ export class Viscount extends ModNPC {
     SetStaticDefaults() {
         Main.npcFrameCount[this.Type] = FRAME_COUNT;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-        Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
         this.BestiaryRarityStars = 3;
 
         // TODO: trocar por "Bat Ballad" se entrar suporte a musica custom
         this.Music = Terraria.ID.MusicID.Boss5;
+    }
+
+    PostSetupContent() {
+        BestiaryOrder.BossAfter(this.Type, 266);
     }
 
     SetDefaults() {

@@ -41,7 +41,7 @@ export class Biter extends ModNPC {
         bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime);
 
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.MahoganyEnt');
+        FlavorText._key = ModLocalization.Translate('Bestiary.Biter');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

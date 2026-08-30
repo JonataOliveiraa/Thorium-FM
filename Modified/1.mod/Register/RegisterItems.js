@@ -46,7 +46,7 @@ import { CarrotCookie } from '../Content/Items/Consumable/Food/CarrotCookie.js';
 import { ToughNutToffee } from '../Content/Items/Consumable/Food/ToughNutToffee.js';
 import { SpudBomber } from '../Content/Items/Consumable/Food/SpudBomber.js';
 import { Spud } from '../Content/Items/Consumable/Food/Spud.js';
-import { LargePopcorn } from '../Content/Items/Consumable/Food/LargePopcorn.js';
+import { LargePopcorn } from '../Content/Items/Healer/LargePopcorn.js';
 import { JarOMayo } from '../Content/Items/Consumable/Food/JarOMayo.js';
 import { AromaticBiscuit } from '../Content/Items/Consumable/Food/AromaticBiscuit.js';
 import { BlueCheese } from '../Content/Items/Consumable/Food/BlueCheese.js';
@@ -338,12 +338,25 @@ import { IceShaver } from '../Content/Items/Icy/IceShaver.js';
 import { DownwardSpiral } from '../Content/Items/Healer/DownwardSpiral.js';
 import { TheBlender } from '../Content/Items/Healer/TheBlender.js';
 import { BountifulHarvest } from '../Content/Items/Healer/BountifulHarvest.js';
+// Scythes e macas radiantes
+import { BoneReaper } from '../Content/Items/Healer/BoneReaper.js';
+import { MoltenThresher } from '../Content/Items/Healer/MoltenThresher.js';
+import { FallingTwilight } from '../Content/Items/Healer/FallingTwilight.js';
+import { BloodHarvest } from '../Content/Items/Healer/BloodHarvest.js';
+import { RottenCod } from '../Content/Items/Healer/RottenCod.js';
+import { TheStalker } from '../Content/Items/Healer/TheStalker.js';
 import { HoneyRecorder } from '../Content/Items/Bard/HoneyRecorder.js';
 import { MarineCatcher } from '../Content/Items/Fishing/MarineCatcher.js';
 import { DiverHelmet } from '../Content/Items/Vanity/DiverHelmet.js';
 import { DiverSuit } from '../Content/Items/Vanity/DiverSuit.js';
 import { DruidCloak } from '../Content/Items/Vanity/DruidCloak.js';
 import { DiverLeggings } from '../Content/Items/Vanity/DiverLeggings.js';
+import { GelatinousMask } from '../Content/Items/Vanity/GelatinousMask.js';
+import { GelatinousMail } from '../Content/Items/Vanity/GelatinousMail.js';
+import { GelatinousGreaves } from '../Content/Items/Vanity/GelatinousGreaves.js';
+import { Jelly } from '../Content/Items/Consumable/Jelly.js';
+import { ElephantGun } from '../Content/Items/NPCItems/ElephantGun.js';
+import { GuildsStaff } from '../Content/Items/Donate/GuildsStaff.js';
 import { InspirationFragment } from '../Content/Items/Consumable/InspirationFragment.js';
 import { InspirationShard } from '../Content/Items/Consumable/InspirationShard.js';
 import { InspirationCrystal } from '../Content/Items/Consumable/InspirationCrystal.js';
@@ -398,8 +411,10 @@ import { Whip } from './../Content/Items/Tracker/Whip.js';
 
 // Misc
 import { SpringHook } from './../Content/Items/Misc/SpringHook.js';
+import { GraveGoods } from '../Content/Items/BasicAccessories/Shields/GraveGoods.js';
 
 const List = [
+    GraveGoods,
     CherryPie,
     StackofPancakes,
     IceCreamCone,
@@ -509,10 +524,22 @@ const List = [
     DiverSuit,
     DruidCloak,
     DiverLeggings,
+    Jelly,
+    ElephantGun,
+    GuildsStaff,
+    GelatinousMask,
+    GelatinousMail,
+    GelatinousGreaves,
     MarineCatcher,
     HoneyRecorder,
     TheBlender,
     BountifulHarvest,
+    BoneReaper,
+    MoltenThresher,
+    FallingTwilight,
+    BloodHarvest,
+    RottenCod,
+    TheStalker,
     DownwardSpiral,
     IceShaver,
     WoodenBaton,

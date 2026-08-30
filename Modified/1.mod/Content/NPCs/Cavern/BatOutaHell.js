@@ -105,12 +105,15 @@ export class BatOutaHell extends ModNPC {
 
     PostAI(npc) {
         Effects.AddLight(npc.Center, 0.0945, 0.0392, 0.0122)
+
+        npc.localAI[2]++;
+        if (npc.localAI[2] > 210) npc.alpha = Math.min(255, npc.alpha + 8);
+        if (npc.localAI[2] > 240) npc.active = false;
     }
 
     OnHitPlayer(npc, player) {
-        player.AddBuff(Terraria.ID.BuffID.OnFire, 180, false)
-
-        if (Math.random() > 5) return
-        player.AddBuff(Terraria.ID.BuffID.BrokenArmor, 180, false)
+        player.AddBuff(24, 180, false)
+        if (Math.random() < 0.5) player.AddBuff(36, 600, false)
+        npc.active = false;
     }
 }

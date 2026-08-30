@@ -1,14 +1,16 @@
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
-import { ModLocalization } from '../../../../TL/ModLocalization.js';
+import { ModProjectile } from '../../../../TL/ModProjectile.js';
 import { Vector2 } from '../../../../TL/Modules/Vector2.js';
-import { LifeShieldPlayer } from '../../../Global/LifeShieldPlayer.js';
 import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
+
+const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class MoltenScale extends ModItem {
     constructor() {
         super();
         this.Texture = 'Items/BasicAccessories/Shields/' + this.constructor.name;
+        this._auraType = -1;
     }
 
     SetDefaults() {
@@ -30,22 +32,15 @@ export class MoltenScale extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        ThoriumPlayer.MoltenScaleEquipped = true
+        ThoriumPlayer.MoltenScaleEquipped = true;
 
-        const radius = player.width / 2;
-        const radiusSq = radius * radius;
+        if (this._auraType === -1) {
+            this._auraType = ModProjectile.getTypeByName('accScale') ?? -2;
+        }
+        if (this._auraType < 0) return;
 
-        for (let i = 0; i < Terraria.Main.maxNPCs; i++) {
-            const npc = Terraria.Main.npc[i];
-            if (!npc || !npc.active || npc.friendly) continue;
-            let distSq = Vector2.DistanceSquared(npc.Center, player.Center);
-            if (distSq < radiusSq) {
-                    ThoriumPlayer.MoltenScaleTimeDelay++;
-                    if (ThoriumPlayer.MoltenScaleTimeDelay > ThoriumPlayer.MoltenScaleMaxTimeDelay) {
-                    npc.AddBuff(Terraria.ID.BuffID.OnFire, 120, false);
-                    ThoriumPlayer.MoltenScaleTimeDelay = 0;
-                }
-            }
+        if (player.ownedProjectileCounts[this._auraType] < 1) {
+            NewProjectile(null, player.Center, Vector2.Zero, this._auraType, 1, 0, player.whoAmI, 0, 0, 0, null);
         }
     }
 }

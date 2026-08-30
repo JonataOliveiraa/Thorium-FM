@@ -47,7 +47,9 @@ export class StrangeBulb extends ModNPC {
     }
 
     AI(npc) {
-        npc.velocity.X = 0;
+        const vel = npc.velocity;
+        vel.X = 0;
+        npc.velocity = vel;
         npc.TargetClosest(false);
 
         Effects.AddLight(npc.Center, 0.6, 0.2, 0.4);

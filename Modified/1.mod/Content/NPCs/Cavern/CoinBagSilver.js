@@ -39,7 +39,7 @@ export class CoinBagSilver extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
+        if (info.CommonEnemy && info.Cavern && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
             return 0.0088;
         }
         return 0;
@@ -111,7 +111,7 @@ export class CoinBagSilver extends ModNPC {
             Math.floor(npc.position.Y),
             npc.width,
             npc.height,
-            Terraria.ID.ItemID.ddSilverCoin,
+            Terraria.ID.ItemID.SilverCoin,
             amount,
             false,
             0,

@@ -26,8 +26,9 @@ export class MagmaLocket extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        if(player.lavaWet) {
-            player.AddBuff(ModBuff.getTypeByName('LavaHugBuff'), 600, false)
+        if (player.lavaWet) {
+            if (this._lavaHugBuff === undefined) this._lavaHugBuff = ModBuff.getTypeByName('LavaHugBuff') ?? -1;
+            if (this._lavaHugBuff > 0) player.AddBuff(this._lavaHugBuff, 600, false);
         }
     }
 }

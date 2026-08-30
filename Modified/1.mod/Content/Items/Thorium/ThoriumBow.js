@@ -2,6 +2,9 @@ import { ThoriumAnvil } from '../../Global/Tiles/ThoriumAnvil.js';
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
+
+const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class ThoriumBow extends ModItem {
     constructor() {
@@ -22,6 +25,14 @@ export class ThoriumBow extends ModItem {
         this.Item.value = Terraria.Item.sellPrice(0, 0, 25, 25);
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
         this.Item.UseSound = Terraria.ID.SoundID.Item5;
+    }
+
+    Shoot(item, player, position, velocity, type, damage, knockBack) {
+        const projType = AmmoHelper.Consume(player, item.useAmmo);
+        if (projType <= 0) return false;
+
+        NewProjectile(null, position, velocity, projType, damage, knockBack, player.whoAmI, 0, 0, 0, null);
+        return false;
     }
 
     AddRecipes() {

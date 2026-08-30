@@ -15,6 +15,19 @@ import { MagicalBurst } from '../Content/NPCs/Boss/BossBuriedChampion/MagicalBur
 import { Blacksmith } from '../Content/NPCs/Town/Blacksmith.js';
 import { DesertAcolyte } from '../Content/NPCs/Town/DesertAcolyte.js';
 
+// Dungeon
+import { BigBone } from '../Content/NPCs/Dungeon/BigBone.js';
+import { Shambler } from '../Content/NPCs/Dungeon/Shambler.js';
+import { GelatinousCube } from '../Content/NPCs/Dungeon/GelatinousCube.js';
+import { GelatinousSludge } from '../Content/NPCs/Dungeon/GelatinousSludge.js';
+import { RagingMinotaur } from '../Content/NPCs/Dungeon/RagingMinotaur.js';
+
+// Hags
+import { RedHag } from '../Content/NPCs/Hag/RedHag.js';
+import { GreenHag } from '../Content/NPCs/Hag/GreenHag.js';
+import { BlueHag } from '../Content/NPCs/Hag/BlueHag.js';
+import { CyanHag } from '../Content/NPCs/Hag/CyanHag.js';
+
 // Surface
 import { Biter } from '../Content/NPCs/Surface/Biter.js';
 
@@ -104,8 +117,10 @@ import { GoblinTrapper } from '../Content/NPCs/GoblinArmy/GoblinTrapper.js';
 import { CorpseBloom } from '../Content/NPCs/Jungle/CorpseBloom.js';
 import { CorpsePetal } from '../Content/NPCs/Jungle/CorpsePetal.js';
 import { CorpseWeed } from '../Content/NPCs/Jungle/CorpseWeed.js';
+import { LifeCrystalMimic } from '../Content/NPCs/Cavern/LifeCrystalMimic.js';
 
 const List = [
+    LifeCrystalMimic,
     GraniteEnergyStorm,
     CoalescedEnergy,
     EnergyBarrier,
@@ -196,6 +211,17 @@ const List = [
     CoinBagCopper,
     CoinBagSilver,
     CoinBagGold,
+
+    BigBone,
+    Shambler,
+    GelatinousCube,
+    GelatinousSludge,
+    RagingMinotaur,
+
+    RedHag,
+    GreenHag,
+    BlueHag,
+    CyanHag,
 
     // GoblinTrapper
 ]

@@ -16,10 +16,6 @@ export class FireAnt extends ModNPC {
     
     SetStaticDefaults() {
         Terraria.Main.npcFrameCount[this.Type] = 5;
-        this.trailScaleDecay = 0.030;
-        this.trailAlpha = 0.75;
-        Terraria.ID.ProjectileID.Sets.TrailCacheLength[this.Type] = 8;
-		Terraria.ID.ProjectileID.Sets.TrailingMode[this.Type] = 1;
     }
     
     SetDefaults() {
@@ -58,22 +54,6 @@ export class FireAnt extends ModNPC {
             return 0.04;
         }
         return 0;
-    }
-
-    PreDraw(proj) {
-        const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
-        const drawOrigin = Vector2.new(texture.Width * 0.5, texture.Height * 0.5);
-        const effects = Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
-        for (let k = proj.oldPos.Length - 1; k > 0; k--) {
-            let drawPos = Vector2.Subtract(proj.oldPos.get_Item(k), Terraria.Main.screenPosition);
-            drawPos = Vector2.Add(drawPos, Vector2.new(drawOrigin.X, drawOrigin.Y + proj.gfxOffY));
-            const alpha = this.trailAlpha * (1 - k / proj.oldPos.Length);
-            const color = Color.Lerp(Color.Transparent, Color.Orange, alpha);
-            const scale = Math.max(proj.scale - k * this.trailScaleDecay);
-            Terraria.Main.spriteBatch['void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)'
-            ](texture, drawPos, null, color, proj.rotation, drawOrigin, scale, effects, 0);
-        }
-        return true;
     }
 
     PostAI(npc) {

@@ -155,9 +155,14 @@ export class Cook extends ModNPC {
       : this._say('Cook_NothingLeft');
   }
 
-  // Tag de chat do Terraria: o jogo troca por icone + nome do item.
   _itemTag(itemType) {
-    return itemType > 0 ? `[i:${itemType}]` : '';
+    if (!(itemType > 0)) return '';
+    if (!ModItem.isModType(itemType)) return `[i:${itemType}]`;
+
+    const modItem = ModItem.getModItem(itemType);
+    if (!modItem) return '';
+
+    return ModLocalization.Translate(`ItemName.${modItem.constructor.name}`);
   }
 
   // Lista o que ainda falta para cada receita pendente, ja' descontando o doado.
@@ -188,8 +193,9 @@ export class Cook extends ModNPC {
 
   _giveSamples(player, itemType, amount) {
     if (itemType <= 0 || amount <= 0) return;
+    const QuickSpawnItem = player['void QuickSpawnItem(IEntitySource source, int item, int stack)'];
     for (let index = 0; index < amount; index++) {
-      player.QuickSpawnItem(null, itemType, 1);
+      QuickSpawnItem(null, itemType, 1);
     }
   }
 

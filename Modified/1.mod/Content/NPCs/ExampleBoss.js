@@ -36,7 +36,6 @@ export class ExampleBoss extends ModNPC {
     SetStaticDefaults() {
         Terraria.Main.npcFrameCount[this.Type] = 6;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-        Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
         
         this.BestiaryRarityStars = 2;
         

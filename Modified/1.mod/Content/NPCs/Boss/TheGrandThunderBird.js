@@ -5,6 +5,7 @@ import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 import { ModGore } from './../../../TL/ModGore.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js'
+import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
@@ -62,9 +63,12 @@ export class TheGrandThunderBird extends ModNPC {
     Terraria.ID.NPCID.Sets.TrailingMode[this.Type] = 0;
     Terraria.Main.npcFrameCount[this.Type] = 9;
     Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-    Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
     this.BestiaryRarityStars = 3;
     this.Music = Terraria.ID.MusicID.Boss2;
+  }
+
+  PostSetupContent() {
+      BestiaryOrder.BossAfter(this.Type, 50);
   }
 
   SetDefaults() {
@@ -112,7 +116,7 @@ export class TheGrandThunderBird extends ModNPC {
 
     // Classic Mode
     const notExpert = Conditions.NotExpert.new();
-    ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('SandstoneIngot'), 1, 16, 20, 1)
+    npcLoot.Add(ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('SandstoneIngot'), 1, 16, 20, 1));
     const options = [
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('TalonBurst'), 1, 1, 1, 1),
       ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('StormHatchlingStaff'), 1, 1, 1, 1),

@@ -4,6 +4,7 @@ import { ModProjectile } from '../../../../TL/ModProjectile.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { WorldDB } from '../../../../TL/WorldDB.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
+import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2, Effects } = Modules;
 const { ItemDropRule, Conditions } = Terraria.GameContent.ItemDropRules;
@@ -81,9 +82,12 @@ export class BuriedChampion extends ModNPC {
 
   SetStaticDefaults() {
     Terraria.Main.npcFrameCount[this.Type] = 14;
-    Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
     this.BestiaryRarityStars = 3;
     this.Music = Terraria.ID.MusicID.Boss5;
+  }
+
+  PostSetupContent() {
+      BestiaryOrder.BossBefore(this.Type, 113);
   }
 
   SetDefaults() {

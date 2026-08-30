@@ -103,12 +103,6 @@ export class ThoriumPlayer extends ModPlayer {
   
   static coralPolearmCharge = 0;
 
-  /**
-   * "Recurso" guardado pro Ovo de Faberge: quanto de mana/inspiracao o jogador
-   * gastou por ultimo. A janela e de 5s (300 ticks) contados A PARTIR do ultimo
-   * gasto -- antes o contador era livre e corria sozinho, entao o valor podia
-   * ser zerado quase no mesmo tick em que foi gravado.
-   */
   static resTimeCount = 0
   static resTimeMax = 300
   static resLastManaSpent = 0;
@@ -162,13 +156,21 @@ export class ThoriumPlayer extends ModPlayer {
   static accVibrationTuner = false
   static accShockAbsorber = false;
   static accJarOMayo = false;
+  static debuffStaggered = false;
+  static debuffStaggeredRotation = 0;
+  static graveGoods = false
+  static graveGoodsStacks = 0;            // pontos acumulados (0..3)
+  static graveGoodsStacksMax = 3;
+  static graveGoodsDamageSum = 0;         // dano somado dos golpes do ciclo
+  static graveGoodsHealPercent = 0.15;    // o fogo-fatuo devolve 15% desse total
+  static graveGoodsSpawnOffset = 64;      // nasce a 4 tiles: o jogador tem que ir ate ele
+  static graveGoodsCooldown = 0;          // trava o acumulo depois de disparar
+  static graveGoodsCooldownMax = 1200;    // 20s ate voltar a juntar pontos
+  static _graveGoodsProType = -1;
   static accShockAbsorberStorage = 0;
   static _shockAbsorberProType = -1;
   static _shockAbsorberBuffType = -1;
-  // Este framework nao expoe a "Accessory Ability key" do tModLoader, entao o
-  // gatilho e' a tecla de Quick Mana (J): bardo gasta inspiracao, nao mana, e
-  // ela nao conflita com nada. `_held` faz a deteccao de borda - sem isso o
-  // efeito dispararia todo tick enquanto a tecla estivesse pressionada.
+
   static _shockAbsorberKeyHeld = false;
   static ShockAbsorberMinStorage = 100;
   static ShockAbsorberMaxStorage = 1000;
@@ -363,6 +365,8 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.accShockAbsorber = false;
     ThoriumPlayer.accJarOMayo = false;
     ThoriumPlayer.accReducedKnockback = false;
+    ThoriumPlayer.debuffStaggered = false;
+    ThoriumPlayer.graveGoods = false
     ThoriumPlayer.setJester = false;
     ThoriumPlayer.CrietzEquipped = false;
 
@@ -402,6 +406,7 @@ export class ThoriumPlayer extends ModPlayer {
     thrower.multiplier = 1.0;
 
     ThoriumPlayer.MoltenScaleEquipped = false;
+    ThoriumPlayer.ObsidianScaleEquipped = false;
     ThoriumPlayer.RadiantCorruptionActive = false;
     ThoriumPlayer.SeaTurtlesBulwarkEquipped = false;
     ThoriumPlayer.YewWoodSetBonus = false;
@@ -505,6 +510,22 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   PostUpdate(player) {
+    // Recarga do Grave Goods. Fica fora do ResetEffects de proposito: precisa
+    // continuar correndo mesmo se o acessorio sair da mochila por um instante.
+    if (ThoriumPlayer.graveGoodsCooldown > 0) {
+      ThoriumPlayer.graveGoodsCooldown--;
+
+      if (ThoriumPlayer.graveGoodsCooldown === 0 && ThoriumPlayer.graveGoods) {
+        Effects.PlaySound(Terraria.ID.SoundID.Item4, player.Center.X | 0, player.Center.Y | 0, 1, 0.5, 0.6);
+        for (let i = 0; i < 10; i++) {
+          const d = Terraria.Main.dust[Effects.NewDust(
+            player.position, player.width, player.height, 113, 0, -1.5, 120, ThoriumPlayer._whiteColor, 1
+          )];
+          if (d) d.noGravity = true;
+        }
+      }
+    }
+
     ThoriumPlayer.UpdateClassItemsCrit(player);
 
     if (ThoriumPlayer.accFrostburnPouchTimer > 0) {
@@ -686,26 +707,6 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown
     ) {
       player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
-    }
-
-    if (ThoriumPlayer.repellentBats || ThoriumPlayer.repellentFish || ThoriumPlayer.repellentInsects || ThoriumPlayer.repellentSkeletons || ThoriumPlayer.repellentZombies) {
-      const npcTypeCount = Terraria.ID.NPCID.Count ?? 700;
-      const noAggro = player.npcTypeNoAggro;
-
-      for (let type = 1; type < npcTypeCount && type < noAggro.length; type++) {
-        const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[type];
-        if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) continue;
-
-        if (
-          (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
-          (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
-          (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
-          (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
-          (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
-        ) {
-          noAggro[type] = true;
-        }
-      }
     }
   }
 
@@ -979,6 +980,61 @@ export class ThoriumPlayer extends ModPlayer {
       NewProjectile(source, player.Center, ThoriumPlayer._vec, ThoriumPlayer._seaTurtlesBulwarkProType, 0, 0, player.whoAmI, 0, 0, healValue, null);
       ThoriumPlayer.SeaTurtlesBulwarkTimeDelay = ThoriumPlayer.SeaTurtlesBulwarkMaxTimeDelay;
     }
+
+    // Grave Goods: cada golpe recebido acumula 1 ponto e soma o dano sofrido.
+    // No terceiro ponto a energia espiritual escapa como um fogo-fatuo que
+    // devolve uma fracao de tudo que foi perdido nos tres golpes.
+    if (!pvp && ThoriumPlayer.graveGoods && damage > 0 && ThoriumPlayer.graveGoodsCooldown <= 0) {
+      ThoriumPlayer.graveGoodsStacks++;
+      ThoriumPlayer.graveGoodsDamageSum += damage;
+
+      if (ThoriumPlayer.graveGoodsStacks >= ThoriumPlayer.graveGoodsStacksMax) {
+        if (ThoriumPlayer._graveGoodsProType === -1) {
+          ThoriumPlayer._graveGoodsProType = ModProjectile.getTypeByName('GraveGoodPro') ?? -2;
+        }
+
+        if (ThoriumPlayer._graveGoodsProType >= 0) {
+          const heal = Math.max(1, Math.floor(ThoriumPlayer.graveGoodsDamageSum * ThoriumPlayer.graveGoodsHealPercent));
+          const angle = Rand.NextFloat() * Math.PI * 2;
+          const spawn = Vector2.new(
+            player.Center.X + Math.cos(angle) * ThoriumPlayer.graveGoodsSpawnOffset,
+            player.Center.Y + Math.sin(angle) * ThoriumPlayer.graveGoodsSpawnOffset
+          );
+
+          // ai0 = quanto o fogo-fatuo cura quando encostam nele (ver GraveGoodPro)
+          NewProjectile(null, spawn, Vector2.Zero, ThoriumPlayer._graveGoodsProType, 0, 0, player.whoAmI, heal, 0, 0, null);
+        }
+
+        // Estouro de energia espiritual saindo do jogador.
+        Effects.PlaySound(Terraria.ID.SoundID.Item8, player.Center.X | 0, player.Center.Y | 0, 1, -0.35, 0.85);
+        for (let i = 0; i < 18; i++) {
+          const a = (i / 18) * Math.PI * 2;
+          const d = Terraria.Main.dust[Effects.NewDust(
+            player.Center, 0, 0, 113, Math.cos(a) * 3.5, Math.sin(a) * 3.5, 80, ThoriumPlayer._whiteColor, 1.35
+          )];
+          if (d) d.noGravity = true;
+        }
+
+        ThoriumPlayer.graveGoodsCooldown = ThoriumPlayer.graveGoodsCooldownMax;
+
+        // Zera mesmo se o projetil falhar, senao o ciclo trava em 3.
+        ThoriumPlayer.graveGoodsStacks = 0;
+        ThoriumPlayer.graveGoodsDamageSum = 0;
+      } else {
+        // Sem barra na tela, cada ponto se anuncia sozinho: o brilho aumenta e
+        // o tom sobe conforme a conta se aproxima dos tres.
+        const t = ThoriumPlayer.graveGoodsStacks / ThoriumPlayer.graveGoodsStacksMax;
+        Effects.PlaySound(Terraria.ID.SoundID.Item4, player.Center.X | 0, player.Center.Y | 0, 1, -0.15 + t * 0.6, 0.4);
+
+        for (let i = 0; i < 4 + ThoriumPlayer.graveGoodsStacks * 3; i++) {
+          const d = Terraria.Main.dust[Effects.NewDust(
+            player.position, player.width, player.height, 113,
+            0, -1.2, 140, ThoriumPlayer._whiteColor, 0.7 + t * 0.5
+          )];
+          if (d) d.noGravity = true;
+        }
+      }
+    }
     
     if (ThoriumPlayer.accSandshroudPouch2) {
         player.AddBuff(ModBuff.getTypeByName('SandshroudPouchDebuff'), 900, false);
@@ -1011,7 +1067,17 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  // Morrer zera o acumulo do Grave Goods.
+  Kill(player, damageSource, damage, hitDirection, pvp) {
+    ThoriumPlayer.graveGoodsCooldown = 0;
+    ThoriumPlayer.graveGoodsStacks = 0;
+    ThoriumPlayer.graveGoodsDamageSum = 0;
+  }
+
   OnRespawn(player) {
+    ThoriumPlayer.graveGoodsCooldown = 0;
+    ThoriumPlayer.graveGoodsStacks = 0;
+    ThoriumPlayer.graveGoodsDamageSum = 0;
     ThoriumPlayer.CoralSetCount = 0;
     ThoriumPlayer.NoviceClericCrossIds.clear();
     ThoriumPlayer.CoralSlasherCharge = 0;
@@ -1642,7 +1708,6 @@ export class ThoriumPlayer extends ModPlayer {
   static IsFishNPC(npc) {
     if (!npc) return false;
     if (npc.aiStyle === 16) return true;
-    if (npc.wet && !npc.townNPC && !npc.friendly) return true;
     const name = npc.TypeName ?? npc.name ?? '';
     return name.includes('Fish') || name.includes('Shark') || name.includes('Jellyfish') || name.includes('Piranha');
   }
@@ -1668,26 +1733,12 @@ export class ThoriumPlayer extends ModPlayer {
     return name.includes('Zombie') || name.includes('Mummy') || name.includes('Ghoul');
   }
 
-  static ShouldBlockRepellentSpawn(player, npcType) {
-    if (!player || npcType <= 0) return false;
-    if (!(
-      ThoriumPlayer.repellentBats ||
-      ThoriumPlayer.repellentFish ||
-      ThoriumPlayer.repellentInsects ||
-      ThoriumPlayer.repellentSkeletons ||
-      ThoriumPlayer.repellentZombies
-    )) return false;
-
-    const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[npcType];
-    if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) return false;
-
-    return (
-      (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
-      (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
-      (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
-      (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
-      (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
-    );
+  static AnyRepellentActive() {
+    return ThoriumPlayer.repellentBats
+      || ThoriumPlayer.repellentFish
+      || ThoriumPlayer.repellentInsects
+      || ThoriumPlayer.repellentSkeletons
+      || ThoriumPlayer.repellentZombies;
   }
 
 }

@@ -5,6 +5,7 @@ import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
 import { Effects } from '../../../TL/Modules/Effects.js';
 import { Rand } from '../../../TL/Modules/Rand.js';
+import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2 } = Modules;
 
@@ -52,11 +53,14 @@ export class PatchWerk extends ModNPC {
     SetStaticDefaults() {
         Terraria.Main.npcFrameCount[this.Type] = 4;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-        Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
 
         this.BestiaryRarityStars = 2;
 
         this.Music = Terraria.ID.MusicID.OtherworldlyLunarBoss;
+    }
+
+    PostSetupContent() {
+        BestiaryOrder.BossBefore(this.Type, 50);
     }
 
     SetDefaults() {

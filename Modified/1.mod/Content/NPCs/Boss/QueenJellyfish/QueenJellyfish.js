@@ -7,6 +7,7 @@ import { ModItem } from '../../../../TL/ModItem.js';
 import { TileData } from '../../../../TL/Modules/TileData.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { MiscHelper } from '../../../Global/Utils/MiscHelper.js';
+import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2 } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
@@ -96,9 +97,12 @@ export class QueenJellyfish extends ModNPC {
     SetStaticDefaults() {
         Terraria.Main.npcFrameCount[this.Type] = 8;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-        Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
         this.BestiaryRarityStars = 3;
         this.Music = Terraria.ID.MusicID.Boss2;
+    }
+
+    PostSetupContent() {
+        BestiaryOrder.BossAfter(this.Type, 4);
     }
 
     SetDefaults() {
@@ -137,10 +141,9 @@ export class QueenJellyfish extends ModNPC {
 
         // Classic Mode
         const notExpert = Conditions.NotExpert.new();
-        ItemDropRule.ByCondition(notExpert, Terraria.ID.ItemID.LesserHealingPotion, 1, 5, 15, 1)
-        ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('QueensGlowstick'), 4, 1, 1, 1)
-        ItemDropRule.ByCondition(notExpert, Terraria.ID.ItemID.PinkGel, 1, 5, 10, 1)
-        ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('MarineKelp'), 1, 3, 6, 1)
+        npcLoot.Add(ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('QueensGlowstick'), 4, 1, 1, 1));
+        npcLoot.Add(ItemDropRule.ByCondition(notExpert, Terraria.ID.ItemID.PinkGel, 1, 5, 10, 1));
+        npcLoot.Add(ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('MarineKelp'), 1, 3, 6, 1));
 
         const options = [
             ItemDropRule.ByCondition(notExpert, ModItem.getTypeByName('BuccaneerBlunderBuss'), 1, 1, 1, 1),

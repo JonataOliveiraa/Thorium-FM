@@ -2,6 +2,7 @@ import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { Effects } from '../../../TL/Modules/Effects.js';
+import { SpawnHelper } from '../../Global/Utils/SpawnHelper.js';
 
 const { Color } = Modules;
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
@@ -39,10 +40,10 @@ export class GildedSlime extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
-            return 0.035;
-        }
-        return 0;
+        if (!info.CommonEnemy || !info.Cavern) return 0;
+        if (info.Water || info.SpawnTileY >= Terraria.Main.maxTilesY - 200) return 0;
+        if (!SpawnHelper.NoBiome(info)) return 0;
+        return 0.003;
     }
 
     PostAI(npc) {

@@ -214,9 +214,27 @@ import { IceShaverPro } from '../Content/Projectiles/IceShaverPro.js';
 import { DownwardSpiralPro } from '../Content/Projectiles/DownwardSpiralPro.js';
 import { TheBlenderPro } from '../Content/Projectiles/TheBlenderPro.js';
 import { BountifulHarvestPro } from '../Content/Projectiles/BountifulHarvestPro.js';
+import { BoneReaperPro } from '../Content/Projectiles/BoneReaperPro.js';
+import { MoltenThresherPro } from '../Content/Projectiles/MoltenThresherPro.js';
+import { FallingTwilightPro } from '../Content/Projectiles/FallingTwilightPro.js';
+import { BloodHarvestPro } from '../Content/Projectiles/BloodHarvestPro.js';
+import { RottenCodPro } from '../Content/Projectiles/RottenCodPro.js';
+import { TheStalkerPro } from '../Content/Projectiles/TheStalkerPro.js';
+import { RadiantHealingEnergy } from '../Content/Projectiles/RadiantHealingEnergy.js';
+import { accScale } from '../Content/Projectiles/accScale.js';
 import { HoneyRecorderPro } from '../Content/Projectiles/HoneyRecorderPro.js';
 import { BobberMarine } from '../Content/Projectiles/BobberMarine.js';
 import { HostileSpikeBall } from '../Content/Projectiles/HostileSpikeBall.js';
+import { ShambleBall } from '../Content/Projectiles/ShambleBall.js';
+import { PopcornPro } from '../Content/Projectiles/PopcornPro.js';
+import { LittleNecromancer } from '../Content/Projectiles/LittleNecromancer.js';
+import { HagGlobule } from '../Content/Projectiles/NPC/HagGlobule.js';
+import { HagGlobulePro } from '../Content/Projectiles/NPC/HagGlobulePro.js';
+import { CyanHagPro } from '../Content/Projectiles/NPC/CyanHagPro.js';
+import { GreenHagPro1 } from '../Content/Projectiles/NPC/GreenHagPro1.js';
+import { GreenHagPro2 } from '../Content/Projectiles/NPC/GreenHagPro2.js';
+import { GreenHagPro3 } from '../Content/Projectiles/NPC/GreenHagPro3.js';
+import { FieryTotemHostilePro } from '../Content/Projectiles/NPC/FieryTotemHostilePro.js';
 import { JesterBellPro } from '../Content/Projectiles/JesterBellPro.js';
 import { PanflutePro } from '../Content/Projectiles/PanflutePro.js';
 import { ShadeWoodTambourinePro } from '../Content/Projectiles/ShadeWoodTambourinePro.js';
@@ -267,8 +285,10 @@ import { TorpedoPro, TorpedoPro2 } from './../Content/Projectiles/TorpedoPro.js'
 import { EelSpark } from './../Content/Projectiles/EelSpark.js';
 import { SpearExtra } from './../Content/Projectiles/SpearExtra.js';
 import { SpringHookPro } from './../Content/Projectiles/SpringHookPro.js';
+import { GraveGoodPro } from '../Content/Projectiles/GraveGoodPro.js';
 
 const List = [
+  GraveGoodPro,
   GraniteCharge,
   BuriedShock,
   BuriedDaggerSpawner,
@@ -314,6 +334,16 @@ const List = [
   BloomingBellPro2,
 
   HostileSpikeBall,
+  ShambleBall,
+  PopcornPro,
+  LittleNecromancer,
+  HagGlobule,
+  HagGlobulePro,
+  CyanHagPro,
+  GreenHagPro1,
+  GreenHagPro2,
+  GreenHagPro3,
+  FieryTotemHostilePro,
   BobberMarine,
   IceCubePro,
   IcyArrowPro,
@@ -396,6 +426,14 @@ const List = [
   DownwardSpiralPro,
   TheBlenderPro,
   BountifulHarvestPro,
+  BoneReaperPro,
+  MoltenThresherPro,
+  FallingTwilightPro,
+  BloodHarvestPro,
+  RottenCodPro,
+  TheStalkerPro,
+  RadiantHealingEnergy,
+  accScale,
   HoneyRecorderPro,
 
   AquaiteScythePro,

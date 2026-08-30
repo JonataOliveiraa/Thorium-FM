@@ -6,6 +6,10 @@ const { Color, Vector2 } = Modules;
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
+// Teto exato de velocidade horizontal. A AI de Fighter da vanilla acelera sem
+// limite, entao o Ent as vezes chegava correndo; aqui ele anda sempre nesse passo.
+const MAX_SPEED = 1.5;
+
 export class MahoganyEnt extends ModNPC {
     constructor() {
         super();
@@ -68,8 +72,10 @@ export class MahoganyEnt extends ModNPC {
             npc.direction = (player.Center.X < npc.Center.X) ? -1 : 1;
         }
 
-        if (npc.velocity.Y === 0) {
-            npc.velocity.X *= 0.5; 
+        const vel = npc.velocity;
+        if (vel.Y === 0 && Math.abs(vel.X) > MAX_SPEED) {
+            vel.X = MAX_SPEED * Math.sign(vel.X);
+            npc.velocity = vel;
         }
     }
     

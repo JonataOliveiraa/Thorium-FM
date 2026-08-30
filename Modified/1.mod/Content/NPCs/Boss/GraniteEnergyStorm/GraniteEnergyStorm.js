@@ -4,6 +4,7 @@ import { ModProjectile } from './../../../../TL/ModProjectile.js';
 import { WorldDB } from './../../../../TL/WorldDB.js';
 import { ModLocalization } from './../../../../TL/ModLocalization.js';
 import { ModItem } from '../../../../TL/ModItem.js';
+import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2, Rand, Effects, Rectangle } = Modules;
 const { Main } = Terraria;
@@ -180,9 +181,12 @@ export class GraniteEnergyStorm extends ModNPC {
     SetStaticDefaults() {
         Main.npcFrameCount[this.Type] = 1;
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
-        Terraria.ID.NPCID.Sets.BossBestiaryPriority.Add(this.Type);
         this.BestiaryRarityStars = 3;
         this.Music = Terraria.ID.MusicID.Boss2;
+    }
+
+    PostSetupContent() {
+        BestiaryOrder.BossAfter(this.Type, 35);
     }
 
     SetDefaults() {

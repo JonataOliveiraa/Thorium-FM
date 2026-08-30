@@ -41,11 +41,11 @@ export class Warg extends ModNPC {
     }
 
     SetBestiary(database, bestiaryEntry) {
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle);
-        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Underground);
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Events.BloodMoon);
+        bestiaryEntry.Info.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface);
 
         const FlavorText = FlavorTextBestiaryInfoElement.new();
-        FlavorText._key = ModLocalization.Translate('Bestiary.ArmyAnt');
+        FlavorText._key = ModLocalization.Translate('Bestiary.Warg');
         bestiaryEntry.Info.Add(FlavorText);
     }
 

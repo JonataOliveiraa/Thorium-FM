@@ -1,13 +1,17 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
+import { ModProjectile } from '../../../TL/ModProjectile.js';
 import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
-const { Rand, Vector2 } = Modules;
+const { Vector2 } = Modules;
+
+const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class ObsidianScale extends ModItem {
     constructor() {
         super();
         this.Texture = 'Items/BasicAccessories/' + this.constructor.name;
+        this._auraType = -1;
     }
 
     SetDefaults() {
@@ -22,25 +26,15 @@ export class ObsidianScale extends ModItem {
         if (vanity) return;
         player.fireWalk = true;
         ThoriumPlayer.accReducedKnockback = true;
-        const npcArr = Terraria.Main.npc, maxNPCs = Terraria.Main.maxNPCs;
-        const index2 = 323;
-        for (let index1 = 0; index1 < maxNPCs; index1++) {
-            const npc = npcArr[index1];
-            if (npc.CanBeChasedBy(null, false) && player.DistanceSQ(npc.Center) < 30625.0) {
-                if (!npc.wet && !npc.buffImmune[index2] && npc.FindBuffIndex(index2) < 0) {
-                    const dustArr = Terraria.Main.dust;
-                    for (let index3 = 0; index3 < 15; index3++) {
-                        const index4 = Terraria.Dust.NewDust(npc.position, npc.width, npc.height, 174, 0.0, 0.0, 125, null, 1.35);
-                        const dust = dustArr[index4];
-                        dust.noGravity = true;
-                        dust.velocity = Vector2.Multiply(dust.velocity, 0.75);
-                        let num1 = Rand.Next(-50, 51), num2 = Rand.Next(-50, 51);
-                        dust.position = Vector2.new(dust.position.X + num1, dust.position.Y + num2);
-                        dust.velocity = Vector2.new(-(num1 * 0.075000002980232239), -(num2 * 0.075000002980232239));
-                    }
-                }
-                npc.AddBuff(index2, 30, false);
-            }
+        ThoriumPlayer.ObsidianScaleEquipped = true;
+
+        if (this._auraType === -1) {
+            this._auraType = ModProjectile.getTypeByName('accScale') ?? -2;
+        }
+        if (this._auraType < 0) return;
+
+        if (player.ownedProjectileCounts[this._auraType] < 1) {
+            NewProjectile(null, player.Center, Vector2.Zero, this._auraType, 1, 0, player.whoAmI, 0, 0, 0, null);
         }
     }
     

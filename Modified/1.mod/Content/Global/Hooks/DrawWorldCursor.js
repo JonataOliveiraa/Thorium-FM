@@ -14,6 +14,7 @@ const LegacyPlayerRenderer = new NativeClass("Terraria.Graphics.Renderers", "Leg
 let _cachedBardItem = null;
 let _cachedHeldType = -1;
 let _grimPointer = null;
+let _staggeredTexture = null;
 
 function getCachedBardItem(player) {
   const type = player.HeldItem?.type ?? -1;
@@ -92,6 +93,29 @@ export class DrawWorldCursor extends GlobalHooks {
         }
 
         original(self, camera, drawPlayer);
+
+        if (ThoriumPlayer.debuffStaggered) {
+          ThoriumPlayer.debuffStaggeredRotation += 0.05;
+
+          if (_staggeredTexture === null) {
+            _staggeredTexture = false;
+            try { _staggeredTexture = tl.texture.load('Textures/Buffs/Staggered_Texture.png'); } catch (_) { }
+          }
+
+          if (_staggeredTexture) {
+            const origin = Vector2.new(_staggeredTexture.Width / 2, _staggeredTexture.Height / 2);
+            const drawPos = Vector2.new(
+              player.Center.X - Main.screenPosition.X,
+              player.position.Y + player.gfxOffY - 16 - Main.screenPosition.Y
+            );
+
+            Main.spriteBatch[
+              "void Draw(Texture2D texture, Vector2 position, Nullable`1 sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth)"
+            ](_staggeredTexture, drawPos, null, Color.White, ThoriumPlayer.debuffStaggeredRotation, origin, 1.0, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+          }
+        } else {
+          ThoriumPlayer.debuffStaggeredRotation = 0;
+        }
 
         Empowerments.DrawIcons(false);
       }

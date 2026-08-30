@@ -4,6 +4,7 @@ import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { FxHelper } from '../../Global/Utils/FxHelper.js';
+import { SpawnHelper } from '../../Global/Utils/SpawnHelper.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { Main } = Terraria;
@@ -74,6 +75,7 @@ export class EarthenGolem extends ModNPC {
     SpawnChance(info) {
         if (!info.CommonEnemy || info.PlayerSafe || info.Water) return 0;
         if (!info.Cavern || info.SpawnTileY > Main.maxTilesY - 200) return 0;
+        if (!SpawnHelper.NoBiome(info)) return 0;
         return Main.hardMode ? 0.01 : 0.075;
     }
 

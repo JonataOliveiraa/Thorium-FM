@@ -1,5 +1,6 @@
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
+import { ModBuff } from './../../../TL/ModBuff.js';
 
 export class BallnChain extends ModItem {
     constructor() {
@@ -20,5 +21,8 @@ export class BallnChain extends ModItem {
         player.endurance += 0.1;
         player.moveSpeed -= 0.1;
         player.jumpSpeedBoost -= 0.3;
+
+        if (this._shambleDebuff === undefined) this._shambleDebuff = ModBuff.getTypeByName('ShambleBallDebuff') ?? -1;
+        if (this._shambleDebuff > 0) player.buffImmune[this._shambleDebuff] = true;
     }
 }

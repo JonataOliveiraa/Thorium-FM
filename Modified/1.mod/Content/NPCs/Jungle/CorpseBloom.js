@@ -7,6 +7,7 @@ import { WorldDB } from '../../../TL/WorldDB.js';
 import { SoundHelper } from '../../Global/Utils/SoundHelper.js';
 import { FxHelper } from '../../Global/Utils/FxHelper.js';
 import { MiscHelper } from '../../Global/Utils/MiscHelper.js';
+import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { Main } = Terraria;
@@ -97,6 +98,10 @@ export class CorpseBloom extends ModNPC {
         Terraria.ID.NPCID.Sets.MPAllowedEnemies[this.Type] = true;
         this.BestiaryRarityStars = 5;
         this.Music = Terraria.ID.MusicID.QueenBee;
+    }
+
+    PostSetupContent() {
+        BestiaryOrder.BossAfter(this.Type, 222);
     }
 
     SetDefaults() {

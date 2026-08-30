@@ -1,6 +1,7 @@
 import { Terraria } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 
 const Projectile = new NativeClass("Terraria", "Projectile");
 const NewProjectile2 = Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
@@ -33,13 +34,13 @@ export class TalonBurst extends ModItem {
   }
 
   Shoot(item, player, position, velocity, type, damage, knockback) {
-    let finalType = type;
-    if (type === 1) {
-      finalType = ModProjectile.getTypeByName("TalonBurstPro");
-    }
-    try {
-      NewProjectile2(null, position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
-    } catch (e) { }
+    const projType = AmmoHelper.Consume(player, item.useAmmo);
+    if (projType <= 0) return false;
+
+    const finalType = projType === 1 ? ModProjectile.getTypeByName("TalonBurstPro") : projType;
+    if (!(finalType > 0)) return false;
+
+    NewProjectile2(null, position, velocity, finalType, damage, knockback, player.whoAmI, 0, 0, 0, null);
     return false;
   }
 

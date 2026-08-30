@@ -19,6 +19,11 @@ import { SpiritsGraceBuff } from "../Content/Buffs/SpiritsGraceBuff.js";
 import { SeahorseWandBuff } from "../Content/Buffs/SeahorseWandBuff.js";
 import { OvergrowthBuff } from "../Content/Buffs/Healer/OvergrowthBuff.js";
 import { SingedBuff } from "../Content/Buffs/SingedBuff.js";
+import { ShambleBallDebuff } from "../Content/Buffs/ShambleBallDebuff.js";
+import { Liquefied } from "../Content/Buffs/Liquefied.js";
+import { JellyBuff } from "../Content/Buffs/JellyBuff.js";
+import { Staggered } from "../Content/Buffs/Staggered.js";
+import { LittlePhylacteryBuff } from "../Content/Buffs/Pet/LittlePhylacteryBuff.js";
 import { SheathBuff } from "../Content/Buffs/SheathBuff.js";
 import { SoulEssenceBuff } from "../Content/Buffs/SoulEssenceBuff.js";
 import { DistortedTimeEnemy } from "../Content/Buffs/DistortedTimeEnemy.js";
@@ -66,6 +71,11 @@ const List = [
     MagmaCharmBuff,
     SpiritsGraceBuff,
     SingedBuff,
+    ShambleBallDebuff,
+    Liquefied,
+    JellyBuff,
+    Staggered,
+    LittlePhylacteryBuff,
     SheathBuff,
     SoulEssenceBuff,
     DistortedTimeEnemy,

@@ -62,4 +62,11 @@ export class SeahorseWand extends ModItem {
             this.TooltipLines[i] = line
         }
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.Coral, 8)
+            .AddTile(Terraria.ID.TileID.Anvils)
+            .Register();
+    }
 }

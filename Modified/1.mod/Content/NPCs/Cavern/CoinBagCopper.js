@@ -39,7 +39,7 @@ export class CoinBagCopper extends ModNPC {
     }
 
     SpawnChance(info) {
-        if (info.CommonEnemy && info.SpawnTileY > Terraria.Main.rockLayer && info.Underground && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
+        if (info.CommonEnemy && info.Cavern && info.SpawnTileY < Terraria.Main.maxTilesY - 200 && !info.Water) {
             return 0.01;
         }
         return 0;
