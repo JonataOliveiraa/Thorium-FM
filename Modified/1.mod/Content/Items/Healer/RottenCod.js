@@ -1,6 +1,9 @@
-import { ModHealerItem } from '../../../Common/ModHealerItem.js';
-import { Terraria } from '../../../TL/ModImports.js';
+import { ModHealerItem } from "../../../Common/ModHealerItem.js";
+import { Terraria } from "../../../TL/ModImports.js";
+import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
+
+const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 
 export class RottenCod extends ModHealerItem {
     constructor() {
@@ -9,27 +12,27 @@ export class RottenCod extends ModHealerItem {
     }
 
     SetDefaults() {
-        this.Item.width = 38;
-        this.Item.height = 36;
-
+        this.Item.width = this.Item.height = 30;
+        this.Item.damage = 11;
+        this.Item.useTime = 30;
+        this.Item.useAnimation = 30;
+        this.Item.useStyle = 5;
         this.Item.noMelee = true;
         this.Item.noUseGraphic = true;
         this.Item.channel = true;
-
-        this.SetWeaponValues(13, 7, 4);
-        this.SetDefaultWeaponStyle(28, false);
-        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
-
-        this.Item.value = Terraria.Item.sellPrice(0, 13, 0, 0);
-        this.Item.rare = Terraria.ID.ItemRarityID.Blue;
-        this.Item.UseSound = Terraria.ID.SoundID.Item1;
-
+        this.Item.knockBack = 5.0;
+        this.Item.value = Terraria.Item.sellPrice(0, 0, 13, 0);
+        this.Item.rare = 1;
+        this.Item.UseSound = Terraria.ID.SoundID.DD2_MonkStaffSwing;
+        this.Item.autoReuse = true;
         this.Item.shoot = ModProjectile.getTypeByName('RottenCodPro');
-        this.Item.shootSpeed = 10;
+        this.Item.shootSpeed = 100.0;
     }
-
-    // Maca de arremesso: so uma na tela por vez, como todo mangual.
-    CanUseItem(item, player) {
-        return player.ownedProjectileCounts[item.shoot] < 1;
+    
+    Shoot(item, player, position, velocity, type, damage, knockBack) {
+        player.direction = velocity.X > 0 ? 1 : -1;
+        const num = 23.625 * player.direction;
+        NewProjectile(player.GetProjectileSource_Item(item), position, velocity, type, damage, knockBack, player.whoAmI, 0.0, num, 0.0, null);
+        return false;
     }
 }

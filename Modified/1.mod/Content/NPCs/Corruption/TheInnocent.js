@@ -40,7 +40,7 @@ export class TheInnocent extends ModNPC {
     
     SpawnChance(info) {
         if (info.CommonEnemy && info.Player.ZoneCorrupt && info.SpawnTileY > Terraria.Main.worldSurface) {
-            return 0.15;
+            return 0.06;
         }
         return 0;
     }

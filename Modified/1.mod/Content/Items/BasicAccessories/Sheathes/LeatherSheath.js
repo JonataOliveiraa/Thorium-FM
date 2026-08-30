@@ -56,10 +56,9 @@ export class LeatherSheath extends ModItem {
         }
 
         if (validWeapon && ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown) {
-            if (this._sheathBuff === undefined) this._sheathBuff = ModBuff.getTypeByName('SheathBuff') ?? -1;
-            if (this._sheathBuff > 0) {
-                player['void AddBuff(int type, int time, bool fromNetPvP)'](this._sheathBuff, 2, false);
-            }
+            player['void AddBuff(int type, int time, bool fromNetPvP)'](
+                ModBuff.getTypeByName('SheathBuff'), 2, false
+            );
             player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
         }
     }

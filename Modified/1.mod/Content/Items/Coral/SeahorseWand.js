@@ -25,7 +25,7 @@ export class SeahorseWand extends ModItem {
         this.Item.width = 16;
         this.Item.height = 16;
         this.Item.useTime = 36;
-        this.Item.useAnimation = 40;
+        this.Item.useAnimation = 36;
         this.Item.useStyle = Terraria.ID.ItemUseStyleID.Swing;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 10, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.White;

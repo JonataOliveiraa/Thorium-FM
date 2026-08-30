@@ -248,12 +248,6 @@
     "HoneyRecorder": "Honey Recorder",
     "TheBlender": "The Blender",
     "BountifulHarvest": "Bountiful Harvest",
-    "BoneReaper": "Bone Reaper",
-    "MoltenThresher": "Molten Thresher",
-    "FallingTwilight": "Falling Twilight",
-    "BloodHarvest": "Blood Harvest",
-    "RottenCod": "Rotten Cod",
-    "TheStalker": "The Stalker",
     "DownwardSpiral": "Downward Spiral",
     "IceShaver": "Ice Shaver",
     "WoodenBaton": "Wooden Baton",
@@ -380,7 +374,12 @@
     "SilverSpearTip": "Silver Spear Tip",
     "BallnChain": "Ball n' Chain",
     "ObsidianScale": "Obsidian Scale",
-    "SpringHook": "Spring Hook"
+    "SpringHook": "Spring Hook",
+    "ButterflyStaff": "Butterfly Staff",
+    "TabooWand": "Taboo Wand",
+    "MantisCane": "Mantis Cane",
+    "YarnBall": "Yarn Ball",
+    "BoneReaper": "Bone Reaper"
   },
   "ItemTooltip": {
     "GuildsStaff": "Summons a tiny lich to follow you around",
@@ -537,12 +536,6 @@
     "HoneyRecorder": "Emits a harmless yet sickeningly sweet sound that coats an enemy in honey\nUse Smart Interact to summon bees",
     "TheBlender": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a bloody scythe around you",
     "BountifulHarvest": "Rapidly spins a fertile scythe around you",
-    "BoneReaper": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a magical scythe around you",
-    "MoltenThresher": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a flaming scythe around you",
-    "FallingTwilight": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a twilit scythe around you",
-    "BloodHarvest": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a hungering blood scythe around you",
-    "RottenCod": "Heals life equal to your bonus healing\nSwings a rotten mace that releases lingering healing energy on its first hit\nUp to 3 healing energy can exist at once",
-    "TheStalker": "Heals life equal to your bonus healing\nSwings a gruesome mace that releases lingering healing energy on its first hit\nUp to 3 healing energy can exist at once",
     "DownwardSpiral": "Grants 1 Soul Essence upon directly hitting an enemy\nRapidly spins a corrupted scythe around you",
     "IceShaver": "It's extremely hot or extremely cold. Either way, it hurts A LOT",
     "WoodenBaton": "Spins a fragile wooden baton around you",
@@ -651,7 +644,12 @@
     "SilverSpearTip": "Spear weapons will release a damaging spear tip",
     "BallnChain": "'This thing is pretty heavy'\nReduces damage taken by 10%\nMovement speed and jump height slightly decreased\nGrants immunity to shambler chain-balls",
     "ObsidianScale": "Grants immunity to fire blocks\nReduces the amount of knockback you take from getting hit\nNearby enemies will melt away",
-    "SpringHook": "Sends you in the opposite direction of the hook"
+    "SpringHook": "Sends you in the opposite direction of the hook",
+    "ButterflyStaff": "'The latest in butterfly technology'\nSummons 3 random butterflies to attack your enemies",
+    "TabooWand": "Summons a necromantic Dark Riser that can spawn skeletons from defeated enemies\nOccupies two minion slots",
+    "MantisCane": "Summons razor wielding praying mantids to attack enemies\nMantids have a chance to gouge hit enemies",
+    "YarnBall": "'Belonged to a never forgotten companion'\nSummons a ferocious baby cat to attack enemies",
+    "BoneReaper": "Rapidly spins a magical scythe all around you"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's automatic attack will chase enemies",
@@ -699,11 +697,11 @@
     "BloomBoostBuff": "Bloom Boost",
     "GraniteSurgeBuff": "Granite Surge",
     "ShockAbsorberBuff": "Shock Absorber",
-    "RepellentBatsBuff": "Bat Repellent",
-    "RepellentFishBuff": "Fish Repellent",
-    "RepellentInsectsBuff": "Insect Repellent",
-    "RepellentSkeletonsBuff": "Skeleton Repellent",
-    "RepellentZombiesBuff": "Zombie Repellent",
+    "RepellentBatsBuff": "Repellent - Bats",
+    "RepellentFishBuff": "Repellent - Fish",
+    "RepellentInsectsBuff": "Repellent - Insects",
+    "RepellentSkeletonsBuff": "Repellent - Skeletons",
+    "RepellentZombiesBuff": "Repellent - Zombies",
     "AquaAffinityBuff": "Aqua Affinity",
     "ArcaneBuff": "Arcane Potential",
     "BloodPotionBuff": "Blood Rush",
@@ -717,7 +715,12 @@
     "FullStomach": "Full Stomach",
     "RosySlimeStaffBuff": "Rosy Slime",
     "SandshroudPouchBuff": "Yoyo Protection",
-    "SandshroudPouchDebuff": "Yoyo Exhaustion"
+    "SandshroudPouchDebuff": "Yoyo Exhaustion",
+    "ButterflyStaffBuff": "Butterfly Swarm",
+    "TabooWandBuff": "Dark Risen",
+    "MantisCaneBuff": "Razor Mantis",
+    "YarnBallBuff": "Baby Kitty",
+    "StormHatchlingStaffBuff": "Hatchling"
   },
   "BuffDescription": {
     "LittlePhylacteryBuff": "This small guy is way stronger than he looks...",
@@ -763,7 +766,12 @@
     "FullStomach": "You couldn't eat another bite!",
     "RosySlimeStaffBuff": "Almost as diabolical as Pinky herself",
     "SandshroudPouchBuff": "Partially protected against the next hit",
-    "SandshroudPouchDebuff": "Cannot currently receive: Yoyo Protection"
+    "SandshroudPouchDebuff": "Cannot currently receive: Yoyo Protection",
+    "ButterflyStaffBuff": "En masse, butterflies pose a great threat to enemies",
+    "TabooWandBuff": "He's ready to start a skeleton rave party!",
+    "MantisCaneBuff": "Male mates beware!",
+    "YarnBallBuff": "Nibbles and scratches will be their doom",
+    "StormHatchlingStaffBuff": "This hatchling thinks you're its mother!"
   },
   "ProjectileName": {
     "CyanHagPro": "Tornado",

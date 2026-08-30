@@ -39,12 +39,6 @@ export class UpdateNPCBuff extends GlobalNPC {
 
     static Tinted = new Uint8Array(Terraria.Main.maxNPCs);
 
-    static Repel = { Bat: 1, Fish: 2, Insect: 4, Skeleton: 8, Zombie: 16 };
-    static RepelCache = new Map();
-    static RepelSpawnBlockChance = 0.75;
-    static ConfusedType = 31;
-    static ConfusedTime = 180;
-
     static Pink = Color.Pink;
     static Transparent = Color.Transparent;
     static Stone = Color.new(115, 115, 115);
@@ -138,56 +132,17 @@ export class UpdateNPCBuff extends GlobalNPC {
             : UpdateNPCBuff.Transparent;
     }
 
-    static RepelMaskOf(npc) {
-        const cached = UpdateNPCBuff.RepelCache.get(npc.type);
-        if (cached !== undefined) return cached;
-
-        let mask = 0;
-        const repel = UpdateNPCBuff.Repel;
-        if (ThoriumPlayer.IsBatNPC(npc)) mask |= repel.Bat;
-        if (ThoriumPlayer.IsFishNPC(npc)) mask |= repel.Fish;
-        if (ThoriumPlayer.IsInsectNPC(npc)) mask |= repel.Insect;
-        if (ThoriumPlayer.IsSkeletonNPC(npc)) mask |= repel.Skeleton;
-        if (ThoriumPlayer.IsZombieNPC(npc)) mask |= repel.Zombie;
-
-        UpdateNPCBuff.RepelCache.set(npc.type, mask);
-        return mask;
-    }
-
-    static ActiveRepelMask() {
-        const repel = UpdateNPCBuff.Repel;
-        let mask = 0;
-        if (ThoriumPlayer.repellentBats) mask |= repel.Bat;
-        if (ThoriumPlayer.repellentFish) mask |= repel.Fish;
-        if (ThoriumPlayer.repellentInsects) mask |= repel.Insect;
-        if (ThoriumPlayer.repellentSkeletons) mask |= repel.Skeleton;
-        if (ThoriumPlayer.repellentZombies) mask |= repel.Zombie;
-        return mask;
-    }
-
-    static IsRepelled(npc) {
-        const active = UpdateNPCBuff.ActiveRepelMask();
-        if (active === 0) return false;
-        if (npc.boss || npc.friendly || npc.townNPC) return false;
-        return (UpdateNPCBuff.RepelMaskOf(npc) & active) !== 0;
-    }
-
-    OnSpawn(npc) {
-        if (!UpdateNPCBuff.IsRepelled(npc)) return;
-        if (Math.random() >= UpdateNPCBuff.RepelSpawnBlockChance) return;
-
-        npc.active = false;
-        npc.life = 0;
-    }
-
-    OnHitPlayer(npc, player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
-        if (!UpdateNPCBuff.IsRepelled(npc)) return;
-        npc.AddBuff(UpdateNPCBuff.ConfusedType, UpdateNPCBuff.ConfusedTime, false);
-    }
-
     PreAI(npc) {
-        if (npc.target === 255) return true;
-        if (UpdateNPCBuff.IsRepelled(npc)) npc.target = 255;
+        if (npc.boss || npc.target === 255) return true;
+
+        if ((ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npc))
+            || (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npc))
+            || (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npc))
+            || (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npc))
+            || (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npc))) {
+            npc.target = 255;
+        }
+
         return true;
     }
 
@@ -373,18 +328,31 @@ export class UpdateNPCBuff extends GlobalNPC {
     }
 
     SetupShop(npc, player, npcShop) {
-        if (npc.type !== 453) return;
-
-        npcShop.Add(ModItem.getTypeByName('Trapper'));
-
-        const rotation = [];
-        for (const name of ['GiantShellSpine', 'SalamanderEye', 'CrawdadClaw']) {
-            const type = ModItem.getTypeByName(name);
-            if (type > 0) rotation.push(type);
+        // Merchant
+        if (npc.type === 17) {
+            if (Terraria.NPC.downedBoss3) {
+                npcShop.Add(ModItem.getTypeByName('YarnBall'));
+            }
         }
-        if (rotation.length === 0) return;
-
-        const phase = Terraria.Main.moonPhase;
-        npcShop.Add(rotation[(phase > 0 ? phase : 0) % rotation.length]);
+        
+        // Witch Doctor
+        if (npc.type === 228) {
+            npcShop.Add(ModItem.getTypeByName('MantisCane'));
+        }
+        
+        // Skeleton Merchant
+        if (npc.type === 453) {
+            npcShop.Add(ModItem.getTypeByName('Trapper'));
+    
+            const rotation = [];
+            for (const name of ['GiantShellSpine', 'SalamanderEye', 'CrawdadClaw']) {
+                const type = ModItem.getTypeByName(name);
+                if (type > 0) rotation.push(type);
+            }
+            if (rotation.length > 0) {
+                const phase = Terraria.Main.moonPhase;
+                npcShop.Add(rotation[(phase > 0 ? phase : 0) % rotation.length]);
+            }
+        }
     }
 }

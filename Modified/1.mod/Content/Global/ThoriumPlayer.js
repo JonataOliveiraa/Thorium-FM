@@ -406,7 +406,6 @@ export class ThoriumPlayer extends ModPlayer {
     thrower.multiplier = 1.0;
 
     ThoriumPlayer.MoltenScaleEquipped = false;
-    ThoriumPlayer.ObsidianScaleEquipped = false;
     ThoriumPlayer.RadiantCorruptionActive = false;
     ThoriumPlayer.SeaTurtlesBulwarkEquipped = false;
     ThoriumPlayer.YewWoodSetBonus = false;
@@ -707,6 +706,26 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown
     ) {
       player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
+    }
+
+    if (ThoriumPlayer.repellentBats || ThoriumPlayer.repellentFish || ThoriumPlayer.repellentInsects || ThoriumPlayer.repellentSkeletons || ThoriumPlayer.repellentZombies) {
+      const npcTypeCount = Terraria.ID.NPCID.Count ?? 700;
+      const noAggro = player.npcTypeNoAggro;
+
+      for (let type = 1; type < npcTypeCount && type < noAggro.length; type++) {
+        const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[type];
+        if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) continue;
+
+        if (
+          (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
+          (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
+          (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
+          (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
+          (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
+        ) {
+          noAggro[type] = true;
+        }
+      }
     }
   }
 
@@ -1708,6 +1727,7 @@ export class ThoriumPlayer extends ModPlayer {
   static IsFishNPC(npc) {
     if (!npc) return false;
     if (npc.aiStyle === 16) return true;
+    if (npc.wet && !npc.townNPC && !npc.friendly) return true;
     const name = npc.TypeName ?? npc.name ?? '';
     return name.includes('Fish') || name.includes('Shark') || name.includes('Jellyfish') || name.includes('Piranha');
   }
@@ -1733,12 +1753,26 @@ export class ThoriumPlayer extends ModPlayer {
     return name.includes('Zombie') || name.includes('Mummy') || name.includes('Ghoul');
   }
 
-  static AnyRepellentActive() {
-    return ThoriumPlayer.repellentBats
-      || ThoriumPlayer.repellentFish
-      || ThoriumPlayer.repellentInsects
-      || ThoriumPlayer.repellentSkeletons
-      || ThoriumPlayer.repellentZombies;
+  static ShouldBlockRepellentSpawn(player, npcType) {
+    if (!player || npcType <= 0) return false;
+    if (!(
+      ThoriumPlayer.repellentBats ||
+      ThoriumPlayer.repellentFish ||
+      ThoriumPlayer.repellentInsects ||
+      ThoriumPlayer.repellentSkeletons ||
+      ThoriumPlayer.repellentZombies
+    )) return false;
+
+    const npcSample = Terraria.ID.ContentSamples.NpcsByNetId[npcType];
+    if (!npcSample || npcSample.boss || npcSample.friendly || npcSample.townNPC) return false;
+
+    return (
+      (ThoriumPlayer.repellentBats && ThoriumPlayer.IsBatNPC(npcSample)) ||
+      (ThoriumPlayer.repellentFish && ThoriumPlayer.IsFishNPC(npcSample)) ||
+      (ThoriumPlayer.repellentInsects && ThoriumPlayer.IsInsectNPC(npcSample)) ||
+      (ThoriumPlayer.repellentSkeletons && ThoriumPlayer.IsSkeletonNPC(npcSample)) ||
+      (ThoriumPlayer.repellentZombies && ThoriumPlayer.IsZombieNPC(npcSample))
+    );
   }
 
 }

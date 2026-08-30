@@ -72,6 +72,38 @@ const InjectionRules = [
         stack: 1,
         calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
         action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedGold,
+        getItemID: () => ModItem.getTypeByName('BoneReaper'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedGold,
+        getItemID: () => ModItem.getTypeByName('HighTide'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedGold,
+        getItemID: () => ModItem.getTypeByName('NaiadShiv'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedGold,
+        getItemID: () => ModItem.getTypeByName('StrongestLink'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
     }
 ];
 

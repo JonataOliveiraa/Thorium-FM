@@ -17,14 +17,6 @@ const SEARCH_DELAY = 90;      // tempo perdido procurando de novo
 const SPEED = 7;              // velocidade de perseguicao (era 12)
 const TURN = 26;              // inercia: quanto maior, mais ele passa direto
 const IDLE_SPEED = 9;
-const IDLE_TURN = 39;
-
-const CLUMSY = 1.10;
-const WEAVE_RATE = 0.09;
-const WEAVE_ATTACK = 2.4;
-const WEAVE_IDLE = 1.5;
-const Y_DAMP = 0.62;
-const REVERSE_TURN = 1.8;
 const WANDER_RADIUS = 220;    // ele vagueia em volta do jogador quando se perde
 
 // Pra onde ele olha
@@ -93,7 +85,7 @@ export class StormHatchlingStaffPro extends ModProjectile {
      * localAI[0..1] = erro de mira atual (offset em px)
      */
     AI(proj) {
-        if (this.MinionBuff === null) this.MinionBuff = ModBuff.getTypeByName('HatclingBuff');
+        if (this.MinionBuff === null) this.MinionBuff = ModBuff.getTypeByName('StormHatchlingStaffBuff');
 
         const player = Main.player[proj.owner];
         if (!this.CheckActive(proj, player)) return;
@@ -254,28 +246,10 @@ export class StormHatchlingStaffPro extends ModProjectile {
         const dy = aimY - center.Y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
-        this.Steer(proj, dx, dy, dist, SPEED, TURN, WEAVE_ATTACK, local);
-    }
-
-    Steer(proj, dx, dy, dist, speed, turn, weave, local) {
-        const dirX = dx / dist;
-        const dirY = dy / dist;
-
-        local[2] = (local[2] + WEAVE_RATE) % (Math.PI * 2);
-        const sine = Math.sin(local[2]);
-        const amplitude = weave * CLUMSY;
-
-        const desiredX = dirX * speed + -dirY * sine * amplitude;
-        const desiredY = (dirY * speed + dirX * sine * amplitude) * Y_DAMP;
-
         const vel = proj.velocity;
-        const base = turn * CLUMSY;
-        const turnX = desiredX * vel.X < 0 ? base * REVERSE_TURN : base;
-        const turnY = desiredY * vel.Y < 0 ? base * REVERSE_TURN : base;
-
         proj.velocity = Vector2.new(
-            (vel.X * turnX + desiredX) / (turnX + 1),
-            (vel.Y * turnY + desiredY) / (turnY + 1)
+            (vel.X * TURN + dx / dist * SPEED) / (TURN + 1),
+            (vel.Y * TURN + dy / dist * SPEED) / (TURN + 1)
         );
     }
 
@@ -298,7 +272,11 @@ export class StormHatchlingStaffPro extends ModProjectile {
         }
 
         if (dist > 10) {
-            this.Steer(proj, dx, dy, dist, IDLE_SPEED, IDLE_TURN, WEAVE_IDLE, local);
+            const vel = proj.velocity;
+            proj.velocity = Vector2.new(
+                (vel.X * 39 + dx / dist * IDLE_SPEED) / 40,
+                (vel.Y * 39 + dy / dist * IDLE_SPEED) / 40
+            );
         } else {
             proj.velocity = Vector2.Multiply(proj.velocity, 0.9);
         }

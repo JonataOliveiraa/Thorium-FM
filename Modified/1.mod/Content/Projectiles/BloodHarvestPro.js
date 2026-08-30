@@ -1,5 +1,6 @@
 import { ScythePro } from '../../Common/Projectiles/ScythePro.js';
-import { Modules } from '../../TL/ModImports.js';
+import { Terraria, Modules } from '../../TL/ModImports.js';
+import { Color } from '../../TL/Modules/Color.js';
 
 const { Vector2 } = Modules;
 
@@ -7,17 +8,19 @@ export class BloodHarvestPro extends ScythePro {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
-        this.dustType = 5; // Blood
-        this.dustOffset = Vector2.new(-18, 4);
+
+        this.dustOffset = Vector2.new(-18, 8);
         this.dustCount = 2;
+        this.dustType = 60;
     }
 
-    SetDefaults() {
-        super.SetDefaults();
-
+    SafeSetDefaults() {
         this.Projectile.width = 120;
         this.Projectile.height = 120;
-        this.Projectile.light = 0.35;
-        this.Projectile.idStaticNPCHitCooldown = 10;
+        this.Projectile.idStaticNPCHitCooldown = 8;
+    }
+
+    ModifyDust(dust, position, scytheIndex) {
+        dust.scale = 1.5;
     }
 }

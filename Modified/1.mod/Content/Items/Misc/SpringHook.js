@@ -20,9 +20,6 @@ export class SpringHook extends ModItem {
         this.Item.useAnimation = 20;
         this.Item.useTime = 20;
         this.Item.noMelee = true;
-        this.Item.useStyle = 0;
-        this.Item.useAnimation = 0;
-        this.Item.useTime = 0;
     }
     
     ModifyTooltipLines() {

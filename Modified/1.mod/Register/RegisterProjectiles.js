@@ -64,6 +64,10 @@ import { PrehistoricAmberStaffPterosPro } from '../Content/Projectiles/Prehistor
 import { PrehistoricAmberStaffPterosProShoot } from '../Content/Projectiles/PrehistoricAmberStaffPterosProShoot.js';
 import { PrehistoricAmberStaffTRexPro } from '../Content/Projectiles/PrehistoricAmberStaffTRexPro.js';
 import { RosySlimeStaffPro } from '../Content/Projectiles/RosySlimeStaffPro.js';
+import { ButterflyStaffPro } from './../Content/Projectiles/ButterflyStaffPro.js';
+import { TabooWandPro, TabooWandPro2, TabooWandProSpawn, TabooWandProGravestone } from './../Content/Projectiles/TabooWandPro.js';
+import { MantisCanePro, MantisPro2 } from './../Content/Projectiles/MantisCanePro.js';
+import { YarnBallPro, YarnBallProShoot } from './../Content/Projectiles/YarnBallPro.js';
 
 // Accessories
 import { IncubatedSpider } from '../Content/Projectiles/IncubatedSpider.js';
@@ -95,6 +99,7 @@ import { MagickStaffPro } from '../Content/Projectiles/MagickStaffPro.js';
 import { AquamarineStaffPro } from '../Content/Projectiles/AquamarineStaffPro.js';
 import { SpineBreaker1, SpineBreaker2, SpineBreaker1Dummy } from './../Content/Projectiles/SpineBreaker1.js';
 import { ObsidianStaffPro, ObsidianStaffPro2, ObsidianStaffPro3 } from './../Content/Projectiles/ObsidianStaffPro.js';
+import { HighTidePro, HighTidePro2 } from './../Content/Projectiles/HighTidePro.js';
 
 // Blooming
 import { BloomingBowPro } from '../Content/Projectiles/BloomingBowPro.js';
@@ -153,6 +158,7 @@ import { TheGrandThunderBirdEnd } from '../Content/Projectiles/Boss/TheGrandThun
 import { ThunderBirdScreech } from '../Content/Projectiles/Boss/ThunderBirdScreech.js';
 import { ThunderGust } from '../Content/Projectiles/Boss/ThunderGust.js';
 import { ThunderSpark } from '../Content/Projectiles/Boss/ThunderSpark.js';
+import { BoneReaperPro } from './../Content/Projectiles/BoneReaperPro.js';
 
 import { StormFlareP } from '../Content/Projectiles/StormFlareP.js';
 import { StormHatchlingStaffPro } from '../Content/Projectiles/StormHatchlingStaffPro.js';
@@ -214,14 +220,6 @@ import { IceShaverPro } from '../Content/Projectiles/IceShaverPro.js';
 import { DownwardSpiralPro } from '../Content/Projectiles/DownwardSpiralPro.js';
 import { TheBlenderPro } from '../Content/Projectiles/TheBlenderPro.js';
 import { BountifulHarvestPro } from '../Content/Projectiles/BountifulHarvestPro.js';
-import { BoneReaperPro } from '../Content/Projectiles/BoneReaperPro.js';
-import { MoltenThresherPro } from '../Content/Projectiles/MoltenThresherPro.js';
-import { FallingTwilightPro } from '../Content/Projectiles/FallingTwilightPro.js';
-import { BloodHarvestPro } from '../Content/Projectiles/BloodHarvestPro.js';
-import { RottenCodPro } from '../Content/Projectiles/RottenCodPro.js';
-import { TheStalkerPro } from '../Content/Projectiles/TheStalkerPro.js';
-import { RadiantHealingEnergy } from '../Content/Projectiles/RadiantHealingEnergy.js';
-import { accScale } from '../Content/Projectiles/accScale.js';
 import { HoneyRecorderPro } from '../Content/Projectiles/HoneyRecorderPro.js';
 import { BobberMarine } from '../Content/Projectiles/BobberMarine.js';
 import { HostileSpikeBall } from '../Content/Projectiles/HostileSpikeBall.js';
@@ -286,6 +284,14 @@ import { EelSpark } from './../Content/Projectiles/EelSpark.js';
 import { SpearExtra } from './../Content/Projectiles/SpearExtra.js';
 import { SpringHookPro } from './../Content/Projectiles/SpringHookPro.js';
 import { GraveGoodPro } from '../Content/Projectiles/GraveGoodPro.js';
+import { MoltenThresherPro } from './../Content/Projectiles/MoltenThresherPro.js';
+import { FallingTwilightPro } from './../Content/Projectiles/FallingTwilightPro.js';
+import { BloodHarvestPro } from './../Content/Projectiles/BloodHarvestPro.js';
+import { RottenCodPro } from './../Content/Projectiles/RottenCodPro.js';
+import { TheStalkerPro } from './../Content/Projectiles/TheStalkerPro.js';
+import { HealingOrbYellow, HealingOrbTeal } from './../Content/Projectiles/HealingOrb.js';
+import { NaiadShivPro } from './../Content/Projectiles/NaiadShivPro.js';
+import { StrongestLinkPro } from './../Content/Projectiles/StrongestLinkPro.js';
 
 const List = [
   GraveGoodPro,
@@ -357,7 +363,16 @@ const List = [
   PrehistoricAmberStaffPterosProShoot,
   PrehistoricAmberStaffTRexPro,
   RosySlimeStaffPro,
-
+  ButterflyStaffPro,
+  TabooWandPro,
+  TabooWandPro2,
+  TabooWandProSpawn,
+  TabooWandProGravestone,
+  MantisCanePro,
+  MantisPro2,
+  YarnBallPro,
+  YarnBallProShoot,
+  
   IncubatedSpider,
   CrietzPro,
 
@@ -426,14 +441,6 @@ const List = [
   DownwardSpiralPro,
   TheBlenderPro,
   BountifulHarvestPro,
-  BoneReaperPro,
-  MoltenThresherPro,
-  FallingTwilightPro,
-  BloodHarvestPro,
-  RottenCodPro,
-  TheStalkerPro,
-  RadiantHealingEnergy,
-  accScale,
   HoneyRecorderPro,
 
   AquaiteScythePro,
@@ -569,7 +576,19 @@ const List = [
   TorpedoPro2,
   EelSpark,
   SpearExtra,
-  SpringHookPro
+  SpringHookPro,
+  BoneReaperPro,
+  HighTidePro,
+  HighTidePro2,
+  MoltenThresherPro,
+  FallingTwilightPro,
+  BloodHarvestPro,
+  RottenCodPro,
+  TheStalkerPro,
+  HealingOrbYellow,
+  HealingOrbTeal,
+  NaiadShivPro,
+  StrongestLinkPro
 ]
 
 export function RegisterProjectiles() {

@@ -9,9 +9,13 @@ import { PetrifyBuff } from "../Content/Buffs/PetrifyBuff.js";
 import { LavaHugBuff } from "../Content/Buffs/LavaHugBuff.js";
 import { EnchantedCaneBuff } from "../Content/Buffs/EnchantedCaneBuff.js";
 import { CharmedBuff } from "../Content/Buffs/CharmedBuff.js";
-import { HatclingBuff } from "../Content/Buffs/HatclingBuff.js";
+import { StormHatchlingStaffBuff } from "../Content/Buffs/StormHatchlingStaffBuff.js";
 import { BubbledBuff } from "../Content/Buffs/BubbledBuff.js";
 import { RosySlimeStaffBuff } from './../Content/Buffs/RosySlimeStaffBuff.js';
+import { ButterflyStaffBuff } from './../Content/Buffs/ButterflyStaffBuff.js';
+import { TabooWandBuff } from './../Content/Buffs/TabooWandBuff.js';
+import { MantisCaneBuff } from './../Content/Buffs/MantisCaneBuff.js';
+import { YarnBallBuff } from './../Content/Buffs/YarnBallBuff.js';
 
 // Mounts
 import { MagmaCharmBuff } from "../Content/Buffs/Mounts/MagmaCharmBuff.js";
@@ -65,7 +69,7 @@ const List = [
     LavaHugBuff,
     EnchantedCaneBuff,
     CharmedBuff,
-    HatclingBuff,
+    StormHatchlingStaffBuff,
     BubbledBuff,
     SeahorseWandBuff,
     MagmaCharmBuff,
@@ -89,6 +93,10 @@ const List = [
     EnergizedQuadCubeBuff,
     FullStomach,
     RosySlimeStaffBuff,
+    ButterflyStaffBuff,
+    TabooWandBuff,
+    MantisCaneBuff,
+    YarnBallBuff,
 
     // Potions
     AquaAffinityBuff,

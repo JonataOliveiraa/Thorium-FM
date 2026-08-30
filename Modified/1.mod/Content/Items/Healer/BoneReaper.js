@@ -10,16 +10,17 @@ export class BoneReaper extends ModHealerItem {
 
     SetDefaults() {
         this.SetDefaultsToScythe();
-
+        
         this.isScytheSoul = true;
+        this.scytheSoulCharge = 1;
         this.soulEssenceStack = 1;
 
-        this.SetWeaponValues(12, 6.5, 4);
-
-        this.Item.width = 48;
+        this.Item.damage = 12;
+        
+        this.Item.width = 48;   
         this.Item.height = 38;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 54, 0);
-        this.Item.rare = Terraria.ID.ItemRarityID.Green;
+        this.Item.value = Terraria.Item.sellPrice(0, 1, 75, 0);
+        this.Item.rare = 2;
         this.Item.shoot = ModProjectile.getTypeByName('BoneReaperPro');
     }
 }

@@ -34,7 +34,7 @@ export class StormHatchlingStaff extends ModItem {
         
         this.Item.noMelee = true;
         this.Item.summon = true;
-        this.Item.buffType = ModBuff.getTypeByName('HatclingBuff');
+        this.Item.buffType = ModBuff.getTypeByName('StormHatchlingStaffBuff');
         this.Item.shoot = ModProjectile.getTypeByName('StormHatchlingStaffPro');
     }
     

@@ -137,6 +137,7 @@ import { EnchantedStaff } from '../Content/Items/Mage/EnchantedStaff.js';
 import { MagickStaff } from '../Content/Items/Mage/MagickStaff.js';
 import { SpineBreaker } from './../Content/Items/Mage/SpineBreaker.js';
 import { ObsidianStaff } from './../Content/Items/Mage/ObsidianStaff.js';
+import { HighTide } from './../Content/Items/Mage/HighTide.js';
 
 // Ranged
 import { WebGun } from '../Content/Items/Ranged/WebGun.js';
@@ -147,7 +148,12 @@ import { HellfireMinigun } from './../Content/Items/Ranged/HellfireMinigun.js';
 
 // Summon
 import { PrehistoricAmberStaff } from '../Content/Items/Summon/PrehistoricAmberStaff.js';
-import { RosySlimeStaff } from '../Content/Items/Tracker/RosySlimeStaff.js';
+import { RosySlimeStaff } from './../Content/Items/Tracker/RosySlimeStaff.js';
+import { ButterflyStaff } from './../Content/Items/Summon/ButterflyStaff.js';
+import { TabooWand } from './../Content/Items/DD/TabooWand.js';
+import { MantisCane } from './../Content/Items/Donate/MantisCane.js';
+import { YarnBall } from './../Content/Items/Donate/YarnBall.js';
+import { StrongestLink } from './../Content/Items/Summon/StrongestLink.js';
 
 // Shields
 import { SeaTurtlesBulwark } from '../Content/Items/BasicAccessories/Shields/SeaTurtlesBulwark.js';
@@ -337,14 +343,13 @@ import { WoodenBaton } from '../Content/Items/Healer/WoodenBaton.js';
 import { IceShaver } from '../Content/Items/Icy/IceShaver.js';
 import { DownwardSpiral } from '../Content/Items/Healer/DownwardSpiral.js';
 import { TheBlender } from '../Content/Items/Healer/TheBlender.js';
+import { BoneReaper } from './../Content/Items/Healer/BoneReaper.js';
 import { BountifulHarvest } from '../Content/Items/Healer/BountifulHarvest.js';
-// Scythes e macas radiantes
-import { BoneReaper } from '../Content/Items/Healer/BoneReaper.js';
-import { MoltenThresher } from '../Content/Items/Healer/MoltenThresher.js';
-import { FallingTwilight } from '../Content/Items/Healer/FallingTwilight.js';
-import { BloodHarvest } from '../Content/Items/Healer/BloodHarvest.js';
-import { RottenCod } from '../Content/Items/Healer/RottenCod.js';
-import { TheStalker } from '../Content/Items/Healer/TheStalker.js';
+import { MoltenThresher } from './../Content/Items/Healer/MoltenThresher.js';
+import { FallingTwilight } from './../Content/Items/Healer/FallingTwilight.js';
+import { BloodHarvest } from './../Content/Items/Healer/BloodHarvest.js';
+import { RottenCod } from './../Content/Items/Healer/RottenCod.js';
+import { TheStalker } from './../Content/Items/Healer/TheStalker.js';
 import { HoneyRecorder } from '../Content/Items/Bard/HoneyRecorder.js';
 import { MarineCatcher } from '../Content/Items/Fishing/MarineCatcher.js';
 import { DiverHelmet } from '../Content/Items/Vanity/DiverHelmet.js';
@@ -412,6 +417,9 @@ import { Whip } from './../Content/Items/Tracker/Whip.js';
 // Misc
 import { SpringHook } from './../Content/Items/Misc/SpringHook.js';
 import { GraveGoods } from '../Content/Items/BasicAccessories/Shields/GraveGoods.js';
+
+// Thrower
+import { NaiadShiv } from './../Content/Items/Thrower/NaiadShiv.js';
 
 const List = [
     GraveGoods,
@@ -533,14 +541,14 @@ const List = [
     MarineCatcher,
     HoneyRecorder,
     TheBlender,
-    BountifulHarvest,
     BoneReaper,
+    BountifulHarvest,
     MoltenThresher,
     FallingTwilight,
     BloodHarvest,
+    DownwardSpiral,
     RottenCod,
     TheStalker,
-    DownwardSpiral,
     IceShaver,
     WoodenBaton,
     SkywareLute,
@@ -648,6 +656,7 @@ const List = [
     MagickStaff,
     SpineBreaker,
     ObsidianStaff,
+    HighTide,
 
     WebGun,
     BrambleShot,
@@ -657,6 +666,11 @@ const List = [
 
     PrehistoricAmberStaff,
     RosySlimeStaff,
+    ButterflyStaff,
+    TabooWand,
+    MantisCane,
+    YarnBall,
+    StrongestLink,
 
     SeaTurtlesBulwark,
     CopperBuckler,
@@ -803,7 +817,10 @@ const List = [
     Whip,
     
     // Misc
-    SpringHook
+    SpringHook,
+    
+    // Thrower
+    NaiadShiv
 ]
 export function RegisterItems() {
     for(const Item of List) {

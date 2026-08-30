@@ -30,6 +30,10 @@ export class ScythePro extends ModProjectile {
     get DustCenter() {
         return Vector2.Add(this.DustCenterBase, this.dustOffset);
     }
+    
+    SafeSetDefaults() {
+        
+    }
 
     SetDefaults() {
         this.Projectile.aiStyle = 0;
@@ -42,6 +46,7 @@ export class ScythePro extends ModProjectile {
         this.Projectile.timeLeft = 26;
         this.Projectile.idStaticNPCHitCooldown = 10;
         this.Projectile.localNPCHitCooldown = 10;
+        this.SafeSetDefaults();
     }
 
     AI(proj) {
@@ -90,9 +95,14 @@ export class ScythePro extends ModProjectile {
                 if (dust) {
                     dust.noGravity = true;
                     dust.noLight = true;
+                    this.ModifyDust(dust, position, scytheIndex);
                 }
             }
         }
+    }
+    
+    ModifyDust(dust, position, scytheIndex) {
+        
     }
 
     OnHitNPC(proj, npc) {
