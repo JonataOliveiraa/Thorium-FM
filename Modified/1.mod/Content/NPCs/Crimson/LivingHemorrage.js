@@ -2,6 +2,7 @@ import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModNPC } from '../../../TL/ModNPC.js';
 import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { ModSystem } from '../../../TL/ModSystem.js';
+import { BatAI } from '../../Global/Utils/BatAI.js';
 
 const { Main } = Terraria
 const { Color } = Modules;
@@ -22,7 +23,7 @@ export class LivingHemorrage extends ModNPC {
     SetDefaults() {
         this.NPC.width = 16;
         this.NPC.height = 16;
-        this.NPC.aiStyle = 14;
+        this.NPC.aiStyle = -1;
         this.NPC.damage = 20;
         this.NPC.defense = 6;
         this.NPC.lifeMax = 60;
@@ -37,6 +38,10 @@ export class LivingHemorrage extends ModNPC {
         const FlavorText = FlavorTextBestiaryInfoElement.new();
         FlavorText._key = ModLocalization.Translate('Bestiary.LivingHemorrage');
         bestiaryEntry.Info.Add(FlavorText);
+    }
+
+    AI(npc) {
+        BatAI.Update(npc);
     }
 
     SpawnChance(info) {
