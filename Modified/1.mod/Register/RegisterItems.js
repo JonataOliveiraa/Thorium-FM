@@ -250,7 +250,6 @@ import { SandstoneHelmet } from '../Content/Items/Sandstone/SandstoneHelmet.js'
 import { SandstoneMail } from '../Content/Items/Sandstone/SandstoneMail.js'
 import { SandstoneGreaves } from '../Content/Items/Sandstone/SandstoneGreaves.js'
 import { SandstoneScimitar } from '../Content/Items/Sandstone/SandstoneScimitar.js'
-import { ModThrowerItem } from '../Common/ModThrowerItem.js';
 import { ClericEmblem } from '../Content/Items/Healer/ClericEmblem.js';
 import { CoralPurifier } from '../Content/Items/Coral/CoralPurifier.js';
 import { CoralCrossbow } from '../Content/Items/Coral/CoralCrossbow.js';
@@ -832,10 +831,6 @@ export function RegisterItems() {
 
         if(Item.prototype instanceof ModBardItem) {
             ModBardItem.bardItemsName.add(Item.name)
-        }
-
-        if(Item.prototype instanceof ModThrowerItem) {
-            ModThrowerItem.throwerItemsName.add(Item.name)
         }
     }
 }

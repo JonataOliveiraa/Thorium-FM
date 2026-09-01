@@ -9,7 +9,7 @@ import { LifeShieldPlayer } from "./LifeShieldPlayer.js";
 import { ModBuff } from "../../TL/ModBuff.js";
 import { Rand } from "../../TL/Modules/Rand.js";
 import { ModItem } from "../../TL/ModItem.js";
-import { Bard, Healer, Thrower } from "./ThoriumClasses.js";
+import { Bard, Healer } from "./ThoriumClasses.js";
 import { ModHealerItem } from "../../Common/ModHealerItem.js";
 import { ProjAI } from "../../TL/ProjAI.js";
 import { PlayerDB } from "../../TL/PlayerDB.js";
@@ -38,8 +38,7 @@ const { Main } = Terraria;
 export class ThoriumPlayer extends ModPlayer {
   static class = {
     Bard: new Bard(),
-    Healer: new Healer(),
-    Thrower: new Thrower()
+    Healer: new Healer()
   }
 
   constructor() {
@@ -399,11 +398,6 @@ export class ThoriumPlayer extends ModPlayer {
     healer.multiplier = 1.0;
     healer.healPowerMultiply = 1.0;
     healer.healPowerExtraValue = 0;
-
-    // Thrower
-    const thrower = ThoriumPlayer.class.Thrower;
-    thrower.throwingDamage = 0;
-    thrower.multiplier = 1.0;
 
     ThoriumPlayer.MoltenScaleEquipped = false;
     ThoriumPlayer.RadiantCorruptionActive = false;

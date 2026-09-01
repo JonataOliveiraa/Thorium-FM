@@ -1,6 +1,5 @@
 import { ModBardItem } from "../../../Common/ModBardItem.js";
 import { ModHealerItem } from "../../../Common/ModHealerItem.js";
-import { ModThrowerItem } from "../../../Common/ModThrowerItem.js";
 import { GlobalHooks } from "../../../TL/GlobalHooks.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModLocalization } from "../../../TL/ModLocalization.js";
@@ -12,7 +11,6 @@ const GUICraftGuidePopup = new NativeClass('', 'GUICraftGuidePopup');
 const CLASS_ICON = {
     healer: 6033,
     bard: 3943,
-    thrower: 5160,
 };
 
 // get_HoverName e chamado o tempo todo (tooltip, item no chao, inventario).
@@ -32,7 +30,6 @@ export class ItemsClassIcon extends GlobalHooks {
         const type = typeof typeOrItem === 'number' ? typeOrItem : typeOrItem?.type;
         if (ModHealerItem.healerItemsName.has(type)) return 'healer';
         if (ModBardItem.bardItemsName.has(type)) return 'bard';
-        if (ModThrowerItem.throwerItemsName.has(type)) return 'thrower';
         return null;
     }
 
@@ -46,7 +43,6 @@ export class ItemsClassIcon extends GlobalHooks {
         let newValue = this._tip55Original;
         if (cls === 'healer') newValue = ModLocalization.Translate('ThoriumClasses.Tooltips.radiantDamage');
         if (cls === 'bard') newValue = ModLocalization.Translate('ThoriumClasses.Tooltips.symphonicDamage');
-        if (cls === 'thrower') newValue = ModLocalization.Translate('ThoriumClasses.Tooltips.throwingDamage');
 
         if (cls && hoverItem.crit > 0) {
             const player = Terraria.Main.LocalPlayer;
