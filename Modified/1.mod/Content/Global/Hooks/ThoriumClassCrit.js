@@ -3,6 +3,7 @@ import { ModHealerItem } from "../../../Common/ModHealerItem.js";
 import { GlobalHooks } from "../../../TL/GlobalHooks.js";
 import { Terraria } from "../../../TL/ModImports.js";
 import { ModItem } from "../../../TL/ModItem.js";
+import { ModBuff } from "../../../TL/ModBuff.js";
 import { ModProjectile } from "../../../TL/ModProjectile.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
@@ -15,7 +16,8 @@ export class ThoriumClassCrit extends GlobalHooks {
         super()
     }
 
-    static _muteBurst1Type;
+    static _muteBurst1Type = -1;
+    static _stunnedType = -1;
 
     Initialize() {
         Terraria.NPC.StrikeNPC.hook((original, self, damage, knockback, hitDirection, crit, noEffect, fromNet, owner) => {
@@ -30,9 +32,14 @@ export class ThoriumClassCrit extends GlobalHooks {
 
             const type = player.HeldItem.type;
 
-            if (ThoriumPlayer.PlungerMuteActive) {
+            let didCrit = crit;
+            if (!didCrit && ModHealerItem.healerItemsName.has(type) && Rand.Next(100) < ThoriumPlayer.class.Healer.radiantCrit) didCrit = true;
+            if (!didCrit && ModBardItem.bardItemsName.has(type) && Rand.Next(100) < ThoriumPlayer.class.Bard.symphonicCrit) didCrit = true;
+
+            if (didCrit) {
                 const style = ModItem.getModItem(type)?.timerStyle;
-                if (style === 'Brass' && Rand.Next(0, 5) === 0) {
+
+                if (ThoriumPlayer.PlungerMuteActive && style === 'Brass') {
                     if (ThoriumClassCrit._muteBurst1Type === -1) ThoriumClassCrit._muteBurst1Type = ModProjectile.getTypeByName('MuteBurst1');
                     const spawnPos = self.Center;
                     for (let i = 0; i < Rand.Next(1, 4); i++) {
@@ -44,17 +51,14 @@ export class ThoriumClassCrit extends GlobalHooks {
                         );
                     }
                 }
+
+                if (ThoriumPlayer.accVibrationTuner && style === 'Percussion') {
+                    if (ThoriumClassCrit._stunnedType === -1) ThoriumClassCrit._stunnedType = ModBuff.getTypeByName('StunnedBuff');
+                    self.AddBuff(ThoriumClassCrit._stunnedType, 60, false);
+                }
             }
 
-            if (ModHealerItem.healerItemsName.has(type) && Rand.Next(100) < ThoriumPlayer.class.Healer.radiantCrit) {
-                return original(self, damage, knockback, hitDirection, true, noEffect, fromNet, owner);
-            }
-
-            if (ModBardItem.bardItemsName.has(type) && Rand.Next(100) < ThoriumPlayer.class.Bard.symphonicCrit) {
-                return original(self, damage, knockback, hitDirection, true, noEffect, fromNet, owner);
-            }
-
-            return original(self, damage, knockback, hitDirection, crit, noEffect, fromNet, owner);
+            return original(self, damage, knockback, hitDirection, didCrit, noEffect, fromNet, owner);
         });
     }
 }

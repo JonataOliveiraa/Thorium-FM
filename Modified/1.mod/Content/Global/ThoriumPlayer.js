@@ -695,14 +695,6 @@ export class ThoriumPlayer extends ModPlayer {
 
   PostUpdateBuffs(player) {
     Empowerments.Update(player);
-
-    if (
-      ThoriumPlayer.SheathMaxCooldown !== undefined &&
-      ThoriumPlayer.SheatType !== undefined &&
-      ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown
-    ) {
-      player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
-    }
   }
 
   // Jar O' Mayo: acertar enquanto saciado rende dois empoderamentos brandos.
@@ -886,14 +878,6 @@ export class ThoriumPlayer extends ModPlayer {
 
     if (ThoriumPlayer.equipJesterShirt && isBardWeapon && Rand.Next(1, 5) === 1) {
       player.AddBuff(2, 180, false)
-    }
-
-    if (
-      ThoriumPlayer.accVibrationTuner
-      && Rand.Next(0, 5) === 0
-      && ThoriumPlayer.getCachedBardItem(player)?.instrumentStyle === 'Percussion'
-    ) {
-      npc.AddBuff(ModBuff.getTypeByName('StunnedBuff'), Rand.Next(20, 90))
     }
 
     if (ThoriumPlayer.setTideHunter && Rand.Next(1, 5) == 1) {
