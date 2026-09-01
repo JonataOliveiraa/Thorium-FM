@@ -11,7 +11,7 @@ export class BallnChain extends ModItem {
     SetDefaults() {
         this.Item.width = 24;
         this.Item.height = 28;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 20, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,20,0);
         this.Item.rare = 2;
         this.Item.accessory = true;
     }

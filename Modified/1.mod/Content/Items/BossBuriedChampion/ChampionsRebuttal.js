@@ -11,7 +11,7 @@ export class ChampionsRebuttal extends ModItem {
   SetDefaults() {
     this.Item.width = 24;
     this.Item.height = 28;
-    this.Item.value = Terraria.Item.sellPrice(0, 1, 0, 0);
+    this.Item.value = Terraria.Item.sellPrice(0,1,0,0);
     this.Item.rare = Terraria.ID.ItemRarityID.Orange;
     this.Item.accessory = true;
     this.Item.defense = 2;

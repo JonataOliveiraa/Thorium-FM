@@ -12,7 +12,7 @@ export class TravelersBoots extends ModItem {
         this.Item.height = 28;
         this.Item.accessory = true;
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 25, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,25,0);
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {

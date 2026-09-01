@@ -16,7 +16,7 @@ export class FrostburnPouch extends ModItem {
         this.Item.width = this.Item.height = 20;
         this.Item.accessory = true;
         this.Item.rare = 0;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 15, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,15,0);
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {

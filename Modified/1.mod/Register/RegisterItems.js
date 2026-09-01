@@ -469,7 +469,6 @@ const List = [
     LargePopcorn,
     JarOMayo,
     AromaticBiscuit,
-
     ChampionSwiftBlade,
     ChampionsTrifectaShot,
     ChampionBomberStaff,
@@ -478,7 +477,6 @@ const List = [
     BuriedChampionMask,
     ChampionWing,
     BuriedChampionTreasureBag,
-
     BronzeHelmet,
     BronzeBreastplate,
     BronzeGreaves,
@@ -487,7 +485,6 @@ const List = [
     ChampionCatcher,
     GorgonsEye,
     GorgonGazeStaff,
-    
     AquaPotion,
     ArcanePotion,
     BloodPotion,
@@ -501,7 +498,6 @@ const List = [
     InsectRepellent,
     SkeletonRepellent,
     ZombieRepellent,
-
     BloomGuard,
     WeedEater,
     GraniteHelmet,
@@ -537,7 +533,6 @@ const List = [
     SilverSpearTip,
     BallnChain,
     ObsidianScale,
-
     ShadeWoodTambourine,
     EbonwoodTambourine,
     PearlPike,
@@ -589,7 +584,6 @@ const List = [
     TideHunterCap,
     TideHunterChestpiece,
     TideHunterLeggings,
-
     DrenchedDirk,
     GeyserStaff,
     HydroAxe,
@@ -600,7 +594,6 @@ const List = [
     AquaiteScythe,
     SharkStorm,
     AquaPelter,
-
     QueenJellyfishBag,
     SparkingJellyBall,
     JellyPondWand,
@@ -612,7 +605,6 @@ const List = [
     PlungerMute,
     FabergeEgg,
     HeadMirror,
-
     ConchShell,
     SeashellCastanets,
     AntlionMaraca,
@@ -626,7 +618,6 @@ const List = [
     Alphorn,
     ViciousMockery,
     Tambourine,
-    
     IceCube,
     FrostFury,
     IcyArrow,
@@ -636,17 +627,14 @@ const List = [
     IcyHeadgear,
     IcyMail,
     IcyGreaves,
-
     LivingWoodAcorn,
     LivingWoodChestguard,
     LivingWoodLeggings,
     LivingWoodHelmet,
     LivingWoodSap,
-
     SilkHat,
     SilkTabard,
     SilkLeggings,
-
     ThoriumHelmet,
     ThoriumMail,
     ThoriumGreaves,
@@ -655,7 +643,6 @@ const List = [
     ThoriumStaff,
     ThoriumBow,
     BandofReplenishment,
-
     AmberRing,
     AmethystRing,
     DiamondRing,
@@ -674,27 +661,22 @@ const List = [
     CrawdadClaw,
     SoulStone,
     Crietz,
-
     LeatherSheath,
-
     BubbleConch,
     JellyfishResonator,
     RainStone,
     DepthScales,
     Illustrious,
-
     EnchantedStaff,
     MagickStaff,
     SpineBreaker,
     ObsidianStaff,
     HighTide,
-
     WebGun,
     BrambleShot,
     StreamSting,
     Trapper,
     HellfireMinigun,
-
     PrehistoricAmberStaff,
     RosySlimeStaff,
     ButterflyStaff,
@@ -702,7 +684,6 @@ const List = [
     MantisCane,
     YarnBall,
     StrongestLink,
-
     SeaTurtlesBulwark,
     CopperBuckler,
     GoldAegis,
@@ -713,7 +694,6 @@ const List = [
     TinBuckler,
     TungstenBulwark,
     MoltenScale,
-
     Dissolve,
     Freeze,
     Ignite,
@@ -722,7 +702,6 @@ const List = [
     Charm,
     Stun,
     Pierce,
-
     BloomingCrown,
     BloomingTabard,
     BloomingLeggings,
@@ -738,7 +717,6 @@ const List = [
     NoviceClericTabard,
     NoviceClericPants,
     PalmCross,
-
     BlacksmithsBarrierShield,
     SteelBlade,
     SteelChestplate,
@@ -748,11 +726,9 @@ const List = [
     SteelHammer,
     SteelPickaxe,
     SteelBow,
-
     CriersCap,
     CriersSash,
     CriersLeggings,
-
     YewWoodHelmet,
     YewWoodBreastguard,
     YewWoodLeggings,
@@ -760,7 +736,6 @@ const List = [
     ShadowflameStaff,
     ShadowWand,
     ThumbRing,
-
     SandstoneAxe,
     SandstonePickaxe,
     SandstoneHammer,
@@ -769,7 +744,6 @@ const List = [
     SandstoneMail,
     SandstoneGreaves,
     SandstoneScimitar,
-
     CoralHelmet,
     CoralChestguard,
     CoralGreaves,
@@ -780,15 +754,12 @@ const List = [
     CoralPickaxe,
     CoralHamaxe,
     SeahorseWand,
-
     EnchantedCane,
     LifeQuartzClaymore,
-
     LootRang,
     MagmaCharmItem,
     MagmaLocket,
     DeepStaff,
-
     SpringSteps,
     DriftBoots,
     HealthyBoots,
@@ -798,30 +769,23 @@ const List = [
     TravelersBoots,
     TurboBoots,
     WizardShoes,
-
     AquamarineRobe,
     OpalRobe,
     AquaiteBar,
-
     CyanPhaseblade,
     LightPinkPhaseblade,
     AquamarineStaff,
     OpalStaff,
     TheDigester,
-
     ThoriumAnvil,
-
     TechniqueBlankScroll,
-
     GrandFlareGun,
     StormFlare,
     StormHatchlingStaff,
     TalonBurst,
     ThunderTalon,
     ThunderBirdBag,
-
     ClericEmblem,
-
     VampireScepter,
     GuanoGunner,
     ViscountCane,
@@ -831,10 +795,8 @@ const List = [
     LeechBolt,
     LifeDisperser,
     FeatherBarrierRod,
-
     ViscountMask,
     ViscountTreasureBag,
-    
     // NPCItems
     //KineticKnife, // Hardmode
     LilTorpedo,
@@ -843,13 +805,10 @@ const List = [
     Knife,
     Spoon,
     Eelrod,
-    
     // Tracker
     Whip,
-    
     // Misc
     SpringHook,
-    
     // Thrower
     NaiadShiv,
     AntlionStaff,

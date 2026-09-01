@@ -11,7 +11,7 @@ export class GraveGoods extends ModItem {
     SetDefaults() {
         this.Item.width = 24;
         this.Item.height = 24;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 0, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,1,0,0);
         this.Item.rare = 2;
         this.Item.accessory = true;
     }

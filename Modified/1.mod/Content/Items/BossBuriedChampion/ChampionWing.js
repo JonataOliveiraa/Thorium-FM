@@ -12,7 +12,7 @@ export class ChampionWing extends ModItem {
         this.Item.height = 20;
         this.Item.accessory = true;
         this.Item.expert = true;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 0, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,1,0,0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
         this.SetWingStats(60, 6.0, 1);
     }
