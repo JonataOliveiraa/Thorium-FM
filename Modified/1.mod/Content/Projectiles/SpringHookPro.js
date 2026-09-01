@@ -14,10 +14,6 @@ export class SpringHookPro extends ModProjectile {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
     }
-    
-    SetStaticDefaults() {
-        Terraria.Main.projHook[this.Type] = true;
-    }
 
     SetDefaults() {
         this.CloneDefaults(Terraria.ID.ProjectileID.GemHookAmethyst); 
@@ -27,6 +23,7 @@ export class SpringHookPro extends ModProjectile {
     }
 
     SetStaticDefaults() {
+        Terraria.Main.projHook[this.Type] = true;
         this.ChainTexture = tl.texture.load('Textures/Projectiles/SpringHookPro_Chain.png');
         this.GrappleRange = 250;
         this.NumGrappleHooks = 1;
