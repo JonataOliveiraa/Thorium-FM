@@ -50,6 +50,13 @@ export class gRecipes extends ModSystem {
             ]
         },
         {
+            name: 'GoldBar',
+            items: () => [
+                ItemID.GoldBar,
+                ItemID.PlatinumBar
+            ]
+        },
+        {
             name: 'JellyfishesBait',
             items: () => [
                 2436,

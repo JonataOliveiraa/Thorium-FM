@@ -4,7 +4,8 @@ import { ModItem } from '../../../TL/ModItem.js';
 import { Color } from "../../../TL/Modules/Color.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
-import { ThoriumPlayer } from "../../Global/ThoriumPlayer.js";
+import { ThoriumPlayer } from "../../Global/ThoriumPlayer.js";
+import { gRecipes } from '../../Global/gRecipes.js';
 
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
@@ -41,16 +42,9 @@ export class HereticBreaker extends ModHealerItem {
         }
     }
 
-    AddRecipeGroups() {
-        if (this.goldBar) {
-            const itemIds = [Terraria.ID.ItemID.GoldBar, Terraria.ID.ItemID.PlatinumBar];
-            this.goldBar = this.CreateRecipeGroup(itemIds);
-        }
-    }
-
     AddRecipes() {
         this.CreateRecipe(1)
-            .AddRecipeGroup(this.goldBar)
+            .AddRecipeGroup(gRecipes.CustomGroups.get('GoldBar'))
             .AddIngredient(Terraria.ID.ItemID.GoldBar, 8)
             .AddIngredient(ModItem.getTypeByName('PurifiedShards'), 8)
             .AddTile(Terraria.ID.TileID.Anvils)
