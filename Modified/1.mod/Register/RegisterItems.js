@@ -1,4 +1,5 @@
 import { ModItem } from '../TL/ModItem.js';
+import { AntlionStaff } from '../Content/Items/Summon/AntlionStaff.js';
 import { BloodSausage } from '../Content/Pets/BloodSausage/BloodSausage.js';
 import { SwordOfDestiny } from '../Content/Pets/SwordOfDestiny/SwordOfDestiny.js';
 import { SuspiciousMoisturizerBottle } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottle.js';
@@ -425,8 +426,33 @@ import { GraveGoods } from '../Content/Items/BasicAccessories/Shields/GraveGoods
 
 // Thrower
 import { NaiadShiv } from './../Content/Items/Thrower/NaiadShiv.js';
+import { SpittingFish } from '../Content/Items/Sentry/SpittingFish.js';
+import { ThoriumShield } from '../Content/Items/BasicAccessories/Shields/ThoriumShield.js';
+import { HighQualityReed } from '../Content/Items/BasicAccessories/Bard/HighQualityReed.js';
+import { MusicNotes } from '../Content/Items/BasicAccessories/Bard/MusicNotes.js';
+import { FanLetter } from '../Content/Items/BasicAccessories/Bard/FanLetter.js';
+import { CorkGrease } from '../Content/Items/BasicAccessories/Bard/CorkGrease.js';
+import { PacifistNecklace } from '../Content/Items/BasicAccessories/PacifistNecklace.js';
+import { NecromancersHeart } from '../Content/Items/NPCItems/NecromancersHeart.js';
+import { MouthPiece } from '../Content/Items/BasicAccessories/Bard/MouthPiece.js';
+import { MixTape } from '../Content/Items/BasicAccessories/Bard/MixTape.js';
+import { LifeGem } from '../Content/Items/BasicAccessories/LifeGem.js';
+import { AquamarineHook } from '../Content/Items/Hook/AquamarineHook.js';
+import { OpalHook } from '../Content/Items/Hook/OpalHook.js';
 
 const List = [
+    AquamarineHook,
+    OpalHook,
+    ThoriumShield,
+    HighQualityReed,
+    MusicNotes,
+    FanLetter,
+    CorkGrease,
+    PacifistNecklace,
+    NecromancersHeart,
+    MouthPiece,
+    MixTape,
+    LifeGem,
     GraveGoods,
     CherryPie,
     StackofPancakes,
@@ -826,12 +852,14 @@ const List = [
     
     // Thrower
     NaiadShiv,
+    AntlionStaff,
     BloodSausage,
     SwordOfDestiny,
     SuspiciousMoisturizerBottle,
     RottenMeat,
     StormCloud,
     DiverPlushie,
+    SpittingFish,
 ]
 export function RegisterItems() {
     for(const Item of List) {

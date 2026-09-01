@@ -400,5 +400,9 @@ export class UpdateNPCBuff extends GlobalNPC {
                 npcShop.Add(rotation[(phase > 0 ? phase : 0) % rotation.length]);
             }
         }
+
+        if (npc.type === Terraria.ID.NPCID.GoblinTinkerer) {
+            npcShop.Add(ModItem.getTypeByName('CorkGrease'));
+        }
     }
 }

@@ -208,6 +208,8 @@ export class ThoriumPlayer extends ModPlayer {
   static accSandshroudPouch2 = false;
   static accReducedKnockback = false;
   static spearNormal = false;
+  static accNecromancersHeart = false;
+  static bardPlayingSpeed = 0;
 
   static NoviceClericSetBonus = false;
   static NoviceClericCrossCount = 0;
@@ -347,6 +349,8 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.frostburnPouch = false;
     ThoriumPlayer.accSandshroudPouch = false;
     ThoriumPlayer.spearNormal = false;
+    ThoriumPlayer.accNecromancersHeart = false;
+    ThoriumPlayer.bardPlayingSpeed = 0;
 
     ThoriumPlayer.soulEssenceActive = false;
 
@@ -1086,6 +1090,18 @@ export class ThoriumPlayer extends ModPlayer {
     if (ThoriumPlayer.YewWoodAccumulated > 0 && player.HeldItem && player.HeldItem.ranged)
       return 1.0 - ThoriumPlayer.YewWoodAccumulated * 0.025;
     return 1.0;
+  }
+
+  UseSpeedMultiplier(player, item) {
+    if (ThoriumPlayer.bardPlayingSpeed > 0 && ModBardItem.bardItemsName.has(item.type))
+      return 1.0 / (1.0 + ThoriumPlayer.bardPlayingSpeed);
+    return 1.0;
+  }
+
+  UpdateLifeRegen(player) {
+    if (ThoriumPlayer.accNecromancersHeart && player.lifeRegen > 0) {
+      player.lifeRegen -= Math.floor(player.lifeRegen * 0.2);
+    }
   }
 
   UpdateMovement(player) {

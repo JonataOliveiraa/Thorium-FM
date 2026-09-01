@@ -150,6 +150,7 @@ export class ConfusedZombie extends ModNPC {
     npcShop.Add(ModItem.getTypeByName('BentZombieArm'), 1, Terraria.Item.buyPrice(0, 6, 0, 0));
     npcShop.Add(ModItem.getTypeByName('ViciousMockery'), 1, Terraria.Item.buyPrice(0, 15, 0, 0));
     npcShop.Add(ModItem.getTypeByName('GrimPointer'), 1, Terraria.Item.buyPrice(0, 1, 0, 0));
+    npcShop.Add(ModItem.getTypeByName('NecromancersHeart'));
 
     // Repellents
     const batRepellentId = ModItem.getTypeByName('BatRepellent');

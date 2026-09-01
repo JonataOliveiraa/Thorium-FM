@@ -1,4 +1,6 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
+import { AntlionStaffPro } from '../Content/Projectiles/AntlionStaffPro.js';
+import { AntlionStaffPro2 } from '../Content/Projectiles/AntlionStaffPro2.js';
 import { BloodSausagePro } from '../Content/Pets/BloodSausage/BloodSausagePro.js';
 import { SwordOfDestinyPro } from '../Content/Pets/SwordOfDestiny/SwordOfDestinyPro.js';
 import { SuspiciousMoisturizerBottlePro } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottlePro.js';
@@ -300,8 +302,14 @@ import { accScale } from './../Content/Projectiles/accScale.js';
 import { HealingOrbYellow, HealingOrbTeal } from './../Content/Projectiles/HealingOrb.js';
 import { NaiadShivPro } from './../Content/Projectiles/NaiadShivPro.js';
 import { StrongestLinkPro } from './../Content/Projectiles/StrongestLinkPro.js';
+import { SpittingFishPro } from '../Content/Projectiles/SpittingFishPro.js';
+import { SpittingFishPro2 } from '../Content/Projectiles/SpittingFishPro2.js';
+import { AquamarineHookPro } from '../Content/Projectiles/AquamarineHookPro.js';
+import { OpalHookPro } from '../Content/Projectiles/OpalHookPro.js';
 
 const List = [
+  AquamarineHookPro,
+  OpalHookPro,
   GraveGoodPro,
   GraniteCharge,
   BuriedShock,
@@ -598,6 +606,8 @@ const List = [
   HealingOrbTeal,
   NaiadShivPro,
   StrongestLinkPro,
+  AntlionStaffPro,
+  AntlionStaffPro2,
   BloodSausagePro,
   SwordOfDestinyPro,
   SuspiciousMoisturizerBottlePro,
@@ -605,6 +615,8 @@ const List = [
   StormCloudPro,
   StormCloudProRain,
   DiverPlushiePro,
+  SpittingFishPro,
+  SpittingFishPro2,
 ]
 
 export function RegisterProjectiles() {

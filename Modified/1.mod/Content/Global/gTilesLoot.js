@@ -44,4 +44,15 @@ export class gTilesLoot extends GlobalTile {
 
         return false;
     }
+
+    DropItems(x, y, tile) {
+        if (tile.type !== Terraria.ID.TileID.ShadowOrbs) return;
+        if (tile.frameX % 36 !== 0 || tile.frameY !== 0) return;
+        if (!Rand.NextBool()) return;
+
+        const itemId = ModItem.getTypeByName('FanLetter');
+        if (!itemId) return;
+
+        NewItem(x * 16, y * 16, 32, 32, itemId, 1, false, 0, false);
+    }
 }
