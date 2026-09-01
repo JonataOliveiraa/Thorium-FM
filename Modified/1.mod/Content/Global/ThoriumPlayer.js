@@ -226,6 +226,7 @@ export class ThoriumPlayer extends ModPlayer {
   static SpiritsGraceDieEffect = false;
 
   static MoltenScaleEquipped = false;
+  static ObsidianScaleEquipped = false;
   static MoltenScaleMaxTimeDelay = 15;
   static MoltenScaleTimeDelay = 0;
 
@@ -400,6 +401,7 @@ export class ThoriumPlayer extends ModPlayer {
     healer.healPowerExtraValue = 0;
 
     ThoriumPlayer.MoltenScaleEquipped = false;
+    ThoriumPlayer.ObsidianScaleEquipped = false;
     ThoriumPlayer.RadiantCorruptionActive = false;
     ThoriumPlayer.SeaTurtlesBulwarkEquipped = false;
     ThoriumPlayer.YewWoodSetBonus = false;

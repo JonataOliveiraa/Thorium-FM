@@ -289,6 +289,7 @@ import { FallingTwilightPro } from './../Content/Projectiles/FallingTwilightPro.
 import { BloodHarvestPro } from './../Content/Projectiles/BloodHarvestPro.js';
 import { RottenCodPro } from './../Content/Projectiles/RottenCodPro.js';
 import { TheStalkerPro } from './../Content/Projectiles/TheStalkerPro.js';
+import { accScale } from './../Content/Projectiles/accScale.js';
 import { HealingOrbYellow, HealingOrbTeal } from './../Content/Projectiles/HealingOrb.js';
 import { NaiadShivPro } from './../Content/Projectiles/NaiadShivPro.js';
 import { StrongestLinkPro } from './../Content/Projectiles/StrongestLinkPro.js';
@@ -585,6 +586,7 @@ const List = [
   BloodHarvestPro,
   RottenCodPro,
   TheStalkerPro,
+  accScale,
   HealingOrbYellow,
   HealingOrbTeal,
   NaiadShivPro,
