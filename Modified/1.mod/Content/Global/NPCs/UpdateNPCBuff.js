@@ -359,6 +359,7 @@ export class UpdateNPCBuff extends GlobalNPC {
     }
 
     OnKill(npc) {
+        if (npc.boss) ThoriumPlayer.BossKillTimer = 540;
         if (ThoriumPlayer.LuckyRabbitsFootEquipped && Rand.Next(0, 5) === 0) {
             ThoriumPlayer.LuckyRabbitsFootSpawnCoins(npc);
         }

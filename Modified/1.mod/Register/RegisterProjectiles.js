@@ -1,4 +1,11 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
+import { BloodSausagePro } from '../Content/Pets/BloodSausage/BloodSausagePro.js';
+import { SwordOfDestinyPro } from '../Content/Pets/SwordOfDestiny/SwordOfDestinyPro.js';
+import { SuspiciousMoisturizerBottlePro } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottlePro.js';
+import { RottenMeatPro } from '../Content/Pets/RottenMeat/RottenMeatPro.js';
+import { StormCloudPro } from '../Content/Pets/StormCloud/StormCloudPro.js';
+import { StormCloudProRain } from '../Content/Pets/StormCloud/StormCloudProRain.js';
+import { DiverPlushiePro } from '../Content/Pets/DiverPlushie/DiverPlushiePro.js';
 
 // Granite Energy Storm Projectiles
 import { GraniteCharge } from '../Content/Projectiles/Boss/GraniteCharge.js';
@@ -590,7 +597,14 @@ const List = [
   HealingOrbYellow,
   HealingOrbTeal,
   NaiadShivPro,
-  StrongestLinkPro
+  StrongestLinkPro,
+  BloodSausagePro,
+  SwordOfDestinyPro,
+  SuspiciousMoisturizerBottlePro,
+  RottenMeatPro,
+  StormCloudPro,
+  StormCloudProRain,
+  DiverPlushiePro,
 ]
 
 export function RegisterProjectiles() {

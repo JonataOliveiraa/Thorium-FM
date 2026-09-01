@@ -5,7 +5,9 @@ import { ModLocalization } from '../../../TL/ModLocalization.js';
 import { WorldDB } from '../../../TL/WorldDB.js';
 import { Effects } from '../../../TL/Modules/Effects.js';
 import { Rand } from '../../../TL/Modules/Rand.js';
-import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
+import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
+
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 
 const { Color, Vector2 } = Modules;
 
@@ -113,6 +115,11 @@ export class PatchWerk extends ModNPC {
      * PatchWerk ja constava derrotado nao dava pra tentar de novo.
      */
     OnKill(npc) {
+    if (Terraria.Main.masterMode) {
+        MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+            ModItem.getTypeByName('SuspiciousMoisturizerBottle'), 1, false, 0, false);
+    }
+
         Terraria.Main['void NewText(string newText, Color color)'](
             ModLocalization.Translate('SinalizationChatMessage.OnPatchWerkDie'),
             Color.Orange

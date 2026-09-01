@@ -1,4 +1,10 @@
 import { ModBuff } from "../TL/ModBuff.js";
+import { BloodSausageBuff } from "../Content/Pets/BloodSausage/BloodSausageBuff.js";
+import { SwordOfDestinyBuff } from "../Content/Pets/SwordOfDestiny/SwordOfDestinyBuff.js";
+import { SuspiciousMoisturizerBottleBuff } from "../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottleBuff.js";
+import { RottenMeatBuff } from "../Content/Pets/RottenMeat/RottenMeatBuff.js";
+import { StormCloudBuff } from "../Content/Pets/StormCloud/StormCloudBuff.js";
+import { DiverPlushieBuff } from "../Content/Pets/DiverPlushie/DiverPlushieBuff.js";
 
 import { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
 import { PrehistoricAmberStaffBuff } from "../Content/Buffs/PrehistoricAmberStaffBuff.js";
@@ -114,7 +120,13 @@ const List = [
     RepellentSkeletonsBuff,
     RepellentZombiesBuff,
     SandshroudPouchBuff,
-    SandshroudPouchDebuff
+    SandshroudPouchDebuff,
+    BloodSausageBuff,
+    SwordOfDestinyBuff,
+    SuspiciousMoisturizerBottleBuff,
+    RottenMeatBuff,
+    StormCloudBuff,
+    DiverPlushieBuff,
 ];
 
 export function RegisterBuffs() {

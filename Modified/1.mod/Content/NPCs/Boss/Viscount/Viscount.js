@@ -10,6 +10,8 @@ import { SoundHelper } from '../../../Global/Utils/SoundHelper.js';
 import { FxHelper } from '../../../Global/Utils/FxHelper.js';
 import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+
 const { Color, Vector2, Rand, Effects } = Modules;
 const WHITE = Color.White;
 const { Main } = Terraria;
@@ -636,6 +638,11 @@ export class Viscount extends ModNPC {
 
     // A BloodAltar checa essa chave pra liberar a quebra do altar
     OnKill(npc) {
+    if (Math.random() < 0.25 && Terraria.Main.masterMode) {
+        MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+            ModItem.getTypeByName('BloodSausage'), 1, false, 0, false);
+    }
+
         WorldDB.set('Thorium:HasBeenDefeated_Viscount', true);
     }
 }

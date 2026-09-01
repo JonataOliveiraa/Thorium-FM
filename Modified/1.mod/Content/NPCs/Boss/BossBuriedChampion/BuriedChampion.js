@@ -6,6 +6,8 @@ import { WorldDB } from '../../../../TL/WorldDB.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
 
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+
 const { Color, Vector2, Effects } = Modules;
 const { ItemDropRule, Conditions } = Terraria.GameContent.ItemDropRules;
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
@@ -591,6 +593,11 @@ export class BuriedChampion extends ModNPC {
   }
 
   OnKill(npc) {
+  if (Math.random() < 0.25 && Terraria.Main.masterMode) {
+      MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+          ModItem.getTypeByName('SwordOfDestiny'), 1, false, 0, false);
+  }
+
     WorldDB.set('Thorium:HasBeenDefeated_BuriedChampion', true);
   }
 }

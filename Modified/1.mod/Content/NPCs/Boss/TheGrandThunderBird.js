@@ -5,7 +5,9 @@ import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
 import { ModGore } from './../../../TL/ModGore.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js'
-import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
+import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
+
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
@@ -504,6 +506,11 @@ export class TheGrandThunderBird extends ModNPC {
   }
 
   OnKill(npc) {
+  if (Math.random() < 0.25 && Terraria.Main.masterMode) {
+      MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+          ModItem.getTypeByName('StormCloud'), 1, false, 0, false);
+  }
+
     WorldDB.set('Thorium:HasBeenDefeated_TheGrandThunderBird', true)
     NewProjectile(null, npc.Center.X, npc.Center.Y, 0, 0, ModProjectile.getTypeByName("ThunderBirdScreech"), 0, 0, Terraria.Main.myPlayer, 0, 0, 0, null);
   }

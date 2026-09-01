@@ -108,6 +108,7 @@ export class ThoriumPlayer extends ModPlayer {
   static resLastInspirationSpent = 0;
 
   // Basic
+  static BossKillTimer = 0;
   static InCombat = false;
   static CombatTimer = 0;
   static CombatDelay = 320;
@@ -505,6 +506,7 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   PostUpdate(player) {
+    if (ThoriumPlayer.BossKillTimer > 0) ThoriumPlayer.BossKillTimer--;
     // Recarga do Grave Goods. Fica fora do ResetEffects de proposito: precisa
     // continuar correndo mesmo se o acessorio sair da mochila por um instante.
     if (ThoriumPlayer.graveGoodsCooldown > 0) {

@@ -1,4 +1,10 @@
 import { ModItem } from '../TL/ModItem.js';
+import { BloodSausage } from '../Content/Pets/BloodSausage/BloodSausage.js';
+import { SwordOfDestiny } from '../Content/Pets/SwordOfDestiny/SwordOfDestiny.js';
+import { SuspiciousMoisturizerBottle } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottle.js';
+import { RottenMeat } from '../Content/Pets/RottenMeat/RottenMeat.js';
+import { StormCloud } from '../Content/Pets/StormCloud/StormCloud.js';
+import { DiverPlushie } from '../Content/Pets/DiverPlushie/DiverPlushie.js';
 
 // Buried Champion Items
 import { ChampionSwiftBlade } from '../Content/Items/BossBuriedChampion/ChampionSwiftBlade.js';
@@ -819,7 +825,13 @@ const List = [
     SpringHook,
     
     // Thrower
-    NaiadShiv
+    NaiadShiv,
+    BloodSausage,
+    SwordOfDestiny,
+    SuspiciousMoisturizerBottle,
+    RottenMeat,
+    StormCloud,
+    DiverPlushie,
 ]
 export function RegisterItems() {
     for(const Item of List) {

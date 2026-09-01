@@ -9,6 +9,8 @@ import { FxHelper } from '../../Global/Utils/FxHelper.js';
 import { MiscHelper } from '../../Global/Utils/MiscHelper.js';
 import { BestiaryOrder } from '../../Global/Utils/BestiaryOrder.js';
 
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
+
 const { Color, Vector2, Rand, Effects } = Modules;
 const { Main } = Terraria;
 const { ItemDropRule } = Terraria.GameContent.ItemDropRules;
@@ -453,6 +455,11 @@ export class CorpseBloom extends ModNPC {
     }
 
     OnKill(npc) {
+    if (Terraria.Main.masterMode) {
+        MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+            ModItem.getTypeByName('RottenMeat'), 1, false, 0, false);
+    }
+
         WorldDB.set('Thorium:HasBeenDefeated_CorpseBloom', true);
 
         if (Main.netMode !== 1) {

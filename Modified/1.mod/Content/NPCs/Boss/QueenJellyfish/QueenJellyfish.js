@@ -7,7 +7,9 @@ import { ModItem } from '../../../../TL/ModItem.js';
 import { TileData } from '../../../../TL/Modules/TileData.js';
 import { ModLocalization } from '../../../../TL/ModLocalization.js';
 import { MiscHelper } from '../../../Global/Utils/MiscHelper.js';
-import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
+import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
+
+const MasterPetDrop = Terraria.Item['int NewItem(int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)'];
 
 const { Color, Vector2 } = Modules;
 const { ItemDropRule, LeadingConditionRule, Conditions } = Terraria.GameContent.ItemDropRules;
@@ -485,6 +487,11 @@ export class QueenJellyfish extends ModNPC {
     }
 
     OnKill(npc) {
+    if (Math.random() < 0.25 && Terraria.Main.masterMode) {
+        MasterPetDrop(npc.position.X, npc.position.Y, npc.width, npc.height,
+            ModItem.getTypeByName('DiverPlushie'), 1, false, 0, false);
+    }
+
         if(WorldDB.get('Thorium:HasBeenDefeated_QueenJellyfish') === true) return;
         WorldDB.set('Thorium:HasBeenDefeated_QueenJellyfish', true);
 
