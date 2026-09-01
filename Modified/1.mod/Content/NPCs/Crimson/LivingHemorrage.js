@@ -46,7 +46,7 @@ export class LivingHemorrage extends ModNPC {
 
     SpawnChance(info) {
         if (info.CommonEnemy && info.Player.ZoneCrimson && info.SpawnTileY > Terraria.Main.worldSurface) {
-            return 0.06;
+            return 0.15;
         }
         return 0;
     }
