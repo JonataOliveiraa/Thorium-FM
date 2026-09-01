@@ -11,8 +11,8 @@ export class LivingWoodSap extends ModItem {
     
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.rare = Terraria.ID.ItemRarityID.White;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 5, 0);
+        this.Item.rare = Terraria.ID.ItemRarityID.Blue;
+        this.Item.value = Terraria.Item.sellPrice(0,0,10,0);
     }
     
     ModifyTooltipLines() {

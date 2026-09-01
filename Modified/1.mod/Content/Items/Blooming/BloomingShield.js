@@ -12,9 +12,9 @@ export class BloomingShield extends ModItem {
     }
 
     SetDefaults() {
-        this.Item.width = 30;
-        this.Item.height = 30;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
+        this.Item.width = 20;
+        this.Item.height = 20;
+        this.Item.value = Terraria.Item.sellPrice(0,0,30,0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.accessory = true;
         this.Item.defense = 2;

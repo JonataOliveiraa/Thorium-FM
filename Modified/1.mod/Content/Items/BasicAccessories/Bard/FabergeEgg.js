@@ -11,10 +11,10 @@ export class FabergeEgg extends ModItem {
     }
 
     SetDefaults() {
-        this.Item.width = 24;
+        this.Item.width = 28;
         this.Item.height = 28;
         this.Item.accessory = true;
-        this.Item.rare = ItemRarityID.Blue;
+        this.Item.rare = ItemRarityID.Green;
         this.Item.value = 50000;
     }
 

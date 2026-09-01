@@ -11,8 +11,7 @@ export class MagmaLocket extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        ;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 2, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,2,0,0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
     }
 
@@ -26,8 +25,9 @@ export class MagmaLocket extends ModItem {
     UpdateAccessory(item, player, vanity, hideVisual) {
         if (vanity) return;
 
-        if(player.lavaWet) {
-            player.AddBuff(ModBuff.getTypeByName('LavaHugBuff'), 600, false)
+        if (player.lavaWet) {
+            if (this._lavaHugBuff === undefined) this._lavaHugBuff = ModBuff.getTypeByName('LavaHugBuff') ?? -1;
+            if (this._lavaHugBuff > 0) player.AddBuff(this._lavaHugBuff, 600, false);
         }
     }
 }

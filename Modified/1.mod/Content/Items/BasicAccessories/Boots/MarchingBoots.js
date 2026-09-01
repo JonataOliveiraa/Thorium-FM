@@ -13,7 +13,7 @@ export class MarchingBoots extends ModItem {
     SetDefaults() {
         this.Item.accessory = true;
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 50, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,60,0);
     }
 
     UpdateAccessory(item, player, vanity, hideVisual) {

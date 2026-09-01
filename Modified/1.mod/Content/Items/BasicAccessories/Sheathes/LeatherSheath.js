@@ -2,6 +2,7 @@ import { ModBuff } from '../../../../TL/ModBuff.js';
 import { Terraria } from '../../../../TL/ModImports.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { ModPlayer } from '../../../../TL/ModPlayer.js';
+import { gRecipes } from '../../../Global/gRecipes.js';
 import { ThoriumPlayer } from '../../../Global/ThoriumPlayer.js';
 
 export class LeatherSheath extends ModItem {
@@ -15,11 +16,11 @@ export class LeatherSheath extends ModItem {
     SheathMaxCooldown = 240;
 
     SetDefaults() {
-        this.Item.width = 26;
-        this.Item.height = 28;
+        this.Item.width = 32;
+        this.Item.height = 30;
         this.Item.accessory = true;
-        this.Item.rare = Terraria.ID.ItemRarityID.White;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 5, 0);
+        this.Item.rare = Terraria.ID.ItemRarityID.Blue;
+        this.Item.value = Terraria.Item.sellPrice(0,0,50,0);
     }
 
     ModifyTooltipLines() {
@@ -56,10 +57,20 @@ export class LeatherSheath extends ModItem {
         }
 
         if (validWeapon && ThoriumPlayer.SheathCooldown >= ThoriumPlayer.SheathMaxCooldown) {
-            player['void AddBuff(int type, int time, bool fromNetPvP)'](
-                ModBuff.getTypeByName('SheathBuff'), 2, false
-            );
+            if (this._sheathBuff === undefined) this._sheathBuff = ModBuff.getTypeByName('SheathBuff') ?? -1;
+            if (this._sheathBuff > 0) {
+                player['void AddBuff(int type, int time, bool fromNetPvP)'](this._sheathBuff, 2, false);
+            }
             player.meleeCrit += ThoriumPlayer.SheatCriticalChanceBonus;
         }
+    }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.Leather, 3)
+            .AddRecipeGroup(gRecipes.CustomGroups.get('SilverBar'))
+            .AddIngredient(Terraria.ID.ItemID.SilverBar, 4)
+            .AddTile(Terraria.ID.TileID.Anvils)
+            .Register();
     }
 }

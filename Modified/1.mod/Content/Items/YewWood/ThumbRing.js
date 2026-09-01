@@ -11,7 +11,7 @@ export class ThumbRing extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 15, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,40,0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
     }
 

@@ -11,8 +11,7 @@ export class HeadMirror extends ModItem {
 
     SetDefaults() {
         this.Item.accessory = true;
-        ;
-        this.Item.value = Terraria.Item.sellPrice(0, 2, 30, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,0,30,0);
         this.Item.rare = Terraria.ID.ItemRarityID.Blue;
     }
 

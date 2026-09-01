@@ -17,13 +17,13 @@ export class HighTide extends ModItem {
         this.Item.magic = true;
         this.Item.damage = 20;
         this.Item.mana = 10;
-        this.Item.useTime = 24;
-        this.Item.useAnimation = 24;
+        this.Item.useTime = 30;
+        this.Item.useAnimation = 30;
         this.Item.useStyle = 5;
         this.Item.noMelee = true;
         this.Item.autoReuse = true;
         this.Item.knockBack = 4.0;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 75, 0);
+        this.Item.value = Terraria.Item.sellPrice(0, 0, 54, 0);
         this.Item.rare = 2;
         this.Item.UseSound = Terraria.ID.SoundID.Item43;
         this.Item.shoot = ModProjectile.getTypeByName('HighTidePro');

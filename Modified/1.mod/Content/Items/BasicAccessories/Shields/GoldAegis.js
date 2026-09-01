@@ -11,9 +11,9 @@ export class GoldAegis extends ModItem {
     }
 
     SetDefaults() {
-        this.Item.width = 30;
-        this.Item.height = 30;
-        this.Item.value = Terraria.Item.sellPrice(0, 0, 20, 0);
+        this.Item.width = 24;
+        this.Item.height = 28;
+        this.Item.value = Terraria.Item.sellPrice(0,0,20,0);
         this.Item.rare = Terraria.ID.ItemRarityID.White;
         this.Item.accessory = true;
         this.Item.defense = 2;

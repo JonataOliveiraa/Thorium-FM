@@ -13,7 +13,7 @@ export class SpringSteps extends ModItem {
     SetDefaults() {
         this.Item.accessory = true;
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
-        this.Item.value = Terraria.Item.sellPrice(0, 1, 15, 0);
+        this.Item.value = Terraria.Item.sellPrice(0,3,50,0);
     }
     
     ModifyTooltipLines() {
