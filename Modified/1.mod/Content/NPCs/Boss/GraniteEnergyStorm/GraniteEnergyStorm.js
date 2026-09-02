@@ -5,6 +5,7 @@ import { WorldDB } from './../../../../TL/WorldDB.js';
 import { ModLocalization } from './../../../../TL/ModLocalization.js';
 import { ModItem } from '../../../../TL/ModItem.js';
 import { BestiaryOrder } from '../../../Global/Utils/BestiaryOrder.js';
+import { EnergyStormState } from './EnergyStormState.js';
 
 const { Color, Vector2, Rand, Effects, Rectangle } = Modules;
 const { Main } = Terraria;
@@ -31,6 +32,10 @@ const DASH_TIME = 600;
 const CONDUIT_DELAY = 600;
 const HOVER_HEIGHT = 150;
 const DASH_SPEED = 12;
+const ENRAGE_THRESHOLD = 0.35;
+const RAGE_NO_COALESCED = 60;
+const RAGE_HALF_LIFE = 30;
+const RAGE_QUARTER_LIFE = 30;
 const EFFECT_FRAME_COUNT = 6;
 
 let typesReady = false;
@@ -53,7 +58,6 @@ export class GraniteEnergyStorm extends ModNPC {
         super();
         this.Texture = 'NPCs/Boss/GraniteEnergyStorm/' + this.constructor.name;
         this.effectFrameY = 0;
-        this.rage = 0;
         this.generate = 0;
         this._effectTex = null;
         this._effect2Tex = null;
@@ -98,11 +102,12 @@ export class GraniteEnergyStorm extends ModNPC {
         npc.ai[3] = COALESCED_COOLDOWN;
     }
 
-    _updateRage(npc) {
-        this.rage = 0;
-        if (coalescedType >= 0 && NPC_COUNT(coalescedType) === 0) this.rage += 60;
-        if (npc.life < npc.lifeMax * 0.5) this.rage += 30;
-        if (npc.life < npc.lifeMax * 0.25) this.rage += 30;
+    _rage(life, lifeMax, coalescedJustSpawned) {
+        let rage = 0;
+        if (coalescedJustSpawned || (coalescedType >= 0 && NPC_COUNT(coalescedType) === 0)) rage += RAGE_NO_COALESCED;
+        if (life < lifeMax * 0.5) rage += RAGE_HALF_LIFE;
+        if (life < lifeMax * 0.25) rage += RAGE_QUARTER_LIFE;
+        return rage;
     }
 
     _fireCharge(npc, player, center) {
@@ -146,9 +151,9 @@ export class GraniteEnergyStorm extends ModNPC {
         npc.velocity = velocity;
     }
 
-    _createChargeDust(npc) {
+    _createChargeDust(npc, center) {
         const offset = Vector2.new(Rand.Next(-75, 76), Rand.Next(-75, 76));
-        const position = Vector2.new(npc.Center.X - 2 + offset.X, npc.Center.Y - 6 + offset.Y);
+        const position = Vector2.new(center.X - 2 + offset.X, center.Y - 6 + offset.Y);
         const dustIndex = Effects.NewDust(position, 20, 20, 15, 0, 0, 255, Color.White, 1.5);
         const dust = Main.dust[dustIndex];
 
@@ -250,46 +255,55 @@ export class GraniteEnergyStorm extends ModNPC {
             return;
         }
 
-        this._updateRage(npc);
-        npc.ai[3]++;
+        const ai = npc.ai;
+        const life = npc.life;
+        const lifeMax = npc.lifeMax;
+
+        EnergyStormState.enraged = life < lifeMax * ENRAGE_THRESHOLD;
+
+        ai[3]++;
 
         const center = npc.Center;
-        const canHitPlayer = !player.dead && CAN_HIT(npc.position, npc.width, npc.height, player.position, player.width, player.height);
+        const canHitPlayer = CAN_HIT(npc.position, npc.width, npc.height, player.position, player.width, player.height);
 
-        if (npc.ai[3] >= COALESCED_SPAWN_TIME) this._spawnCoalescedEnergy(npc, center);
-        if (npc.ai[3] === 1) this._spawnBarriers(npc, center);
+        let coalescedJustSpawned = false;
+        if (ai[3] >= COALESCED_SPAWN_TIME) {
+            this._spawnCoalescedEnergy(npc, center);
+            coalescedJustSpawned = true;
+        }
+        if (ai[3] === 1) this._spawnBarriers(npc, center);
 
         // O contador do tiro so' comeca a correr depois dos 75% de vida.
-        if (!player.dead && npc.life < npc.lifeMax * 0.75) {
-            npc.ai[1]++;
-            if (npc.ai[1] >= CHARGE_DELAY && canHitPlayer) {
+        if (life < lifeMax * 0.75) {
+            ai[1]++;
+            if (ai[1] >= CHARGE_DELAY && canHitPlayer) {
                 this._fireCharge(npc, player, center);
-                npc.ai[1] = this.rage;
+                ai[1] = this._rage(life, lifeMax, coalescedJustSpawned);
             }
         }
 
-        if (npc.life < npc.lifeMax * 0.5 && Main.expertMode) {
+        if (life < lifeMax * 0.5 && Main.expertMode) {
             this.generate++;
             if (this.generate > CONDUIT_DELAY && canHitPlayer && conduitType >= 0 && NPC_COUNT(conduitType) < 5) this._spawnConduit(npc, center);
         }
 
         // O timer do dash so' avanca com linha de visao para o jogador.
         if (canHitPlayer) {
-            npc.ai[0]++;
+            ai[0]++;
 
-            if (npc.ai[0] >= DASH_PREPARE_TIME) {
-                npc.ai[1] = 0;
+            if (ai[0] >= DASH_PREPARE_TIME) {
+                ai[1] = 0;
                 npc.velocity = Vector2.new(0, 0);
-                this._createChargeDust(npc);
+                this._createChargeDust(npc, center);
             }
 
-            if (npc.ai[0] >= DASH_TIME) {
+            if (ai[0] >= DASH_TIME) {
                 npc.velocity = Vector2.Multiply(Vector2.SafeNormalize(Vector2.Subtract(player.Center, center), Vector2.UnitX), DASH_SPEED);
-                npc.ai[0] = this.rage;
+                ai[0] = this._rage(life, lifeMax, coalescedJustSpawned);
             }
         }
 
-        if (npc.ai[0] < DASH_PREPARE_TIME) this._updateMovement(npc, player);
+        if (ai[0] < DASH_PREPARE_TIME) this._updateMovement(npc, player);
 
         npc.rotation -= 0.05;
     }

@@ -1,6 +1,7 @@
 import { Terraria, Modules, Microsoft } from './../../../../TL/ModImports.js';
 import { ModNPC } from './../../../../TL/ModNPC.js';
 import { ModProjectile } from './../../../../TL/ModProjectile.js';
+import { EnergyStormState } from './EnergyStormState.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { Main } = Terraria;
@@ -98,8 +99,12 @@ export class CoalescedEnergy extends ModNPC {
         }
     }
 
-    _fireCharge(npc, player) {
-        if (!Main.expertMode || !player || player.dead) return;
+    _fireCharge(npc) {
+        if (!Main.expertMode) return;
+
+        npc.TargetClosest(true);
+        const player = Main.player[npc.target];
+        if (!player || player.dead) return;
 
         const center = npc.Center;
         Effects.PlaySound(Terraria.ID.SoundID.Item94, center.X, center.Y);
@@ -112,17 +117,23 @@ export class CoalescedEnergy extends ModNPC {
     }
 
     _updateOrbit(npc, boss) {
-        npc.localAI[ROT] += boss.life < boss.lifeMax * 0.35 ? ORBIT_SPEED_ENRAGED : ORBIT_SPEED;
+        const local = npc.localAI;
 
-        const distance = ORBIT_DISTANCE + npc.localAI[DISTANCE] / ORBIT_DISTANCE_OFFSET;
-        const angle = npc.localAI[ROT] + npc.ai[1] * ORBIT_ANGLE;
+        local[ROT] += EnergyStormState.enraged ? ORBIT_SPEED_ENRAGED : ORBIT_SPEED;
 
-        npc.Center = Vector2.Add(boss.Center, Vector2.RotatedBy(Vector2.new(0, distance), angle));
+        const distance = ORBIT_DISTANCE + local[DISTANCE] / ORBIT_DISTANCE_OFFSET;
+        const angle = local[ROT] + npc.ai[1] * ORBIT_ANGLE;
+        const bossCenter = boss.Center;
+
+        npc.Center = Vector2.new(
+            bossCenter.X - Math.sin(angle) * distance,
+            bossCenter.Y + Math.cos(angle) * distance
+        );
         npc.rotation -= 0.01;
 
-        npc.localAI[DISTANCE] += npc.localAI[DISTANCE_SHIFT] ? -1 : 1;
-        if (npc.localAI[DISTANCE] > ORBIT_DISTANCE) npc.localAI[DISTANCE_SHIFT] = 1;
-        if (npc.localAI[DISTANCE] <= 0) npc.localAI[DISTANCE_SHIFT] = 0;
+        local[DISTANCE] += local[DISTANCE_SHIFT] ? -1 : 1;
+        if (local[DISTANCE] > ORBIT_DISTANCE) local[DISTANCE_SHIFT] = 1;
+        if (local[DISTANCE] <= 0) local[DISTANCE_SHIFT] = 0;
     }
 
     SetStaticDefaults() {
@@ -150,16 +161,17 @@ export class CoalescedEnergy extends ModNPC {
     }
 
     FindFrame(npc, frameHeight) {
+        const local = npc.localAI;
         const frameSpeed = npc.ai[2] > FLASH_TIME ? 3 : 6;
 
         npc.frameCounter++;
         if (npc.frameCounter > frameSpeed) {
-            npc.localAI[FRAME] = (npc.localAI[FRAME] + 1) % 4;
+            local[FRAME] = (local[FRAME] + 1) % 4;
             npc.frameCounter = 0;
         }
 
         const frame = npc.frame;
-        frame.Y = Math.floor(npc.localAI[FRAME]) * frameHeight;
+        frame.Y = Math.floor(local[FRAME]) * frameHeight;
         npc.frame = frame;
     }
 
@@ -167,7 +179,8 @@ export class CoalescedEnergy extends ModNPC {
         this._loadTextures();
 
         // Durante a carga final o orbe pisca entre os dois glows.
-        const flashing = npc.ai[2] > FLASH_TIME && (npc.ai[2] % 5 === 0 || npc.ai[2] % 6 === 0 || npc.ai[2] % 7 === 0);
+        const charge = npc.ai[2];
+        const flashing = charge > FLASH_TIME && (charge % 5 === 0 || charge % 6 === 0 || charge % 7 === 0);
         const texture = flashing ? (this._glow2Tex ?? this._glowTex) : this._glowTex;
         if (!texture) return true;
 
@@ -192,10 +205,9 @@ export class CoalescedEnergy extends ModNPC {
 
     AI(npc) {
         initializeTypes();
-        npc.TargetClosest(true);
 
-        const player = Main.player[npc.target];
-        const boss = Main.npc[Math.floor(npc.ai[0])];
+        const ai = npc.ai;
+        const boss = Main.npc[Math.floor(ai[0])];
 
         if (!boss || !boss.active || boss.type !== bossType) {
             npc.active = false;
@@ -204,13 +216,13 @@ export class CoalescedEnergy extends ModNPC {
 
         Effects.AddLight(npc.Center, 0.25, 0.5, 0.75);
         this._updateOrbit(npc, boss);
-        npc.ai[2]++;
+        ai[2]++;
 
-        if (npc.ai[2] <= DESPAWN_TIME) return;
+        if (ai[2] <= DESPAWN_TIME) return;
 
         this._createDespawnDust(npc);
-        this._fireCharge(npc, player);
-        npc.ai[2] = 0;
+        this._fireCharge(npc);
+        ai[2] = 0;
     }
 
     HitEffect(npc, hitDirection, damage) {

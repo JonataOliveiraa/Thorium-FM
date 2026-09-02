@@ -1,5 +1,6 @@
 import { Terraria, Modules } from './../../../../TL/ModImports.js';
 import { ModNPC } from './../../../../TL/ModNPC.js';
+import { EnergyStormState } from './EnergyStormState.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
 const { Main } = Terraria;
@@ -107,21 +108,27 @@ export class EnergyBarrier extends ModNPC {
     AI(npc) {
         initializeBossType();
 
-        const boss = Main.npc[Math.floor(npc.ai[0])];
+        const ai = npc.ai;
+        const boss = Main.npc[Math.floor(ai[0])];
         if (!boss || !boss.active || boss.type !== bossType) {
             npc.active = false;
             return;
         }
 
-        npc.localAI[TIMER]++;
-        npc.localAI[ROT] += boss.life < boss.lifeMax * 0.35 ? ORBIT_SPEED_ENRAGED : ORBIT_SPEED;
+        const local = npc.localAI;
+        local[TIMER]++;
+        local[ROT] += EnergyStormState.enraged ? ORBIT_SPEED_ENRAGED : ORBIT_SPEED;
 
-        const angle = npc.localAI[ROT] + npc.ai[2] * ORBIT_ANGLE;
-        npc.Center = Vector2.Add(boss.Center, Vector2.RotatedBy(Vector2.new(0, ORBIT_RADIUS), angle));
+        const angle = local[ROT] + ai[2] * ORBIT_ANGLE;
+        const bossCenter = boss.Center;
+        npc.Center = Vector2.new(
+            bossCenter.X - Math.sin(angle) * ORBIT_RADIUS,
+            bossCenter.Y + Math.cos(angle) * ORBIT_RADIUS
+        );
 
         this._createTrailDust(npc);
 
-        if (npc.localAI[TIMER] < LIFETIME) return;
+        if (local[TIMER] < LIFETIME) return;
 
         this._createDespawnDust(npc);
         npc.active = false;
