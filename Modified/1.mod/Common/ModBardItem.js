@@ -1,9 +1,9 @@
 // ModBardItem.js
 import { ThoriumPlayer } from "../Content/Global/ThoriumPlayer.js";
 import { ModItem } from "../TL/ModItem.js";
-import { PrefixUtils } from "../TL/Modules/Utils/Prefix.js";
 import { PlayerDB } from "../TL/PlayerDB.js";
 import { Rand } from "../TL/Modules/Rand.js";
+import { ModPrefix } from "../TL/ModPrefix.js";
 
 export class ModBardItem extends ModItem {
     static bardItemsName = new Set();
@@ -17,7 +17,35 @@ export class ModBardItem extends ModItem {
 
     constructor() {
         super();
-        this.RollablePrefixes = [...PrefixUtils.MagicPrefixes];
+    }
+
+    MeleePrefix(item) {
+        return false;
+    }
+
+    RangedPrefix(item) {
+        return false;
+    }
+
+    MagicPrefix(item) {
+        return false;
+    }
+
+    SummonPrefix(item) {
+        return false;
+    }
+
+    WeaponPrefix(item) {
+        return false;
+    }
+
+    HoldItem(item, player) {
+        if (!ModPrefix.isModType(item.prefix)) return;
+
+        const prefix = ModPrefix.getModPrefix(item.prefix);
+        if (!prefix || typeof prefix.EmpowermentTicks !== 'number') return;
+
+        ThoriumPlayer.class.Bard.bardBuffDurationFlat += prefix.EmpowermentTicks;
     }
 
     ModifyWeaponDamage(item, player, damage) {
@@ -38,9 +66,6 @@ export class ModBardItem extends ModItem {
         if (this.useWheel && player.itemAnimation === player.itemAnimationMax) {
             const cls = ThoriumPlayer.class.Bard;
 
-            // O recurso so e registrado quando a inspiracao e REALMENTE
-            // descontada. Antes era gravado sempre, mesmo no uso gratuito
-            // (quando a rolagem de inspirationConsume falhava).
             if (Rand.NextFloat() < cls.inspirationConsume) {
                 const current = PlayerDB.get("Inspiration") ?? 0;
                 PlayerDB.set("Inspiration", Math.max(0, current - this.inspirationCost));
