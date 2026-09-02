@@ -56,6 +56,7 @@
     "GuardiansWig": "Guardian's Wig",
     "GuardiansCloak": "Guardian's Cloak",
     "GuardiansBoots": "Guardian's Boots",
+    "BlacksmithApron": "Blacksmith's Apron",
     "MalignantCap": "Malignant Cap",
     "MalignantRobe": "Malignant Robe",
     "TotemCaller": "Totem Caller",
@@ -502,6 +503,7 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "BlacksmithApron": "'Forging power increased by 15%! ...Not really'",
     "Flute": "Releases a weakly homing flute toot",
     "Pill": "Throws out a bouncing pill\nUse smart interaction to throw a pill that boosts your life recovery",
     "Bonesaw": "Killing an enemy grants you 2 'organs', allowing you to store up to 10\nUse smart interaction to chuck a stored organ at enemies",

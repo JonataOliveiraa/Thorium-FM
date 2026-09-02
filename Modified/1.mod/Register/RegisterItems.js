@@ -52,6 +52,7 @@ import { TrashBoots } from '../Content/Items/Donate/TrashBoots.js';
 import { GuardiansWig } from '../Content/Items/Donate/GuardiansWig.js';
 import { GuardiansCloak } from '../Content/Items/Donate/GuardiansCloak.js';
 import { GuardiansBoots } from '../Content/Items/Donate/GuardiansBoots.js';
+import { BlacksmithApron } from '../Content/Items/NPCItems/BlacksmithApron.js';
 import { Flute } from '../Content/Items/Bard/Flute.js';
 import { Pill } from '../Content/Items/Healer/Pill.js';
 import { Bonesaw } from '../Content/Items/Healer/Bonesaw.js';
@@ -934,6 +935,7 @@ const List = [
     GuardiansWig,
     GuardiansCloak,
     GuardiansBoots,
+    BlacksmithApron,
     Flute,
     Pill,
     Bonesaw,

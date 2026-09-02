@@ -128,6 +128,7 @@ export class Blacksmith extends ModNPC {
         ]);
     }
     npcShop.Add(ModItem.getTypeByName('BlacksmithsBarrierShield'));
+    npcShop.Add(ModItem.getTypeByName('BlacksmithApron'));
 
     if (Terraria.NPC.downedQueenBee) {
       npcShop.Add(ModItem.getTypeByName('SuperAnvil'), 1, Terraria.Item.buyPrice(0, 10, 0, 0));

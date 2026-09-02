@@ -56,6 +56,7 @@
     "GuardiansWig": "Peruca do Guardião",
     "GuardiansCloak": "Manto do Guardião",
     "GuardiansBoots": "Botas do Guardião",
+    "BlacksmithApron": "Avental do Ferreiro",
     "MalignantCap": "Chapéu Maligno",
     "MalignantRobe": "Manto Maligno",
     "TotemCaller": "Chamador de Totens",
@@ -502,6 +503,7 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "BlacksmithApron": "'Poder de forja aumentado em 15%! ...Nem tanto'",
     "Flute": "Solta um sopro de flauta que persegue fracamente",
     "Pill": "Arremessa uma pílula que quica\nUse a interação inteligente para lançar uma pílula que acelera sua recuperação de vida",
     "Bonesaw": "Matar um inimigo te dá 2 'órgãos', até um limite de 10\nUse a interação inteligente para arremessar um órgão guardado",
