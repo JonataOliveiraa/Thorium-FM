@@ -44,6 +44,14 @@ export class SuspiciousMoisturizerBottlePro extends ModProjectile {
     SetStaticDefaults() {
         Main.projFrames[this.Type] = 11;
         Main.projPet[this.Type] = true;
+
+        // Sem isto a tela de selecao de personagem trava ao tentar animar o pet.
+        Terraria.ID.ProjectileID.Sets.CharacterPreviewAnimations[this.Type] = Terraria.ID.ProjectileID.Sets.SimpleLoop(
+            0, Main.projFrames[this.Type],
+            8, false
+        )['SettingsForCharacterPreview WithOffset(float x, float y)'](
+            -5, -20
+        ).WithSpriteDirection(-1);
     }
 
     SetDefaults() {

@@ -17,6 +17,8 @@ const _bubbleFrame = new Int8Array(MAX_PROJ);
 const _bubbleCounter = new Int16Array(MAX_PROJ);
 
 export class DiverPlushiePro extends ModProjectile {
+    // Frames 0-3 sao o ciclo de nado; 4 e 5 sao a pose agarrada no jogador.
+    static SWIM_FRAMES = 4;
     static BOREDOM_MAX = 300;
     static HEAD_OFFSET = 26;
     static SEEK_RANGE_SQ = 250000;
@@ -37,6 +39,15 @@ export class DiverPlushiePro extends ModProjectile {
     SetStaticDefaults() {
         Main.projFrames[this.Type] = 6;
         Main.projPet[this.Type] = true;
+
+        // Sem isto a tela de selecao de personagem trava ao tentar animar o pet.
+        // Só o ciclo de nado (0-3): os frames 4 e 5 são a pose agarrada no jogador.
+        Terraria.ID.ProjectileID.Sets.CharacterPreviewAnimations[this.Type] = Terraria.ID.ProjectileID.Sets.SimpleLoop(
+            0, DiverPlushiePro.SWIM_FRAMES,
+            7, false
+        )['SettingsForCharacterPreview WithOffset(float x, float y)'](
+            -5, -20
+        ).WithSpriteDirection(1);
     }
 
     SetDefaults() {
@@ -133,7 +144,7 @@ export class DiverPlushiePro extends ModProjectile {
 
         if (dx * dx + dy * dy <= 1) {
             _latch[slot] = 1;
-            if (proj.frame < 4) proj.frame = 4;
+            if (proj.frame < DiverPlushiePro.SWIM_FRAMES) proj.frame = DiverPlushiePro.SWIM_FRAMES;
         }
 
         if (!_latch[slot]) return;
@@ -189,13 +200,13 @@ export class DiverPlushiePro extends ModProjectile {
                 proj.frame++;
                 proj.frameCounter = 0;
             }
-            if (proj.frame >= max) proj.frame = 4;
+            if (proj.frame >= max) proj.frame = DiverPlushiePro.SWIM_FRAMES;
         } else {
             if (proj.frameCounter > 6) {
                 proj.frame++;
                 proj.frameCounter = 0;
             }
-            if (proj.frame >= 4) proj.frame = 0;
+            if (proj.frame >= DiverPlushiePro.SWIM_FRAMES) proj.frame = 0;
         }
     }
 
