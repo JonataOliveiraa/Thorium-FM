@@ -154,6 +154,9 @@ export class ThoriumPlayer extends ModPlayer {
   static IcyArmorPro = false;
 
   static accVibrationTuner = false
+  static accMixtape = false;
+  static setNoble = false;
+  static bardResourceDropBoost = 0;
   static accShockAbsorber = false;
   static accJarOMayo = false;
   static debuffStaggered = false;
@@ -316,7 +319,9 @@ export class ThoriumPlayer extends ModPlayer {
     if (!PlayerDB.has("Inspiration")) PlayerDB.set("Inspiration", 0);
     if (!PlayerDB.has("InspirationMax")) PlayerDB.set("InspirationMax", 10);
     if (!PlayerDB.has("BardBuffDurationX")) PlayerDB.set("BardBuffDurationX", 1.0);
+
     PlayerDB.set("Inspiration", 0);
+
     ThoriumPlayer.PreviousInspiration = 0;
     ThoriumPlayer.RegenCooldown = 60;
     ThoriumPlayer.coralPolearmCharge = 0;
@@ -367,6 +372,9 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.GiantShellSpineEquipped = false;
 
     ThoriumPlayer.accVibrationTuner = false
+    ThoriumPlayer.accMixtape = false;
+    ThoriumPlayer.setNoble = false;
+    ThoriumPlayer.bardResourceDropBoost = 0;
     ThoriumPlayer.accShockAbsorber = false;
     ThoriumPlayer.accJarOMayo = false;
     ThoriumPlayer.accReducedKnockback = false;
@@ -1253,7 +1261,9 @@ export class ThoriumPlayer extends ModPlayer {
   static TriggerNoviceClericCross(npc) {
     for (const id of ThoriumPlayer.NoviceClericCrossIds) {
       const p = Terraria.Main.projectile[id];
+
       if (!p || !p.active) { ThoriumPlayer.NoviceClericCrossIds.delete(id); continue; }
+
       const pai = new ProjAI(p, false);
       if (pai[0] === 0) {
         pai[0] = 1;
@@ -1416,6 +1426,7 @@ export class ThoriumPlayer extends ModPlayer {
       } else {
         ThoriumPlayer.class.Bard.inspirationRegenTimer = 0;
         PlayerDB.set("Inspiration", CurrentInspiration + 1);
+
         if (ThoriumPlayer.num1 < 5.0) ThoriumPlayer.num1 += 0.15;
       }
     }
@@ -1436,6 +1447,7 @@ export class ThoriumPlayer extends ModPlayer {
     if (!ThoriumPlayer.accShockAbsorber) {
       ThoriumPlayer.accShockAbsorberStorage = 0;
       ThoriumPlayer._shockAbsorberKeyHeld = false;
+
       return;
     }
 
@@ -1474,7 +1486,6 @@ export class ThoriumPlayer extends ModPlayer {
     }
     if (ThoriumPlayer._shockAbsorberBuffType < 0) return;
 
-    // 3s por 100 de dano guardado, teto de 30s no estoque cheio.
     const duration = ThoriumPlayer.ShockAbsorberTicksPer100 * Math.floor(ThoriumPlayer.accShockAbsorberStorage / 100);
     if (duration <= 0) return;
 
