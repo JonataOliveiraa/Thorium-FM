@@ -1,4 +1,5 @@
 import { Terraria, Modules } from './../../../TL/ModImports.js';
+import { ShopIcon } from './../../UI/ShopIcon.js';
 import { ModNPC } from './../../../TL/ModNPC.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModLocalization } from './../../../TL/ModLocalization.js';
@@ -99,11 +100,7 @@ export class Blacksmith extends ModNPC {
   SetChatButtons(npc, player, button1, button2) {
     button1.text = Terraria.Localization.Language.GetText('LegacyInterface.28').Value;
 
-    // NPCHeadSlot() retorna -1 se o _Head nao existir, e NpcHead[-1] quebra
-    const headSlot = this.NPCHeadSlot();
-    button1.texture = headSlot >= 0
-      ? Terraria.GameContent.TextureAssets.NpcHead[headSlot].Value
-      : null;
+    button1.texture = ShopIcon.Texture();
 
     button1.cost = 0;
   }
@@ -129,6 +126,10 @@ export class Blacksmith extends ModNPC {
         ]);
     }
     npcShop.Add(ModItem.getTypeByName('BlacksmithsBarrierShield'));
+
+    if (Terraria.NPC.downedQueenBee) {
+      npcShop.Add(ModItem.getTypeByName('SuperAnvil'), 1, Terraria.Item.buyPrice(0, 10, 0, 0));
+    }
   }
 
   ModifyNPCHappiness(npc, player, PrimaryPlayerBiome, shopHelper, nearbyNPCsByType) {

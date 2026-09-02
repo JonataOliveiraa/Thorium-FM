@@ -7,11 +7,17 @@ import { ThoriumPlayer } from '../Global/ThoriumPlayer.js';
 const { Vector2 } = Modules;
 const { Main } = Terraria;
 
-const COUNT = 5;                 // penas por barreira
-const DAMAGE_REDUCTION = 0.3;    // 30% menos dano enquanto a barreira existe
+const COUNT = 5;
 const RADIUS = 46;
 const SPIN = 0.03;
-const LIFE = 600;                // 10s
+const LIFE = 600;
+const SHADOWFLAME_TIME = 20;
+
+const LAYER_DEFAULT = 0;
+const LAYER_OVER_PLAYERS = 4;
+
+const DEPTH_SCALE_MIN = 0.8;
+const DEPTH_SCALE_RANGE = 0.25;
 
 /**
  * Pena da barreira: as 5 giram em volta do dono, batem em quem encostar e
@@ -75,8 +81,9 @@ export class FeatherBarrier extends ModProjectile {
         proj.rotation = angle + Math.PI / 2;
         proj.spriteDirection = Math.cos(angle) > 0 ? 1 : -1;
 
-        // Uma pena so aplica a reducao, senao as 5 empilhariam
-        if (index === 0) player.endurance += DAMAGE_REDUCTION;
+        const depth = Math.sin(angle);
+        proj.drawLayer = depth > 0 ? LAYER_OVER_PLAYERS : LAYER_DEFAULT;
+        proj.scale = DEPTH_SCALE_MIN + (depth + 1) * 0.5 * DEPTH_SCALE_RANGE;
 
         // Piscando no fim pra avisar que vai acabar
         proj.alpha = proj.timeLeft < 120 && (proj.timeLeft % 10 < 5) ? 150 : 0;
@@ -84,7 +91,7 @@ export class FeatherBarrier extends ModProjectile {
 
     OnHitNPC(proj, npc) {
         if (ThoriumPlayer.RadiantCorruptionActive) {
-            npc.AddBuff(Terraria.ID.BuffID.ShadowFlame, 180, false);
+            npc.AddBuff(Terraria.ID.BuffID.ShadowFlame, SHADOWFLAME_TIME, false);
         }
     }
 

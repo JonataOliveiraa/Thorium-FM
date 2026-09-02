@@ -1,28 +1,23 @@
 import { ModHealerItem } from '../../../Common/ModHealerItem.js';
 import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
+import { ArcaneArmorFabricator } from '../../Global/Tiles/ArcaneArmorFabricator.js';
 
-const { Vector2, Effects } = Modules;
+const { Vector2 } = Modules;
 const { Main } = Terraria;
+
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
+const PlaySound = Terraria.Audio.SoundEngine['SoundEffectInstance PlaySound(LegacySoundStyle type, Vector2 position, float pitchOffset, float volumeScale)'];
 
 const FEATHERS = 5;
 
 let _barrierType = -1;
-let _feartherProType = -1;
-
-function isAltPressed(player) {
-    return player.altFunctionUse === 2
-        || player.controlUseTile
-        || player.controlInteraction
-        || player.controlSmart;
-}
+let _featherProType = -1;
 
 export class FeatherBarrierRod extends ModHealerItem {
     constructor() {
         super();
         this.Texture = 'Items/Healer/' + this.constructor.name;
-        this._altShot = false;
     }
 
     SetStaticDefaults() {
@@ -36,70 +31,48 @@ export class FeatherBarrierRod extends ModHealerItem {
         this.Item.height = 20;
         this.Item.useTime = 30;
         this.Item.useAnimation = 30;
-        this.Item.useStyle = 5;
+        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
         this.Item.noMelee = true;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
-        this.Item.rare = 2;
+        this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.UseSound = Terraria.ID.SoundID.Item24;
         this.Item.shootSpeed = 12;
 
-        if (_feartherProType === -1) _feartherProType = ModProjectile.getTypeByName('FeatherBarrierPro') ?? -2;
-        if (_feartherProType >= 0) this.Item.shoot = _feartherProType;
-    }
-
-    // Botao direito (ou toque secundario) monta a barreira em volta de voce
-    AltFunctionUse(item, player) {
-        return true;
-    }
-
-    /**
-     * Roda antes do Shoot. E aqui que da pra ler os controles com seguranca,
-     * entao guardamos o modo pra usar la embaixo.
-     */
-    ModifyShootStats(item, player, stats) {
-        this._altShot = isAltPressed(player);
-        return stats;
+        if (_featherProType === -1) _featherProType = ModProjectile.getTypeByName('FeatherBarrierPro') ?? -2;
+        if (_featherProType >= 0) this.Item.shoot = _featherProType;
     }
 
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        const alt = this._altShot || isAltPressed(player);
-        this._altShot = false;
+        this.RefreshBarrier(player, damage, knockBack);
+        return true;
+    }
 
-        if (!alt) return true;
-
+    RefreshBarrier(player, damage, knockBack) {
         if (_barrierType === -1) _barrierType = ModProjectile.getTypeByName('FeatherBarrier') ?? -2;
-        if (_barrierType < 0) return true;
+        if (_barrierType < 0) return;
 
-        // Refaz a barreira do zero: derruba as penas antigas primeiro
         for (let i = 0; i < Main.maxProjectiles; i++) {
             const old = Main.projectile[i];
-            if (old && old.active && old.owner === player.whoAmI && old.type === _barrierType) {
-                old.Kill();
-            }
+            if (old && old.active && old.owner === player.whoAmI && old.type === _barrierType) old.Kill();
         }
 
-        const source = null;
         const center = player.Center;
 
         for (let i = 0; i < FEATHERS; i++) {
             NewProjectile(
-                source, center, Vector2.Zero,
+                null, center, Vector2.Zero,
                 _barrierType, damage, knockBack, player.whoAmI,
                 i, 0, 0, null
             );
         }
 
-        // Sem o botao direito no mobile o retorno visual/sonoro e o que deixa
-        // claro que a barreira subiu
-        Effects.PlaySound(Terraria.ID.SoundID.Item25, center.X, center.Y);
-
-        return false;
+        PlaySound(Terraria.ID.SoundID.Item25, center, 0, 1);
     }
 
     AddRecipes() {
         this.CreateRecipe(1)
             .AddIngredient(Terraria.ID.ItemID.Feather, 8)
-            .AddTile(Terraria.ID.TileID.Anvils)
+            .AddTile(ArcaneArmorFabricator.Type)
             .Register();
     }
 }

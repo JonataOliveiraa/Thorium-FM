@@ -2,6 +2,8 @@ import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 
 export class HydroPickaxe extends ModItem {
+  static WET_SPEED = 0.6;
+
   constructor() {
     super();
     this.Texture = 'Items/Aquaite/' + this.constructor.name;
@@ -26,6 +28,10 @@ export class HydroPickaxe extends ModItem {
     this.Item.value = Terraria.Item.buyPrice(0, 0, 36, 0);
     this.Item.rare = Terraria.ID.ItemRarityID.Green;
     this.Item.UseSound = Terraria.ID.SoundID.Item1;
+  }
+
+  UseTimeMultiplier(item, player) {
+    return player.wet ? HydroPickaxe.WET_SPEED : 1;
   }
 
   AddRecipes() {
