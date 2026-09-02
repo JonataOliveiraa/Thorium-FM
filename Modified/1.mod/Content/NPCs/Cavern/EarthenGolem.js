@@ -231,8 +231,8 @@ export class EarthenGolem extends ModNPC {
         FxHelper.burst(npc.position, npc.width, npc.height, count, 53, 1, 0.75, 75, false);
     }
 
-    // TODO: HeartOfStone (1/20) quando o acessorio existir
     ModifyNPCLoot(npcLoot) {
         npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('SmoothCoal'), 2, 1, 1));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('HeartOfStone'), 20, 1, 1));
     }
 }

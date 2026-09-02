@@ -33,5 +33,6 @@ export class ThunderBirdBag extends ModItem {
     const choice = items[Rand.Next(0, items.length)];
     QuickSpawnItem(source, choice, 1);
     QuickSpawnItem(source, ModItem.getTypeByName('SandstoneIngot'), Rand.Next(22, 26))
+    QuickSpawnItem(source, ModItem.getTypeByName('ZephyrsGrip'), 1);
   }
 }

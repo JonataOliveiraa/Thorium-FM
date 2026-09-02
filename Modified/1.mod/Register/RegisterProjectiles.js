@@ -17,6 +17,23 @@ import { RottenMeatPro } from '../Content/Pets/RottenMeat/RottenMeatPro.js';
 import { StormCloudPro } from '../Content/Pets/StormCloud/StormCloudPro.js';
 import { StormCloudProRain } from '../Content/Pets/StormCloud/StormCloudProRain.js';
 import { DiverPlushiePro } from '../Content/Pets/DiverPlushie/DiverPlushiePro.js';
+import { FrozenTiaraPro } from '../Content/Pets/FrozenTiara/FrozenTiaraPro.js';
+import { Maid1 } from '../Content/Pets/Maid/Maid1.js';
+import { Maid2 } from '../Content/Pets/Maid/Maid2.js';
+import { BalloonBallPro } from '../Content/Pets/BalloonBall/BalloonBallPro.js';
+import { WyvernPet } from '../Content/Pets/Wyvern/WyvernPet.js';
+import { AnglerBowlPro } from '../Content/Pets/AnglerBowl/AnglerBowlPro.js';
+import { JewellersWallGripPro } from '../Content/Projectiles/JewellersWallGripPro.js';
+import { ZephyrsGripPro } from '../Content/Projectiles/ZephyrsGripPro.js';
+import { ZephyrsGripHatchlingPro } from '../Content/Projectiles/ZephyrsGripHatchlingPro.js';
+import { FieryTotemPlaced } from '../Content/Projectiles/Minions/FieryTotemPlaced.js';
+import { GroundedTotemPlaced } from '../Content/Projectiles/Minions/GroundedTotemPlaced.js';
+import { MistyTotemPlaced } from '../Content/Projectiles/Minions/MistyTotemPlaced.js';
+import { WindyTotemPlaced } from '../Content/Projectiles/Minions/WindyTotemPlaced.js';
+import { FieryTotemPro } from '../Content/Projectiles/Minions/FieryTotemPro.js';
+import { GroundedTotemPro } from '../Content/Projectiles/Minions/GroundedTotemPro.js';
+import { MistyTotemPro } from '../Content/Projectiles/Minions/MistyTotemPro.js';
+import { WindyTotemPro } from '../Content/Projectiles/Minions/WindyTotemPro.js';
 
 // Granite Energy Storm Projectiles
 import { GraniteCharge } from '../Content/Projectiles/Boss/GraniteCharge.js';
@@ -603,6 +620,23 @@ const List = [
   StormCloudPro,
   StormCloudProRain,
   DiverPlushiePro,
+  FrozenTiaraPro,
+  Maid1,
+  Maid2,
+  BalloonBallPro,
+  WyvernPet,
+  AnglerBowlPro,
+  JewellersWallGripPro,
+  ZephyrsGripPro,
+  ZephyrsGripHatchlingPro,
+  FieryTotemPro,
+  GroundedTotemPro,
+  MistyTotemPro,
+  WindyTotemPro,
+  FieryTotemPlaced,
+  GroundedTotemPlaced,
+  MistyTotemPlaced,
+  WindyTotemPlaced,
   SpittingFishPro,
   SpittingFishPro2,
 ]

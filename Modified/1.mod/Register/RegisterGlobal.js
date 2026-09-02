@@ -21,6 +21,9 @@ import { ThoriumPlayer } from '../Content/Global/ThoriumPlayer.js'
 // Loot
 import { gNPCsLoot } from '../Content/Global/gNPCsLoot.js'
 import { gTilesLoot } from '../Content/Global/gTilesLoot.js'
+import { gTilesMining } from '../Content/Global/gTilesMining.js'
+import { gContracts } from '../Content/Global/Contracts/gContracts.js'
+import { InterfaceHooks } from '../Content/Global/Hooks/InterfaceHooks.js'
 
 // Tiles
 import { LifeQuartzTile } from '../Content/Global/Tiles/LifeQuartzTile.js'
@@ -73,6 +76,7 @@ const List = [
   // GlobalLoot
   gNPCsLoot,
   gTilesLoot,
+  gTilesMining,
   
   // GlobalTile
   LifeQuartzTile,
@@ -95,6 +99,8 @@ const List = [
   
   // GlobalNPC
   UpdateNPCBuff,
+  gContracts,
+  InterfaceHooks,
 
   //Tests
   ItemsClassIcon

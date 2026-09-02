@@ -240,7 +240,7 @@ export class Empowerments {
       const request = AdvancedPopupRequest.new();
       request.Text = text;
       request.Color = color;
-      request.DurationInFrames = 90;            // 1.5 segundos
+      request.DurationInFrames = 90;              // 1.5 segundos
       request.Velocity = Vector2.new(0, -3);    // sobe suavemente
 
       // Posição inicial: acima do jogador (evita que nasça dentro dele)

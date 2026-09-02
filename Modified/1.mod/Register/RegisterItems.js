@@ -10,6 +10,29 @@ import { SuspiciousMoisturizerBottle } from '../Content/Pets/SuspiciousMoisturiz
 import { RottenMeat } from '../Content/Pets/RottenMeat/RottenMeat.js';
 import { StormCloud } from '../Content/Pets/StormCloud/StormCloud.js';
 import { DiverPlushie } from '../Content/Pets/DiverPlushie/DiverPlushie.js';
+import { FrozenTiara } from '../Content/Pets/FrozenTiara/FrozenTiara.js';
+import { SimpleBroom } from '../Content/Pets/Maid/SimpleBroom.js';
+import { BalloonBall } from '../Content/Pets/BalloonBall/BalloonBall.js';
+import { CloudyChewToy } from '../Content/Pets/Wyvern/CloudyChewToy.js';
+import { AnglerBowl } from '../Content/Pets/AnglerBowl/AnglerBowl.js';
+import { MassiveCrabClaw } from '../Content/Items/NPCItems/MassiveCrabClaw.js';
+import { SuperAnvil } from '../Content/Items/Donate/SuperAnvil.js';
+import { JewellersWallGrip } from '../Content/Items/Hook/JewellersWallGrip.js';
+import { ZephyrsGrip } from '../Content/Items/Hook/ZephyrsGrip.js';
+import { HeartOfStone } from '../Content/Items/Donate/HeartOfStone.js';
+import { VampirePickaxe } from '../Content/Items/Donate/VampirePickaxe.js';
+import { EnchantedPickaxe } from '../Content/Items/Misc/EnchantedPickaxe.js';
+import { MidnightOil } from '../Content/Items/Consumable/MidnightOil.js';
+import { WaterChestnut } from '../Content/Items/Depth/WaterChestnut.js';
+import { SpringWater } from '../Content/Items/Depth/SpringWater.js';
+import { VanquisherMedal } from '../Content/Items/Tracker/VanquisherMedal.js';
+import { TrackersSkinningBlade } from '../Content/Items/Tracker/TrackersSkinningBlade.js';
+import { GlitteringChalice } from '../Content/Items/Tracker/GlitteringChalice.js';
+import { MalignantThread } from '../Content/Items/Tracker/MalignantThread.js';
+import { TheseusThread } from '../Content/Items/Tracker/TheseusThread.js';
+import { TotemCaller } from '../Content/Items/Tracker/TotemCaller.js';
+import { MalignantCap } from '../Content/Items/Tracker/MalignantCap.js';
+import { MalignantRobe } from '../Content/Items/Tracker/MalignantRobe.js';
 
 // Buried Champion Items
 import { ChampionSwiftBlade } from '../Content/Items/BossBuriedChampion/ChampionSwiftBlade.js';
@@ -846,6 +869,29 @@ const List = [
     RottenMeat,
     StormCloud,
     DiverPlushie,
+    FrozenTiara,
+    SimpleBroom,
+    BalloonBall,
+    CloudyChewToy,
+    AnglerBowl,
+    MassiveCrabClaw,
+    SuperAnvil,
+    JewellersWallGrip,
+    ZephyrsGrip,
+    HeartOfStone,
+    VampirePickaxe,
+    EnchantedPickaxe,
+    MidnightOil,
+    WaterChestnut,
+    SpringWater,
+    VanquisherMedal,
+    TrackersSkinningBlade,
+    GlitteringChalice,
+    MalignantThread,
+    TheseusThread,
+    TotemCaller,
+    MalignantCap,
+    MalignantRobe,
     SpittingFish,
 ]
 export function RegisterItems() {

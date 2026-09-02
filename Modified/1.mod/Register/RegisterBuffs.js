@@ -6,6 +6,14 @@ import { SuspiciousMoisturizerBottleBuff } from "../Content/Pets/SuspiciousMoist
 import { RottenMeatBuff } from "../Content/Pets/RottenMeat/RottenMeatBuff.js";
 import { StormCloudBuff } from "../Content/Pets/StormCloud/StormCloudBuff.js";
 import { DiverPlushieBuff } from "../Content/Pets/DiverPlushie/DiverPlushieBuff.js";
+import { FrozenTiaraBuff } from "../Content/Pets/FrozenTiara/FrozenTiaraBuff.js";
+import { MaidBuff } from "../Content/Pets/Maid/MaidBuff.js";
+import { BalloonBallBuff } from "../Content/Pets/BalloonBall/BalloonBallBuff.js";
+import { WyvernPetBuff } from "../Content/Pets/Wyvern/WyvernPetBuff.js";
+import { AnglerBowlBuff } from "../Content/Pets/AnglerBowl/AnglerBowlBuff.js";
+import { MidnightOilBuff } from "../Content/Buffs/Potions/MidnightOilBuff.js";
+import { MassiveCrabClawBuff } from "../Content/Buffs/Mounts/MassiveCrabClawBuff.js";
+import { SuperAnvilBuff } from "../Content/Buffs/Mounts/SuperAnvilBuff.js";
 
 import { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
 import { PrehistoricAmberStaffBuff } from "../Content/Buffs/PrehistoricAmberStaffBuff.js";
@@ -129,6 +137,14 @@ const List = [
     RottenMeatBuff,
     StormCloudBuff,
     DiverPlushieBuff,
+    FrozenTiaraBuff,
+    MaidBuff,
+    BalloonBallBuff,
+    WyvernPetBuff,
+    AnglerBowlBuff,
+    MidnightOilBuff,
+    MassiveCrabClawBuff,
+    SuperAnvilBuff,
 ];
 
 export function RegisterBuffs() {

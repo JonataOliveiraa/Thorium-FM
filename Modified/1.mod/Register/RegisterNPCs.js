@@ -14,6 +14,7 @@ import { MagicalBurst } from '../Content/NPCs/Boss/BossBuriedChampion/MagicalBur
 // Town NPCs
 import { Blacksmith } from '../Content/NPCs/Town/Blacksmith.js';
 import { DesertAcolyte } from '../Content/NPCs/Town/DesertAcolyte.js';
+import { Tracker } from '../Content/NPCs/Town/Tracker.js';
 
 // Dungeon
 import { BigBone } from '../Content/NPCs/Dungeon/BigBone.js';
@@ -136,6 +137,7 @@ const List = [
     MagicalBurst,
     Blacksmith,
     DesertAcolyte,
+    Tracker,
     ConfusedZombie,
     Cobbler,
     Diverman,

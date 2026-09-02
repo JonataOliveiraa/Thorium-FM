@@ -109,6 +109,8 @@ export class ThoriumPlayer extends ModPlayer {
 
   // Basic
   static BossKillTimer = 0;
+  static anvilFalling = 0;
+  static zephyrsGripCanSpawnHatchling = true;
   static InCombat = false;
   static CombatTimer = 0;
   static CombatDelay = 320;
@@ -157,6 +159,19 @@ export class ThoriumPlayer extends ModPlayer {
   static accMixtape = false;
   static setNoble = false;
   static bardResourceDropBoost = 0;
+  static itemVampirePickaxe = false;
+  static enchantedPickaxeMineDelay = 0;
+  static enchantedPickaxeDustDelay = 0;
+  static enchantedPickaxeTileX = 0;
+  static enchantedPickaxeTileY = 0;
+  static VAMPIRE_PICKAXE_FISH_CHANCE = 0.02;
+  static _vampirePickaxeType = -1;
+  static accGlitteringChalice = false;
+  static totemCallerStage = 0;
+  static totemCallerFade = 1.8;
+  static totemCallerDisplay = false;
+  static skinningBladeMoney = 0;
+  static MIDAS_TIME = 600;
   static accShockAbsorber = false;
   static accJarOMayo = false;
   static debuffStaggered = false;
@@ -375,6 +390,9 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.accMixtape = false;
     ThoriumPlayer.setNoble = false;
     ThoriumPlayer.bardResourceDropBoost = 0;
+    ThoriumPlayer.itemVampirePickaxe = false;
+    ThoriumPlayer.accGlitteringChalice = false;
+    ThoriumPlayer.totemCallerDisplay = false;
     ThoriumPlayer.accShockAbsorber = false;
     ThoriumPlayer.accJarOMayo = false;
     ThoriumPlayer.accReducedKnockback = false;
@@ -519,6 +537,11 @@ export class ThoriumPlayer extends ModPlayer {
 
   PostUpdate(player) {
     if (ThoriumPlayer.BossKillTimer > 0) ThoriumPlayer.BossKillTimer--;
+
+    if (player.velocity.Y === 0) ThoriumPlayer.zephyrsGripCanSpawnHatchling = true;
+
+    if (ThoriumPlayer.enchantedPickaxeDustDelay > 0) ThoriumPlayer.enchantedPickaxeDustDelay--;
+    if (ThoriumPlayer.enchantedPickaxeMineDelay > 0) ThoriumPlayer.enchantedPickaxeMineDelay--;
     // Recarga do Grave Goods. Fica fora do ResetEffects de proposito: precisa
     // continuar correndo mesmo se o acessorio sair da mochila por um instante.
     if (ThoriumPlayer.graveGoodsCooldown > 0) {
@@ -730,6 +753,7 @@ export class ThoriumPlayer extends ModPlayer {
   OnHitNPC(player, item, npc, damageDone, knockBack) {
     ThoriumPlayer.EnterCombat();
     ThoriumPlayer.TryJarOMayo(player);
+    ThoriumPlayer.TryGlitteringChalice(npc);
 
     if (
       ThoriumPlayer.SheathMaxCooldown !== undefined &&
@@ -773,6 +797,7 @@ export class ThoriumPlayer extends ModPlayer {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
     ThoriumPlayer.EnterCombat();
     ThoriumPlayer.TryJarOMayo(player);
+    ThoriumPlayer.TryGlitteringChalice(npc);
 
     if (ThoriumPlayer.championDamage > 0) {
       const hitDir = npc.Center.X < player.Center.X ? -1 : 1;
@@ -1185,6 +1210,18 @@ export class ThoriumPlayer extends ModPlayer {
 
   OnConsumeMana(player, item, manaConsumed) {
     ThoriumPlayer.RegisterResourceSpent(manaConsumed, 0);
+  }
+
+  ModifyCaughtFish(player, itemType) {
+    if (!Main.bloodMoon || !player.ZoneBeach) return itemType;
+    if (!Rand.NextChance(ThoriumPlayer.VAMPIRE_PICKAXE_FISH_CHANCE)) return itemType;
+
+    if (ThoriumPlayer._vampirePickaxeType === -1) {
+      ThoriumPlayer._vampirePickaxeType = ModItem.getTypeByName('VampirePickaxe') ?? -2;
+    }
+    if (ThoriumPlayer._vampirePickaxeType < 0) return itemType;
+
+    return ThoriumPlayer._vampirePickaxeType;
   }
 
   /**
@@ -1739,6 +1776,11 @@ export class ThoriumPlayer extends ModPlayer {
     if (Terraria.ID.NPCID.Sets.Zombies[npc.type]) return true;
     const name = npc.TypeName ?? npc.name ?? '';
     return name.includes('Zombie') || name.includes('Mummy') || name.includes('Ghoul');
+  }
+
+  static TryGlitteringChalice(npc) {
+    if (!ThoriumPlayer.accGlitteringChalice) return;
+    npc.AddBuff(Terraria.ID.BuffID.Midas, ThoriumPlayer.MIDAS_TIME, false);
   }
 
   static AnyRepellentActive() {

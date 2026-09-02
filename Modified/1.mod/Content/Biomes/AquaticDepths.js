@@ -10,6 +10,10 @@ const { Color, MathHelper } = Modules;
 const Item = new NativeClass('Terraria', 'Item');
 const InventoryStorage = new NativeClass('Terraria', 'InventoryStorage');
 
+const ANGLER_BOWL_CHANCE = 0.2;
+const SPRING_WATER_CHANCE = 0.5;
+const WATER_CHESTNUT_CHANCE = 0.6;
+
 export class AquaticDepths extends ModBiome {
     Music = 43;
     
@@ -120,6 +124,10 @@ export class AquaticDepths extends ModBiome {
 
             const rareItems = [ModItem.getTypeByName('BubbleConch'), ModItem.getTypeByName('SeaTurtlesBulwark'), ModItem.getTypeByName('RainStone')]; 
             addItem(rareItems[Rand.Next(rareItems.length)], 1);
+
+            if (Rand.NextChance(ANGLER_BOWL_CHANCE)) addItem(ModItem.getTypeByName('AnglerBowl'), 1);
+            if (Rand.NextChance(SPRING_WATER_CHANCE)) addItem(ModItem.getTypeByName('SpringWater'), Rand.Next(1, 3));
+            if (Rand.NextChance(WATER_CHESTNUT_CHANCE)) addItem(ModItem.getTypeByName('WaterChestnut'), Rand.Next(2, 6));
 
             let commonPool = [
                 { id: ModItem.getTypeByName('MarineKelp'), min: 1, max: 3 }, 

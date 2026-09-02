@@ -4,6 +4,7 @@ import { ModLoader } from '../TL/Core/ModLoader.js';
 import { RegisterSystems } from './RegisterSystems.js';
 import { RegisterBiomes } from './RegisterBiomes.js';
 import { RegisterBuffs } from './RegisterBuffs.js';
+import { RegisterPrefixes } from './RegisterPrefixes.js';
 import { RegisterNPCs } from './RegisterNPCs.js';
 import { RegisterItems } from './RegisterItems.js';
 import { RegisterProjectiles } from './RegisterProjectiles.js';
@@ -25,6 +26,7 @@ export function RegisterAll() {
     RegisterBackgrounds(); // 1
     RegisterBiomes(); // 2
     RegisterBuffs(); // 3
+    RegisterPrefixes(); // 3.5
     RegisterNPCs(); // 4
     RegisterProjectiles(); // 5
     RegisterItems(); // 6

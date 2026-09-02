@@ -43,6 +43,15 @@ const InjectionRules = [
     },
     {
         type: 21,
+        style: ChestStyle1.Gold,
+        getItemID: () => ModItem.getTypeByName('EnchantedPickaxe'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.15)),
+        action: 'replace',
+        salt: 829
+    },
+    {
+        type: 21,
         style: ChestStyle1.Honey,
         getItemID: () => Terraria.ID.ItemID.Beenade,
         stack: Rand.Next(15, 30),
@@ -103,6 +112,30 @@ const InjectionRules = [
         getItemID: () => ModItem.getTypeByName('StrongestLink'),
         stack: 1,
         calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Ice,
+        getItemID: () => ModItem.getTypeByName('FrozenTiara'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total / 6)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.FrozenBiome,
+        getItemID: () => ModItem.getTypeByName('FrozenTiara'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total / 6)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedFrozenBiome,
+        getItemID: () => ModItem.getTypeByName('FrozenTiara'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total / 6)),
         action: 'replace'
     }
 ];

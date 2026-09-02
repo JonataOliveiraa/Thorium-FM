@@ -1,5 +1,53 @@
 {
+  "MonsterContract": {
+    "Danger": {
+      "Title": "Aprendiendo el Oficio",
+      "Description": "Muy bien chico, mejor empezamos con algo sencillo... He rastreado un grupo de criaturas salvajes muy por debajo de la superficie. En tus viajes subterráneos puedes toparte con Crawdads, Salamandras y Giant Shellys. Acabar con unos cuantos haría el mundo mucho más seguro."
+    },
+    "Gilded": {
+      "Title": "Día de Paga",
+      "Description": "Se han avistado bestias radiantes merodeando el subsuelo, iluminando un rastro de ruina. El Murciélago, el Lycan y la Gelatina Dorados iluminan todo a su alrededor y pegan fuerte. Sería mejor que su número menguara, aunque sea un poco..."
+    },
+    "Pinky": {
+      "Title": "Pinky, el Fin del Mundo",
+      "Description": "Jamás había oído de una criatura con un poder tan aterrador... Es rosa, es cruel, y viaja con una poderosa tormenta de gelatina. ¡Destrúyela!"
+    },
+    "Nymph": {
+      "Title": "Damisela en Apuros",
+      "Description": "Tienes buen corazón, chico. No dejes que eso acabe contigo en este contrato... En lo profundo de las cuevas se esconde una criatura disfrazada de niña indefensa. Cuando te acercas lo suficiente, descubres que no lo es en absoluto. ¡Acaba con ella si la encuentras!"
+    },
+    "Tim": {
+      "Title": "Proyectando una Sombra",
+      "Description": "He logrado rastrear a un escurridizo lanzador oscuro en los niveles más profundos del mundo, de nombre... Tim. Nombres aparte, tiene bastante poder, pero una debilidad fatal. Parece muy orgulloso de su atuendo. ¿Quizá deberías ponerte una túnica de gema para atraerlo...?"
+    },
+    "Doctor": {
+      "Title": "El Arca del Saqueador Perdido",
+      "Description": "Muchos aventureros han desafiado la espesura de la jungla, pero pocos regresan. Envié a un amigo mío, Doctor Bones, en una misión allí hace bastante, y no ha vuelto... ¿Podrías mirar en la superficie de la jungla de noche a ver si encuentras alguna señal de él?"
+    },
+    "Minotaur": {
+      "Title": "La Bestia en el Laberinto",
+      "Description": "La Mazmorra ya es bastante mala con esqueletos y gelatinas rondando, pero con un Minotauro Furioso suelto se complica aún más. Esa bestia embiste a una velocidad increíble, sorprende al que no presta atención y le arruina el movimiento. No te dejes aturdir ahí fuera, chico."
+    },
+    "Hag": {
+      "Title": "Brujas Regateadoras",
+      "Description": "Muchos buscan atajos en su búsqueda de poder, invocando a los elementos en su favor. Existen seres conocidos como Brujas que recorren el mundo intentando recuperar la juventud que cambiaron. El Inframundo, la Jungla, el Océano y el Cielo son los sitios más probables para encontrar una. Haznos el favor de acabar con una."
+    }
+  },
   "ItemName": {
+    "MalignantCap": "Sombrero Maligno",
+    "MalignantRobe": "Túnica Maligna",
+    "TotemCaller": "Invocador de Tótems",
+    "VanquisherMedal": "Medalla del Vencedor",
+    "TrackersSkinningBlade": "Hoja Desolladora del Rastreador",
+    "GlitteringChalice": "Cáliz Reluciente",
+    "MalignantThread": "Hilo Maligno",
+    "TheseusThread": "Hilo de Teseo",
+    "HeartOfStone": "Corazón de Piedra",
+    "EnchantedPickaxe": "Pico Encantado",
+    "VampirePickaxe": "Pico Vampiro",
+    "MidnightOil": "Aceite de Medianoche",
+    "WaterChestnut": "Castaña de Agua",
+    "SpringWater": "Agua de Manantial",
     "AquamarineHook": "Gancho de Aguamarina",
     "OpalHook": "Gancho de Ópalo",
     "CorkGrease": "Grasa de Corcho",
@@ -420,9 +468,29 @@
     "NoblesHat": "Sombrero del Noble",
     "NoblesJerkin": "Jubón del Noble",
     "NoblesLeggings": "Pantalones del Noble",
-    "InspirationNoteNoble": "Nota de Inspiración"
+    "InspirationNoteNoble": "Nota de Inspiración",
+    "FrozenTiara": "Tiara Congelada",
+    "SimpleBroom": "Escoba Simple",
+    "BalloonBall": "Pelota Globo",
+    "CloudyChewToy": "Juguete Nublado",
+    "AnglerBowl": "Pecera del Rape",
+    "MassiveCrabClaw": "Pinza de Cangrejo Gigante",
+    "SuperAnvil": "Súper Yunque",
+    "JewellersWallGrip": "Garra del Joyero",
+    "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "TotemCaller": "Invoca un tótem elemental\nUsa la interacción inteligente para alternar entre Fuego, Tierra, Viento y Agua",
+    "MalignantThread": "Un hilo oscuro tejido con magia espiritual",
+    "VanquisherMedal": "Se obtiene al derrotar monstruos contratados",
+    "TrackersSkinningBlade": "Genera el 2% del valor en monedas del enemigo al golpear",
+    "GlitteringChalice": "Golpear enemigos hace que suelten más dinero al morir",
+    "TheseusThread": "Te teletransporta a la entrada de la mazmorra",
+    "HeartOfStone": "Tu defensa aumenta según tu profundidad",
+    "EnchantedPickaxe": "Puede minar dos veces en rápida sucesión",
+    "VampirePickaxe": "Minar mineral restaura el 1% de tu vida máxima",
+    "MidnightOil": "Los enemigos se fijan mucho menos en ti al beberlo",
+    "ZephyrsGrip": "'Incluso a temprana edad, las Grandes Aves del Trueno son increíblemente poderosas...'\nLos polluelos se aferran al gancho totalmente extendido al apuntar hacia arriba\nLos polluelos ofrecen un gancho aéreo que ralentiza tu caída temporalmente\nMantén Arriba para frenar aún más la caída, y Abajo para cancelarla\nSolo se puede usar un polluelo antes de volver a tocar el suelo\nLos saltos extra y el tiempo de vuelo no se restauran al engancharse en el aire",
     "MouthPiece": "Aumenta la velocidad de ejecución sinfónica en un 5%\nTus ataques de instrumento de viento persiguen a los enemigos",
     "VibrationTuner": "Aumenta la probabilidad de golpe crítico sinfónico en un 6%\nLos críticos de percusión aturden brevemente a los enemigos",
     "CorkGrease": "Aumenta la velocidad de ejecución sinfónica en un 8%",
@@ -722,7 +790,14 @@
     "CampingGear": "Regenera vida lentamente mientras estás quieto",
     "NoblesHat": "Aumenta un 4% la probabilidad de que caigan notas de inspiración\nAumenta un 5% la regeneración de inspiración",
     "NoblesJerkin": "Aumenta un 10% el daño sinfónico\nAumenta un 6% la probabilidad de que caigan notas de inspiración",
-    "NoblesLeggings": "Aumenta un 5% la probabilidad de que caigan notas de inspiración\nAumenta un 8% la velocidad de movimiento"
+    "NoblesLeggings": "Aumenta un 5% la probabilidad de que caigan notas de inspiración\nAumenta un 8% la velocidad de movimiento",
+    "FrozenTiara": "Invoca un muñeco de nieve resistente para seguirte",
+    "SimpleBroom": "Invoca una linda criadita para limpiar",
+    "BalloonBall": "Invoca una chica tanuki para seguirte",
+    "CloudyChewToy": "Invoca un juvenil... ¿cachorro de guiverno?",
+    "AnglerBowl": "Libera un rape amistoso para iluminar la oscuridad",
+    "MassiveCrabClaw": "Viaja montado en un cangrejo gigantesco\nMientras lo montas, puedes caminar sobre líquidos",
+    "SuperAnvil": "Invoca un yunque montable\nApenas se mueve, pero es increíblemente pesado"
   },
   "ArmorSetBonus": {
     "LivingWood": "El ataque automático de tu Brote de Madera Viva perseguirá a los enemigos",
@@ -746,6 +821,7 @@
     "Nobles": "Las notas de inspiración que caen son el doble de potentes y aumentan brevemente tu daño sinfónico"
   },
   "BuffName": {
+    "MidnightOilBuff": "Aceite de Medianoche",
     "BloodSausageBuff": "Morcilla",
     "SwordOfDestinyBuff": "Espada del Destino",
     "SuspiciousMoisturizerBottleBuff": "Mano Viviente",
@@ -806,9 +882,17 @@
     "MantisCaneBuff": "Mantis Afilada",
     "YarnBallBuff": "Gatito",
     "StormHatchlingStaffBuff": "Cría",
-    "AudioOverloadBuff": "Sobrecarga de Audio"
+    "AudioOverloadBuff": "Sobrecarga de Audio",
+    "FrozenTiaraBuff": "Tiara Congelada",
+    "MaidBuff": "Criadita",
+    "BalloonBallBuff": "Chica Tanuki",
+    "WyvernPetBuff": "Cachorro de Guiverno",
+    "AnglerBowlBuff": "Anglor el pequeño Rape",
+    "MassiveCrabClawBuff": "Cangrejo Enemigo",
+    "SuperAnvilBuff": "Súper Yunque"
   },
   "BuffDescription": {
+    "MidnightOilBuff": "Los enemigos no se interesan tanto por ti",
     "BloodSausageBuff": "Demasiadas golosinas, al parecer...",
     "SwordOfDestinyBuff": "No mires hacia arriba...",
     "SuspiciousMoisturizerBottleBuff": "¡Démosles una mano, amigos!",
@@ -869,7 +953,14 @@
     "MantisCaneBuff": "¡Machos, cuidado!",
     "YarnBallBuff": "¡Mordiscos y arañazos serán su perdición!",
     "StormHatchlingStaffBuff": "¡Esta cría cree que eres su madre!",
-    "AudioOverloadBuff": "Daño sinfónico aumentado un 15%"
+    "AudioOverloadBuff": "Daño sinfónico aumentado un 15%",
+    "FrozenTiaraBuff": "¿Hace frío aquí...?",
+    "MaidBuff": "En realidad no hay mucho que limpiar...",
+    "BalloonBallBuff": "¡No dejes que se aleje demasiado!",
+    "WyvernPetBuff": "Es joven, pero lo da todo",
+    "AnglerBowlBuff": "¡A este pequeñín le ODIA la oscuridad!",
+    "MassiveCrabClawBuff": "¡Cuidado, habitantes acuáticos!",
+    "SuperAnvilBuff": "Más pesado que el peso de tus responsabilidades"
   },
   "ProjectileName": {
     "CyanHagPro": "Tornado",
@@ -909,6 +1000,7 @@
     "GraniteAttack": "Ataque de Granito"
   },
   "NPCName": {
+    "Tracker": "Rastreador",
     "RedHag": "Bruja Ardiente",
     "GreenHag": "Bruja Terrena",
     "BlueHag": "Bruja Brumosa",
@@ -985,6 +1077,7 @@
     "UnstableEnergyAnomaly": "Anomalía de Energía Inestable"
   },
   "Bestiary": {
+    "Tracker": "El Rastreador pertenece a una orden de guerreros dedicada a encontrar y abatir criaturas raras. Ayúdalo y él te ayudará.",
     "RedHag": "Brujas ajadas que cambiaron su juventud por el dominio de la llama. Está claro que el trato no les salió bien, a juzgar por cómo intentan asesinarte.",
     "GreenHag": "Brujas ajadas que cambiaron su juventud por el dominio de la tierra. Está claro que el trato no les salió bien, a juzgar por cómo intentan asesinarte.",
     "BlueHag": "Brujas ajadas que cambiaron su juventud por el dominio de las olas. Está claro que el trato no les salió bien, a juzgar por cómo intentan asesinarte.",
@@ -1059,6 +1152,12 @@
     "BuriedChampion": "Un guerrero sellado en mármol mucho antes del primer amanecer de Terraria, y que aún se niega a ceder el duelo."
   },
   "NPCChat": {
+    "Tracker_1": "¿Has visto bestias interesantes merodeando por ahí? ¿Minotauros? ¿Contempladores? ¿Gorgonas?",
+    "Tracker_2": "Lleva tus cicatrices con orgullo, cada una cuenta una historia. ¿Qué dicen las tuyas de ti, héroe?",
+    "Tracker_3": "Muchas bestias han caído ante mí y mi hacha, pero siempre aparecen nuevas. Mantén los ojos abiertos, chico.",
+    "Tracker_4": "Te sorprendería lo eficaz que puede ser una sola hombrera.",
+    "Tracker_Stylist": "¿Crees que {0} le cortaría el pelo incluso a un bruto como yo...?",
+    "Tracker_Gym": "{0} y yo íbamos a montar un gimnasio juntos. ¿Te apuntas?",
     "Blacksmith_1": "¿Necesitas algo forjado?",
     "Blacksmith_2": "Una buena hoja marca la diferencia.",
     "Blacksmith_3": "Puedo oír el metal llamándome.",
@@ -1116,6 +1215,7 @@
     "Cook_NothingLeft": "¡Ya me has traído todo lo que sé cocinar!"
   },
   "TownNPCMood": {
+    "Tracker": {"Content":"Chico, no puedo quejarme de mucho, ¿verdad?","NoHome":"Con una casa decente podemos ponernos manos a la obra y cazar amenazas de verdad.","FarFromHome":"Hola, chico. ¿Te estás cuidando por aquí?","LoveSpace":"Espacio de sobra para blandir el hacha sin miedo a darle a quien no debo. ¡Genial!","DislikeCrowded":"Empiezo a sentir algo de claustrofobia...","HateCrowded":"Ya es difícil moverse con mi tamaño, ¡y encima hay demasiada gente aquí!","LoveBiome":"Toda esta {0} me hace sentir como en casa. A mi gente le gusta el frío del norte.","LikeBiome":"Toda esta {0} me hace sentir como en casa. A mi gente le gusta el frío del norte.","DislikeBiome":"Es un fastidio rastrear monstruos partiendo de un sitio tan seguro como {0}.","HateBiome":"Diría 'manos a la obra', pero {0} quizá sea DEMASIADO peligroso...","LoveNPC":"Si hay alguien en el pueblo que me haga sudar en un pulso, es {0}. ¡Me encanta ese tipo!","LikeNPC":"Si hay alguien aquí con quien puedo contar porque sabe de lo suyo, es {0}.","DislikeNPC":"{0} no para de hablar de no ensuciarse la túnica en vez de hacer el trabajo. No me gusta eso.","HateNPC":"{0} simplemente no entiende la importancia de plantarse y luchar. Me da asco."},
     "Blacksmith": {
       "Content": "Extraño... la forja no ha cantado ni una sola vez hoy.",
       "DislikeBiome": "{0} me desbarata el ritmo.",
@@ -1237,6 +1337,7 @@
     }
   },
   "SinalizationChatMessage": {
+    "ContractCompleted": "Contrato completado: {0}",
     "OnPatchWerkDie": "El temido Remendado se derrumba...",
     "OnClickInInativeAncientPhylactery": "Parece estar inactivo...",
     "BloodAltarMissingShards": "El altar exige 5 Fragmentos Profanos...",
@@ -1274,6 +1375,22 @@
     "AquaticAbility": "+{0}% de respiración"
   },
   "Others": {
+    "VanquisherMedalCurrency": "Medallas del Vencedor",
+    "TrackerContracts": "Contratos Disponibles",
     "NoMultiplayer": "Modo multijugador deshabilitado por {0}"
+  },
+  "Prefix": {
+    "Loud": "Ruidoso",
+    "Supersonic": "Supersónico",
+    "Vibrant": "Vibrante",
+    "Euphonic": "Eufónico",
+    "Melodic": "Melódico",
+    "Inspiring": "Inspirador",
+    "Muted": "Apagado",
+    "OffKey": "Desafinado",
+    "Rambling": "Divagante",
+    "Refined": "Refinado",
+    "Buzzing": "Zumbante",
+    "Fabled": "Legendario"
   }
 }

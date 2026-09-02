@@ -12,6 +12,12 @@ export class gNPCsLoot extends GlobalLoot {
 
     static NPCsLoots = [
         {
+            npcType: NPCID.WyvernHead,
+            rules: [
+                () => ItemDropRule.Common(ModItem.getTypeByName('CloudyChewToy'), 20, 1, 1)
+            ]
+        },
+        {
             npcType: NPCID.IceSlime,
             rules: [
                 () => ItemDropRule.Common(ModItem.getTypeByName('IcyShard'), 4, 1, 1)

@@ -4,6 +4,7 @@ import { ThoriumPlayer } from "../ThoriumPlayer.js";
 import { Empowerments } from "../Empowerments.js";
 import { ModBardItem } from "../../../Common/ModBardItem.js";
 import { BardTimer } from "../BardTimer.js";
+import { TotemCallerGauge } from "../../UI/TotemCallerGauge.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { Color } from "../../../TL/Modules/Color.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
@@ -55,6 +56,9 @@ export class DrawWorldCursor extends GlobalHooks {
         const bardItem = getCachedBardItem(player);
 
         Empowerments.DrawIcons(true);
+
+        TotemCallerGauge.Update(player);
+        TotemCallerGauge.Draw(player);
 
         if (bardItem?.useTimer) {
           BardTimer.Draw(player);
