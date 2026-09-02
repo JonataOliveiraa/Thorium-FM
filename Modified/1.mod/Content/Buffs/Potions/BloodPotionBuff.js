@@ -1,6 +1,9 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModBuff } from '../../../TL/ModBuff.js';
 
+const MOVE_BONUS = 0.15;
+const MINE_BONUS = 0.15;
+
 export class BloodPotionBuff extends ModBuff {
   constructor() {
     super();
@@ -14,9 +17,7 @@ export class BloodPotionBuff extends ModBuff {
 
   UpdatePlayer(player, buffIndex) {
     if (!player || !player.active) return;
-    if (player.statLife < player.statLifeMax2) {
-      const missing = player.statLifeMax2 - player.statLife;
-      player.lifeRegen += Math.floor(missing / 20);
-    }
+    player.moveSpeed += MOVE_BONUS;
+    player.pickSpeed -= MINE_BONUS;
   }
 }

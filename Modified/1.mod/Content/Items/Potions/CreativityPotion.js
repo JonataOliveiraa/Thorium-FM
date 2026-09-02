@@ -33,4 +33,13 @@ export class CreativityPotion extends ModItem {
         this.Item.buffType = ModBuff.getTypeByName("CreativityBuff");
         this.Item.buffTime = 28800;
     }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.BottledWater, 1)
+            .AddIngredient(Terraria.ID.ItemID.Waterleaf, 1)
+            .AddIngredient(ModItem.getTypeByName("CactusFruit"), 1)
+            .AddTile(Terraria.ID.TileID.Bottles)
+            .Register();
+    }
 }

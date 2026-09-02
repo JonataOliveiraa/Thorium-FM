@@ -27,10 +27,19 @@ export class BloodPotion extends ModItem {
         this.Item.UseSound = Terraria.ID.SoundID.Item3;
         this.Item.maxStack = 9999;
         this.Item.consumable = true;
-        this.Item.rare = Terraria.ID.ItemRarityID.Orange;
+        this.Item.rare = Terraria.ID.ItemRarityID.Blue;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 2, 0);
 
         this.Item.buffType = ModBuff.getTypeByName("BloodPotionBuff");
         this.Item.buffTime = 28800;
+    }
+
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.BottledWater, 1)
+            .AddIngredient(Terraria.ID.ItemID.Deathweed, 1)
+            .AddIngredient(ModItem.getTypeByName("Blood"), 1)
+            .AddTile(Terraria.ID.TileID.Bottles)
+            .Register();
     }
 }

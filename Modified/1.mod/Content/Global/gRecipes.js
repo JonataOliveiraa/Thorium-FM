@@ -43,6 +43,13 @@ export class gRecipes extends ModSystem {
             ]
         },
         {
+            name: 'CopperBar',
+            items: () => [
+                ItemID.CopperBar,
+                ItemID.TinBar
+            ]
+        },
+        {
             name: 'SilverBar',
             items: () => [
                 ItemID.SilverBar,
