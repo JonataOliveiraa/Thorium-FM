@@ -4,8 +4,10 @@ import { TextureReplace } from '../Content/Global/Hooks/TextureReplace.js'
 import { gRecipes } from '../Content/Global/gRecipes.js'
 import { BloodChamberPersistSystem } from "../Content/Global/BloodChamberPersistSystem.js"
 import { ContractSystem } from "../Content/Global/Contracts/ContractSystem.js"
+import { Wikithis } from "../Compatibility/Wikithis.js"
 
 const List = [
+  Wikithis,
   TextureReplace,
   gRecipes,
   BloodChamberPersistSystem,

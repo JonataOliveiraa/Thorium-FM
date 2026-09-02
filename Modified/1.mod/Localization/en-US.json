@@ -34,6 +34,13 @@
     }
   },
   "ItemName": {
+    "Flute": "Flute",
+    "Pill": "Pill",
+    "Bonesaw": "Bonesaw",
+    "DesertAcolyteHeadcloth": "Desert Acolyte's Headcloth",
+    "DesertAcolyteTunic": "Desert Acolyte's Tunic",
+    "DesertAcolyteBoots": "Desert Acolyte's Boots",
+    "DesertAcolyteCloak": "Desert Acolyte's Cloak",
     "MalignantCap": "Malignant Cap",
     "MalignantRobe": "Malignant Robe",
     "TotemCaller": "Totem Caller",
@@ -480,6 +487,9 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "Flute": "Releases a weakly homing flute toot",
+    "Pill": "Throws out a bouncing pill\nUse smart interaction to throw a pill that boosts your life recovery",
+    "Bonesaw": "Killing an enemy grants you 2 'organs', allowing you to store up to 10\nUse smart interaction to chuck a stored organ at enemies",
     "TotemCaller": "Summons an elemental totem\nUse smart interaction to cycle between Fire, Earth, Wind and Water",
     "MalignantThread": "A dark thread woven from spirit magic",
     "VanquisherMedal": "Acquired from defeating contracted monsters",
@@ -1002,6 +1012,11 @@
     "GraniteAttack": "Granite Attack"
   },
   "NPCName": {
+    "LifeCrystalMimic": "Life Crystal Mimic",
+    "CoalescedEnergy": "Coalesced Energy",
+    "EnergyBarrier": "Energy Barrier",
+    "EnergyConduit": "Energy Conduit",
+    "EncroachingEnergy": "Encroaching Energy",
     "Tracker": "Tracker",
     "RedHag": "Fiery Hag",
     "GreenHag": "Grounded Hag",
@@ -1079,6 +1094,7 @@
     "UnstableEnergyAnomaly": "Unstable Energy Anomaly"
   },
   "Bestiary": {
+    "LifeCrystalMimic": "The forces of Terraria have a sick sense of humor.",
     "Tracker": "The Tracker belongs to an order of warriors dedicated to finding and dispatching rare creatures. Help him and he'll help you.",
     "RedHag": "Haggard witches who traded their youth for mastery over the flame. Clearly the trade didn't work out for them given how they're trying to murder you.",
     "GreenHag": "Haggard witches who traded their youth for mastery over the earth. Clearly the trade didn't work out for them given how they're trying to murder you.",

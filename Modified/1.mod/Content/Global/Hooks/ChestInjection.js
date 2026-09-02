@@ -17,6 +17,15 @@ const InjectionRules = [
     },
     {
         type: 21,
+        style: ChestStyle1.Wood,
+        getItemID: () => ModItem.getTypeByName('Flute'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.12)),
+        action: 'replace',
+        salt: 941
+    },
+    {
+        type: 21,
         style: ChestStyle1.WebCovered,
         getItemID: () => ModItem.getTypeByName('WebGun'),
         stack: 1,

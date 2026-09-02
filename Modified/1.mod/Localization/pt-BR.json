@@ -34,6 +34,13 @@
     }
   },
   "ItemName": {
+    "Flute": "Flauta",
+    "Pill": "Pílula",
+    "Bonesaw": "Serra de Osso",
+    "DesertAcolyteHeadcloth": "Turbante do Acólito do Deserto",
+    "DesertAcolyteTunic": "Túnica do Acólito do Deserto",
+    "DesertAcolyteBoots": "Botas do Acólito do Deserto",
+    "DesertAcolyteCloak": "Manto do Acólito do Deserto",
     "MalignantCap": "Chapéu Maligno",
     "MalignantRobe": "Manto Maligno",
     "TotemCaller": "Chamador de Totens",
@@ -480,6 +487,9 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "Flute": "Solta um sopro de flauta que persegue fracamente",
+    "Pill": "Arremessa uma pílula que quica\nUse a interação inteligente para lançar uma pílula que acelera sua recuperação de vida",
+    "Bonesaw": "Matar um inimigo te dá 2 'órgãos', até um limite de 10\nUse a interação inteligente para arremessar um órgão guardado",
     "TotemCaller": "Invoca um totem elemental\nUse a interação inteligente para alternar entre Fogo, Terra, Vento e Água",
     "MalignantThread": "Um fio escuro tecido com magia espiritual",
     "VanquisherMedal": "Obtida ao derrotar monstros contratados",
@@ -1001,6 +1011,11 @@
     "GraniteAttack": "Ataque de Granito"
   },
   "NPCName": {
+    "LifeCrystalMimic": "Mímico de Cristal de Vida",
+    "CoalescedEnergy": "Energia Coalescida",
+    "EnergyBarrier": "Barreira de Energia",
+    "EnergyConduit": "Conduíte de Energia",
+    "EncroachingEnergy": "Energia Invasora",
     "Tracker": "Rastreador",
     "RedHag": "Bruxa Flamejante",
     "GreenHag": "Bruxa Terrena",
@@ -1078,6 +1093,7 @@
     "UnstableEnergyAnomaly": "Anomalia de Energia Instável"
   },
   "Bestiary": {
+    "LifeCrystalMimic": "As forças da Terraria têm um senso de humor doentio.",
     "Tracker": "O Rastreador pertence a uma ordem de guerreiros dedicada a encontrar e abater criaturas raras. Ajude-o e ele te ajudará.",
     "RedHag": "Bruxas alquebradas que trocaram a juventude pelo domínio da chama. É evidente que a troca não deu certo, visto o empenho delas em te assassinar.",
     "GreenHag": "Bruxas alquebradas que trocaram a juventude pelo domínio da terra. É evidente que a troca não deu certo, visto o empenho delas em te assassinar.",

@@ -170,6 +170,7 @@ export class ThoriumPlayer extends ModPlayer {
   static totemCallerStage = 0;
   static totemCallerFade = 1.8;
   static totemCallerDisplay = false;
+  static bonesawOrgans = 0;
   static skinningBladeMoney = 0;
   static MIDAS_TIME = 600;
   static accShockAbsorber = false;

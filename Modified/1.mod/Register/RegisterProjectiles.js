@@ -34,6 +34,11 @@ import { FieryTotemPro } from '../Content/Projectiles/Minions/FieryTotemPro.js';
 import { GroundedTotemPro } from '../Content/Projectiles/Minions/GroundedTotemPro.js';
 import { MistyTotemPro } from '../Content/Projectiles/Minions/MistyTotemPro.js';
 import { WindyTotemPro } from '../Content/Projectiles/Minions/WindyTotemPro.js';
+import { FlutePro } from '../Content/Projectiles/FlutePro.js';
+import { ThePillPro } from '../Content/Projectiles/ThePillPro.js';
+import { ThePillPro2 } from '../Content/Projectiles/ThePillPro2.js';
+import { BonesawPro } from '../Content/Projectiles/BonesawPro.js';
+import { ConfusePro } from '../Content/Projectiles/ConfusePro.js';
 
 // Granite Energy Storm Projectiles
 import { GraniteCharge } from '../Content/Projectiles/Boss/GraniteCharge.js';
@@ -637,6 +642,11 @@ const List = [
   GroundedTotemPlaced,
   MistyTotemPlaced,
   WindyTotemPlaced,
+  FlutePro,
+  ThePillPro,
+  ThePillPro2,
+  BonesawPro,
+  ConfusePro,
   SpittingFishPro,
   SpittingFishPro2,
 ]

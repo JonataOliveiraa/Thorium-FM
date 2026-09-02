@@ -34,6 +34,13 @@
     }
   },
   "ItemName": {
+    "Flute": "Flauta",
+    "Pill": "Píldora",
+    "Bonesaw": "Sierra de Hueso",
+    "DesertAcolyteHeadcloth": "Turbante del Acólito del Desierto",
+    "DesertAcolyteTunic": "Túnica del Acólito del Desierto",
+    "DesertAcolyteBoots": "Botas del Acólito del Desierto",
+    "DesertAcolyteCloak": "Capa del Acólito del Desierto",
     "MalignantCap": "Sombrero Maligno",
     "MalignantRobe": "Túnica Maligna",
     "TotemCaller": "Invocador de Tótems",
@@ -480,6 +487,9 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "Flute": "Suelta un soplo de flauta que persigue débilmente",
+    "Pill": "Lanza una píldora que rebota\nUsa la interacción inteligente para lanzar una píldora que acelera tu recuperación de vida",
+    "Bonesaw": "Matar a un enemigo te da 2 'órganos', hasta un máximo de 10\nUsa la interacción inteligente para arrojar un órgano guardado",
     "TotemCaller": "Invoca un tótem elemental\nUsa la interacción inteligente para alternar entre Fuego, Tierra, Viento y Agua",
     "MalignantThread": "Un hilo oscuro tejido con magia espiritual",
     "VanquisherMedal": "Se obtiene al derrotar monstruos contratados",
@@ -1000,6 +1010,11 @@
     "GraniteAttack": "Ataque de Granito"
   },
   "NPCName": {
+    "LifeCrystalMimic": "Mímico de Cristal de Vida",
+    "CoalescedEnergy": "Energía Coalescida",
+    "EnergyBarrier": "Barrera de Energía",
+    "EnergyConduit": "Conducto de Energía",
+    "EncroachingEnergy": "Energía Invasora",
     "Tracker": "Rastreador",
     "RedHag": "Bruja Ardiente",
     "GreenHag": "Bruja Terrena",
@@ -1077,6 +1092,7 @@
     "UnstableEnergyAnomaly": "Anomalía de Energía Inestable"
   },
   "Bestiary": {
+    "LifeCrystalMimic": "Las fuerzas de Terraria tienen un sentido del humor enfermizo.",
     "Tracker": "El Rastreador pertenece a una orden de guerreros dedicada a encontrar y abatir criaturas raras. Ayúdalo y él te ayudará.",
     "RedHag": "Brujas ajadas que cambiaron su juventud por el dominio de la llama. Está claro que el trato no les salió bien, a juzgar por cómo intentan asesinarte.",
     "GreenHag": "Brujas ajadas que cambiaron su juventud por el dominio de la tierra. Está claro que el trato no les salió bien, a juzgar por cómo intentan asesinarte.",

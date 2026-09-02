@@ -33,6 +33,14 @@ import { TheseusThread } from '../Content/Items/Tracker/TheseusThread.js';
 import { TotemCaller } from '../Content/Items/Tracker/TotemCaller.js';
 import { MalignantCap } from '../Content/Items/Tracker/MalignantCap.js';
 import { MalignantRobe } from '../Content/Items/Tracker/MalignantRobe.js';
+import { DesertAcolyteHeadcloth } from '../Content/Items/NPCItems/DesertAcolyteHeadcloth.js';
+import { DesertAcolyteTunic } from '../Content/Items/NPCItems/DesertAcolyteTunic.js';
+import { DesertAcolyteBoots } from '../Content/Items/NPCItems/DesertAcolyteBoots.js';
+import { DesertAcolyteCloak } from '../Content/Items/NPCItems/DesertAcolyteCloak.js';
+import { Flute } from '../Content/Items/Bard/Flute.js';
+import { Pill } from '../Content/Items/Healer/Pill.js';
+import { Bonesaw } from '../Content/Items/Healer/Bonesaw.js';
+import { CactusFruit } from '../Content/Items/Consumable/CactusFruit.js';
 
 // Buried Champion Items
 import { ChampionSwiftBlade } from '../Content/Items/BossBuriedChampion/ChampionSwiftBlade.js';
@@ -892,6 +900,14 @@ const List = [
     TotemCaller,
     MalignantCap,
     MalignantRobe,
+    DesertAcolyteHeadcloth,
+    DesertAcolyteTunic,
+    DesertAcolyteBoots,
+    DesertAcolyteCloak,
+    Flute,
+    Pill,
+    Bonesaw,
+    CactusFruit,
     SpittingFish,
 ]
 export function RegisterItems() {
