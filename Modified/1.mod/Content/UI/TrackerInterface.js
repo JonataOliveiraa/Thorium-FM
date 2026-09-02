@@ -26,8 +26,9 @@ const PANEL_MIN_W = 420;
 const TITLE_H = 34;
 const DESC_H = 100;
 const DESC_LINE = 19;
-const DESC_CHARS = 52;
-const DESC_MAX_LINES = 4;
+const DESC_TITLE_H = 32;
+const DESC_LINES = 3;
+const DESC_SIDE_PAD = 24;
 
 const CLOSE_SIZE = 22;
 const CLOSE_INSET = 10;
@@ -101,7 +102,26 @@ class ContractCard extends ModButton {
     }
 
     OnClick() {
-        this.owner.selected = this.contract;
+        this.owner.Select(this.contract);
+    }
+}
+
+class DescriptionArea extends ModButton {
+    constructor(owner) {
+        super();
+        this.owner = owner;
+    }
+
+    GetTexture() {
+        return null;
+    }
+
+    ClickSound() {
+        return null;
+    }
+
+    OnClick() {
+        this.owner.NextPage();
     }
 }
 
@@ -136,6 +156,8 @@ export class TrackerInterface extends ModInterface {
     constructor() {
         super();
         this.selected = null;
+        this.page = 0;
+        this.pageCount = 1;
         this.cards = [];
         this.close = null;
         this.Panel = Rectangle.new();
@@ -146,6 +168,7 @@ export class TrackerInterface extends ModInterface {
         const contracts = ContractVault.GetContracts();
         this.cards = contracts.map(c => new ContractCard(this, c));
         this.close = new CloseButton(this);
+        this.description = new DescriptionArea(this);
 
         this.rows = Math.ceil(this.cards.length / COLUMNS);
         this.gridWidth = COLUMNS * CARD_W + (COLUMNS - 1) * CARD_GAP;
@@ -158,6 +181,18 @@ export class TrackerInterface extends ModInterface {
     Clear() {
         this.Visible = false;
         this.selected = null;
+        this.page = 0;
+        this.pageCount = 1;
+    }
+
+    Select(contract) {
+        this.selected = contract;
+        this.page = 0;
+    }
+
+    NextPage() {
+        if (this.pageCount <= 1) return;
+        this.page = (this.page + 1) % this.pageCount;
     }
 
     Draw() {
@@ -224,15 +259,48 @@ export class TrackerInterface extends ModInterface {
             1
         );
 
-        const lines = TrackerInterface.Wrap(ContractVault.Description(contract), DESC_CHARS);
-        for (let i = 0; i < lines.length; i++) {
+        const maxWidth = this.PanelWidth - DESC_SIDE_PAD * 2;
+        const lines = TrackerInterface.Wrap(ContractVault.Description(contract), maxWidth);
+
+        this.pageCount = Math.max(1, Math.ceil(lines.length / DESC_LINES));
+        if (this.page >= this.pageCount) this.page = 0;
+
+        const start = this.page * DESC_LINES;
+        const shown = lines.slice(start, start + DESC_LINES);
+
+        for (let i = 0; i < shown.length; i++) {
             UIDraw.BorderStringCentered(
-                lines[i],
-                Vector2.new(centerX, baseY + 32 + i * DESC_LINE),
+                shown[i],
+                Vector2.new(centerX, baseY + DESC_TITLE_H + i * DESC_LINE),
                 Color.new(210, 210, 210),
                 DESC_SCALE
             );
         }
+
+        this.UpdateDescriptionArea(baseY);
+        if (this.pageCount > 1) this.DrawPageIndicator(baseY);
+    }
+
+    UpdateDescriptionArea(baseY) {
+        const rect = this.description.Area;
+        rect.X = this.Panel.X + DESC_SIDE_PAD;
+        rect.Y = baseY + DESC_TITLE_H - DESC_LINE;
+        rect.Width = this.PanelWidth - DESC_SIDE_PAD * 2;
+        rect.Height = DESC_LINES * DESC_LINE;
+
+        ModButton.UpdateButton(this.description, rect);
+    }
+
+    DrawPageIndicator(baseY) {
+        UIDraw.BorderStringCentered(
+            (this.page + 1) + '/' + this.pageCount,
+            Vector2.new(
+                this.Panel.X + this.PanelWidth - DESC_SIDE_PAD,
+                baseY + DESC_TITLE_H + DESC_LINES * DESC_LINE
+            ),
+            this.description.Hovered ? Color.new(255, 220, 120) : Color.new(170, 170, 170),
+            DESC_SCALE
+        );
     }
 
     DrawClose() {
@@ -246,7 +314,7 @@ export class TrackerInterface extends ModInterface {
         this.close.Draw(rect);
     }
 
-    static Wrap(text, limit) {
+    static Wrap(text, maxWidth) {
         const words = String(text).split(' ');
         const lines = [];
         let current = '';
@@ -254,16 +322,19 @@ export class TrackerInterface extends ModInterface {
         for (const word of words) {
             if (current.length === 0) {
                 current = word;
-            } else if (current.length + 1 + word.length <= limit) {
-                current += ' ' + word;
+                continue;
+            }
+
+            const candidate = current + ' ' + word;
+            if (UIDraw.StringSize(candidate).X * DESC_SCALE <= maxWidth) {
+                current = candidate;
             } else {
                 lines.push(current);
-                if (lines.length >= DESC_MAX_LINES) return lines;
                 current = word;
             }
         }
 
-        if (current.length > 0 && lines.length < DESC_MAX_LINES) lines.push(current);
+        if (current.length > 0) lines.push(current);
         return lines;
     }
 }
