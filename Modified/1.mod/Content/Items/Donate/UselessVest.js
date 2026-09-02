@@ -9,13 +9,12 @@ export class UselessVest extends ModItem {
     }
 
     SetStaticDefaults() {
-        ThoriumPlayer.uselessVestWaist = this.Item.waistSlot;
-        ThoriumPlayer.uselessVestBody = this.Item.bodySlot;
+        ThoriumPlayer.RegisterVanityLayer(this.Item, true);
     }
 
     SetDefaults() {
-        this.Item.width = 30;
-        this.Item.height = 22;
+        this.Item.width = 18;
+        this.Item.height = 18;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 20, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.vanity = true;

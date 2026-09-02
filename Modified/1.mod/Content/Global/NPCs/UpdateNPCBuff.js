@@ -14,7 +14,12 @@ import { GraniteSurgeBuff } from "../../Buffs/GraniteSurgeBuff.js";
 
 const { NPCID } = Terraria.ID;
 
-const USELESS_SET_MOON_PHASES = [0, 1];
+const CLOTHIER_VANITY_SETS = [
+    { phases: [0, 1], pieces: ['UselessWig', 'UselessVest', 'UselessBoots'] },
+    { phases: [2, 3], pieces: ['ExplosiveHat', 'ExplosiveCloak', 'ExplosiveBooties'] },
+    { phases: [4, 5], pieces: ['MeatShieldsWig', 'MeatShieldsVest', 'MeatShieldsBoots'] },
+    { phases: [6, 7], pieces: ['TrashWig', 'TrashTracksuit', 'TrashBoots'] }
+];
 const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
@@ -407,9 +412,12 @@ export class UpdateNPCBuff extends GlobalNPC {
             npcShop.Add(ModItem.getTypeByName('CorkGrease'));
         }
 
-        if (npc.type === Terraria.ID.NPCID.Clothier && USELESS_SET_MOON_PHASES.includes(Terraria.Main.moonPhase)) {
-            for (const name of ['UselessWig', 'UselessVest', 'UselessBoots']) {
-                npcShop.Add(ModItem.getTypeByName(name));
+        if (npc.type === Terraria.ID.NPCID.Clothier) {
+            const set = CLOTHIER_VANITY_SETS.find(s => s.phases.includes(Terraria.Main.moonPhase));
+            if (set) {
+                for (const name of set.pieces) {
+                    npcShop.Add(ModItem.getTypeByName(name));
+                }
             }
         }
     }

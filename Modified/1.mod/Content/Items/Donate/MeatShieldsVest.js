@@ -2,14 +2,14 @@ import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
-export class UselessWig extends ModItem {
+export class MeatShieldsVest extends ModItem {
     constructor() {
         super();
         this.Texture = 'Items/Donate/' + this.constructor.name;
     }
 
     SetStaticDefaults() {
-        ThoriumPlayer.RegisterVanityLayer(this.Item);
+        ThoriumPlayer.RegisterVanityLayer(this.Item, true);
     }
 
     SetDefaults() {

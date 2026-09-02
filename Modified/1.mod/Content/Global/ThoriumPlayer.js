@@ -79,10 +79,7 @@ export class ThoriumPlayer extends ModPlayer {
   static _cachedWheelPos = { X: 0, Y: 0 };
   static _wheelPosCacheTimer = 0;
 
-  static uselessWigHead = -1;
-  static uselessWigFront = -1;
-  static uselessVestBody = -1;
-  static uselessVestWaist = -1;
+  static VanityLayers = [];
 
   static _vec = Vector2.new(0, 0);
   static _vec2 = Vector2.new(0, 0);
@@ -524,13 +521,26 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  static RegisterVanityLayer(item, onBody = false) {
+    ThoriumPlayer.VanityLayers.push({
+      onBody,
+      slot: (onBody ? item.bodySlot : item.headSlot) ?? -1,
+      front: item.frontSlot ?? -1,
+      waist: item.waistSlot ?? -1
+    });
+  }
+
+  ApplyVanityLayers(player) {
+    for (const layer of ThoriumPlayer.VanityLayers) {
+      if (layer.slot < 0) continue;
+      if ((layer.onBody ? player.body : player.head) !== layer.slot) continue;
+      if (layer.front >= 0) player.front = layer.front;
+      if (layer.waist >= 0) player.waist = layer.waist;
+    }
+  }
+
   UpdateEquips(player) {
-    if (ThoriumPlayer.uselessWigFront >= 0 && player.head === ThoriumPlayer.uselessWigHead) {
-        player.front = ThoriumPlayer.uselessWigFront;
-    }
-    if (ThoriumPlayer.uselessVestWaist >= 0 && player.body === ThoriumPlayer.uselessVestBody) {
-        player.waist = ThoriumPlayer.uselessVestWaist;
-    }
+    this.ApplyVanityLayers(player);
 
     if (ThoriumPlayer.hellfireEnergy > 0) {
         ThoriumPlayer.hellfireEnergyTimer++;

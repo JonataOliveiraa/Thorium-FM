@@ -40,6 +40,15 @@ import { DesertAcolyteCloak } from '../Content/Items/NPCItems/DesertAcolyteCloak
 import { UselessWig } from '../Content/Items/Donate/UselessWig.js';
 import { UselessVest } from '../Content/Items/Donate/UselessVest.js';
 import { UselessBoots } from '../Content/Items/Donate/UselessBoots.js';
+import { ExplosiveHat } from '../Content/Items/Donate/ExplosiveHat.js';
+import { ExplosiveCloak } from '../Content/Items/Donate/ExplosiveCloak.js';
+import { ExplosiveBooties } from '../Content/Items/Donate/ExplosiveBooties.js';
+import { MeatShieldsWig } from '../Content/Items/Donate/MeatShieldsWig.js';
+import { MeatShieldsVest } from '../Content/Items/Donate/MeatShieldsVest.js';
+import { MeatShieldsBoots } from '../Content/Items/Donate/MeatShieldsBoots.js';
+import { TrashWig } from '../Content/Items/Donate/TrashWig.js';
+import { TrashTracksuit } from '../Content/Items/Donate/TrashTracksuit.js';
+import { TrashBoots } from '../Content/Items/Donate/TrashBoots.js';
 import { Flute } from '../Content/Items/Bard/Flute.js';
 import { Pill } from '../Content/Items/Healer/Pill.js';
 import { Bonesaw } from '../Content/Items/Healer/Bonesaw.js';
@@ -910,6 +919,15 @@ const List = [
     UselessWig,
     UselessVest,
     UselessBoots,
+    ExplosiveHat,
+    ExplosiveCloak,
+    ExplosiveBooties,
+    MeatShieldsWig,
+    MeatShieldsVest,
+    MeatShieldsBoots,
+    TrashWig,
+    TrashTracksuit,
+    TrashBoots,
     Flute,
     Pill,
     Bonesaw,

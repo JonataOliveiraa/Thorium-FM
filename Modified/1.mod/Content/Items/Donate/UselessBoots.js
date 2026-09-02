@@ -8,8 +8,8 @@ export class UselessBoots extends ModItem {
     }
 
     SetDefaults() {
-        this.Item.width = 22;
-        this.Item.height = 8;
+        this.Item.width = 18;
+        this.Item.height = 18;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 20, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Green;
         this.Item.vanity = true;

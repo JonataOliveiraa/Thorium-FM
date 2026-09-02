@@ -1,15 +1,16 @@
 import { Terraria } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
-import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
 
-export class UselessWig extends ModItem {
+export class ExplosiveCloak extends ModItem {
     constructor() {
         super();
         this.Texture = 'Items/Donate/' + this.constructor.name;
     }
 
     SetStaticDefaults() {
-        ThoriumPlayer.RegisterVanityLayer(this.Item);
+        const sets = Terraria.ID.ArmorIDs.Body.Sets;
+        sets.IncludeCapeFrontAndBack[this.Item.bodySlot].frontCape = this.Item.frontSlot;
+        sets.IncludedCapeFront[this.Item.bodySlot] = this.Item.frontSlot;
     }
 
     SetDefaults() {
