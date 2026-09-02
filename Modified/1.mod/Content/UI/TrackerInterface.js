@@ -4,6 +4,7 @@ import { ModButton } from './ModButton.js';
 import { UIDraw } from './UIDraw.js';
 import { ModLocalization } from '../../TL/ModLocalization.js';
 import { ContractVault } from '../Global/Contracts/ContractVault.js';
+import { ScrollView } from './ScrollView.js';
 
 const { Color, Rectangle, Vector2 } = Modules;
 const { Main } = Terraria;
@@ -24,11 +25,13 @@ const FRAME_HIDDEN = 1;
 const PANEL_PAD = 16;
 const PANEL_MIN_W = 420;
 const TITLE_H = 34;
-const DESC_H = 100;
 const DESC_LINE = 19;
-const DESC_TITLE_H = 32;
-const DESC_LINES = 3;
+const DESC_TITLE_H = 46;
+const DESC_LINES = 4;
 const DESC_SIDE_PAD = 24;
+const DESC_FADE = 14;
+const DESC_INSET = 10;
+const DESC_H = DESC_TITLE_H + DESC_LINES * DESC_LINE + DESC_FADE + 8;
 
 const CLOSE_SIZE = 22;
 const CLOSE_INSET = 10;
@@ -44,6 +47,7 @@ const PANEL_R = 54;
 const PANEL_G = 70;
 const PANEL_B = 127;
 const PANEL_A = 210;
+
 
 class ContractCard extends ModButton {
     constructor(owner, contract) {
@@ -106,25 +110,6 @@ class ContractCard extends ModButton {
     }
 }
 
-class DescriptionArea extends ModButton {
-    constructor(owner) {
-        super();
-        this.owner = owner;
-    }
-
-    GetTexture() {
-        return null;
-    }
-
-    ClickSound() {
-        return null;
-    }
-
-    OnClick() {
-        this.owner.NextPage();
-    }
-}
-
 class CloseButton extends ModButton {
     constructor(owner) {
         super();
@@ -156,8 +141,7 @@ export class TrackerInterface extends ModInterface {
     constructor() {
         super();
         this.selected = null;
-        this.page = 0;
-        this.pageCount = 1;
+        this.scroll = new ScrollView();
         this.cards = [];
         this.close = null;
         this.Panel = Rectangle.new();
@@ -168,7 +152,6 @@ export class TrackerInterface extends ModInterface {
         const contracts = ContractVault.GetContracts();
         this.cards = contracts.map(c => new ContractCard(this, c));
         this.close = new CloseButton(this);
-        this.description = new DescriptionArea(this);
 
         this.rows = Math.ceil(this.cards.length / COLUMNS);
         this.gridWidth = COLUMNS * CARD_W + (COLUMNS - 1) * CARD_GAP;
@@ -181,18 +164,12 @@ export class TrackerInterface extends ModInterface {
     Clear() {
         this.Visible = false;
         this.selected = null;
-        this.page = 0;
-        this.pageCount = 1;
+        this.scroll.Reset();
     }
 
     Select(contract) {
         this.selected = contract;
-        this.page = 0;
-    }
-
-    NextPage() {
-        if (this.pageCount <= 1) return;
-        this.page = (this.page + 1) % this.pageCount;
+        this.scroll.Reset();
     }
 
     Draw() {
@@ -262,45 +239,36 @@ export class TrackerInterface extends ModInterface {
         const maxWidth = this.PanelWidth - DESC_SIDE_PAD * 2;
         const lines = TrackerInterface.Wrap(ContractVault.Description(contract), maxWidth);
 
-        this.pageCount = Math.max(1, Math.ceil(lines.length / DESC_LINES));
-        if (this.page >= this.pageCount) this.page = 0;
+        const viewTop = baseY + DESC_TITLE_H;
+        const viewHeight = DESC_LINES * DESC_LINE;
+        const contentHeight = lines.length * DESC_LINE;
 
-        const start = this.page * DESC_LINES;
-        const shown = lines.slice(start, start + DESC_LINES);
+        this.scroll.SetRange(viewHeight, contentHeight + DESC_INSET * 2);
+        this.scroll.Update(
+            this.Panel.X + DESC_SIDE_PAD,
+            viewTop,
+            this.PanelWidth - DESC_SIDE_PAD * 2,
+            viewHeight
+        );
 
-        for (let i = 0; i < shown.length; i++) {
+        const offset = this.scroll.Offset;
+
+        for (let i = 0; i < lines.length; i++) {
+            const y = viewTop + DESC_INSET + i * DESC_LINE + offset;
+
+            const strength = ScrollView.EdgeFade(y, viewTop, viewHeight, DESC_FADE);
+            if (strength <= 0) continue;
+
+            const alpha = Math.round(255 * strength);
+
             UIDraw.BorderStringCentered(
-                shown[i],
-                Vector2.new(centerX, baseY + DESC_TITLE_H + i * DESC_LINE),
-                Color.new(210, 210, 210),
-                DESC_SCALE
+                lines[i],
+                Vector2.new(centerX, y),
+                Color.new(210, 210, 210, alpha),
+                DESC_SCALE,
+                Color.new(0, 0, 0, alpha)
             );
         }
-
-        this.UpdateDescriptionArea(baseY);
-        if (this.pageCount > 1) this.DrawPageIndicator(baseY);
-    }
-
-    UpdateDescriptionArea(baseY) {
-        const rect = this.description.Area;
-        rect.X = this.Panel.X + DESC_SIDE_PAD;
-        rect.Y = baseY + DESC_TITLE_H - DESC_LINE;
-        rect.Width = this.PanelWidth - DESC_SIDE_PAD * 2;
-        rect.Height = DESC_LINES * DESC_LINE;
-
-        ModButton.UpdateButton(this.description, rect);
-    }
-
-    DrawPageIndicator(baseY) {
-        UIDraw.BorderStringCentered(
-            (this.page + 1) + '/' + this.pageCount,
-            Vector2.new(
-                this.Panel.X + this.PanelWidth - DESC_SIDE_PAD,
-                baseY + DESC_TITLE_H + DESC_LINES * DESC_LINE
-            ),
-            this.description.Hovered ? Color.new(255, 220, 120) : Color.new(170, 170, 170),
-            DESC_SCALE
-        );
     }
 
     DrawClose() {
