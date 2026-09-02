@@ -150,6 +150,13 @@ export class DesertAcolyte extends ModNPC {
       ]);
     }
     
+    npcShop.AddRange([
+      ModItem.getTypeByName('DesertAcolyteHeadcloth'),
+      ModItem.getTypeByName('DesertAcolyteTunic'),
+      ModItem.getTypeByName('DesertAcolyteBoots'),
+      ModItem.getTypeByName('DesertAcolyteCloak')
+    ]);
+
     npcShop.Add(ModItem.getTypeByName('Scorpain'));
     npcShop.Add(ModItem.getTypeByName('EighthPlagueStaff'), 1, Terraria.Item.buyPrice(0, 54, 0, 0));
   }
