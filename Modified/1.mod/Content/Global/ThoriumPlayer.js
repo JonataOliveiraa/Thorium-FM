@@ -79,6 +79,11 @@ export class ThoriumPlayer extends ModPlayer {
   static _cachedWheelPos = { X: 0, Y: 0 };
   static _wheelPosCacheTimer = 0;
 
+  static uselessWigHead = -1;
+  static uselessWigFront = -1;
+  static uselessVestBody = -1;
+  static uselessVestWaist = -1;
+
   static _vec = Vector2.new(0, 0);
   static _vec2 = Vector2.new(0, 0);
   static _color = Color.new(255, 255, 255, 255);
@@ -520,6 +525,13 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   UpdateEquips(player) {
+    if (ThoriumPlayer.uselessWigFront >= 0 && player.head === ThoriumPlayer.uselessWigHead) {
+        player.front = ThoriumPlayer.uselessWigFront;
+    }
+    if (ThoriumPlayer.uselessVestWaist >= 0 && player.body === ThoriumPlayer.uselessVestBody) {
+        player.waist = ThoriumPlayer.uselessVestWaist;
+    }
+
     if (ThoriumPlayer.hellfireEnergy > 0) {
         ThoriumPlayer.hellfireEnergyTimer++;
         if (ThoriumPlayer.hellfireEnergyTimer > 10) {

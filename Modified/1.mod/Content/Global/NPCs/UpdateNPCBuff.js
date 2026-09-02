@@ -13,6 +13,8 @@ import { SingedBuff } from "../../Buffs/SingedBuff.js";
 import { GraniteSurgeBuff } from "../../Buffs/GraniteSurgeBuff.js";
 
 const { NPCID } = Terraria.ID;
+
+const USELESS_SET_MOON_PHASES = [0, 1];
 const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale)'];
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
@@ -403,6 +405,12 @@ export class UpdateNPCBuff extends GlobalNPC {
 
         if (npc.type === Terraria.ID.NPCID.GoblinTinkerer) {
             npcShop.Add(ModItem.getTypeByName('CorkGrease'));
+        }
+
+        if (npc.type === Terraria.ID.NPCID.Clothier && USELESS_SET_MOON_PHASES.includes(Terraria.Main.moonPhase)) {
+            for (const name of ['UselessWig', 'UselessVest', 'UselessBoots']) {
+                npcShop.Add(ModItem.getTypeByName(name));
+            }
         }
     }
 }

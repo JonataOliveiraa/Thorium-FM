@@ -37,6 +37,9 @@ import { DesertAcolyteHeadcloth } from '../Content/Items/NPCItems/DesertAcolyteH
 import { DesertAcolyteTunic } from '../Content/Items/NPCItems/DesertAcolyteTunic.js';
 import { DesertAcolyteBoots } from '../Content/Items/NPCItems/DesertAcolyteBoots.js';
 import { DesertAcolyteCloak } from '../Content/Items/NPCItems/DesertAcolyteCloak.js';
+import { UselessWig } from '../Content/Items/Donate/UselessWig.js';
+import { UselessVest } from '../Content/Items/Donate/UselessVest.js';
+import { UselessBoots } from '../Content/Items/Donate/UselessBoots.js';
 import { Flute } from '../Content/Items/Bard/Flute.js';
 import { Pill } from '../Content/Items/Healer/Pill.js';
 import { Bonesaw } from '../Content/Items/Healer/Bonesaw.js';
@@ -904,6 +907,9 @@ const List = [
     DesertAcolyteTunic,
     DesertAcolyteBoots,
     DesertAcolyteCloak,
+    UselessWig,
+    UselessVest,
+    UselessBoots,
     Flute,
     Pill,
     Bonesaw,
