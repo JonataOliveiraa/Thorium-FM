@@ -44,7 +44,7 @@ export class TotemCaller extends ModItem {
         this.Item.height = 60;
         this.Item.useTime = 40;
         this.Item.useAnimation = 40;
-        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
+        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Swing;
         this.Item.noMelee = true;
         this.Item.knockBack = 3;
         this.Item.value = Terraria.Item.sellPrice(0, 1, 0, 0);
@@ -69,7 +69,7 @@ export class TotemCaller extends ModItem {
             item.UseSound = Terraria.ID.SoundID.Item9;
             return;
         }
-        item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
+        item.useStyle = Terraria.ID.ItemUseStyleID.Swing;
         item.UseSound = Terraria.ID.SoundID.Item44;
     }
 

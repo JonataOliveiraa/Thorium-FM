@@ -27,7 +27,7 @@ export class BoulderProbeStaff extends ModItem {
         this.Item.height = 20;
         this.Item.useTime = 32;
         this.Item.useAnimation = 32;
-        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Shoot;
+        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Swing;
         this.Item.noMelee = true;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
         this.Item.rare = Terraria.ID.ItemRarityID.Orange;
