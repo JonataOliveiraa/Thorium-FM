@@ -95,13 +95,7 @@ export class ScrollView {
         }
     }
 
-    static EdgeFade(y, top, height, fade) {
-        if (fade <= 0) return 1;
-
-        const past = Math.max(top - y, y - (top + height));
-        if (past <= 0) return 1;
-        if (past >= fade) return 0;
-
-        return 1 - past / fade;
+    static Visible(y, top, height) {
+        return y >= top && y <= top + height;
     }
 }

@@ -56,12 +56,12 @@ export class UIDraw {
         );
     }
 
-    static BorderStringCentered(text, position, color = COLOR_WHITE, scale = 1, borderColor = COLOR_BLACK) {
+    static BorderStringCentered(text, position, color = COLOR_WHITE, scale = 1) {
         const size = UIDraw.StringSize(text);
         const origin = Vector2.new(size.X * 0.5, size.Y * 0.5);
         Utils[BORDER_STRING](
             Main.spriteBatch, UIDraw.Font(), text, position.X, position.Y,
-            color, borderColor, origin, scale
+            color, COLOR_BLACK, origin, scale
         );
     }
 }

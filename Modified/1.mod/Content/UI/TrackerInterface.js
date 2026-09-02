@@ -29,9 +29,9 @@ const DESC_LINE = 19;
 const DESC_TITLE_H = 46;
 const DESC_LINES = 4;
 const DESC_SIDE_PAD = 24;
-const DESC_FADE = 14;
-const DESC_INSET = 10;
-const DESC_H = DESC_TITLE_H + DESC_LINES * DESC_LINE + DESC_FADE + 8;
+const DESC_INSET = 9;
+const DESC_PAD_BOTTOM = 22;
+const DESC_H = DESC_TITLE_H + DESC_LINES * DESC_LINE + DESC_PAD_BOTTOM;
 
 const CLOSE_SIZE = 22;
 const CLOSE_INSET = 10;
@@ -241,7 +241,7 @@ export class TrackerInterface extends ModInterface {
 
         const viewTop = baseY + DESC_TITLE_H;
         const viewHeight = DESC_LINES * DESC_LINE;
-        const contentHeight = lines.length * DESC_LINE;
+        const contentHeight = (lines.length - 1) * DESC_LINE;
 
         this.scroll.SetRange(viewHeight, contentHeight + DESC_INSET * 2);
         this.scroll.Update(
@@ -255,18 +255,13 @@ export class TrackerInterface extends ModInterface {
 
         for (let i = 0; i < lines.length; i++) {
             const y = viewTop + DESC_INSET + i * DESC_LINE + offset;
-
-            const strength = ScrollView.EdgeFade(y, viewTop, viewHeight, DESC_FADE);
-            if (strength <= 0) continue;
-
-            const alpha = Math.round(255 * strength);
+            if (!ScrollView.Visible(y, viewTop, viewHeight)) continue;
 
             UIDraw.BorderStringCentered(
                 lines[i],
                 Vector2.new(centerX, y),
-                Color.new(210, 210, 210, alpha),
-                DESC_SCALE,
-                Color.new(0, 0, 0, alpha)
+                Color.new(210, 210, 210),
+                DESC_SCALE
             );
         }
     }
