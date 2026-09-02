@@ -7,6 +7,7 @@ import { GlobalNPC } from "../TL/GlobalNPC.js"
 // Hooks
 import { gHooks } from '../Content/Global/gHooks.js'
 import { ChangeShimmerPos } from '../Content/Global/Hooks/ChangeShimmerPos.js'
+import { HidePickupText } from '../Content/Global/Hooks/HidePickupText.js'
 import { WorldInteraction } from '../Content/Global/Hooks/WorldInteraction.js'
 import { OreInjection } from '../Content/Global/Hooks/OreInjection.js'
 import { PropsReplace } from '../Content/Global/Hooks/PropsReplace.js'
@@ -54,6 +55,7 @@ const List = [
   // GlobalHooks
   gHooks,
   ChangeShimmerPos,
+  HidePickupText,
   WorldInteraction,
   OreInjection,
   PropsReplace,

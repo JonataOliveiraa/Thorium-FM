@@ -166,9 +166,10 @@ export class GigaClam extends ModNPC {
         FxHelper.burst(npc.position, npc.width, npc.height, count, 37, 1, 0.8, 0, false);
     }
 
-    // Solta a perola que estava guardando. TODO: NanoClamCane / BubbleTea
+    // Solta a perola que estava guardando. TODO: BubbleTea quando o item existir
     ModifyNPCLoot(npcLoot) {
         npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('DepthScales'), 2, 1, 2));
+        npcLoot.Add(ItemDropRule.Common(ModItem.getTypeByName('NanoClamCane'), 20, 1, 1));
     }
 
     OnKill(npc) {

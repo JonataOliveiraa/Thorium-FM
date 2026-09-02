@@ -11,6 +11,9 @@
     "ThoriumShield": "Thorium Shield",
     "SpittingFish": "Spittin' Fish",
     "AntlionStaff": "Antlion Staff",
+    "DevourerStaff": "Devourer Staff",
+    "BleedingHeartStaff": "Bleeding Heart Staff",
+    "CreepingVineStaff": "Creeping Vine Staff",
     "BloodSausage": "Blood Sausage",
     "SwordOfDestiny": "Sword of Destiny",
     "SuspiciousMoisturizerBottle": "Suspicious Moisturizer Bottle",
@@ -396,7 +399,6 @@
     "Whip": "Whip",
     "LilTorpedo": "Lil' Torpedo",
     "MarineLauncher": "Marine Launcher",
-    "Eelrod": "Eel-rod",
     "FrostburnPouch": "Frostburn Pouch",
     "SandshroudPouch": "Sandshroud Pouch",
     "SilverSpearTip": "Silver Spear Tip",
@@ -407,7 +409,18 @@
     "TabooWand": "Taboo Wand",
     "MantisCane": "Mantis Cane",
     "YarnBall": "Yarn Ball",
-    "BoneReaper": "Bone Reaper"
+    "BoneReaper": "Bone Reaper",
+    "NanoClamCane": "Nano Clam Cane",
+    "CampingCap": "Camping Cap",
+    "CampingCoat": "Camping Coat",
+    "CampingCleats": "Camping Cleats",
+    "CampingGear": "Camping Gear",
+    "MeteorMask": "Meteor Mask",
+    "InspirationNote": "Inspiration Note",
+    "NoblesHat": "Noble's Hat",
+    "NoblesJerkin": "Noble's Jerkin",
+    "NoblesLeggings": "Noble's Leggings",
+    "InspirationNoteNoble": "Inspiration Note"
   },
   "ItemTooltip": {
     "MouthPiece": "5% increased symphonic playing speed\nYour wind instrument attacks now attempt to home in on enemies",
@@ -420,6 +433,9 @@
     "PacifistNecklace": "While out of combat, healing spells will heal an additional 2 life",
     "SpittingFish": "Summons a water-bound fish to spit up at enemies\nThe fish can only be summoned within a body of water",
     "AntlionStaff": "Summons an antlion spitter to attack nearby enemies",
+    "DevourerStaff": "Summons a grounded devourer to assault enemies",
+    "BleedingHeartStaff": "Summons a beating heart to splash nearby enemies with blood\nIf the heart damages more than 5 enemies in one splash, it will panic and attack faster",
+    "CreepingVineStaff": "Summons a mud clump, infested with a voracious man eating plant",
     "BloodSausage": "'Is this how that bat got so big?'\nSummons a lazy bat to follow you around",
     "SwordOfDestiny": "'With great power comes greater peril'\nSummons a sword that hovers above your head",
     "SuspiciousMoisturizerBottle": "'Makes your hands nice and cracked'\nSummons a necrotic hand to hang out with you",
@@ -503,7 +519,7 @@
     "BloodAltar": "Used to summon the Viscount\nConsumes 5 Unholy Shards",
     "MagmaLocket": "Upon contact with lava, grants the Lava's Embrace effect for 10 seconds\n'Seems to be made of a familiar material'",
     "SpringSteps": "Allows you to perform super jumps while running",
-    "MixTape": "Symphonic critical strikes cause an eruption of melted musical notes",
+    "MixTape": "Your symphonic damage will briefly singe hit enemies\nSymphonic critical strikes cause an eruption of molten music notes",
     "ThoriumHelmet": "'It pulses like energy'\n2% increased critical strike chance",
     "ThoriumMail": "'It pulses like energy'\n2% increased critical strike chance",
     "ThoriumGreaves": "'It pulses like energy'\n2% increased critical strike chance",
@@ -702,7 +718,12 @@
     "TabooWand": "Summons a necromantic Dark Riser that can spawn skeletons from defeated enemies\nOccupies two minion slots",
     "MantisCane": "Summons razor wielding praying mantids to attack enemies\nMantids have a chance to gouge hit enemies",
     "YarnBall": "'Belonged to a never forgotten companion'\nSummons a ferocious baby cat to attack enemies",
-    "BoneReaper": "Rapidly spins a magical scythe all around you"
+    "BoneReaper": "Rapidly spins a magical scythe all around you",
+    "NanoClamCane": "Summons a baby giga clam that spits volleys of pearls at enemies",
+    "CampingGear": "Slowly regenerates life while standing still",
+    "NoblesHat": "Increases the chance for inspiration notes to drop by 4%\nIncreases inspiration regeneration rate by 5%",
+    "NoblesJerkin": "Increases symphonic damage by 10%\nIncreases the chance for inspiration notes to drop by 6%",
+    "NoblesLeggings": "Increases the chance for inspiration notes to drop by 5%\nIncreases movement speed by 8%"
   },
   "ArmorSetBonus": {
     "LivingWood": "Your Living Wood Sapling's automatic attack will chase enemies",
@@ -722,7 +743,8 @@
     "Jester": "10% chance to ring a bell over your head, slowing all nearby enemies briefly",
     "Jester2": "10% chance to ring a bell over your head, slowing all nearby enemies briefly",
     "Granite": "Immune to intense heat and enemy knockback, but your movement is slowed down greatly",
-    "Bronze": "Critical strikes hurl a lightning bolt at your enemy"
+    "Bronze": "Critical strikes hurl a lightning bolt at your enemy",
+    "Nobles": "Inspiration notes that drop are twice as potent and increase your symphonic damage briefly"
   },
   "BuffName": {
     "BloodSausageBuff": "Blood Sausage",
@@ -766,11 +788,6 @@
     "BloomBoostBuff": "Bloom Boost",
     "GraniteSurgeBuff": "Granite Surge",
     "ShockAbsorberBuff": "Shock Absorber",
-    "RepellentBatsBuff": "Bat Repellent",
-    "RepellentFishBuff": "Fish Repellent",
-    "RepellentInsectsBuff": "Insect Repellent",
-    "RepellentSkeletonsBuff": "Skeleton Repellent",
-    "RepellentZombiesBuff": "Zombie Repellent",
     "AquaAffinityBuff": "Aqua Affinity",
     "ArcaneBuff": "Arcane Potential",
     "BloodPotionBuff": "Blood Rush",
@@ -789,7 +806,8 @@
     "TabooWandBuff": "Dark Risen",
     "MantisCaneBuff": "Razor Mantis",
     "YarnBallBuff": "Baby Kitty",
-    "StormHatchlingStaffBuff": "Hatchling"
+    "StormHatchlingStaffBuff": "Hatchling",
+    "AudioOverloadBuff": "Audio Overload"
   },
   "BuffDescription": {
     "BloodSausageBuff": "One too many treats it seems...",
@@ -851,7 +869,8 @@
     "TabooWandBuff": "He's ready to start a skeleton rave party!",
     "MantisCaneBuff": "Male mates beware!",
     "YarnBallBuff": "Nibbles and scratches will be their doom",
-    "StormHatchlingStaffBuff": "This hatchling thinks you're its mother!"
+    "StormHatchlingStaffBuff": "This hatchling thinks you're its mother!",
+    "AudioOverloadBuff": "Symphonic damage increased by 15%"
   },
   "ProjectileName": {
     "CyanHagPro": "Tornado",

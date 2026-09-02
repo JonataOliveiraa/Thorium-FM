@@ -1,5 +1,9 @@
 import { ModItem } from '../TL/ModItem.js';
 import { AntlionStaff } from '../Content/Items/Summon/AntlionStaff.js';
+import { DevourerStaff } from '../Content/Items/Summon/DevourerStaff.js';
+import { BleedingHeartStaff } from '../Content/Items/Summon/BleedingHeartStaff.js';
+import { CreepingVineStaff } from '../Content/Items/Summon/CreepingVineStaff.js';
+import { NanoClamCane } from '../Content/Items/Depth/NanoClamCane.js';
 import { BloodSausage } from '../Content/Pets/BloodSausage/BloodSausage.js';
 import { SwordOfDestiny } from '../Content/Pets/SwordOfDestiny/SwordOfDestiny.js';
 import { SuspiciousMoisturizerBottle } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottle.js';
@@ -363,6 +367,11 @@ import { DiverSuit } from '../Content/Items/Vanity/DiverSuit.js';
 import { DruidCloak } from '../Content/Items/Vanity/DruidCloak.js';
 import { DiverLeggings } from '../Content/Items/Vanity/DiverLeggings.js';
 import { GelatinousMask } from '../Content/Items/Vanity/GelatinousMask.js';
+import { CampingCap } from '../Content/Items/Vanity/CampingCap.js';
+import { CampingCoat } from '../Content/Items/Vanity/CampingCoat.js';
+import { CampingCleats } from '../Content/Items/Vanity/CampingCleats.js';
+import { CampingGear } from '../Content/Items/Vanity/CampingGear.js';
+import { MeteorMask } from '../Content/Items/Vanity/MeteorMask.js';
 import { GelatinousMail } from '../Content/Items/Vanity/GelatinousMail.js';
 import { GelatinousGreaves } from '../Content/Items/Vanity/GelatinousGreaves.js';
 import { Jelly } from '../Content/Items/Consumable/Jelly.js';
@@ -436,6 +445,11 @@ import { PacifistNecklace } from '../Content/Items/BasicAccessories/PacifistNeck
 import { NecromancersHeart } from '../Content/Items/NPCItems/NecromancersHeart.js';
 import { MouthPiece } from '../Content/Items/BasicAccessories/Bard/MouthPiece.js';
 import { MixTape } from '../Content/Items/BasicAccessories/Bard/MixTape.js';
+import { InspirationNote } from '../Content/Items/Bard/InspirationNote.js';
+import { InspirationNoteNoble } from '../Content/Items/Bard/InspirationNoteNoble.js';
+import { NoblesHat } from '../Content/Items/Nobles/NoblesHat.js';
+import { NoblesJerkin } from '../Content/Items/Nobles/NoblesJerkin.js';
+import { NoblesLeggings } from '../Content/Items/Nobles/NoblesLeggings.js';
 import { LifeGem } from '../Content/Items/BasicAccessories/LifeGem.js';
 import { AquamarineHook } from '../Content/Items/Hook/AquamarineHook.js';
 import { OpalHook } from '../Content/Items/Hook/OpalHook.js';
@@ -452,6 +466,11 @@ const List = [
     NecromancersHeart,
     MouthPiece,
     MixTape,
+    InspirationNote,
+    InspirationNoteNoble,
+    NoblesHat,
+    NoblesJerkin,
+    NoblesLeggings,
     LifeGem,
     GraveGoods,
     CherryPie,
@@ -562,6 +581,11 @@ const List = [
     ElephantGun,
     GuildsStaff,
     GelatinousMask,
+    CampingCap,
+    CampingCoat,
+    CampingCleats,
+    CampingGear,
+    MeteorMask,
     GelatinousMail,
     GelatinousGreaves,
     MarineCatcher,
@@ -812,6 +836,10 @@ const List = [
     // Thrower
     NaiadShiv,
     AntlionStaff,
+    DevourerStaff,
+    BleedingHeartStaff,
+    CreepingVineStaff,
+    NanoClamCane,
     BloodSausage,
     SwordOfDestiny,
     SuspiciousMoisturizerBottle,

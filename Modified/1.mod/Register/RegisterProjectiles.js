@@ -1,6 +1,15 @@
 import { ModProjectile } from '../TL/ModProjectile.js';
 import { AntlionStaffPro } from '../Content/Projectiles/AntlionStaffPro.js';
 import { AntlionStaffPro2 } from '../Content/Projectiles/AntlionStaffPro2.js';
+import { DevourerStaffPro } from '../Content/Projectiles/DevourerStaffPro.js';
+import { DevourerStaffPro2 } from '../Content/Projectiles/DevourerStaffPro2.js';
+import { DevourerStaffPro3 } from '../Content/Projectiles/DevourerStaffPro3.js';
+import { BleedingHeartStaffPro } from '../Content/Projectiles/BleedingHeartStaffPro.js';
+import { BleedingHeartStaffPro2 } from '../Content/Projectiles/BleedingHeartStaffPro2.js';
+import { CreepingVineStaffPro } from '../Content/Projectiles/CreepingVineStaffPro.js';
+import { MixtapeNote } from '../Content/Projectiles/MixtapeNote.js';
+import { NanoClamCanePro } from '../Content/Projectiles/NanoClamCanePro.js';
+import { NanoClamCaneProPearl } from '../Content/Projectiles/NanoClamCaneProPearl.js';
 import { BloodSausagePro } from '../Content/Pets/BloodSausage/BloodSausagePro.js';
 import { SwordOfDestinyPro } from '../Content/Pets/SwordOfDestiny/SwordOfDestinyPro.js';
 import { SuspiciousMoisturizerBottlePro } from '../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottlePro.js';
@@ -578,6 +587,15 @@ const List = [
   StrongestLinkPro,
   AntlionStaffPro,
   AntlionStaffPro2,
+  DevourerStaffPro,
+  DevourerStaffPro2,
+  DevourerStaffPro3,
+  BleedingHeartStaffPro,
+  BleedingHeartStaffPro2,
+  CreepingVineStaffPro,
+  MixtapeNote,
+  NanoClamCanePro,
+  NanoClamCaneProPearl,
   BloodSausagePro,
   SwordOfDestinyPro,
   SuspiciousMoisturizerBottlePro,

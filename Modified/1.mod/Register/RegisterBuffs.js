@@ -1,4 +1,5 @@
 import { ModBuff } from "../TL/ModBuff.js";
+import { AudioOverloadBuff } from "../Content/Buffs/AudioOverloadBuff.js";
 import { BloodSausageBuff } from "../Content/Pets/BloodSausage/BloodSausageBuff.js";
 import { SwordOfDestinyBuff } from "../Content/Pets/SwordOfDestiny/SwordOfDestinyBuff.js";
 import { SuspiciousMoisturizerBottleBuff } from "../Content/Pets/SuspiciousMoisturizerBottle/SuspiciousMoisturizerBottleBuff.js";
@@ -65,6 +66,7 @@ import { RepellentZombiesBuff } from "../Content/Buffs/Potions/RepellentZombiesB
 import { SandshroudPouchBuff, SandshroudPouchDebuff } from './../Content/Buffs/SandshroudPouchBuff.js';
 
 const List = [
+    AudioOverloadBuff,
     LivingWoodAcornBuff,
     PrehistoricAmberStaffBuff,
     ElementalDecayBuff,

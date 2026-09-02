@@ -11,6 +11,9 @@
     "ThoriumShield": "Escudo de Thorium",
     "SpittingFish": "Peixe Cuspidor",
     "AntlionStaff": "Cajado de Formiga-leão",
+    "DevourerStaff": "Cajado do Devorador",
+    "BleedingHeartStaff": "Cajado do Coração Sangrento",
+    "CreepingVineStaff": "Cajado da Trepadeira",
     "BloodSausage": "Linguiça de Sangue",
     "SwordOfDestiny": "Espada do Destino",
     "SuspiciousMoisturizerBottle": "Frasco de Hidratante Suspeito",
@@ -396,7 +399,6 @@
     "Whip": "Chicote",
     "LilTorpedo": "Pequeno Torpedo",
     "MarineLauncher": "Lançador de Fuzileiros Navais",
-    "Eelrod": "Cetro de Enguia",
     "FrostburnPouch": "Bolsa para Queimaduras de Frio",
     "SandshroudPouch": "Bolsa de Sudário de Areia",
     "SilverSpearTip": "Ponta de Lança Prateada",
@@ -407,7 +409,18 @@
     "TabooWand": "Varinha do Tabu",
     "MantisCane": "Cajado do Louva-a-Deus",
     "YarnBall": "Bola de Lã",
-    "BoneReaper": "Ceifador de Ossos"
+    "BoneReaper": "Ceifador de Ossos",
+    "NanoClamCane": "Cajado da Nanoamêijoa",
+    "CampingCap": "Boné de Acampamento",
+    "CampingCoat": "Casaco de Acampamento",
+    "CampingCleats": "Botas de Acampamento",
+    "CampingGear": "Equipamento de Acampamento",
+    "MeteorMask": "Máscara de Meteoro",
+    "InspirationNote": "Nota de Inspiração",
+    "NoblesHat": "Chapéu do Nobre",
+    "NoblesJerkin": "Gibão do Nobre",
+    "NoblesLeggings": "Calças do Nobre",
+    "InspirationNoteNoble": "Nota de Inspiração"
   },
   "ItemTooltip": {
     "MouthPiece": "Aumenta a velocidade de execução sinfônica em 5%\nSeus ataques de instrumento de sopro passam a perseguir inimigos",
@@ -420,6 +433,9 @@
     "PacifistNecklace": "Fora de combate, feitiços de cura curam 2 pontos de vida adicionais",
     "SpittingFish": "Invoca um peixe aquático que cospe nos inimigos\nO peixe só pode ser invocado dentro de um corpo d'água",
     "AntlionStaff": "Invoca um cuspidor formiga-leão que ataca inimigos próximos",
+    "DevourerStaff": "Invoca um devorador fincado no chão para atacar inimigos",
+    "BleedingHeartStaff": "Invoca um coração pulsante que borrifa sangue nos inimigos próximos\nSe o coração atingir mais de 5 inimigos em um só borrifo, ele entra em pânico e ataca mais rápido",
+    "CreepingVineStaff": "Invoca um torrão de lama infestado por uma planta carnívora voraz",
     "BloodSausage": "'Foi assim que aquele morcego ficou tão grande?'\nInvoca um morcego preguiçoso para te seguir",
     "SwordOfDestiny": "'Com grandes poderes vêm grandes perigos'\nInvoca uma espada que paira sobre sua cabeça",
     "SuspiciousMoisturizerBottle": "'Deixa suas mãos bem rachadas'\nInvoca uma mão necrótica para te fazer companhia",
@@ -503,7 +519,7 @@
     "BloodAltar": "Usado para invocar o Visconde\nConsome 5 Fragmentos Profanos",
     "MagmaLocket": "Ao entrar em contato com a lava, recebe o efeito Abraço da Lava durante 10 segundos\n'Parece ter sido feito por um material familiar'",
     "SpringSteps": "Permite realizar superpulos enquanto corre",
-    "MixTape": "Golpes críticos sinfônicos provocam uma erupção de notas musicais derretidas",
+    "MixTape": "Seu dano sinfônico queima brevemente os inimigos atingidos\nGolpes críticos sinfônicos provocam uma erupção de notas musicais derretidas",
     "ThoriumHelmet": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "ThoriumMail": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
     "ThoriumGreaves": "'Isso pulsa como a energia'\n2% de aumento na chance de ataque crítico",
@@ -702,7 +718,12 @@
     "TabooWand": "Invoca um Ascendente Sombrio necromântico que pode gerar esqueletos de inimigos derrotados\nOcupa dois espaços de lacaios",
     "MantisCane": "Invoca um louva-a-deus empunhando lâminas para atacar os inimigos\nOs louva-a-deus têm uma chance de ferir profundamente os inimigos atingidos",
     "YarnBall": "'Pertenceu a um companheiro que jamais será esquecido'\nInvoca um filhote de gato feroz para atacar os inimigos",
-    "BoneReaper": "Gira rapidamente uma foice mágica ao seu redor"
+    "BoneReaper": "Gira rapidamente uma foice mágica ao seu redor",
+    "NanoClamCane": "Invoca uma amêijoa giga bebê que cospe rajadas de pérolas nos inimigos",
+    "CampingGear": "Regenera vida lentamente enquanto você está parado",
+    "NoblesHat": "Aumenta em 4% a chance de notas de inspiração caírem\nAumenta em 5% a regeneração de inspiração",
+    "NoblesJerkin": "Aumenta em 10% o dano sinfônico\nAumenta em 6% a chance de notas de inspiração caírem",
+    "NoblesLeggings": "Aumenta em 5% a chance de notas de inspiração caírem\nAumenta em 8% a velocidade de movimento"
   },
   "ArmorSetBonus": {
     "LivingWood": "O ataque automático do seu Broto de Madeira Viva irá perseguir inimigos",
@@ -722,7 +743,8 @@
     "Jester": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos",
     "Jester2": "10% de chance de tocar um sino sobre sua cabeça, desacelerando brevemente todos os inimigos próximos",
     "Granite": "Imune a calor intenso e a repulsão inimiga, mas seu movimento fica bem mais lento",
-    "Bronze": "Ataques críticos lançam um raio no seu inimigo"
+    "Bronze": "Ataques críticos lançam um raio no seu inimigo",
+    "Nobles": "As notas de inspiração que caem são duas vezes mais potentes e aumentam brevemente seu dano sinfônico"
   },
   "BuffName": {
     "BloodSausageBuff": "Linguiça de Sangue",
@@ -766,11 +788,6 @@
     "BloomBoostBuff": "Impulso Florido",
     "GraniteSurgeBuff": "Sobrecarga de Granito",
     "ShockAbsorberBuff": "Absorvedor de Choque",
-    "RepellentBatsBuff": "Repelente de Morcegos",
-    "RepellentFishBuff": "Repelente de Peixes",
-    "RepellentInsectsBuff": "Repelente de Insetos",
-    "RepellentSkeletonsBuff": "Repelente de Esqueletos",
-    "RepellentZombiesBuff": "Repelente de Zumbis",
     "AquaAffinityBuff": "Afinidade Aquática",
     "ArcaneBuff": "Potencial Arcano",
     "BloodPotionBuff": "Impulso de Sangue",
@@ -789,7 +806,8 @@
     "TabooWandBuff": "Ascendente Sombrio",
     "MantisCaneBuff": "Louva-a-Deus Cortante",
     "YarnBallBuff": "Gatinho",
-    "StormHatchlingStaffBuff": "Filhote"
+    "StormHatchlingStaffBuff": "Filhote",
+    "AudioOverloadBuff": "Sobrecarga de Áudio"
   },
   "BuffDescription": {
     "BloodSausageBuff": "Petiscos demais, ao que parece...",
@@ -851,7 +869,8 @@
     "TabooWandBuff": "Ele está pronto para começar uma festa rave de esqueletos!",
     "MantisCaneBuff": "Machos, tomem cuidado!",
     "YarnBallBuff": "Mordidinhas e arranhões serão o destino deles",
-    "StormHatchlingStaffBuff": "Este filhote acha que você é a mãe dele!"
+    "StormHatchlingStaffBuff": "Este filhote acha que você é a mãe dele!",
+    "AudioOverloadBuff": "Dano sinfônico aumentado em 15%"
   },
   "ProjectileName": {
     "CyanHagPro": "Tornado",
