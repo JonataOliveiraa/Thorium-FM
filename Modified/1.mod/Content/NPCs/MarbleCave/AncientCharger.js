@@ -5,7 +5,7 @@ import { AncientArcher } from './AncientArcher.js';
 import { FxHelper } from '../../Global/Utils/FxHelper.js';
 import { Rand } from '../../../TL/Modules/Rand.js';
 
-const { Main, Utils } = Terraria;
+const { Main } = Terraria;
 const { BestiaryDatabaseNPCsPopulator, FlavorTextBestiaryInfoElement } = Terraria.GameContent.Bestiary;
 
 export class AncientCharger extends ModNPC {
@@ -58,7 +58,7 @@ export class AncientCharger extends ModNPC {
   }
 
   OnHitPlayer(npc, target, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
-    if (!Main.expertMode || !Utils.NextBool(Main.rand, 2)) return;
+    if (!Main.expertMode || !Rand.NextBool(2)) return;
     target.AddBuff(Terraria.ID.BuffID.Bleeding, 600, true, false);
   }
 

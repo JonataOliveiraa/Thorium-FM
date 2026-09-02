@@ -1,6 +1,7 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
+import { ThoriumAnvil } from '../../Global/Tiles/ThoriumAnvil.js';
 
 export class ThoriumBoomerang extends ModItem {
     constructor() {
@@ -35,5 +36,12 @@ export class ThoriumBoomerang extends ModItem {
 
   CanUseItem(item, player) {
     return player.ownedProjectileCounts[this.Item.shoot] < 1;
+  }
+
+  AddRecipes() {
+    this.CreateRecipe(1)
+      .AddIngredient(ModItem.getTypeByName('ThoriumBar'), 7)
+      .AddTile(ThoriumAnvil.Type)
+      .Register();
   }
 }

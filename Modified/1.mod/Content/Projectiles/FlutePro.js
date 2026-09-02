@@ -9,7 +9,8 @@ const NewDustPerfect = Terraria.Dust.NewDustPerfect;
 const FindTargetWithinRange = Terraria.Projectile['NPC FindTargetWithinRange(float maxRange, bool checkCanHit)'];
 
 const TRAIL_DUST = 31;
-const TRAIL_COUNT = 3;
+const TRAIL_COUNT = 1;
+const TRAIL_SCALE = 0.8;
 
 const HOMING_DELAY = 2;
 const HOMING_RANGE = 300;
@@ -39,7 +40,7 @@ export class FlutePro extends ModProjectile {
                 proj.Center.X - velocity.X / TRAIL_COUNT * i,
                 proj.Center.Y - velocity.Y / TRAIL_COUNT * i
             );
-            const dust = NewDustPerfect(pos, TRAIL_DUST, null, 0, null, 1);
+            const dust = NewDustPerfect(pos, TRAIL_DUST, null, 0, null, TRAIL_SCALE);
             if (!dust) continue;
             dust.noGravity = true;
             dust.noLight = true;

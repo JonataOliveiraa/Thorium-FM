@@ -71,9 +71,10 @@ export class MiscHelper {
     }
 
     static CanHitLineWorld(pos1, pos2) {
-        const start = pos1.ToTileCoordinates();
-        const end = pos2.ToTileCoordinates();
-        return MiscHelper.CanHitLine(start.X, start.Y, end.X, end.Y);
+        return MiscHelper.CanHitLine(
+            Math.floor(pos1.X / 16), Math.floor(pos1.Y / 16),
+            Math.floor(pos2.X / 16), Math.floor(pos2.Y / 16)
+        );
     }
 
     static IsOnStandableGround(startX, y, width, onlySolid = false) {

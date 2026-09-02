@@ -55,4 +55,13 @@ export class LivingWoodAcorn extends ModItem {
         
         return false;
     }
+    
+    AddRecipes() {
+        this.CreateRecipe(1)
+            .AddIngredient(Terraria.ID.ItemID.FallenStar, 3)
+            .AddIngredient(ModItem.getTypeByName('LivingLeaf'), 10)
+            .AddIngredient(Terraria.ID.ItemID.Wood, 10)
+            .AddTile(Terraria.ID.TileID.WorkBenches)
+            .Register();
+    }
 }
