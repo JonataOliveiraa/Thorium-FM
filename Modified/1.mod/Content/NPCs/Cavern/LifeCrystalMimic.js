@@ -98,12 +98,6 @@ export class LifeCrystalMimic extends ModNPC {
         this.NPC.HitSound = Terraria.ID.SoundID.Item27;
         this.NPC.DeathSound = Terraria.ID.SoundID.NPCDeath6;
         this.NPC.value = ModNPC.NPCValue(0, 1, 0, 0);
-
-        const banner = ModItem.getTypeByName('LifeCrystalMimicBanner');
-        if (banner) {
-            this.Banner = this.Type;
-            this.BannerItem = banner;
-        }
     }
 
     ApplyBuffImmunity(npc) {

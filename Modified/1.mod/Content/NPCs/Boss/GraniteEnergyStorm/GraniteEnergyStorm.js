@@ -332,10 +332,6 @@ export class GraniteEnergyStorm extends ModNPC {
         const mask = ModItem.getTypeByName('GraniteEnergyStormMask');
         if (mask > 0) npcLoot.Add(ItemDropRule.Common(mask, 7, 1, 1));
 
-        // Trofeu ainda nao existe; entra sozinho quando o item for criado.
-        const trophy = ModItem.getTypeByName('GraniteEnergyStormTrophy');
-        if (trophy > 0) npcLoot.Add(ItemDropRule.Common(trophy, 10, 1, 1));
-
         // Expert e Master: o BossBag ja' cuida de substituir o drop normal pela
         // bolsa. No Master, a bolsa tambem entrega o mascote.
         const bag = ModItem.getTypeByName('GraniteEnergyStormTreasureBag');
