@@ -11,6 +11,8 @@ const {
   FlavorTextBestiaryInfoElement
 } = Terraria.GameContent.Bestiary;
 
+const GUARDIAN_SET = ['GuardiansWig', 'GuardiansCloak', 'GuardiansBoots'];
+
 export class Blacksmith extends ModNPC {
   constructor() {
     super();
@@ -129,6 +131,12 @@ export class Blacksmith extends ModNPC {
 
     if (Terraria.NPC.downedQueenBee) {
       npcShop.Add(ModItem.getTypeByName('SuperAnvil'), 1, Terraria.Item.buyPrice(0, 10, 0, 0));
+    }
+
+    if (Terraria.Main.bloodMoon) {
+      for (const name of GUARDIAN_SET) {
+        npcShop.Add(ModItem.getTypeByName(name));
+      }
     }
   }
 
