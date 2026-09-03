@@ -1,6 +1,7 @@
 import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 
 const { Vector2, Effects } = Modules;
 const NEW_PROJECTILE = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
@@ -41,13 +42,21 @@ export class EnergyStormBolter extends ModItem {
         Effects.PlaySound(Terraria.ID.SoundID.Item114, player.Center.X, player.Center.Y, 1, SHOT_PITCH);
     }
 
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         // Municoes especiais (Crystal Bullet, Meteor Shot...) seguem o comportamento
         // delas; so' a bala comum vira o projetil teleguiado.
-        if (type !== Terraria.ID.ProjectileID.Bullet) return true;
+        const ammo = AmmoHelper.Pick(player, item.useAmmo);
+        if (!ammo) return false;
+        if (ammo.shoot !== Terraria.ID.ProjectileID.Bullet) return true;
 
         if (boltType < 0) boltType = ModProjectile.getTypeByName('EnergyStormBolterPro') ?? -1;
         if (boltType < 0) return true;
+
+        if (AmmoHelper.Consume(player, item.useAmmo) <= 0) return false;
 
         NEW_PROJECTILE(
             null,

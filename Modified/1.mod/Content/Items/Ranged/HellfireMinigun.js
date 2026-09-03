@@ -101,7 +101,7 @@ export class HellfireMinigun extends ModItem {
                 }
             }
         }
-        return obj;
+        return flag1 ? obj : null;
     }
     
     CanConsumeAmmo(player, ammoId) {
