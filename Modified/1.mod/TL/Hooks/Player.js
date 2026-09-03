@@ -450,6 +450,7 @@ export class PlayerHooks {
                         let rotX = x * rot;
                         let rotY = y * rot;
                         self.itemRotation = Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
+                        self.ChangeDir(rotX > 0 ? 1 : -1);
                     }
                 }
             });
