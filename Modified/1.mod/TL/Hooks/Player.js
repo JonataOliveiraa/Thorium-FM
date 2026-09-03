@@ -449,8 +449,8 @@ export class PlayerHooks {
                         let rot = item.shootSpeed / Math.sqrt(x * x + y * y);
                         let rotX = x * rot;
                         let rotY = y * rot;
-                        self.itemRotation = Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
                         self.ChangeDir(rotX > 0 ? 1 : -1);
+                        self.itemRotation = Math.atan2(rotY * self.direction, rotX * self.direction) - self.fullRotation;
                     }
                 }
             });
