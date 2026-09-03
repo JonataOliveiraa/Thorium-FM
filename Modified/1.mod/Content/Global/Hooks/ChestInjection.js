@@ -70,6 +70,15 @@ const InjectionRules = [
     {
         type: 21,
         style: ChestStyle1.Ivy,
+        getItemID: () => ModItem.getTypeByName('ForestOcarina'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace',
+        salt: 1187
+    },
+    {
+        type: 21,
+        style: ChestStyle1.Ivy,
         getItemID: () => ModItem.getTypeByName('TheDigester'),
         stack: 1,
         calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),

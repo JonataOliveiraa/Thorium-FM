@@ -54,6 +54,7 @@ import { GuardiansCloak } from '../Content/Items/Donate/GuardiansCloak.js';
 import { GuardiansBoots } from '../Content/Items/Donate/GuardiansBoots.js';
 import { BlacksmithApron } from '../Content/Items/NPCItems/BlacksmithApron.js';
 import { Flute } from '../Content/Items/Bard/Flute.js';
+import { ForestOcarina } from '../Content/Items/Bard/ForestOcarina.js';
 import { Pill } from '../Content/Items/Healer/Pill.js';
 import { Bonesaw } from '../Content/Items/Healer/Bonesaw.js';
 import { CactusFruit } from '../Content/Items/Consumable/CactusFruit.js';
@@ -937,6 +938,7 @@ const List = [
     GuardiansBoots,
     BlacksmithApron,
     Flute,
+    ForestOcarina,
     Pill,
     Bonesaw,
     CactusFruit,

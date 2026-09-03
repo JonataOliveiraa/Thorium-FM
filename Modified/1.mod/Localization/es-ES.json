@@ -35,6 +35,7 @@
   },
   "ItemName": {
     "Flute": "Flauta",
+    "ForestOcarina": "Ocarina del Bosque",
     "Pill": "Píldora",
     "Bonesaw": "Sierra de Hueso",
     "DesertAcolyteHeadcloth": "Turbante del Acólito del Desierto",
@@ -503,6 +504,7 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "ForestOcarina": "Silba una ráfaga salvaje de sonido\nUsa la interacción inteligente para invocar un sigilo del bosque, que imita tu ocarina\nInvocar un sigilo cuesta 5 de inspiración",
     "BlacksmithApron": "'¡Poder de forja aumentado un 15%! ...En realidad no'",
     "Flute": "Suelta un soplo de flauta que persigue débilmente",
     "Pill": "Lanza una píldora que rebota\nUsa la interacción inteligente para lanzar una píldora que acelera tu recuperación de vida",

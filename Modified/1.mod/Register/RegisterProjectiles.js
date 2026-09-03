@@ -35,6 +35,8 @@ import { GroundedTotemPro } from '../Content/Projectiles/Minions/GroundedTotemPr
 import { MistyTotemPro } from '../Content/Projectiles/Minions/MistyTotemPro.js';
 import { WindyTotemPro } from '../Content/Projectiles/Minions/WindyTotemPro.js';
 import { FlutePro } from '../Content/Projectiles/FlutePro.js';
+import { ForestOcarinaPro } from '../Content/Projectiles/ForestOcarinaPro.js';
+import { ForestOcarinaPro2 } from '../Content/Projectiles/ForestOcarinaPro2.js';
 import { ThePillPro } from '../Content/Projectiles/ThePillPro.js';
 import { ThePillPro2 } from '../Content/Projectiles/ThePillPro2.js';
 import { BonesawPro } from '../Content/Projectiles/BonesawPro.js';
@@ -643,6 +645,8 @@ const List = [
   MistyTotemPlaced,
   WindyTotemPlaced,
   FlutePro,
+  ForestOcarinaPro,
+  ForestOcarinaPro2,
   ThePillPro,
   ThePillPro2,
   BonesawPro,

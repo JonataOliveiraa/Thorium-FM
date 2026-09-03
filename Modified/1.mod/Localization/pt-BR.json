@@ -35,6 +35,7 @@
   },
   "ItemName": {
     "Flute": "Flauta",
+    "ForestOcarina": "Ocarina da Floresta",
     "Pill": "Pílula",
     "Bonesaw": "Serra de Osso",
     "DesertAcolyteHeadcloth": "Turbante do Acólito do Deserto",
@@ -503,6 +504,7 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "ForestOcarina": "Assobia uma rajada selvagem de som\nUse a interação inteligente para invocar um sigilo da floresta, que imita sua ocarina\nInvocar um sigilo custa 5 de inspiração",
     "BlacksmithApron": "'Poder de forja aumentado em 15%! ...Nem tanto'",
     "Flute": "Solta um sopro de flauta que persegue fracamente",
     "Pill": "Arremessa uma pílula que quica\nUse a interação inteligente para lançar uma pílula que acelera sua recuperação de vida",

@@ -35,6 +35,7 @@
   },
   "ItemName": {
     "Flute": "Flute",
+    "ForestOcarina": "Forest Ocarina",
     "Pill": "Pill",
     "Bonesaw": "Bonesaw",
     "DesertAcolyteHeadcloth": "Desert Acolyte's Headcloth",
@@ -503,6 +504,7 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "ForestOcarina": "Whistles out a wild burst of noise\nUse smart interaction to summon a forest sigil, which mimics your ocarina\nBringing forth a sigil costs 5 inspiration",
     "BlacksmithApron": "'Forging power increased by 15%! ...Not really'",
     "Flute": "Releases a weakly homing flute toot",
     "Pill": "Throws out a bouncing pill\nUse smart interaction to throw a pill that boosts your life recovery",
