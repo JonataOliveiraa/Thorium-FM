@@ -59,7 +59,7 @@ export class AncientCharger extends ModNPC {
 
   OnHitPlayer(npc, target, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
     if (!Main.expertMode || !Rand.NextBool(2)) return;
-    target.AddBuff(Terraria.ID.BuffID.Bleeding, 600, true, false);
+    target.AddBuff(Terraria.ID.BuffID.Bleeding, 600, true);
   }
 
   HitEffect(npc, hitDirection, damage) {

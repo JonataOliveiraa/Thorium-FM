@@ -1549,7 +1549,7 @@ export class ThoriumPlayer extends ModPlayer {
     const duration = ThoriumPlayer.ShockAbsorberTicksPer100 * Math.floor(ThoriumPlayer.accShockAbsorberStorage / 100);
     if (duration <= 0) return;
 
-    player.AddBuff(ThoriumPlayer._shockAbsorberBuffType, duration, true, false);
+    player.AddBuff(ThoriumPlayer._shockAbsorberBuffType, duration, true);
     Effects.PlaySound(Terraria.ID.SoundID.Item94, player.Center.X, player.Center.Y);
 
     for (let index = 0; index < 20; index++) {

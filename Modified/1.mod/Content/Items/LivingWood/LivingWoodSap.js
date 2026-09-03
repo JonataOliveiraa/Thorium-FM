@@ -25,9 +25,13 @@ export class LivingWoodSap extends ModItem {
     }
     
     UpdateAccessory(item, player, vanity, hideVisual) {
-        if (!vanity) {
-            player.minionKB += (this.SummonKnockbackIncrease / player.minionKB);
-            player.minionDamage += (this.SummonDamageIncrease / player.minionDamage);
-        }
+        if (vanity) return;
+
+        player.minionKB += this.SummonKnockbackIncrease;
+
+        const heldItem = player.inventory[player.selectedItem];
+        if (!heldItem || heldItem.damage <= 0) return;
+
+        player.minionDamage += this.SummonDamageIncrease / heldItem.damage;
     }
 }
