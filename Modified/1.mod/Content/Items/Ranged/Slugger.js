@@ -1,4 +1,5 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 
@@ -37,7 +38,14 @@ export class Slugger extends ModItem {
     }
 
     // Escopeta: 3 balas em leque, coice pra tras e fumaca no cano
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
+        const projType = AmmoHelper.Consume(player, item.useAmmo);
+        if (projType <= 0) return false;
+
         const source = null;
         const speed = Math.sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
         const base = Math.atan2(velocity.X, velocity.Y);
@@ -47,7 +55,7 @@ export class Slugger extends ModItem {
             NewProjectile(
                 source, position.X, position.Y,
                 speed * Math.sin(angle), speed * Math.cos(angle),
-                type, damage, knockBack, player.whoAmI,
+                projType, damage, knockBack, player.whoAmI,
                 0, 0, 0, null
             );
         }

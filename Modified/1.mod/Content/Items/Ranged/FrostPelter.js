@@ -1,4 +1,5 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 
@@ -42,8 +43,13 @@ export class FrostPelter extends ModItem {
     }
 
     // Cospe 4 bolas de neve num leque, cada uma um pouco mais lenta
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
         if (_proType < 0) return true;
+        if (AmmoHelper.Consume(player, item.useAmmo) <= 0) return false;
 
         const source = null;
 

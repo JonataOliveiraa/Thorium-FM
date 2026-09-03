@@ -1,9 +1,12 @@
 // SharkStorm.js
 import { Terraria } from "../../../TL/ModImports.js";
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from "../../../TL/ModItem.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
+
+const AMMO_SAVE_CHANCE = 33;
 
 const NewProjectile = Terraria.Projectile['int NewProjectile(IEntitySource spawnSource, Vector2 position, Vector2 velocity, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)'];
 const { Main } = Terraria;
@@ -42,10 +45,16 @@ export class SharkStorm extends ModItem {
         return true;
     }
 
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        if (Rand.Next(0, 100) >= 33) {
-            this.ConsumeAmmo(player);
-        }
+        const ammo = AmmoHelper.Pick(player, item.useAmmo);
+        if (!ammo || ammo.shoot <= 0) return false;
+
+        const projType = ammo.shoot;
+        if (Rand.Next(0, 100) >= AMMO_SAVE_CHANCE) AmmoHelper.Consume(player, item.useAmmo);
 
         const angle = (Rand.NextFloat() - 0.5) * Math.PI * 5 / 180;
         const cos = Math.cos(angle);
@@ -57,7 +66,7 @@ export class SharkStorm extends ModItem {
             null,
             position,
             Vector2.new(velX, velY),
-            type,
+            projType,
             damage,
             knockBack,
             player.whoAmI,
@@ -66,20 +75,6 @@ export class SharkStorm extends ModItem {
         return false;
     }
 
-    ConsumeAmmo(player) {
-        const ammoType = this.Item.useAmmo;
-        for (let i = 0; i < 54; i++) {
-            const invItem = player.inventory[i];
-            if (invItem && invItem.ammo === ammoType && invItem.stack > 0) {
-                invItem.stack--;
-                if (invItem.stack <= 0) {
-                    invItem.active = false;
-                    invItem.type = 0;
-                }
-                break;
-            }
-        }
-    }
 
     HoldoutOffset(item, player) {
         return { X: -4, Y: 0 };

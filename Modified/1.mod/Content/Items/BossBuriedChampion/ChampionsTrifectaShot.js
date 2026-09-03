@@ -1,4 +1,5 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 import { ThoriumPlayer } from '../../Global/ThoriumPlayer.js';
@@ -37,10 +38,16 @@ export class ChampionsTrifectaShot extends ModItem {
     return { X: -4, Y: 0 };
   }
 
+  CanUseItem(item, player) {
+    return AmmoHelper.Has(player, item.useAmmo);
+  }
+
   Shoot(item, player, position, velocity, type, damage, knockBack) {
     if (_pro1 === -1) _pro1 = ModProjectile.getTypeByName('ChampionsTrifectaShotPro') ?? -2;
     if (_pro2 === -1) _pro2 = ModProjectile.getTypeByName('ChampionsTrifectaShotPro2') ?? -2;
     if (_pro3 === -1) _pro3 = ModProjectile.getTypeByName('ChampionsTrifectaShotPro3') ?? -2;
+
+    if (AmmoHelper.Consume(player, item.useAmmo) <= 0) return false;
 
     const counter = ThoriumPlayer.itemChampionsTrifectaShotCounter;
     const source = null;

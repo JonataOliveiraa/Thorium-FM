@@ -21,6 +21,10 @@ export class AmmoHelper {
         return null;
     }
 
+    static Has(player, ammoId) {
+        return AmmoHelper.Pick(player, ammoId) !== null;
+    }
+
     static CanConsume(player, ammoId) {
         try {
             if (player.magicQuiver && (ammoId === AmmoID.Arrow || ammoId === AmmoID.Stake) && Rand.Next(0, 5) === 0) return false;

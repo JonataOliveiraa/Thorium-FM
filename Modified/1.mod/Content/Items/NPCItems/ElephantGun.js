@@ -1,4 +1,5 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from '../../../TL/ModItem.js';
 
 const { Color, Rand, Vector2 } = Modules;
@@ -36,7 +37,14 @@ export class ElephantGun extends ModItem {
         return { X: -6, Y: 2 };
     }
 
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
+        const projType = AmmoHelper.Consume(player, item.useAmmo);
+        if (projType <= 0) return false;
+
         let spawn = position;
         const length = Math.sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
         if (length > 0) {
@@ -58,7 +66,7 @@ export class ElephantGun extends ModItem {
         }
 
         const proj = Main.projectile[NewProjectile(
-            null, spawn, velocity, type, damage, knockBack, player.whoAmI, 0, 0, 0, null
+            null, spawn, velocity, projType, damage, knockBack, player.whoAmI, 0, 0, 0, null
         )];
         if (proj && proj.penetrate > 0) {
             proj.penetrate++;

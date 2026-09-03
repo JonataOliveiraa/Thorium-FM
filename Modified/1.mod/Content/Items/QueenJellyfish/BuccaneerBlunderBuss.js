@@ -1,4 +1,5 @@
 import { Terraria } from "../../../TL/ModImports.js";
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from "../../../TL/ModItem.js";
 import { Effects } from "../../../TL/Modules/Effects.js";
 import { Rand } from "../../../TL/Modules/Rand.js";
@@ -38,8 +39,13 @@ export class BuccaneerBlunderBuss extends ModItem {
         return true;
     }
 
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        this.ConsumeAmmo(player);
+        const projType = AmmoHelper.Consume(player, item.useAmmo);
+        if (projType <= 0) return false;
 
         const spread = 0.25;
         const speed = Math.sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
@@ -62,7 +68,7 @@ export class BuccaneerBlunderBuss extends ModItem {
                 null,
                 position,
                 Vector2.new(velX, velY),
-                type,
+                projType,
                 damage,
                 knockBack,
                 player.whoAmI,
@@ -72,18 +78,4 @@ export class BuccaneerBlunderBuss extends ModItem {
         return false;
     }
 
-    ConsumeAmmo(player) {
-        const ammoType = Terraria.ID.AmmoID.Bullet;
-        for (let i = 0; i < 54; i++) {
-            const invItem = player.inventory[i];
-            if (invItem && invItem.ammo === ammoType && invItem.stack > 0) {
-                invItem.stack--;
-                if (invItem.stack <= 0) {
-                    invItem.active = false;
-                    invItem.type = 0;
-                }
-                break;
-            }
-        }
-    }
 }

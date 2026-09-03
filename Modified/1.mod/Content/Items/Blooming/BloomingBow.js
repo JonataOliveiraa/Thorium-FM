@@ -1,4 +1,5 @@
 import { ModBuff } from '../../../TL/ModBuff.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { Terraria, Modules } from './../../../TL/ModImports.js';
 import { ModItem } from './../../../TL/ModItem.js';
 import { ModProjectile } from './../../../TL/ModProjectile.js';
@@ -28,7 +29,12 @@ export class BloomingBow extends ModItem {
     this.Item.UseSound = Terraria.ID.SoundID.Item5;
   }
 
+  CanUseItem(item, player) {
+    return AmmoHelper.Has(player, item.useAmmo);
+  }
+
   Shoot(item, player, position, velocity, type, damage, knockBack) {
+    if (AmmoHelper.Consume(player, item.useAmmo) <= 0) return false;
 
     NewProjectile(
       null,

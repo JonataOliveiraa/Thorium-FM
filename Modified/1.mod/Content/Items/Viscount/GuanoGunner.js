@@ -1,4 +1,5 @@
 import { Terraria, Modules } from '../../../TL/ModImports.js';
+import { AmmoHelper } from './../../../Common/AmmoHelper.js';
 import { ModItem } from '../../../TL/ModItem.js';
 import { ModProjectile } from '../../../TL/ModProjectile.js';
 
@@ -73,8 +74,12 @@ export class GuanoGunner extends ModItem {
         }
     }
 
+    CanUseItem(item, player) {
+        return AmmoHelper.Has(player, item.useAmmo);
+    }
+
     Shoot(item, player, position, velocity, type, damage, knockBack) {
-        this.ConsumeAmmo(player);
+        if (AmmoHelper.Consume(player, item.useAmmo) <= 0) return false;
 
         if (this.speedMult < SPEED_MAX) this.speedMult = Math.min(SPEED_MAX, this.speedMult + SPEED_STEP);
         this.cooldown = 0;
@@ -100,18 +105,4 @@ export class GuanoGunner extends ModItem {
         return false;
     }
 
-    ConsumeAmmo(player) {
-        const ammoType = Terraria.ID.AmmoID.Bullet;
-        for (let i = 0; i < 54; i++) {
-            const invItem = player.inventory[i];
-            if (invItem && invItem.ammo === ammoType && invItem.stack > 0) {
-                invItem.stack--;
-                if (invItem.stack <= 0) {
-                    invItem.active = false;
-                    invItem.type = 0;
-                }
-                break;
-            }
-        }
-    }
 }
