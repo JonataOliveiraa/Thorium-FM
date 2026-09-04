@@ -1,6 +1,7 @@
 import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
 import { ProjAI } from '../../TL/ProjAI.js';
+import { WindHoming } from '../../Common/WindHoming.js';
 import { FxHelper } from '../Global/Utils/FxHelper.js';
 
 const { Color, Vector2, Rand, Effects } = Modules;
@@ -74,6 +75,10 @@ export class MeteoriteOboePro extends ModProjectile {
         }
     }
 
+    OnSpawn(proj) {
+        WindHoming.Reset(proj);
+    }
+
     AI(proj) {
         const ai = new ProjAI(proj, false);
         if (ai[0] === 1) this._stuck(proj, ai);
@@ -81,6 +86,8 @@ export class MeteoriteOboePro extends ModProjectile {
     }
 
     _flying(proj) {
+        if (WindHoming.Active()) WindHoming.Apply(proj);
+
         const center = proj.Center;
         const vel = proj.velocity;
         const local = new ProjAI(proj, true);

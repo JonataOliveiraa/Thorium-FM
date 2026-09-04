@@ -1,8 +1,11 @@
 import { Terraria, Modules, Microsoft } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
+import { WindHoming } from '../../Common/WindHoming.js';
 import { Effects } from '../../TL/Modules/Effects.js';
 import { Rand } from '../../TL/Modules/Rand.js';
 import { Rectangle } from '../../TL/Modules/Rectangle.js';
+
+const HOMING_SPEED = 10;
 
 const { Color, Vector2 } = Modules;
 const { Main } = Terraria;
@@ -36,7 +39,13 @@ export class PanflutePro extends ModProjectile {
         this.Projectile.tileCollide = true;
     }
 
+    OnSpawn(proj) {
+        WindHoming.Reset(proj);
+    }
+
     AI(proj) {
+        if (WindHoming.Active()) WindHoming.Apply(proj, HOMING_SPEED);
+
         proj.rotation = Math.atan2(proj.velocity.Y, proj.velocity.X) + Math.PI / 2;
 
         if (proj.timeLeft <= this.fadeOutTime) {

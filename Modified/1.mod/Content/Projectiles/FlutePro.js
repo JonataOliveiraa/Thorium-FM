@@ -1,6 +1,7 @@
 import { Terraria, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 import { ProjAI } from './../../TL/ProjAI.js';
+import { WindHoming } from './../../Common/WindHoming.js';
 
 const { MathHelper, Vector2 } = Modules;
 const { Main } = Terraria;
@@ -53,7 +54,7 @@ export class FlutePro extends ModProjectile {
     Home(proj) {
         const ai = new ProjAI(proj);
         ai[1]++;
-        if (ai[1] <= HOMING_DELAY) return;
+        if (!WindHoming.Active() && ai[1] <= HOMING_DELAY) return;
         ai[1] = 0;
 
         const target = FindTargetWithinRange(proj, HOMING_RANGE, true);

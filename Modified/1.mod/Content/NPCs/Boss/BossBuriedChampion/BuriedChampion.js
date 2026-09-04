@@ -118,8 +118,6 @@ export class BuriedChampion extends ModNPC {
       lifeMax = 9800;
     }
     npc.lifeMax = Math.floor(lifeMax * balance);
-    npc.damage = 35;
-    npc.defense = 10;
   }
 
   ApplyBuffImmunity(npc) {

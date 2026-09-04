@@ -25,9 +25,14 @@ let _zealousType = -1, _spittingType = -1, _distractingType = -1;
 let _bubblePulseType = -1, _armType = -1, _bubbleBombType = -1, _torrentType = -1;
 let _typesInit = false;
 
-function hostileDamage(npcDamage, ratioToContact) {
-    return Math.max(1, Math.round(npcDamage * ratioToContact * 0.5));
-}
+const LIFE_CLASSIC = 4000;
+const LIFE_EXPERT = 5600;
+const LIFE_MASTER = 7140;
+
+const ARM_DAMAGE = 20;
+const PULSE_DAMAGE = 15;
+const BOMB_DAMAGE = 15;
+const TORRENT_DAMAGE = 25;
 
 function initTypes() {
     if (_typesInit) return;
@@ -107,13 +112,21 @@ export class QueenJellyfish extends ModNPC {
         BestiaryOrder.BossAfter(this.Type, 4);
     }
 
+    ApplyDifficultyAndPlayerScaling(npc, numPlayers, balance, bossAdjustment) {
+        let lifeMax = LIFE_CLASSIC;
+        if (Terraria.Main.masterMode) lifeMax = LIFE_MASTER;
+        else if (Terraria.Main.expertMode) lifeMax = LIFE_EXPERT;
+
+        npc.lifeMax = Math.floor(lifeMax * balance);
+    }
+
     SetDefaults() {
         this.NPC.width = 80;
         this.NPC.height = 80;
         this.NPC.aiStyle = -1;
         this.NPC.damage = 30; // contato, valor classico da wiki
         this.NPC.defense = 6;
-        this.NPC.lifeMax = 4000;
+        this.NPC.lifeMax = LIFE_CLASSIC;
         this.NPC.knockBackResist = 0.0;
         this.NPC.noGravity = true;
         this.NPC.noTileCollide = true;
@@ -270,7 +283,7 @@ export class QueenJellyfish extends ModNPC {
                 null,
                 npc.Center.X, npc.Center.Y,
                 0, 0,
-                _armType, hostileDamage(npc.damage, 40 / 30), 0, 255,
+                _armType, ARM_DAMAGE, 0, 255,
                 0, 0, 0, null
             );
             if (idx >= 0 && idx < Main.maxProjectiles) {
@@ -290,7 +303,7 @@ export class QueenJellyfish extends ModNPC {
             const dx1 = player.Center.X - npc.Center.X;
             const dy1 = player.Center.Y - npc.Center.Y;
             const d1 = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
-            NewProjectile(null, npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, hostileDamage(npc.damage, 1), 3, 255, 0, 0, 0, null);
+            NewProjectile(null, npc.Center.X, npc.Center.Y, (dx1 / d1) * 7, (dy1 / d1) * 7, _bubblePulseType, PULSE_DAMAGE, 3, 255, 0, 0, 0, null);
         }
 
         if (lifeRatio < 0.5) {
@@ -303,7 +316,7 @@ export class QueenJellyfish extends ModNPC {
                 const baseAngle = Math.atan2(dy2, dx2);
                 for (let i = -1; i <= 1; i++) {
                     const a = baseAngle + i * 0.35;
-                    NewProjectile(null, npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, hostileDamage(npc.damage, 1), 2, 255, 0, 0, 0, null);
+                    NewProjectile(null, npc.Center.X, npc.Center.Y, Math.cos(a) * 6, Math.sin(a) * 6, _bubblePulseType, PULSE_DAMAGE, 2, 255, 0, 0, 0, null);
                 }
             }
         }
@@ -319,7 +332,7 @@ export class QueenJellyfish extends ModNPC {
                 null,
                 spawnX, spawnY,
                 (player.Center.X - spawnX) * 0.01, 2,
-                _bubbleBombType, hostileDamage(npc.damage, 40 / 30), 3, 255,
+                _bubbleBombType, BOMB_DAMAGE, 3, 255,
                 0, 0, 0, null
             );
         } else {
@@ -349,7 +362,7 @@ export class QueenJellyfish extends ModNPC {
                     null,
                     spawnX, spawnY,
                     0, 0,
-                    _torrentType, hostileDamage(npc.damage, 50 / 30), 0, 255,
+                    _torrentType, TORRENT_DAMAGE, 0, 255,
                     num11, 0, 0, null
                 );
             }

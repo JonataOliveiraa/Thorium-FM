@@ -38,6 +38,10 @@ const RAGE_HALF_LIFE = 30;
 const RAGE_QUARTER_LIFE = 30;
 const EFFECT_FRAME_COUNT = 6;
 
+const LIFE_CLASSIC = 7000;
+const LIFE_EXPERT = 9800;
+const LIFE_MASTER = 12495;
+
 let typesReady = false;
 let coalescedType = -1;
 let barrierType = -1;
@@ -195,7 +199,7 @@ export class GraniteEnergyStorm extends ModNPC {
     }
 
     SetDefaults() {
-        this.NPC.lifeMax = 7000;
+        this.NPC.lifeMax = LIFE_CLASSIC;
         this.NPC.damage = 35;
         this.NPC.defense = 10;
         this.NPC.knockBackResist = 0;
@@ -214,7 +218,11 @@ export class GraniteEnergyStorm extends ModNPC {
     }
 
     ApplyDifficultyAndPlayerScaling(npc, numPlayers, balance, bossAdjustment) {
-        npc.lifeMax = Math.floor(npc.lifeMax * 0.7 * balance * bossAdjustment);
+        let lifeMax = LIFE_CLASSIC;
+        if (Main.masterMode) lifeMax = LIFE_MASTER;
+        else if (Main.expertMode) lifeMax = LIFE_EXPERT;
+
+        npc.lifeMax = Math.floor(lifeMax * balance);
     }
 
     SetBestiary(database, bestiaryEntry) {

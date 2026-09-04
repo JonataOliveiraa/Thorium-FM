@@ -199,8 +199,6 @@ export class Viscount extends ModNPC {
         else if (Main.expertMode) lifeMax = LIFE_EXPERT;
 
         npc.lifeMax = Math.floor(lifeMax * balance);
-        npc.damage = 30;
-        npc.defense = 8;
     }
 
     SetBestiary(database, bestiaryEntry) {

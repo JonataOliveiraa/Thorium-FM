@@ -1,6 +1,7 @@
 import { Terraria, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 import { ProjAI } from './../../TL/ProjAI.js';
+import { WindHoming } from './../../Common/WindHoming.js';
 
 const { Effects, Rand, Vector2 } = Modules;
 
@@ -53,6 +54,15 @@ export class ForestOcarinaPro2 extends ModProjectile {
             heading = Math.atan2(velocity.Y, velocity.X) - Math.atan2(drift, speed);
         }
 
+        if (WindHoming.Active()) {
+            proj.velocity = Vector2.new(Math.cos(heading) * speed, Math.sin(heading) * speed);
+            if (WindHoming.Apply(proj)) {
+                const homed = proj.velocity;
+                speed = Math.sqrt(homed.X * homed.X + homed.Y * homed.Y);
+                heading = Math.atan2(homed.Y, homed.X);
+            }
+        }
+
         const step = Math.sin(phase + WAVE_STEP) * WAVE_AMPLITUDE - offset;
         const cos = Math.cos(heading);
         const sin = Math.sin(heading);
@@ -83,6 +93,10 @@ export class ForestOcarinaPro2 extends ModProjectile {
 
         this._trailDust(center, drift);
         this._trailDust(Vector2.new(center.X - velocity.X * 0.5, center.Y - velocity.Y * 0.5), drift);
+    }
+
+    OnSpawn(proj) {
+        WindHoming.Reset(proj);
     }
 
     AI(proj) {
