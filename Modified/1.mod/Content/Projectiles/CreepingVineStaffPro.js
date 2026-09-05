@@ -2,7 +2,7 @@ import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
 import { ProjAI } from '../../TL/ProjAI.js';
 
-const { Color, Rand, Vector2 } = Modules;
+const { Color, Rand, Rectangle, Vector2 } = Modules;
 const { Main } = Terraria;
 
 const ENTITY_DRAW = 'void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)';
@@ -59,6 +59,7 @@ export class CreepingVineStaffPro extends ModProjectile {
         this.Texture = 'Projectiles/' + this.constructor.name;
         this.Chain = this.Texture + '_Chain';
         this.Base = this.Texture + '_Base';
+        this._baseFrame = null;
     }
 
     SetStaticDefaults() {
@@ -241,6 +242,10 @@ export class CreepingVineStaffPro extends ModProjectile {
     PostDraw(proj, lightColor) {
         if (!this.BaseTexture) return;
 
+        if (!this._baseFrame) {
+            this._baseFrame = Rectangle.new(0, 0, this.BaseTexture.Width, this.BaseTexture.Height);
+        }
+
         const ai = new ProjAI(proj, false);
         const homeX = ai[0];
         const homeY = ai[1];
@@ -252,7 +257,7 @@ export class CreepingVineStaffPro extends ModProjectile {
         Main[ENTITY_DRAW](
             this.BaseTexture,
             Vector2.new(homeX - screen.X, homeY - screen.Y),
-            null, tint, 0,
+            this._baseFrame, tint, 0,
 
             Vector2.new(BASE_ORIGIN_X, BASE_ORIGIN_Y),
             1, null, 0

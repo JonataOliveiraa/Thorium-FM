@@ -2,7 +2,7 @@ import { Terraria, Modules } from './../../TL/ModImports.js';
 import { ModProjectile } from './../../TL/ModProjectile.js';
 import { ProjAI } from './../../TL/ProjAI.js';
 
-const { Color, Rand, Vector2 } = Modules;
+const { Color, Rand, Rectangle, Vector2 } = Modules;
 const { Main } = Terraria;
 
 const ENTITY_DRAW = 'void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)';
@@ -17,6 +17,7 @@ export class AntlionStaffPro2 extends ModProjectile {
     constructor() {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
+        this._frame = null;
     }
 
     SetStaticDefaults() {
@@ -69,6 +70,7 @@ export class AntlionStaffPro2 extends ModProjectile {
 
     PreDraw(proj, lightColor) {
         const texture = Terraria.GameContent.TextureAssets.Projectile[this.Type].Value;
+        if (!this._frame) this._frame = Rectangle.new(0, 0, texture.Width, texture.Height);
         if (!texture) return true;
 
         const origin = Vector2.new(texture.Width * 0.5, proj.height * 0.5);
@@ -82,7 +84,7 @@ export class AntlionStaffPro2 extends ModProjectile {
         for (let k = 0; k < count; k++) {
             const pos = Vector2.Add(Vector2.Add(Vector2.Subtract(GetPos(k), screen), origin), gfx);
             const fade = Color.Multiply(alpha, (count - k) / count);
-            Main[ENTITY_DRAW](texture, pos, null, fade, proj.rotation, origin, proj.scale, null, 0);
+            Main[ENTITY_DRAW](texture, pos, this._frame, fade, proj.rotation, origin, proj.scale, null, 0);
         }
 
         return true;

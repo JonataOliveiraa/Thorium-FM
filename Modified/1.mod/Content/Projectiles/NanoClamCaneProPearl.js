@@ -2,7 +2,7 @@ import { Terraria, Modules } from '../../TL/ModImports.js';
 import { ModProjectile } from '../../TL/ModProjectile.js';
 import { ProjAI } from '../../TL/ProjAI.js';
 
-const { Color, Rand, Vector2 } = Modules;
+const { Color, Rand, Rectangle, Vector2 } = Modules;
 const { Main } = Terraria;
 
 const ENTITY_DRAW = 'void EntitySpriteDraw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float worthless)';
@@ -32,6 +32,7 @@ export class NanoClamCaneProPearl extends ModProjectile {
         super();
         this.Texture = 'Projectiles/' + this.constructor.name;
         this._origin = null;
+        this._frame = null;
     }
 
     SetStaticDefaults() {
@@ -88,6 +89,7 @@ export class NanoClamCaneProPearl extends ModProjectile {
         if (!texture) return true;
 
         if (!this._origin) this._origin = Vector2.new(texture.Width * 0.5, proj.height * 0.5);
+        if (!this._frame) this._frame = Rectangle.new(0, 0, texture.Width, texture.Height);
 
         const screen = Main.screenPosition;
         const gfx = proj.gfxOffY;
@@ -108,7 +110,7 @@ export class NanoClamCaneProPearl extends ModProjectile {
                     pos.X - screen.X + this._origin.X,
                     pos.Y - screen.Y + this._origin.Y + gfx
                 ),
-                null, fade, proj.rotation, this._origin, proj.scale, null, 0
+                this._frame, fade, proj.rotation, this._origin, proj.scale, null, 0
             );
         }
 
