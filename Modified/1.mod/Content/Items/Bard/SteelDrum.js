@@ -24,8 +24,8 @@ export class SteelDrum extends ModBardItem {
         this.Item.useTime = 10;
         this.Item.useAnimation = 10;
         this.Item.noUseGraphic = false;
-        this.Item.useStyle = 16;
-        this.Item.holdStyle = 5;
+        this.Item.useStyle = Terraria.ID.ItemUseStyleID.Swing;
+        this.Item.holdStyle = 3;
         this.Item.noMelee = true;
         this.Item.knockBack = 4.0;
         this.Item.value = Terraria.Item.sellPrice(0, 0, 30, 0);
