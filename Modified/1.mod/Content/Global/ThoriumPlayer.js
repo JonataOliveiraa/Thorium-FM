@@ -237,6 +237,9 @@ export class ThoriumPlayer extends ModPlayer {
   static equilibrium = false;
   static accSubwooferFire = false;
   static accSeaBreezePendant = false;
+  static accKickPedal = false;
+  static kickPedalTimer = 0;
+  static _kickPetalType = -1;
   static seaBreezeBreathTimer = 0;
   static eyeOfTheStormTimer = 0;
   static _stormHomeType = -1;
@@ -407,6 +410,7 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.equilibrium = false;
     ThoriumPlayer.accSubwooferFire = false;
     ThoriumPlayer.accSeaBreezePendant = false;
+    ThoriumPlayer.accKickPedal = false;
     ThoriumPlayer.accLifeQuartzShieldBad = false;
     ThoriumPlayer.accLifeQuartzShieldVisual = false;
     ThoriumPlayer.frostburnPouch = false;
@@ -510,6 +514,7 @@ export class ThoriumPlayer extends ModPlayer {
 
     ThoriumPlayer.UpdateEyeOfTheStorm(player);
     ThoriumPlayer.UpdateSeaBreezePendant(player);
+    ThoriumPlayer.UpdateKickPetal(player);
     ThoriumPlayer.UpdateInspiration();
     ThoriumPlayer.UpdateTimer();
 
@@ -918,6 +923,8 @@ export class ThoriumPlayer extends ModPlayer {
 
   OnHitNPCWithProj(player, npc, projectile) {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
+    if (isBardWeapon) ThoriumPlayer.TryArmKickPetal(player);
+
     ThoriumPlayer.EnterCombat();
     ThoriumPlayer.TrySubwooferFire(npc);
     ThoriumPlayer.TryJarOMayo(player);
@@ -1419,6 +1426,63 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer._lifeRecoveryType = ModBuff.getTypeByName('LifeRecoveryBuff') ?? -2;
     }
     return ThoriumPlayer._lifeRecoveryType;
+  }
+
+  static KICK_PETAL_COUNT = 8;
+  static KICK_PETAL_DELAY = 20;
+  static KICK_PETAL_DAMAGE = 25;
+  static KICK_PETAL_KNOCKBACK = 5;
+  static KICK_PETAL_ARM_CHANCE = 0.25;
+
+  static _KickPetalType() {
+    if (ThoriumPlayer._kickPetalType === -1) {
+      ThoriumPlayer._kickPetalType = ModProjectile.getTypeByName('KickPetalPro') ?? -2;
+    }
+    return ThoriumPlayer._kickPetalType;
+  }
+
+  static UpdateKickPetal(player) {
+    if (!ThoriumPlayer.accKickPedal) {
+      ThoriumPlayer.kickPedalTimer = 0;
+      return;
+    }
+
+    const type = ThoriumPlayer._KickPetalType();
+    if (type < 0) return;
+
+    ThoriumPlayer.kickPedalTimer++;
+    if ((player.ownedProjectileCounts[type] ?? 0) >= 1) return;
+    if (ThoriumPlayer.kickPedalTimer <= ThoriumPlayer.KICK_PETAL_DELAY) return;
+
+    ThoriumPlayer.kickPedalTimer = 0;
+    const center = player.Center;
+
+    for (let index = 0; index < ThoriumPlayer.KICK_PETAL_COUNT; index++) {
+      NewProjectile(
+        null, center, Vector2.Zero, type,
+        ThoriumPlayer.KICK_PETAL_DAMAGE, ThoriumPlayer.KICK_PETAL_KNOCKBACK,
+        player.whoAmI, index, 0, 0, null
+      );
+    }
+  }
+
+  static TryArmKickPetal(player) {
+    if (!ThoriumPlayer.accKickPedal) return;
+    if (Rand.NextFloat() > ThoriumPlayer.KICK_PETAL_ARM_CHANCE) return;
+
+    const type = ThoriumPlayer._KickPetalType();
+    if (type < 0) return;
+
+    for (let index = 0; index < Terraria.Main.maxProjectiles; index++) {
+      const proj = Terraria.Main.projectile[index];
+      if (!proj || !proj.active) continue;
+      if (proj.owner !== player.whoAmI || proj.type !== type) continue;
+      const ai = new ProjAI(proj);
+      if (ai[1] !== 0) continue;
+
+      ai[1] = 1;
+      return;
+    }
   }
 
   static TrySubwooferFire(npc) {

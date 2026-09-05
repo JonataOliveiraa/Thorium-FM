@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "WaxyRosin": "Breu Ceroso",
+    "KickPetal": "Pétala de Bumbo",
     "SeaBreezePendant": "Pingente da Brisa Marinha",
     "Subwoofer": "Subwoofer",
     "DevilsSubwoofer": "Subwoofer do Diabo",
@@ -532,6 +534,8 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "WaxyRosin": "8% de dano sinfônico a mais",
+    "KickPetal": "Pétalas orbitam você, inofensivas até serem carregadas\nAcertar um inimigo com arma de bardo tem 25% de chance de carregar uma\nPétalas carregadas causam dano a quem encostam",
     "SeaBreezePendant": "Concede a habilidade de nadar\nRestaura o fôlego lentamente debaixo d’água\nEstar molhado aumenta todo o dano em 10%",
     "Subwoofer": "Aumenta a penetração de armadura em 2",
     "DevilsSubwoofer": "Aumenta a penetração de armadura em 2\nOs ataques incendeiam os inimigos\nConcede imunidade a Em Chamas",

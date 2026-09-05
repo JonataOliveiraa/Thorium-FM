@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "WaxyRosin": "Waxy Rosin",
+    "KickPetal": "Kick Pedal",
     "SeaBreezePendant": "Sea Breeze Pendant",
     "Subwoofer": "Subwoofer",
     "DevilsSubwoofer": "Devil's Subwoofer",
@@ -532,6 +534,8 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "WaxyRosin": "8% increased symphonic damage",
+    "KickPetal": "Petals orbit you, harmless until charged\nHitting an enemy with a bard weapon has a 25% chance to charge one\nCharged petals damage enemies they touch",
     "SeaBreezePendant": "Grants the ability to swim\nSlowly restores breath while underwater\nBeing wet increases all damage by 10%",
     "Subwoofer": "Increases armor penetration by 2",
     "DevilsSubwoofer": "Increases armor penetration by 2\nAttacks set enemies on fire\nGrants immunity to On Fire",

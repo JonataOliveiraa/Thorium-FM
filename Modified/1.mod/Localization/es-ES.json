@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "WaxyRosin": "Colofonia Cerosa",
+    "KickPetal": "Pedal de Bombo",
     "SeaBreezePendant": "Colgante de Brisa Marina",
     "Subwoofer": "Subwoofer",
     "DevilsSubwoofer": "Subwoofer del Diablo",
@@ -532,6 +534,8 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "WaxyRosin": "8% más de daño sinfónico",
+    "KickPetal": "Pétalos orbitan a tu alrededor, inofensivos hasta cargarse\nGolpear a un enemigo con arma de bardo tiene un 25% de probabilidad de cargar uno\nLos pétalos cargados dañan a quien tocan",
     "SeaBreezePendant": "Otorga la habilidad de nadar\nRestaura el aliento lentamente bajo el agua\nEstar mojado aumenta todo el daño un 10%",
     "Subwoofer": "Aumenta la penetración de armadura en 2",
     "DevilsSubwoofer": "Aumenta la penetración de armadura en 2\nLos ataques prenden fuego a los enemigos\nOtorga inmunidad a En Llamas",

@@ -69,6 +69,8 @@ import { DevilsSubwoofer } from '../Content/Items/Bard/DevilsSubwoofer.js';
 import { HoneyHeart } from '../Content/Items/Healer/HoneyHeart.js';
 import { Equalizer } from '../Content/Items/Healer/Equalizer.js';
 import { FragrantCorsage } from '../Content/Items/Donate/FragrantCorsage.js';
+import { WaxyRosin } from '../Content/Items/Bard/WaxyRosin.js';
+import { KickPetal } from '../Content/Items/Bard/KickPetal.js';
 import { DarkHeart } from '../Content/Items/Healer/DarkHeart.js';
 import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
 import { Omen } from '../Content/Items/Healer/Omen.js';
@@ -981,6 +983,8 @@ const List = [
     HoneyHeart,
     Equalizer,
     FragrantCorsage,
+    WaxyRosin,
+    KickPetal,
     DarkHeart,
     ClericsCross,
     Omen,
