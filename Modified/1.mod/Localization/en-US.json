@@ -34,6 +34,9 @@
     }
   },
   "ItemName": {
+    "FamilyHeirloom": "Family Heirloom",
+    "CrystalHoney": "Crystal Honey",
+    "DemonTongue": "Demon Tongue",
     "ClericsCross": "Cleric's Cross",
     "Omen": "Omen",
     "LightsLament": "Light's Lament",
@@ -515,6 +518,9 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "FamilyHeirloom": "'This jewelry has been passed down your family for generations'",
+    "CrystalHoney": "'The strange properties of honey are not easily extracted'\nMaximum life increased by 20\n10% increased radiant damage\n5% increased radiant critical strike chance",
+    "DemonTongue": "Empowers certain radiant attacks with dark energy\n12% increased radiant damage",
     "ClericsCross": "Throws a horizontally returning cross",
     "Omen": "Fires a pentagram of returning demonic energy\nHalf the life cost is returned to you",
     "LightsLament": "Enfeebles hit enemies, causing them to take 10 additional damage from all radiant attacks",

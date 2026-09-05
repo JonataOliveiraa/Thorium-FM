@@ -34,6 +34,9 @@
     }
   },
   "ItemName": {
+    "FamilyHeirloom": "Herencia Familiar",
+    "CrystalHoney": "Miel Cristalina",
+    "DemonTongue": "Lengua de Demonio",
     "ClericsCross": "Cruz del Clérigo",
     "Omen": "Presagio",
     "LightsLament": "Lamento de la Luz",
@@ -515,6 +518,9 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "FamilyHeirloom": "'Esta joya ha pasado de generación en generación en tu familia'",
+    "CrystalHoney": "'Las extrañas propiedades de la miel no se extraen con facilidad'\nVida máxima aumentada en 20\n10% más de daño radiante\n5% más de probabilidad de golpe crítico radiante",
+    "DemonTongue": "Potencia ciertos ataques radiantes con energía sombría\n12% más de daño radiante",
     "ClericsCross": "Lanza una cruz que regresa en horizontal",
     "Omen": "Dispara un pentagrama de energía demoníaca que regresa\nLa mitad del coste de vida vuelve a ti",
     "LightsLament": "Debilita a los enemigos golpeados, haciendo que reciban 10 de daño adicional de todo ataque radiante",

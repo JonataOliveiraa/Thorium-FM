@@ -223,6 +223,7 @@ export class ThoriumPlayer extends ModPlayer {
   static YewWoodHitsCount = 0;
 
   static accMouthPiece = false;
+  static darkAura = false;
   static frostburnPouch = false;
   static accFrostburnPouchTimer = 0;
   static accSandshroudPouch = false;
@@ -369,6 +370,7 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.SheatCriticalChanceBonus = 0;
 
     ThoriumPlayer.accMouthPiece = false;
+    ThoriumPlayer.darkAura = false;
     ThoriumPlayer.frostburnPouch = false;
     ThoriumPlayer.accSandshroudPouch = false;
     ThoriumPlayer.spearNormal = false;
