@@ -7,7 +7,7 @@ const { Main } = Terraria;
 
 const DOUBLE_TAP_WINDOW = 15;
 
-const DASH_SPEED = 11;
+const DASH_SPEED = 14;
 const DASH_COOLDOWN = 90;
 const DASH_IMMUNE_TIME = 6;
 const DASH_DUST = 174;
