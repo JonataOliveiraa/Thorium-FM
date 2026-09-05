@@ -61,21 +61,25 @@ export class GraniteBoomBoxPro extends ModProjectile {
 
     PreDraw(proj, lightColor) {
         const texture = Terraria.GameContent.TextureAssets.Projectile[proj.type].Value;
+        const textureHeight = texture.Height;
         const opacity = proj.Opacity;
-        const numSegments = 72;
+        const numSegments = 36;
         const baseOffset = Vector2.Multiply(Vector2.UnitY, 50);
+        const gfxOffY = proj.gfxOffY;
+        const screenPos = Terraria.Main.screenPosition;
+        const origin = Vector2.One;
 
         for (let index = 0; index < numSegments; index++) {
             const timerPhase = this.VisualTimer * 6.28318548 / numSegments;
             const t = index / numSegments;
             const angle = 6.28318548 * t;
-            let drawPos = Vector2.Add(proj.Center, Vector2.RotatedBy(baseOffset, angle, Vector2.Zero));
-            drawPos = Vector2.Add(drawPos, Vector2.new(0, proj.gfxOffY));
+            const drawPos = Vector2.Add(proj.Center, Vector2.RotatedBy(baseOffset, angle, Vector2.Zero));
+            drawPos.Y += gfxOffY;
 
             const wave = Math.sin(8 * t * 6.2831854820251465 + timerPhase) * Math.sin((0.25 * 8) * (1 - t) * 6.2831854820251465 + timerPhase);
             const speedFactor = remap(this.VisualTimerSpeed, 1, VISUAL_TIMER_SPEED_CAP, 0, 1, true) * (4 * (0.5 - Math.abs(0.5 - t)));
             const speedBoost = speedFactor * speedFactor * 0.5 + 1;
-            const heightOffset = Math.floor(wave * speedBoost * 0.699999988079071 * -0.75 * texture.Height);
+            const heightOffset = Math.floor(wave * speedBoost * 0.699999988079071 * -0.75 * textureHeight);
             const rectangle = Frame(texture, 1, 1, 0, 0, 0, heightOffset);
 
             const hue1 = 0.60000002384185791 + Math.sin(2 * t * 6.2831854820251465 + timerPhase) * 0.10000000149011612;
@@ -84,7 +88,7 @@ export class GraniteBoomBoxPro extends ModProjectile {
             const rgb2 = hslToRgb(hue2, 1, 0.6);
             const color = Color.Multiply(Color.Multiply(colorLerp(rgb1, rgb2, 0.5), opacity), 0.8);
 
-            EntitySpriteDraw(texture, Vector2.Subtract(drawPos, Terraria.Main.screenPosition), rectangle, color, angle, Vector2.new(1, 1), opacity, null, 0.0);
+            EntitySpriteDraw(texture, Vector2.Subtract(drawPos, screenPos), rectangle, color, angle, origin, opacity, null, 0.0);
         }
         return false;
     }
@@ -129,7 +133,7 @@ export class GraniteBoomBoxPro extends ModProjectile {
         proj.Center = player.Center;
         proj.gfxOffY = player.gfxOffY;
         proj.spriteDirection = player.direction;
-        proj.velocity = Vector2.Multiply(proj.velocity, 0.0);
+        proj.velocity = Vector2.Zero;
 
         const ai = new ProjAI(proj);
         ai[0]++;

@@ -63,6 +63,8 @@ export class GrandPiano extends ModBardItem {
     }
 
     Shoot(item, player, position, velocity, type, damage, knockBack) {
+        player.direction = velocity.X > 0 ? 1 : -1;
+
         const source = player.GetProjectileSource_Item(item);
         let closestIndex = -1;
         let closestDistSQ = 1000000.0;
