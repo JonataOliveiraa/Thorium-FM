@@ -37,6 +37,19 @@ import { WindyTotemPro } from '../Content/Projectiles/Minions/WindyTotemPro.js';
 import { FlutePro } from '../Content/Projectiles/FlutePro.js';
 import { ForestOcarinaPro } from '../Content/Projectiles/ForestOcarinaPro.js';
 import { ForestOcarinaPro2 } from '../Content/Projectiles/ForestOcarinaPro2.js';
+import { ClericsCrossPro } from '../Content/Projectiles/ClericsCrossPro.js';
+import { OmenPro } from '../Content/Projectiles/OmenPro.js';
+import { LightsLamentPro } from '../Content/Projectiles/LightsLamentPro.js';
+import { HotHornPro } from '../Content/Projectiles/HotHornPro.js';
+import { SteelDrumPro } from '../Content/Projectiles/SteelDrumPro.js';
+import { BongoDamage } from '../Content/Projectiles/BongoDamage.js';
+import { BongoEffect } from '../Content/Projectiles/BongoEffect.js';
+import { TuningForkPro } from '../Content/Projectiles/TuningForkPro.js';
+import { NocturnePro } from '../Content/Projectiles/NocturnePro.js';
+import { DynastyGuzhengPro } from '../Content/Projectiles/DynastyGuzhengPro.js';
+import { GrandPianoPro } from '../Content/Projectiles/GrandPianoPro.js';
+import { GraniteBoomBoxPro } from '../Content/Projectiles/GraniteBoomBoxPro.js';
+import { GraniteBoomBoxPro2 } from '../Content/Projectiles/GraniteBoomBoxPro2.js';
 import { ThePillPro } from '../Content/Projectiles/ThePillPro.js';
 import { ThePillPro2 } from '../Content/Projectiles/ThePillPro2.js';
 import { BonesawPro } from '../Content/Projectiles/BonesawPro.js';
@@ -647,6 +660,19 @@ const List = [
   FlutePro,
   ForestOcarinaPro,
   ForestOcarinaPro2,
+  ClericsCrossPro,
+  OmenPro,
+  LightsLamentPro,
+  HotHornPro,
+  SteelDrumPro,
+  BongoDamage,
+  BongoEffect,
+  TuningForkPro,
+  NocturnePro,
+  DynastyGuzhengPro,
+  GrandPianoPro,
+  GraniteBoomBoxPro,
+  GraniteBoomBoxPro2,
   ThePillPro,
   ThePillPro2,
   BonesawPro,

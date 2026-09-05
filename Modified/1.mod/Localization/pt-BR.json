@@ -34,6 +34,17 @@
     }
   },
   "ItemName": {
+    "ClericsCross": "Cruz do Clérigo",
+    "Omen": "Presságio",
+    "LightsLament": "Lamento da Luz",
+    "HotHorn": "Trompa Ardente",
+    "SteelDrum": "Tambor de Aço",
+    "Bongos": "Bongôs",
+    "TuningFork": "Diapasão de Bronze",
+    "Nocturne": "Noturno",
+    "DynastyGuzheng": "Guzheng da Dinastia",
+    "GrandPiano": "Piano de Cauda",
+    "GraniteBoomBox": "Rádio de Granito",
     "Flute": "Flauta",
     "ForestOcarina": "Ocarina da Floresta",
     "Pill": "Pílula",
@@ -504,6 +515,17 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "ClericsCross": "Arremessa uma cruz que retorna na horizontal",
+    "Omen": "Dispara um pentagrama de energia demoníaca que retorna\nMetade do custo de vida volta para você",
+    "LightsLament": "Enfraquece os inimigos atingidos, fazendo com que recebam 10 de dano extra de todo ataque radiante",
+    "HotHorn": "Solta uma vibração de chamas giratória e potente",
+    "SteelDrum": "Permite tocar em um grande tambor de aço",
+    "Bongos": "Bate nos bongôs, causando dano a todos os inimigos por perto",
+    "TuningFork": "Solta uma vibração afinada que perfura inimigos",
+    "Nocturne": "Solta uma nota sinistra que explode em energia sombria ao acertar",
+    "DynastyGuzheng": "Solta uma leva de riffs suaves que quicam",
+    "GrandPiano": "Permite tocar em um grande piano\nAs notas quicam nas superfícies",
+    "GraniteBoomBox": "Solta umas batidas pesadas de granito ao seu redor",
     "ForestOcarina": "Assobia uma rajada selvagem de som\nUse a interação inteligente para invocar um sigilo da floresta, que imita sua ocarina\nInvocar um sigilo custa 5 de inspiração",
     "BlacksmithApron": "'Poder de forja aumentado em 15%! ...Nem tanto'",
     "Flute": "Solta um sopro de flauta que persegue fracamente",
@@ -851,6 +873,7 @@
     "Nobles": "As notas de inspiração que caem são duas vezes mais potentes e aumentam brevemente seu dano sinfônico"
   },
   "BuffName": {
+    "Enfeeble": "Enfraquecido",
     "MidnightOilBuff": "Óleo da Meia-Noite",
     "BloodSausageBuff": "Linguiça de Sangue",
     "SwordOfDestinyBuff": "Espada do Destino",
@@ -922,6 +945,7 @@
     "SuperAnvilBuff": "Superbigorna"
   },
   "BuffDescription": {
+    "Enfeeble": "Recebendo 10 de dano extra de ataques radiantes",
     "MidnightOilBuff": "Os inimigos não se interessam tanto por você",
     "BloodSausageBuff": "Petiscos demais, ao que parece...",
     "SwordOfDestinyBuff": "Não olhe para cima...",

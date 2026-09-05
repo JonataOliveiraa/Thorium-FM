@@ -13,6 +13,7 @@ import { WyvernPetBuff } from "../Content/Pets/Wyvern/WyvernPetBuff.js";
 import { AnglerBowlBuff } from "../Content/Pets/AnglerBowl/AnglerBowlBuff.js";
 import { MidnightOilBuff } from "../Content/Buffs/Potions/MidnightOilBuff.js";
 import { MassiveCrabClawBuff } from "../Content/Buffs/Mounts/MassiveCrabClawBuff.js";
+import { Enfeeble } from '../Content/Buffs/Healer/Enfeeble.js';
 import { SuperAnvilBuff } from "../Content/Buffs/Mounts/SuperAnvilBuff.js";
 
 import { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
@@ -145,6 +146,7 @@ const List = [
     MidnightOilBuff,
     MassiveCrabClawBuff,
     SuperAnvilBuff,
+    Enfeeble,
 ];
 
 export function RegisterBuffs() {

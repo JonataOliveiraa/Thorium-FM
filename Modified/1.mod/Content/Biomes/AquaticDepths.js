@@ -122,7 +122,7 @@ export class AquaticDepths extends ModBiome {
                 currentSlot++;
             };
 
-            const rareItems = [ModItem.getTypeByName('BubbleConch'), ModItem.getTypeByName('SeaTurtlesBulwark'), ModItem.getTypeByName('RainStone')]; 
+            const rareItems = [ModItem.getTypeByName('BubbleConch'), ModItem.getTypeByName('SeaTurtlesBulwark'), ModItem.getTypeByName('RainStone'), ModItem.getTypeByName('SteelDrum')];
             addItem(rareItems[Rand.Next(rareItems.length)], 1);
 
             if (Rand.NextChance(ANGLER_BOWL_CHANCE)) addItem(ModItem.getTypeByName('AnglerBowl'), 1);

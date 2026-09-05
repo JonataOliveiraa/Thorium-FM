@@ -53,6 +53,17 @@ import { GuardiansWig } from '../Content/Items/Donate/GuardiansWig.js';
 import { GuardiansCloak } from '../Content/Items/Donate/GuardiansCloak.js';
 import { GuardiansBoots } from '../Content/Items/Donate/GuardiansBoots.js';
 import { BlacksmithApron } from '../Content/Items/NPCItems/BlacksmithApron.js';
+import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
+import { Omen } from '../Content/Items/Healer/Omen.js';
+import { LightsLament } from '../Content/Items/Healer/LightsLament.js';
+import { HotHorn } from '../Content/Items/Bard/HotHorn.js';
+import { SteelDrum } from '../Content/Items/Bard/SteelDrum.js';
+import { Bongos } from '../Content/Items/Bard/Bongos.js';
+import { TuningFork } from '../Content/Items/Bard/TuningFork.js';
+import { Nocturne } from '../Content/Items/Bard/Nocturne.js';
+import { DynastyGuzheng } from '../Content/Items/Bard/DynastyGuzheng.js';
+import { GrandPiano } from '../Content/Items/Bard/GrandPiano.js';
+import { GraniteBoomBox } from '../Content/Items/Bard/GraniteBoomBox.js';
 import { Flute } from '../Content/Items/Bard/Flute.js';
 import { ForestOcarina } from '../Content/Items/Bard/ForestOcarina.js';
 import { Pill } from '../Content/Items/Healer/Pill.js';
@@ -937,6 +948,17 @@ const List = [
     GuardiansCloak,
     GuardiansBoots,
     BlacksmithApron,
+    ClericsCross,
+    Omen,
+    LightsLament,
+    HotHorn,
+    SteelDrum,
+    Bongos,
+    TuningFork,
+    Nocturne,
+    DynastyGuzheng,
+    GrandPiano,
+    GraniteBoomBox,
     Flute,
     ForestOcarina,
     Pill,

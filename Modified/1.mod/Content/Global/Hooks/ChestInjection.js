@@ -134,6 +134,22 @@ const InjectionRules = [
     },
     {
         type: 21,
+        style: ChestStyle1.LockedShadow,
+        getItemID: () => ModItem.getTypeByName('LightsLament'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
+        style: ChestStyle1.LockedShadow,
+        getItemID: () => ModItem.getTypeByName('Nocturne'),
+        stack: 1,
+        calculateAmount: (total) => Math.max(1, Math.floor(total * 0.30)),
+        action: 'replace'
+    },
+    {
+        type: 21,
         style: ChestStyle1.Ice,
         getItemID: () => ModItem.getTypeByName('FrozenTiara'),
         stack: 1,

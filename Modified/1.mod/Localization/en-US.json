@@ -34,6 +34,17 @@
     }
   },
   "ItemName": {
+    "ClericsCross": "Cleric's Cross",
+    "Omen": "Omen",
+    "LightsLament": "Light's Lament",
+    "HotHorn": "Hot Horn",
+    "SteelDrum": "Steel Drum",
+    "Bongos": "Bongos",
+    "TuningFork": "Bronze Tuning Fork",
+    "Nocturne": "Nocturne",
+    "DynastyGuzheng": "Dynasty Guzheng",
+    "GrandPiano": "Grand Piano",
+    "GraniteBoomBox": "Granite Boom Box",
     "Flute": "Flute",
     "ForestOcarina": "Forest Ocarina",
     "Pill": "Pill",
@@ -504,6 +515,17 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "ClericsCross": "Throws a horizontally returning cross",
+    "Omen": "Fires a pentagram of returning demonic energy\nHalf the life cost is returned to you",
+    "LightsLament": "Enfeebles hit enemies, causing them to take 10 additional damage from all radiant attacks",
+    "HotHorn": "Releases a forceful, spinning flame vibration",
+    "SteelDrum": "Allows you to play on a big steel drum",
+    "Bongos": "Bangs the bongos, dealing damage to all nearby enemies",
+    "TuningFork": "Releases a piercing tuning vibration",
+    "Nocturne": "Releases a sinister music note that explodes into shadowy energy on hit",
+    "DynastyGuzheng": "Releases a set of soothing multi-shot, bouncing riffs",
+    "GrandPiano": "Allows you to play on a big piano\nThe notes bounce off surfaces",
+    "GraniteBoomBox": "Releases some sick, granite beats around you",
     "ForestOcarina": "Whistles out a wild burst of noise\nUse smart interaction to summon a forest sigil, which mimics your ocarina\nBringing forth a sigil costs 5 inspiration",
     "BlacksmithApron": "'Forging power increased by 15%! ...Not really'",
     "Flute": "Releases a weakly homing flute toot",
@@ -851,6 +873,7 @@
     "Nobles": "Inspiration notes that drop are twice as potent and increase your symphonic damage briefly"
   },
   "BuffName": {
+    "Enfeeble": "Enfeeble",
     "MidnightOilBuff": "Midnight Oil",
     "BloodSausageBuff": "Blood Sausage",
     "SwordOfDestinyBuff": "Sword of Destiny",
@@ -922,6 +945,7 @@
     "SuperAnvilBuff": "Super Anvil"
   },
   "BuffDescription": {
+    "Enfeeble": "Taking 10 additional damage from radiant attacks",
     "MidnightOilBuff": "Enemies aren't as interested in you",
     "BloodSausageBuff": "One too many treats it seems...",
     "SwordOfDestinyBuff": "Don't look up...",

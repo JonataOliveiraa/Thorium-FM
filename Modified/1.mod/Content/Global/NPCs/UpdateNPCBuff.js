@@ -1,5 +1,6 @@
 import { GlobalNPC } from "../../../TL/GlobalNPC.js";
 import { ModBuff } from "../../../TL/ModBuff.js";
+import { ModHealerItem } from "../../../Common/ModHealerItem.js";
 import { ModItem } from "../../../TL/ModItem.js";
 import { ModNPC } from "../../../TL/ModNPC.js";
 import { Vector2 } from "../../../TL/Modules/Vector2.js";
@@ -24,6 +25,8 @@ const NewGore = Terraria.Gore['int NewGore(Vector2 Position, Vector2 Velocity, i
 const NewDust = Terraria.Dust['int NewDust(Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)'];
 
 const FindBuffIndex = 'int FindBuffIndex(int type)';
+const ENFEEBLE_DAMAGE = 10;
+
 const StrikeNPCNoInteraction = 'double StrikeNPCNoInteraction(int Damage, float knockBack, int hitDirection, bool crit, bool noEffect, bool fromNet)';
 
 export class UpdateNPCBuff extends GlobalNPC {
@@ -77,6 +80,16 @@ export class UpdateNPCBuff extends GlobalNPC {
         NPCID.TheDestroyerTail
     ]);
 
+    static EnfeebleType = -1;
+
+    static ApplyEnfeeble(npc, itemType) {
+        if (UpdateNPCBuff.EnfeebleType < 0) return;
+        if (npc[FindBuffIndex](UpdateNPCBuff.EnfeebleType) < 0) return;
+        if (!ModHealerItem.healerItemsByType.has(itemType)) return;
+
+        npc[StrikeNPCNoInteraction](ENFEEBLE_DAMAGE, 0, 0, false, false, false);
+    }
+
     static Init() {
         const flag = UpdateNPCBuff.Flag;
         const map = UpdateNPCBuff.FlagByBuff;
@@ -95,6 +108,7 @@ export class UpdateNPCBuff extends GlobalNPC {
 
         UpdateNPCBuff.GraniteSurgeType = ModBuff.getTypeByName('GraniteSurgeBuff') ?? -1;
         UpdateNPCBuff.StunnedType = ModBuff.getTypeByName('StunnedBuff') ?? -1;
+        UpdateNPCBuff.EnfeebleType = ModBuff.getTypeByName('Enfeeble') ?? -1;
 
         UpdateNPCBuff.StunImmuneNPCs.clear();
         for (const name of ['RedHag', 'GreenHag', 'BlueHag', 'CyanHag']) {
@@ -348,12 +362,23 @@ export class UpdateNPCBuff extends GlobalNPC {
 
     OnHitByPlayer(npc, player, item, damageDone, knockBack) {
         if (!UpdateNPCBuff.Ready) UpdateNPCBuff.Init();
+        UpdateNPCBuff.ApplyEnfeeble(npc, item.type);
+
         if (!damageDone || npc[FindBuffIndex](UpdateNPCBuff.GraniteSurgeType) < 0) return;
 
         const extra = Math.floor(damageDone * GraniteSurgeBuff.DamageTakenBonus);
         if (extra < 1) return;
 
         npc[StrikeNPCNoInteraction](extra, 0, npc.direction ?? 1, false, true, false);
+    }
+
+    OnHitByProjectile(npc, projectile) {
+        if (!UpdateNPCBuff.Ready) UpdateNPCBuff.Init();
+
+        const owner = Terraria.Main.player[projectile.owner];
+        if (!owner || !owner.HeldItem) return;
+
+        UpdateNPCBuff.ApplyEnfeeble(npc, owner.HeldItem.type);
     }
 
     ModifyHitPlayer(npc, player, modifiers) {
