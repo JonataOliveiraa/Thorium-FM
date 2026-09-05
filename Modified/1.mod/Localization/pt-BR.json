@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "LifeQuartzShield": "Escudo de Quartzo Vital",
+    "DarkHeart": "Coração Sombrio",
     "IronFlailCore": "Núcleo de Mangual de Ferro",
     "PrehistoricArachnid": "Aracnídeo Pré-Histórico",
     "FamilyHeirloom": "Herança de Família",
@@ -520,6 +522,8 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "LifeQuartzShield": "Aumenta a velocidade com que você regenera vida\nReceber dano abaixo de 25% de vida te envolve em uma bolha protetora\nDentro da bolha, você recupera vida igual à sua cura bônus a cada segundo\nAlém disso, o dano recebido é reduzido em 10%\nO efeito precisa recarregar por 15 segundos depois que acaba",
+    "DarkHeart": "A cada 40 de vida curada, solta um raio de energia radiante que causa dano",
     "IronFlailCore": "Manguais têm chance de soltar uma bola de espinhos rolante ao acertar",
     "PrehistoricArachnid": "'Fóssil de uma era em que os aracnídeos reinavam'\nAtaques de lacaio têm 10% de chance de gerar uma aranha de âmbar\nAtaques de lacaio causam 2 de dano a mais enquanto uma aranha de âmbar estiver ativa",
     "FamilyHeirloom": "'Esta joia passou de geração em geração na sua família'",
@@ -883,6 +887,8 @@
     "Nobles": "As notas de inspiração que caem são duas vezes mais potentes e aumentam brevemente seu dano sinfônico"
   },
   "BuffName": {
+    "LifeQuartzShieldBuff": "Escudo de Quartzo Vital",
+    "LifeQuartzShieldDebuff": "Exaustão do Quartzo",
     "Enfeeble": "Enfraquecido",
     "MidnightOilBuff": "Óleo da Meia-Noite",
     "BloodSausageBuff": "Linguiça de Sangue",
@@ -955,6 +961,8 @@
     "SuperAnvilBuff": "Superbigorna"
   },
   "BuffDescription": {
+    "LifeQuartzShieldBuff": "Recuperando vida e recebendo 10% menos dano",
+    "LifeQuartzShieldDebuff": "Seu escudo de quartzo vital está recarregando",
     "Enfeeble": "Recebendo 10 de dano extra de ataques radiantes",
     "MidnightOilBuff": "Os inimigos não se interessam tanto por você",
     "BloodSausageBuff": "Petiscos demais, ao que parece...",

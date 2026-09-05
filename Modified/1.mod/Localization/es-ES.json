@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "LifeQuartzShield": "Escudo de Cuarzo Vital",
+    "DarkHeart": "Corazón Oscuro",
     "IronFlailCore": "Núcleo de Mayal de Hierro",
     "PrehistoricArachnid": "Arácnido Prehistórico",
     "FamilyHeirloom": "Herencia Familiar",
@@ -520,6 +522,8 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "LifeQuartzShield": "Aumenta la velocidad con la que regeneras vida\nRecibir daño por debajo del 25% de vida te envuelve en una burbuja protectora\nDentro de la burbuja recuperas vida igual a tu curación adicional cada segundo\nAdemás, el daño recibido se reduce un 10%\nEl efecto necesita recargarse durante 15 segundos tras terminar",
+    "DarkHeart": "Cada 40 de vida curada libera un rayo de energía radiante que causa daño",
     "IronFlailCore": "Los mayales tienen posibilidad de soltar una bola de púas rodante al impactar",
     "PrehistoricArachnid": "'Fósil de una era en que los arácnidos reinaban'\nLos ataques de esbirro tienen un 10% de probabilidad de generar una araña de ámbar\nLos ataques de esbirro causan 2 de daño más mientras una araña de ámbar esté activa",
     "FamilyHeirloom": "'Esta joya ha pasado de generación en generación en tu familia'",
@@ -882,6 +886,8 @@
     "Nobles": "Las notas de inspiración que caen son el doble de potentes y aumentan brevemente tu daño sinfónico"
   },
   "BuffName": {
+    "LifeQuartzShieldBuff": "Escudo de Cuarzo Vital",
+    "LifeQuartzShieldDebuff": "Agotamiento del Cuarzo",
     "Enfeeble": "Debilitado",
     "MidnightOilBuff": "Aceite de Medianoche",
     "BloodSausageBuff": "Morcilla",
@@ -954,6 +960,8 @@
     "SuperAnvilBuff": "Súper Yunque"
   },
   "BuffDescription": {
+    "LifeQuartzShieldBuff": "Recuperando vida y recibiendo un 10% menos de daño",
+    "LifeQuartzShieldDebuff": "Tu escudo de cuarzo vital se está recargando",
     "Enfeeble": "Recibiendo 10 de daño adicional de ataques radiantes",
     "MidnightOilBuff": "Los enemigos no se interesan tanto por ti",
     "BloodSausageBuff": "Demasiadas golosinas, al parecer...",

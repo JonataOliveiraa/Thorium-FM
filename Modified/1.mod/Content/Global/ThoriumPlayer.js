@@ -226,6 +226,12 @@ export class ThoriumPlayer extends ModPlayer {
   static darkAura = false;
   static accIronFlailCore = false;
   static accPrehistoricArachnid = false;
+  static accLifeQuartzShield = false;
+  static accLifeQuartzShieldBad = false;
+  static accLifeQuartzShieldVisual = false;
+  static totalHealingDarkHeart = 0;
+  static _lifeQuartzShieldBuffType = -1;
+  static _lifeQuartzBubbleType = -1;
   static _ironFlailCoreType = -1;
   static _prehistoricArachnidType = -1;
   static frostburnPouch = false;
@@ -377,6 +383,9 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.darkAura = false;
     ThoriumPlayer.accIronFlailCore = false;
     ThoriumPlayer.accPrehistoricArachnid = false;
+    ThoriumPlayer.accLifeQuartzShield = false;
+    ThoriumPlayer.accLifeQuartzShieldBad = false;
+    ThoriumPlayer.accLifeQuartzShieldVisual = false;
     ThoriumPlayer.frostburnPouch = false;
     ThoriumPlayer.accSandshroudPouch = false;
     ThoriumPlayer.spearNormal = false;
@@ -1050,6 +1059,8 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   OnHurt(player, damageSource, damage, hitDirection, pvp, quiet, crit, cooldownCounter, dodgeable) {
+    ThoriumPlayer.TryLifeQuartzShield(player);
+
     ThoriumPlayer.EnterCombat();
     player.immuneTime += ThoriumPlayer.InvincibilityFrameBonus;
 
@@ -1363,7 +1374,36 @@ export class ThoriumPlayer extends ModPlayer {
     const v = Math.max(1, value * mult + extra)
     player.Heal(v);
 
+    ThoriumPlayer.totalHealingDarkHeart += v;
+
     return v
+  }
+
+  static LIFE_QUARTZ_TRIGGER = 0.25;
+  static LIFE_QUARTZ_BUFF_TIME = 900;
+
+  static TryLifeQuartzShield(player) {
+    if (!ThoriumPlayer.accLifeQuartzShield) return;
+    if (ThoriumPlayer.accLifeQuartzShieldBad || ThoriumPlayer.accLifeQuartzShieldVisual) return;
+    if (player.statLife > player.statLifeMax2 * ThoriumPlayer.LIFE_QUARTZ_TRIGGER) return;
+
+    if (ThoriumPlayer._lifeQuartzShieldBuffType === -1) {
+      ThoriumPlayer._lifeQuartzShieldBuffType = ModBuff.getTypeByName('LifeQuartzShieldBuff') ?? -2;
+    }
+    if (ThoriumPlayer._lifeQuartzShieldBuffType < 0) return;
+
+    player.AddBuff(ThoriumPlayer._lifeQuartzShieldBuffType, ThoriumPlayer.LIFE_QUARTZ_BUFF_TIME, true);
+    Effects.PlaySound(Terraria.ID.SoundID.Item56, player.Center.X, player.Center.Y);
+
+    if (ThoriumPlayer._lifeQuartzBubbleType === -1) {
+      ThoriumPlayer._lifeQuartzBubbleType = ModProjectile.getTypeByName('LifeQuartzBubble') ?? -2;
+    }
+    if (ThoriumPlayer._lifeQuartzBubbleType < 0) return;
+
+    NewProjectile(
+      null, player.Center, Vector2.Zero,
+      ThoriumPlayer._lifeQuartzBubbleType, 0, 0, player.whoAmI, 0, 0, 0, null
+    );
   }
 
   /**

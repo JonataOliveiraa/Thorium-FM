@@ -14,6 +14,8 @@ import { AnglerBowlBuff } from "../Content/Pets/AnglerBowl/AnglerBowlBuff.js";
 import { MidnightOilBuff } from "../Content/Buffs/Potions/MidnightOilBuff.js";
 import { MassiveCrabClawBuff } from "../Content/Buffs/Mounts/MassiveCrabClawBuff.js";
 import { Enfeeble } from '../Content/Buffs/Healer/Enfeeble.js';
+import { LifeQuartzShieldBuff } from '../Content/Buffs/Healer/LifeQuartzShieldBuff.js';
+import { LifeQuartzShieldDebuff } from '../Content/Buffs/Healer/LifeQuartzShieldDebuff.js';
 import { SuperAnvilBuff } from "../Content/Buffs/Mounts/SuperAnvilBuff.js";
 
 import { LivingWoodAcornBuff } from "../Content/Buffs/LivingWoodAcornBuff.js";
@@ -147,6 +149,8 @@ const List = [
     MassiveCrabClawBuff,
     SuperAnvilBuff,
     Enfeeble,
+    LifeQuartzShieldBuff,
+    LifeQuartzShieldDebuff,
 ];
 
 export function RegisterBuffs() {

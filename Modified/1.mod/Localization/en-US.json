@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "LifeQuartzShield": "Life Quartz Shield",
+    "DarkHeart": "Dark Heart",
     "IronFlailCore": "Iron Flail-Core",
     "PrehistoricArachnid": "Prehistoric Arachnid",
     "FamilyHeirloom": "Family Heirloom",
@@ -520,6 +522,8 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "LifeQuartzShield": "Increases the rate at which you regenerate life\nReceiving damage below 25% life surrounds you in a protective bubble\nWhile in the bubble, you will recover life equal to your bonus healing every second\nAdditionally, damage taken will be reduced by 10%\nThis effect needs to recharge for 15 seconds after it ends",
+    "DarkHeart": "Every 40 life healed releases a bolt of damaging radiant energy",
     "IronFlailCore": "Flail weapons have a chance to release a rolling spike ball on hit",
     "PrehistoricArachnid": "'Fossil of a time when arachnids were king'\nMinion attacks have a 10% chance to produce an amber spider\nMinion attacks deal 2 more damage while an amber spider is active",
     "FamilyHeirloom": "'This jewelry has been passed down your family for generations'",
@@ -883,6 +887,8 @@
     "Nobles": "Inspiration notes that drop are twice as potent and increase your symphonic damage briefly"
   },
   "BuffName": {
+    "LifeQuartzShieldBuff": "Life Quartz Shield",
+    "LifeQuartzShieldDebuff": "Quartz Exhaustion",
     "Enfeeble": "Enfeeble",
     "MidnightOilBuff": "Midnight Oil",
     "BloodSausageBuff": "Blood Sausage",
@@ -955,6 +961,8 @@
     "SuperAnvilBuff": "Super Anvil"
   },
   "BuffDescription": {
+    "LifeQuartzShieldBuff": "Recovering life and taking 10% less damage",
+    "LifeQuartzShieldDebuff": "Your life quartz shield is recharging",
     "Enfeeble": "Taking 10 additional damage from radiant attacks",
     "MidnightOilBuff": "Enemies aren't as interested in you",
     "BloodSausageBuff": "One too many treats it seems...",
