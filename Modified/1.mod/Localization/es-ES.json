@@ -34,6 +34,12 @@
     }
   },
   "ItemName": {
+    "SeaBreezePendant": "Colgante de Brisa Marina",
+    "Subwoofer": "Subwoofer",
+    "DevilsSubwoofer": "Subwoofer del Diablo",
+    "HoneyHeart": "Corazón de Miel",
+    "Equalizer": "Ecualizador",
+    "FragrantCorsage": "Corsage Fragante",
     "EyeoftheStorm": "Ojo de la Tormenta",
     "AloeLeaf": "Hoja de Aloe",
     "DewCollector": "Recolector de Rocío",
@@ -526,6 +532,12 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "SeaBreezePendant": "Otorga la habilidad de nadar\nRestaura el aliento lentamente bajo el agua\nEstar mojado aumenta todo el daño un 10%",
+    "Subwoofer": "Aumenta la penetración de armadura en 2",
+    "DevilsSubwoofer": "Aumenta la penetración de armadura en 2\nLos ataques prenden fuego a los enemigos\nOtorga inmunidad a En Llamas",
+    "HoneyHeart": "Curarte a ti mismo te cubre de miel",
+    "Equalizer": "Aumenta tu curación adicional en 1\nCurarte a ti mismo otorga un efecto de recuperación de vida",
+    "FragrantCorsage": "Aumenta la regeneración de vida según tu curación adicional",
     "EyeoftheStorm": "En combate, rayos de granito salen en espiral y persiguen a los enemigos cercanos\nLos rayos sobrecargan a quien golpean",
     "AloeLeaf": "Curarte a ti mismo otorga un efecto duradero de recuperación de vida",
     "DewCollector": "Curarte a ti mismo otorga un efecto duradero de recuperación de vida\nTambién esparce gotas de rocío que renuevan la recuperación al recogerlas",
@@ -894,6 +906,7 @@
     "Nobles": "Las notas de inspiración que caen son el doble de potentes y aumentan brevemente tu daño sinfónico"
   },
   "BuffName": {
+    "AquaticAptitude": "Aptitud Acuática",
     "LifeQuartzShieldBuff": "Escudo de Cuarzo Vital",
     "LifeQuartzShieldDebuff": "Agotamiento del Cuarzo",
     "Enfeeble": "Debilitado",
@@ -968,6 +981,7 @@
     "SuperAnvilBuff": "Súper Yunque"
   },
   "BuffDescription": {
+    "AquaticAptitude": "Daño aumentado mientras estás mojado",
     "LifeQuartzShieldBuff": "Recuperando vida y recibiendo un 10% menos de daño",
     "LifeQuartzShieldDebuff": "Tu escudo de cuarzo vital se está recargando",
     "Enfeeble": "Recibiendo 10 de daño adicional de ataques radiantes",

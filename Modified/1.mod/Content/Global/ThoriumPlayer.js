@@ -233,6 +233,11 @@ export class ThoriumPlayer extends ModPlayer {
   static aloePlant = false;
   static accDewCollector = false;
   static accEyeOfTheStorm = false;
+  static honeyHeart = false;
+  static equilibrium = false;
+  static accSubwooferFire = false;
+  static accSeaBreezePendant = false;
+  static seaBreezeBreathTimer = 0;
   static eyeOfTheStormTimer = 0;
   static _stormHomeType = -1;
   static _dewCollectorProType = -1;
@@ -398,6 +403,10 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.aloePlant = false;
     ThoriumPlayer.accDewCollector = false;
     ThoriumPlayer.accEyeOfTheStorm = false;
+    ThoriumPlayer.honeyHeart = false;
+    ThoriumPlayer.equilibrium = false;
+    ThoriumPlayer.accSubwooferFire = false;
+    ThoriumPlayer.accSeaBreezePendant = false;
     ThoriumPlayer.accLifeQuartzShieldBad = false;
     ThoriumPlayer.accLifeQuartzShieldVisual = false;
     ThoriumPlayer.frostburnPouch = false;
@@ -500,6 +509,7 @@ export class ThoriumPlayer extends ModPlayer {
     }
 
     ThoriumPlayer.UpdateEyeOfTheStorm(player);
+    ThoriumPlayer.UpdateSeaBreezePendant(player);
     ThoriumPlayer.UpdateInspiration();
     ThoriumPlayer.UpdateTimer();
 
@@ -807,6 +817,7 @@ export class ThoriumPlayer extends ModPlayer {
 
   OnHitNPC(player, item, npc, damageDone, knockBack) {
     ThoriumPlayer.EnterCombat();
+    ThoriumPlayer.TrySubwooferFire(npc);
     ThoriumPlayer.TryJarOMayo(player);
     ThoriumPlayer.TryGlitteringChalice(npc);
 
@@ -908,6 +919,7 @@ export class ThoriumPlayer extends ModPlayer {
   OnHitNPCWithProj(player, npc, projectile) {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
     ThoriumPlayer.EnterCombat();
+    ThoriumPlayer.TrySubwooferFire(npc);
     ThoriumPlayer.TryJarOMayo(player);
     ThoriumPlayer.TryGlitteringChalice(npc);
 
@@ -1396,16 +1408,51 @@ export class ThoriumPlayer extends ModPlayer {
   }
 
   static ALOE_RECOVERY_TIME = 600;
+  static EQUILIBRIUM_RECOVERY_TIME = 300;
+  static HONEY_TIME = 300;
   static DEW_DROP_COUNT = 2;
+  static SUBWOOFER_FIRE_TIME = 180;
+  static SEA_BREEZE_INTERVAL = 50;
+
+  static _RecoveryBuffType() {
+    if (ThoriumPlayer._lifeRecoveryType === -1) {
+      ThoriumPlayer._lifeRecoveryType = ModBuff.getTypeByName('LifeRecoveryBuff') ?? -2;
+    }
+    return ThoriumPlayer._lifeRecoveryType;
+  }
+
+  static TrySubwooferFire(npc) {
+    if (!ThoriumPlayer.accSubwooferFire) return;
+    npc.AddBuff(Terraria.ID.BuffID.OnFire, ThoriumPlayer.SUBWOOFER_FIRE_TIME, false);
+  }
+
+  static UpdateSeaBreezePendant(player) {
+    if (!ThoriumPlayer.accSeaBreezePendant) {
+      ThoriumPlayer.seaBreezeBreathTimer = 0;
+      return;
+    }
+
+    ThoriumPlayer.seaBreezeBreathTimer++;
+    if (ThoriumPlayer.seaBreezeBreathTimer < ThoriumPlayer.SEA_BREEZE_INTERVAL) return;
+    if (player.breath <= 0 || player.breath >= player.breathMax) return;
+
+    ThoriumPlayer.seaBreezeBreathTimer = 0;
+    player.breath++;
+  }
 
   static OnHealSelf(player) {
-    if (ThoriumPlayer.aloePlant) {
-      if (ThoriumPlayer._lifeRecoveryType === -1) {
-        ThoriumPlayer._lifeRecoveryType = ModBuff.getTypeByName('LifeRecoveryBuff') ?? -2;
-      }
-      if (ThoriumPlayer._lifeRecoveryType >= 0) {
-        player.AddBuff(ThoriumPlayer._lifeRecoveryType, ThoriumPlayer.ALOE_RECOVERY_TIME, false);
-      }
+    const recovery = ThoriumPlayer._RecoveryBuffType();
+
+    if (ThoriumPlayer.aloePlant && recovery >= 0) {
+      player.AddBuff(recovery, ThoriumPlayer.ALOE_RECOVERY_TIME, false);
+    }
+
+    if (ThoriumPlayer.equilibrium && recovery >= 0) {
+      player.AddBuff(recovery, ThoriumPlayer.EQUILIBRIUM_RECOVERY_TIME, false);
+    }
+
+    if (ThoriumPlayer.honeyHeart) {
+      player.AddBuff(Terraria.ID.BuffID.Honey, ThoriumPlayer.HONEY_TIME, false);
     }
 
     if (!ThoriumPlayer.accDewCollector) return;

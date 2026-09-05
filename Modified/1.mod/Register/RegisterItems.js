@@ -63,6 +63,12 @@ import { IncandescentAlacrity } from '../Content/Items/Donate/IncandescentAlacri
 import { EyeoftheStorm } from '../Content/Items/GraniteEnergyStorm/EyeoftheStorm.js';
 import { AloeLeaf } from '../Content/Items/Healer/AloeLeaf.js';
 import { DewCollector } from '../Content/Items/Healer/DewCollector.js';
+import { SeaBreezePendant } from '../Content/Items/QueenJellyfish/SeaBreezePendant.js';
+import { Subwoofer } from '../Content/Items/Bard/Subwoofer.js';
+import { DevilsSubwoofer } from '../Content/Items/Bard/DevilsSubwoofer.js';
+import { HoneyHeart } from '../Content/Items/Healer/HoneyHeart.js';
+import { Equalizer } from '../Content/Items/Healer/Equalizer.js';
+import { FragrantCorsage } from '../Content/Items/Donate/FragrantCorsage.js';
 import { DarkHeart } from '../Content/Items/Healer/DarkHeart.js';
 import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
 import { Omen } from '../Content/Items/Healer/Omen.js';
@@ -969,6 +975,12 @@ const List = [
     EyeoftheStorm,
     AloeLeaf,
     DewCollector,
+    SeaBreezePendant,
+    Subwoofer,
+    DevilsSubwoofer,
+    HoneyHeart,
+    Equalizer,
+    FragrantCorsage,
     DarkHeart,
     ClericsCross,
     Omen,

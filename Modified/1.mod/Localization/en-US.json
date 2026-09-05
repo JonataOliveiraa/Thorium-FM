@@ -34,6 +34,12 @@
     }
   },
   "ItemName": {
+    "SeaBreezePendant": "Sea Breeze Pendant",
+    "Subwoofer": "Subwoofer",
+    "DevilsSubwoofer": "Devil's Subwoofer",
+    "HoneyHeart": "Honey Heart",
+    "Equalizer": "Equalizer",
+    "FragrantCorsage": "Fragrant Corsage",
     "EyeoftheStorm": "Eye of the Storm",
     "AloeLeaf": "Aloe Leaf",
     "DewCollector": "Dew Collector",
@@ -526,6 +532,12 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "SeaBreezePendant": "Grants the ability to swim\nSlowly restores breath while underwater\nBeing wet increases all damage by 10%",
+    "Subwoofer": "Increases armor penetration by 2",
+    "DevilsSubwoofer": "Increases armor penetration by 2\nAttacks set enemies on fire\nGrants immunity to On Fire",
+    "HoneyHeart": "Healing yourself coats you in honey",
+    "Equalizer": "Increases your bonus healing by 1\nHealing yourself grants a life recovery effect",
+    "FragrantCorsage": "Increases life regeneration based on your bonus healing",
     "EyeoftheStorm": "While in combat, granite bolts spiral out and seek nearby enemies\nThe bolts overload what they hit",
     "AloeLeaf": "Healing yourself grants a lasting life recovery effect",
     "DewCollector": "Healing yourself grants a lasting life recovery effect\nAlso scatters dew droplets that restore life recovery when picked up",
@@ -895,6 +907,7 @@
     "Nobles": "Inspiration notes that drop are twice as potent and increase your symphonic damage briefly"
   },
   "BuffName": {
+    "AquaticAptitude": "Aquatic Aptitude",
     "LifeQuartzShieldBuff": "Life Quartz Shield",
     "LifeQuartzShieldDebuff": "Quartz Exhaustion",
     "Enfeeble": "Enfeeble",
@@ -969,6 +982,7 @@
     "SuperAnvilBuff": "Super Anvil"
   },
   "BuffDescription": {
+    "AquaticAptitude": "Increased damage while wet",
     "LifeQuartzShieldBuff": "Recovering life and taking 10% less damage",
     "LifeQuartzShieldDebuff": "Your life quartz shield is recharging",
     "Enfeeble": "Taking 10 additional damage from radiant attacks",
