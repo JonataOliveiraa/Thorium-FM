@@ -227,6 +227,9 @@ export class ThoriumPlayer extends ModPlayer {
   static accIronFlailCore = false;
   static accPrehistoricArachnid = false;
   static accLifeQuartzShield = false;
+  static accIncandescentAlacrity = false;
+  static alacritySpirits = 0;
+  static alacrityTimer = 0;
   static accLifeQuartzShieldBad = false;
   static accLifeQuartzShieldVisual = false;
   static totalHealingDarkHeart = 0;
@@ -384,6 +387,7 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.accIronFlailCore = false;
     ThoriumPlayer.accPrehistoricArachnid = false;
     ThoriumPlayer.accLifeQuartzShield = false;
+    ThoriumPlayer.accIncandescentAlacrity = false;
     ThoriumPlayer.accLifeQuartzShieldBad = false;
     ThoriumPlayer.accLifeQuartzShieldVisual = false;
     ThoriumPlayer.frostburnPouch = false;

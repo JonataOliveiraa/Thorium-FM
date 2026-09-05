@@ -34,6 +34,7 @@
     }
   },
   "ItemName": {
+    "IncandescentAlacrity": "Alacridade Incandescente",
     "LifeQuartzShield": "Escudo de Quartzo Vital",
     "DarkHeart": "Coração Sombrio",
     "IronFlailCore": "Núcleo de Mangual de Ferro",
@@ -522,6 +523,7 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "IncandescentAlacrity": "'Um orbe imbuído com a rapidez de um espírito raposa'\nAumenta a aceleração de movimento e a altura do pulo, e a velocidade de queda ao segurar BAIXO\nGera lentamente até 3 chamas espirituais que permitem avançar\nToque duas vezes em uma direção para gastar uma chama e avançar",
     "LifeQuartzShield": "Aumenta a velocidade com que você regenera vida\nReceber dano abaixo de 25% de vida te envolve em uma bolha protetora\nDentro da bolha, você recupera vida igual à sua cura bônus a cada segundo\nAlém disso, o dano recebido é reduzido em 10%\nO efeito precisa recarregar por 15 segundos depois que acaba",
     "DarkHeart": "A cada 40 de vida curada, solta um raio de energia radiante que causa dano",
     "IronFlailCore": "Manguais têm chance de soltar uma bola de espinhos rolante ao acertar",

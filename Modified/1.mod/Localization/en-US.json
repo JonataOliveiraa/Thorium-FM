@@ -34,6 +34,7 @@
     }
   },
   "ItemName": {
+    "IncandescentAlacrity": "Incandescent Alacrity",
     "LifeQuartzShield": "Life Quartz Shield",
     "DarkHeart": "Dark Heart",
     "IronFlailCore": "Iron Flail-Core",
@@ -522,6 +523,7 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "IncandescentAlacrity": "'An orb imbued with the swiftness of a fox spirit'\nIncreases movement acceleration and jump height, as well as fall speed when holding DOWN\nSlowly generate up to 3 spirit flames which allow you to dash\nDouble tap a direction to spend a flame and dash",
     "LifeQuartzShield": "Increases the rate at which you regenerate life\nReceiving damage below 25% life surrounds you in a protective bubble\nWhile in the bubble, you will recover life equal to your bonus healing every second\nAdditionally, damage taken will be reduced by 10%\nThis effect needs to recharge for 15 seconds after it ends",
     "DarkHeart": "Every 40 life healed releases a bolt of damaging radiant energy",
     "IronFlailCore": "Flail weapons have a chance to release a rolling spike ball on hit",

@@ -59,6 +59,7 @@ import { DemonTongue } from '../Content/Items/Healer/DemonTongue.js';
 import { IronFlailCore } from '../Content/Items/BasicAccessories/IronFlailCore.js';
 import { PrehistoricArachnid } from '../Content/Items/BasicAccessories/Summon/PrehistoricArachnid.js';
 import { LifeQuartzShield } from '../Content/Items/Donate/LifeQuartzShield.js';
+import { IncandescentAlacrity } from '../Content/Items/Donate/IncandescentAlacrity.js';
 import { DarkHeart } from '../Content/Items/Healer/DarkHeart.js';
 import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
 import { Omen } from '../Content/Items/Healer/Omen.js';
@@ -961,6 +962,7 @@ const List = [
     IronFlailCore,
     PrehistoricArachnid,
     LifeQuartzShield,
+    IncandescentAlacrity,
     DarkHeart,
     ClericsCross,
     Omen,

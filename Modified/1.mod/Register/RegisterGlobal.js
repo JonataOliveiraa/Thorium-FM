@@ -17,6 +17,7 @@ import { RemoveItemsRecipes } from '../Content/Global/Hooks/RemoveItemsRecipes.j
 // Players
 import { LifeShieldPlayer } from '../Content/Global/LifeShieldPlayer.js'
 import { ThoriumPlayer } from '../Content/Global/ThoriumPlayer.js'
+import { AlacrityDashPlayer } from '../Content/Global/AlacrityDashPlayer.js'
 
 // Loot
 import { gNPCsLoot } from '../Content/Global/gNPCsLoot.js'
@@ -72,6 +73,7 @@ const List = [
   // ModPlayer
   LifeShieldPlayer,
   ThoriumPlayer,
+  AlacrityDashPlayer,
   
   // GlobalLoot
   gNPCsLoot,
