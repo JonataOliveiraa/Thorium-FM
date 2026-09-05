@@ -523,7 +523,7 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
-    "IncandescentAlacrity": "'An orb imbued with the swiftness of a fox spirit'\nIncreases movement acceleration and jump height, as well as fall speed when holding DOWN\nSlowly generate up to 3 spirit flames which allow you to dash\nDouble tap a direction to spend a flame and dash",
+    "IncandescentAlacrity": "'An orb imbued with the swiftness of a fox spirit'\nIncreases jump height and negates fall damage\nSlowly generate up to 3 spirit flames\nDouble tap left or right to spend a flame and dash\nDashing grants a burst of movement speed for 5 seconds",
     "LifeQuartzShield": "Increases the rate at which you regenerate life\nReceiving damage below 25% life surrounds you in a protective bubble\nWhile in the bubble, you will recover life equal to your bonus healing every second\nAdditionally, damage taken will be reduced by 10%\nThis effect needs to recharge for 15 seconds after it ends",
     "DarkHeart": "Every 40 life healed releases a bolt of damaging radiant energy",
     "IronFlailCore": "Flail weapons have a chance to release a rolling spike ball on hit",

@@ -523,7 +523,7 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
-    "IncandescentAlacrity": "'Un orbe imbuido con la rapidez de un espíritu zorro'\nAumenta la aceleración de movimiento y la altura del salto, y la velocidad de caída al mantener ABAJO\nGenera lentamente hasta 3 llamas espirituales que permiten impulsarte\nToca dos veces una dirección para gastar una llama e impulsarte",
+    "IncandescentAlacrity": "'Un orbe imbuido con la rapidez de un espíritu zorro'\nAumenta la altura del salto y anula el daño por caída\nGenera lentamente hasta 3 llamas espirituales\nToca dos veces izquierda o derecha para gastar una llama e impulsarte\nImpulsarte otorga un estallido de velocidad durante 5 segundos",
     "LifeQuartzShield": "Aumenta la velocidad con la que regeneras vida\nRecibir daño por debajo del 25% de vida te envuelve en una burbuja protectora\nDentro de la burbuja recuperas vida igual a tu curación adicional cada segundo\nAdemás, el daño recibido se reduce un 10%\nEl efecto necesita recargarse durante 15 segundos tras terminar",
     "DarkHeart": "Cada 40 de vida curada libera un rayo de energía radiante que causa daño",
     "IronFlailCore": "Los mayales tienen posibilidad de soltar una bola de púas rodante al impactar",

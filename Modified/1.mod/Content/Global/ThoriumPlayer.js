@@ -854,7 +854,7 @@ export class ThoriumPlayer extends ModPlayer {
     if (ThoriumPlayer._prehistoricArachnidType < 0) return;
     if ((player.ownedProjectileCounts[ThoriumPlayer._prehistoricArachnidType] ?? 0) >= ThoriumPlayer.ARACHNID_LIMIT) return;
 
-    Effects.PlaySound(Terraria.ID.SoundID.Item74, npc.Center.X, npc.Center.Y, 1, 0.5, 0);
+    Effects.PlaySound(Terraria.ID.SoundID.Item74, npc.Center.X, npc.Center.Y, 1, 0, 0.5);
     NewProjectile(
       null, npc.Center, Vector2.new(-0.5, 0),
       ThoriumPlayer._prehistoricArachnidType, ThoriumPlayer.ARACHNID_DAMAGE, 2,
