@@ -60,6 +60,9 @@ import { IronFlailCore } from '../Content/Items/BasicAccessories/IronFlailCore.j
 import { PrehistoricArachnid } from '../Content/Items/BasicAccessories/Summon/PrehistoricArachnid.js';
 import { LifeQuartzShield } from '../Content/Items/Donate/LifeQuartzShield.js';
 import { IncandescentAlacrity } from '../Content/Items/Donate/IncandescentAlacrity.js';
+import { EyeoftheStorm } from '../Content/Items/GraniteEnergyStorm/EyeoftheStorm.js';
+import { AloeLeaf } from '../Content/Items/Healer/AloeLeaf.js';
+import { DewCollector } from '../Content/Items/Healer/DewCollector.js';
 import { DarkHeart } from '../Content/Items/Healer/DarkHeart.js';
 import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
 import { Omen } from '../Content/Items/Healer/Omen.js';
@@ -963,6 +966,9 @@ const List = [
     PrehistoricArachnid,
     LifeQuartzShield,
     IncandescentAlacrity,
+    EyeoftheStorm,
+    AloeLeaf,
+    DewCollector,
     DarkHeart,
     ClericsCross,
     Omen,

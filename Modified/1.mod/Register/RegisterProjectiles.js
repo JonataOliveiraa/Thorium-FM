@@ -54,6 +54,8 @@ import { IronFlailCorePro } from '../Content/Projectiles/IronFlailCorePro.js';
 import { PrehistoricArachnidPro } from '../Content/Projectiles/PrehistoricArachnidPro.js';
 import { LifeQuartzBubble } from '../Content/Projectiles/LifeQuartzBubble.js';
 import { DarkHeartPro } from '../Content/Projectiles/DarkHeartPro.js';
+import { StormHome } from '../Content/Projectiles/StormHome.js';
+import { DewCollectorPro } from '../Content/Projectiles/DewCollectorPro.js';
 import { ThePillPro } from '../Content/Projectiles/ThePillPro.js';
 import { ThePillPro2 } from '../Content/Projectiles/ThePillPro2.js';
 import { BonesawPro } from '../Content/Projectiles/BonesawPro.js';
@@ -681,6 +683,8 @@ const List = [
   PrehistoricArachnidPro,
   LifeQuartzBubble,
   DarkHeartPro,
+  StormHome,
+  DewCollectorPro,
   ThePillPro,
   ThePillPro2,
   BonesawPro,

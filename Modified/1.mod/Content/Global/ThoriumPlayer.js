@@ -230,6 +230,13 @@ export class ThoriumPlayer extends ModPlayer {
   static accIncandescentAlacrity = false;
   static alacritySpirits = 0;
   static alacrityTimer = 0;
+  static aloePlant = false;
+  static accDewCollector = false;
+  static accEyeOfTheStorm = false;
+  static eyeOfTheStormTimer = 0;
+  static _stormHomeType = -1;
+  static _dewCollectorProType = -1;
+  static _lifeRecoveryType = -1;
   static accLifeQuartzShieldBad = false;
   static accLifeQuartzShieldVisual = false;
   static totalHealingDarkHeart = 0;
@@ -388,6 +395,9 @@ export class ThoriumPlayer extends ModPlayer {
     ThoriumPlayer.accPrehistoricArachnid = false;
     ThoriumPlayer.accLifeQuartzShield = false;
     ThoriumPlayer.accIncandescentAlacrity = false;
+    ThoriumPlayer.aloePlant = false;
+    ThoriumPlayer.accDewCollector = false;
+    ThoriumPlayer.accEyeOfTheStorm = false;
     ThoriumPlayer.accLifeQuartzShieldBad = false;
     ThoriumPlayer.accLifeQuartzShieldVisual = false;
     ThoriumPlayer.frostburnPouch = false;
@@ -489,6 +499,7 @@ export class ThoriumPlayer extends ModPlayer {
       ThoriumPlayer.championDamage = 300;
     }
 
+    ThoriumPlayer.UpdateEyeOfTheStorm(player);
     ThoriumPlayer.UpdateInspiration();
     ThoriumPlayer.UpdateTimer();
 
@@ -1379,8 +1390,72 @@ export class ThoriumPlayer extends ModPlayer {
     player.Heal(v);
 
     ThoriumPlayer.totalHealingDarkHeart += v;
+    ThoriumPlayer.OnHealSelf(player);
 
     return v
+  }
+
+  static ALOE_RECOVERY_TIME = 600;
+  static DEW_DROP_COUNT = 2;
+
+  static OnHealSelf(player) {
+    if (ThoriumPlayer.aloePlant) {
+      if (ThoriumPlayer._lifeRecoveryType === -1) {
+        ThoriumPlayer._lifeRecoveryType = ModBuff.getTypeByName('LifeRecoveryBuff') ?? -2;
+      }
+      if (ThoriumPlayer._lifeRecoveryType >= 0) {
+        player.AddBuff(ThoriumPlayer._lifeRecoveryType, ThoriumPlayer.ALOE_RECOVERY_TIME, false);
+      }
+    }
+
+    if (!ThoriumPlayer.accDewCollector) return;
+
+    if (ThoriumPlayer._dewCollectorProType === -1) {
+      ThoriumPlayer._dewCollectorProType = ModProjectile.getTypeByName('DewCollectorPro') ?? -2;
+    }
+    if (ThoriumPlayer._dewCollectorProType < 0) return;
+
+    const center = player.Center;
+    for (let index = 0; index < ThoriumPlayer.DEW_DROP_COUNT; index++) {
+      NewProjectile(
+        null, center,
+        Vector2.new(Rand.NextFloat(-1, 1), Rand.NextFloat(-3, -1)),
+        ThoriumPlayer._dewCollectorProType, 0, 0, player.whoAmI, 0, 0, 0, null
+      );
+    }
+  }
+
+  static EYE_OF_THE_STORM_INTERVAL = 45;
+  static EYE_OF_THE_STORM_SHOTS = 2;
+  static EYE_OF_THE_STORM_DAMAGE = 25;
+
+  static UpdateEyeOfTheStorm(player) {
+    if (!ThoriumPlayer.accEyeOfTheStorm || !ThoriumPlayer.InCombat) {
+      ThoriumPlayer.eyeOfTheStormTimer = 0;
+      return;
+    }
+
+    ThoriumPlayer.eyeOfTheStormTimer++;
+    if (ThoriumPlayer.eyeOfTheStormTimer <= ThoriumPlayer.EYE_OF_THE_STORM_INTERVAL) return;
+
+    ThoriumPlayer.eyeOfTheStormTimer = 0;
+
+    if (ThoriumPlayer._stormHomeType === -1) {
+      ThoriumPlayer._stormHomeType = ModProjectile.getTypeByName('StormHome') ?? -2;
+    }
+    if (ThoriumPlayer._stormHomeType < 0) return;
+
+    const center = player.Center;
+    const origin = Vector2.new(center.X + 14 * player.direction, center.Y - 20);
+
+    for (let index = 0; index < ThoriumPlayer.EYE_OF_THE_STORM_SHOTS; index++) {
+      NewProjectile(
+        null, origin,
+        Vector2.new(Rand.Next(-5, 5), Rand.Next(-5, -1)),
+        ThoriumPlayer._stormHomeType, ThoriumPlayer.EYE_OF_THE_STORM_DAMAGE, 0,
+        player.whoAmI, 0, 0, 0, null
+      );
+    }
   }
 
   static LIFE_QUARTZ_TRIGGER = 0.25;

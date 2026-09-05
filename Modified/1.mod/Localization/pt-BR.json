@@ -34,6 +34,9 @@
     }
   },
   "ItemName": {
+    "EyeoftheStorm": "Olho da Tempestade",
+    "AloeLeaf": "Folha de Aloé",
+    "DewCollector": "Coletor de Orvalho",
     "IncandescentAlacrity": "Alacridade Incandescente",
     "LifeQuartzShield": "Escudo de Quartzo Vital",
     "DarkHeart": "Coração Sombrio",
@@ -523,6 +526,9 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "EyeoftheStorm": "Em combate, raios de granito saem em espiral e perseguem inimigos por perto\nOs raios sobrecarregam quem acertam",
+    "AloeLeaf": "Curar a si mesmo concede um efeito duradouro de recuperação de vida",
+    "DewCollector": "Curar a si mesmo concede um efeito duradouro de recuperação de vida\nTambém espalha gotas de orvalho que renovam a recuperação ao serem apanhadas",
     "IncandescentAlacrity": "'Um orbe imbuído com a rapidez de um espírito raposa'\nAumenta a altura do pulo e anula o dano de queda\nGera lentamente até 3 chamas espirituais\nToque duas vezes para a esquerda ou a direita para gastar uma chama e avançar\nAvançar concede um surto de velocidade por 5 segundos",
     "LifeQuartzShield": "Aumenta a velocidade com que você regenera vida\nReceber dano abaixo de 25% de vida te envolve em uma bolha protetora\nDentro da bolha, você recupera vida igual à sua cura bônus a cada segundo\nAlém disso, o dano recebido é reduzido em 10%\nO efeito precisa recarregar por 15 segundos depois que acaba",
     "DarkHeart": "A cada 40 de vida curada, solta um raio de energia radiante que causa dano",

@@ -34,6 +34,9 @@
     }
   },
   "ItemName": {
+    "EyeoftheStorm": "Ojo de la Tormenta",
+    "AloeLeaf": "Hoja de Aloe",
+    "DewCollector": "Recolector de Rocío",
     "IncandescentAlacrity": "Presteza Incandescente",
     "LifeQuartzShield": "Escudo de Cuarzo Vital",
     "DarkHeart": "Corazón Oscuro",
@@ -523,6 +526,9 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "EyeoftheStorm": "En combate, rayos de granito salen en espiral y persiguen a los enemigos cercanos\nLos rayos sobrecargan a quien golpean",
+    "AloeLeaf": "Curarte a ti mismo otorga un efecto duradero de recuperación de vida",
+    "DewCollector": "Curarte a ti mismo otorga un efecto duradero de recuperación de vida\nTambién esparce gotas de rocío que renuevan la recuperación al recogerlas",
     "IncandescentAlacrity": "'Un orbe imbuido con la rapidez de un espíritu zorro'\nAumenta la altura del salto y anula el daño por caída\nGenera lentamente hasta 3 llamas espirituales\nToca dos veces izquierda o derecha para gastar una llama e impulsarte\nImpulsarte otorga un estallido de velocidad durante 5 segundos",
     "LifeQuartzShield": "Aumenta la velocidad con la que regeneras vida\nRecibir daño por debajo del 25% de vida te envuelve en una burbuja protectora\nDentro de la burbuja recuperas vida igual a tu curación adicional cada segundo\nAdemás, el daño recibido se reduce un 10%\nEl efecto necesita recargarse durante 15 segundos tras terminar",
     "DarkHeart": "Cada 40 de vida curada libera un rayo de energía radiante que causa daño",
