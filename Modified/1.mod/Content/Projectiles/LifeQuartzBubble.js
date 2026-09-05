@@ -4,7 +4,7 @@ import { ModProjectile } from './../../TL/ModProjectile.js';
 const { Color, Effects, Rand, Vector2 } = Modules;
 const { Main } = Terraria;
 
-const LAYER_OVER_PLAYERS = 4;
+const LAYER_UNDER_PLAYERS = 0;
 
 const DEATH_DUST = 205;
 const DEATH_DUST_COUNT = 8;
@@ -54,7 +54,7 @@ export class LifeQuartzBubble extends ModProjectile {
             return;
         }
 
-        proj.drawLayer = LAYER_OVER_PLAYERS;
+        proj.drawLayer = LAYER_UNDER_PLAYERS;
         proj.Center = player.Center;
         proj.gfxOffY = player.gfxOffY;
 
