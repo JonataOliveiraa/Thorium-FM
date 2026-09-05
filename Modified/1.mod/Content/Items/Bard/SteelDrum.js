@@ -85,5 +85,7 @@ export class SteelDrum extends ModBardItem {
             NewProjectile(source, position, Vector2.Multiply(velocity, speedMult), type, damage, knockBack, player.whoAmI, 0.0, 0.0, 0.0, null);
             this.Shoot_OnSuccess(player);
         }
+
+        return false;
     }
 }

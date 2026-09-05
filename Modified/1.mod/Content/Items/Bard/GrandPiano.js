@@ -13,7 +13,7 @@ export class GrandPiano extends ModBardItem {
     constructor() {
         super();
         this.Texture = 'Items/Bard/' + this.constructor.name;
-        this.instrumentType = 'String';
+        this.instrumentStyle = 'String';
     }
     
     SetStaticDefaults() {
