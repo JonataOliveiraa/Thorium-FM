@@ -224,6 +224,10 @@ export class ThoriumPlayer extends ModPlayer {
 
   static accMouthPiece = false;
   static darkAura = false;
+  static accIronFlailCore = false;
+  static accPrehistoricArachnid = false;
+  static _ironFlailCoreType = -1;
+  static _prehistoricArachnidType = -1;
   static frostburnPouch = false;
   static accFrostburnPouchTimer = 0;
   static accSandshroudPouch = false;
@@ -371,6 +375,8 @@ export class ThoriumPlayer extends ModPlayer {
 
     ThoriumPlayer.accMouthPiece = false;
     ThoriumPlayer.darkAura = false;
+    ThoriumPlayer.accIronFlailCore = false;
+    ThoriumPlayer.accPrehistoricArachnid = false;
     ThoriumPlayer.frostburnPouch = false;
     ThoriumPlayer.accSandshroudPouch = false;
     ThoriumPlayer.spearNormal = false;
@@ -818,6 +824,63 @@ export class ThoriumPlayer extends ModPlayer {
     }
   }
 
+  static FLAIL_AI_STYLE = 15;
+  static ARACHNID_LIMIT = 2;
+  static ARACHNID_CHANCE = 10;
+  static ARACHNID_DAMAGE = 20;
+  static FLAIL_CORE_CHANCE = 4;
+  static FLAIL_CORE_SCALE = 0.35;
+  static FLAIL_CORE_FALLBACK_SPEED = 6;
+
+  static TrySpawnPrehistoricArachnid(player, npc) {
+    if (!Rand.NextBool(ThoriumPlayer.ARACHNID_CHANCE)) return;
+
+    if (ThoriumPlayer._prehistoricArachnidType === -1) {
+      ThoriumPlayer._prehistoricArachnidType = ModProjectile.getTypeByName('PrehistoricArachnidPro') ?? -2;
+    }
+    if (ThoriumPlayer._prehistoricArachnidType < 0) return;
+    if ((player.ownedProjectileCounts[ThoriumPlayer._prehistoricArachnidType] ?? 0) >= ThoriumPlayer.ARACHNID_LIMIT) return;
+
+    Effects.PlaySound(Terraria.ID.SoundID.Item74, npc.Center.X, npc.Center.Y, 1, 0.5, 0);
+    NewProjectile(
+      null, npc.Center, Vector2.new(-0.5, 0),
+      ThoriumPlayer._prehistoricArachnidType, ThoriumPlayer.ARACHNID_DAMAGE, 2,
+      player.whoAmI, 0, 0, 0, null
+    );
+  }
+
+  static TrySpawnIronFlailCore(player, projectile) {
+    if (!Rand.NextBool(ThoriumPlayer.FLAIL_CORE_CHANCE)) return;
+
+    if (ThoriumPlayer._ironFlailCoreType === -1) {
+      ThoriumPlayer._ironFlailCoreType = ModProjectile.getTypeByName('IronFlailCorePro') ?? -2;
+    }
+    if (ThoriumPlayer._ironFlailCoreType < 0) return;
+
+    const velocity = projectile.velocity;
+    let speedX = velocity.X * 0.5;
+    let speedY = velocity.Y * 0.5;
+
+    if (speedX === 0 && speedY === 0) {
+      const center = player.Center;
+      const mouse = Terraria.Main.MouseWorld;
+      const dx = mouse.X - center.X;
+      const dy = mouse.Y - center.Y;
+      const length = Math.sqrt(dx * dx + dy * dy) || 1;
+      speedX = dx / length * ThoriumPlayer.FLAIL_CORE_FALLBACK_SPEED;
+      speedY = dy / length * ThoriumPlayer.FLAIL_CORE_FALLBACK_SPEED;
+    }
+
+    const center = projectile.Center;
+    Effects.PlaySound(Terraria.ID.SoundID.Item1, center.X, center.Y);
+    NewProjectile(
+      null, center, Vector2.new(speedX, speedY),
+      ThoriumPlayer._ironFlailCoreType,
+      Math.max(1, Math.floor(projectile.damage * ThoriumPlayer.FLAIL_CORE_SCALE)),
+      projectile.knockBack, player.whoAmI, 0, 0, 0, null
+    );
+  }
+
   OnHitNPCWithProj(player, npc, projectile) {
     const isBardWeapon = player.HeldItem && ModBardItem.bardItemsName.has(player.HeldItem.type);
     ThoriumPlayer.EnterCombat();
@@ -852,18 +915,25 @@ export class ThoriumPlayer extends ModPlayer {
       if (ThoriumPlayer.BloomingSetBonus) player.AddBuff(ModBuff.getTypeByName('OvergrowthBuff'), 120, false);
     }
 
-    if (ThoriumPlayer.IncubatedEggBuff) {
-      if (projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type]) {
-        if (ThoriumPlayer.IncubatedEggCount >= ThoriumPlayer.IncubatedEggLimit) return;
-        if (Rand.NextFloat() < 0.9) return;
+    const isMinionHit = projectile.minion || Terraria.ID.ProjectileID.Sets.MinionShot[projectile.type];
 
-        if (ThoriumPlayer._incubatedSpiderType === -1) {
-          ThoriumPlayer._incubatedSpiderType = ModProjectile.getTypeByName('IncubatedSpider');
-        }
-        const source = null;
-        NewProjectile(source, npc.Center, Vector2.new(0, -2), ThoriumPlayer._incubatedSpiderType, 2, 0, player.whoAmI, 0, 0, 0, null);
-        ThoriumPlayer.IncubatedEggCount++;
+    if (ThoriumPlayer.IncubatedEggBuff && isMinionHit
+      && ThoriumPlayer.IncubatedEggCount < ThoriumPlayer.IncubatedEggLimit
+      && Rand.NextFloat() >= 0.9) {
+
+      if (ThoriumPlayer._incubatedSpiderType === -1) {
+        ThoriumPlayer._incubatedSpiderType = ModProjectile.getTypeByName('IncubatedSpider');
       }
+      NewProjectile(null, npc.Center, Vector2.new(0, -2), ThoriumPlayer._incubatedSpiderType, 2, 0, player.whoAmI, 0, 0, 0, null);
+      ThoriumPlayer.IncubatedEggCount++;
+    }
+
+    if (ThoriumPlayer.accPrehistoricArachnid && isMinionHit) {
+      ThoriumPlayer.TrySpawnPrehistoricArachnid(player, npc);
+    }
+
+    if (ThoriumPlayer.accIronFlailCore && projectile.aiStyle === ThoriumPlayer.FLAIL_AI_STYLE) {
+      ThoriumPlayer.TrySpawnIronFlailCore(player, projectile);
     }
 
     if (ThoriumPlayer.CrietzInvoke) {

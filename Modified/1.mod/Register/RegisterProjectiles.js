@@ -50,6 +50,8 @@ import { DynastyGuzhengPro } from '../Content/Projectiles/DynastyGuzhengPro.js';
 import { GrandPianoPro } from '../Content/Projectiles/GrandPianoPro.js';
 import { GraniteBoomBoxPro } from '../Content/Projectiles/GraniteBoomBoxPro.js';
 import { GraniteBoomBoxPro2 } from '../Content/Projectiles/GraniteBoomBoxPro2.js';
+import { IronFlailCorePro } from '../Content/Projectiles/IronFlailCorePro.js';
+import { PrehistoricArachnidPro } from '../Content/Projectiles/PrehistoricArachnidPro.js';
 import { ThePillPro } from '../Content/Projectiles/ThePillPro.js';
 import { ThePillPro2 } from '../Content/Projectiles/ThePillPro2.js';
 import { BonesawPro } from '../Content/Projectiles/BonesawPro.js';
@@ -673,6 +675,8 @@ const List = [
   GrandPianoPro,
   GraniteBoomBoxPro,
   GraniteBoomBoxPro2,
+  IronFlailCorePro,
+  PrehistoricArachnidPro,
   ThePillPro,
   ThePillPro2,
   BonesawPro,

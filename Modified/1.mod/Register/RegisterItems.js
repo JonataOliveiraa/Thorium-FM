@@ -56,6 +56,8 @@ import { BlacksmithApron } from '../Content/Items/NPCItems/BlacksmithApron.js';
 import { FamilyHeirloom } from '../Content/Items/BasicAccessories/FamilyHeirloom.js';
 import { CrystalHoney } from '../Content/Items/Healer/CrystalHoney.js';
 import { DemonTongue } from '../Content/Items/Healer/DemonTongue.js';
+import { IronFlailCore } from '../Content/Items/BasicAccessories/IronFlailCore.js';
+import { PrehistoricArachnid } from '../Content/Items/BasicAccessories/Summon/PrehistoricArachnid.js';
 import { ClericsCross } from '../Content/Items/Donate/ClericsCross.js';
 import { Omen } from '../Content/Items/Healer/Omen.js';
 import { LightsLament } from '../Content/Items/Healer/LightsLament.js';
@@ -954,6 +956,8 @@ const List = [
     FamilyHeirloom,
     CrystalHoney,
     DemonTongue,
+    IronFlailCore,
+    PrehistoricArachnid,
     ClericsCross,
     Omen,
     LightsLament,

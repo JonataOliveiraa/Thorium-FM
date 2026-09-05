@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "IronFlailCore": "Núcleo de Mayal de Hierro",
+    "PrehistoricArachnid": "Arácnido Prehistórico",
     "FamilyHeirloom": "Herencia Familiar",
     "CrystalHoney": "Miel Cristalina",
     "DemonTongue": "Lengua de Demonio",
@@ -518,6 +520,8 @@
     "ZephyrsGrip": "Garra del Céfiro"
   },
   "ItemTooltip": {
+    "IronFlailCore": "Los mayales tienen posibilidad de soltar una bola de púas rodante al impactar",
+    "PrehistoricArachnid": "'Fósil de una era en que los arácnidos reinaban'\nLos ataques de esbirro tienen un 10% de probabilidad de generar una araña de ámbar\nLos ataques de esbirro causan 2 de daño más mientras una araña de ámbar esté activa",
     "FamilyHeirloom": "'Esta joya ha pasado de generación en generación en tu familia'",
     "CrystalHoney": "'Las extrañas propiedades de la miel no se extraen con facilidad'\nVida máxima aumentada en 20\n10% más de daño radiante\n5% más de probabilidad de golpe crítico radiante",
     "DemonTongue": "Potencia ciertos ataques radiantes con energía sombría\n12% más de daño radiante",

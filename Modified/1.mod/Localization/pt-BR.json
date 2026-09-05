@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "IronFlailCore": "Núcleo de Mangual de Ferro",
+    "PrehistoricArachnid": "Aracnídeo Pré-Histórico",
     "FamilyHeirloom": "Herança de Família",
     "CrystalHoney": "Mel Cristalino",
     "DemonTongue": "Língua de Demônio",
@@ -518,6 +520,8 @@
     "ZephyrsGrip": "Garra do Zéfiro"
   },
   "ItemTooltip": {
+    "IronFlailCore": "Manguais têm chance de soltar uma bola de espinhos rolante ao acertar",
+    "PrehistoricArachnid": "'Fóssil de uma era em que os aracnídeos reinavam'\nAtaques de lacaio têm 10% de chance de gerar uma aranha de âmbar\nAtaques de lacaio causam 2 de dano a mais enquanto uma aranha de âmbar estiver ativa",
     "FamilyHeirloom": "'Esta joia passou de geração em geração na sua família'",
     "CrystalHoney": "'As propriedades estranhas do mel não se extraem com facilidade'\nVida máxima aumentada em 20\n10% de dano radiante a mais\n5% de chance de acerto crítico radiante a mais",
     "DemonTongue": "Empodera certos ataques radiantes com energia sombria\n12% de dano radiante a mais",

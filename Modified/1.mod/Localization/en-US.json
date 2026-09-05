@@ -34,6 +34,8 @@
     }
   },
   "ItemName": {
+    "IronFlailCore": "Iron Flail-Core",
+    "PrehistoricArachnid": "Prehistoric Arachnid",
     "FamilyHeirloom": "Family Heirloom",
     "CrystalHoney": "Crystal Honey",
     "DemonTongue": "Demon Tongue",
@@ -518,6 +520,8 @@
     "ZephyrsGrip": "Zephyr's Grip"
   },
   "ItemTooltip": {
+    "IronFlailCore": "Flail weapons have a chance to release a rolling spike ball on hit",
+    "PrehistoricArachnid": "'Fossil of a time when arachnids were king'\nMinion attacks have a 10% chance to produce an amber spider\nMinion attacks deal 2 more damage while an amber spider is active",
     "FamilyHeirloom": "'This jewelry has been passed down your family for generations'",
     "CrystalHoney": "'The strange properties of honey are not easily extracted'\nMaximum life increased by 20\n10% increased radiant damage\n5% increased radiant critical strike chance",
     "DemonTongue": "Empowers certain radiant attacks with dark energy\n12% increased radiant damage",
